@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBC2316529E00064A8A /* DefaultSettings.swift */; };
+		8A156EBF2316531700064A8A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBE2316531700064A8A /* WindowController.swift */; };
 		8AE191732315045C006CD958 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE191722315045C006CD958 /* AppDelegate.swift */; };
 		8AE191752315045C006CD958 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE191742315045C006CD958 /* ViewController.swift */; };
 		8AE191772315045D006CD958 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191762315045D006CD958 /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A156EBC2316529E00064A8A /* DefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
+		8A156EBE2316531700064A8A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8AE1916F2315045C006CD958 /* MotusLabTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotusLabTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE191722315045C006CD958 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AE191742315045C006CD958 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,7 +58,9 @@
 			isa = PBXGroup;
 			children = (
 				8AE191722315045C006CD958 /* AppDelegate.swift */,
+				8A156EBE2316531700064A8A /* WindowController.swift */,
 				8AE191742315045C006CD958 /* ViewController.swift */,
+				8A156EBC2316529E00064A8A /* DefaultSettings.swift */,
 				8AE191762315045D006CD958 /* Assets.xcassets */,
 				8AE191782315045D006CD958 /* Main.storyboard */,
 				8AE1917B2315045D006CD958 /* Info.plist */,
@@ -134,7 +140,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AE191752315045C006CD958 /* ViewController.swift in Sources */,
+				8A156EBF2316531700064A8A /* WindowController.swift in Sources */,
 				8AE191732315045C006CD958 /* AppDelegate.swift in Sources */,
+				8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +288,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -299,6 +308,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

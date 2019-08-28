@@ -10,6 +10,8 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var containerView: NSView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +21,16 @@ class ViewController: NSViewController {
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
+        }
+    }
+    
+    
+    
+    func changeMode(_ mode: String) {
+        if mode == Mode.record {
+            Swift.print("Record")
+        } else {
+            Swift.print("Play")
         }
     }
 
