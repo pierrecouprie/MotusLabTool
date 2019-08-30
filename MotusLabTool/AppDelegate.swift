@@ -10,17 +10,23 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-
-
+    
+    var preferencesWindowController: NSWindowController!
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        Swift.print("AppDelegate > applicationDidFinishLaunching")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
+    
+    @IBAction func showPreferences(_ sender: Any) {
+        if self.preferencesWindowController == nil {
+            self.preferencesWindowController = NSStoryboard(name: "Preferences", bundle: nil).instantiateInitialController() as? NSWindowController
+        }
+        self.preferencesWindowController.showWindow(sender)
+    }
 
 }
 
