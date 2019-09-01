@@ -22,6 +22,7 @@ class MainSplitViewController: NSSplitViewController {
         self.splitViewItems[1].minimumThickness = 200
         self.splitViewItems[1].maximumThickness = 400
         self.splitViewItems[1].isCollapsed = true
+        
     }
     
     func initialization() {

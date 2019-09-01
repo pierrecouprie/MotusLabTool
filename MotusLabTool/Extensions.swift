@@ -23,6 +23,26 @@ extension NSView {
     
 }
 
+extension CALayer {
+    
+    func addInLayerContraints(superlayer: CALayer) {
+        superlayer.name = "superlayer"
+        let leftConstraint = CAConstraint(attribute: .minX,
+                                          relativeTo: "superlayer",
+                                          attribute: .minX)
+        let rightConstraint = CAConstraint(attribute: .maxX,
+                                           relativeTo: "superlayer",
+                                           attribute: .maxX)
+        let topConstraint = CAConstraint(attribute: .minY,
+                                         relativeTo: "superlayer",
+                                         attribute: .minY)
+        let bottomConstraint = CAConstraint(attribute: .maxY,
+                                            relativeTo: "superlayer",
+                                            attribute: .maxY)
+        self.constraints = [leftConstraint, rightConstraint, topConstraint, bottomConstraint]
+    }
+}
+
 extension Float {
     
     /// Convert Float value to time formated value
@@ -40,6 +60,15 @@ extension Float {
         let counterString:String = NSString(format: "%02d:%02d.%03d", minutes,seconds,tenth) as String
         
         return counterString
+    }
+    
+    /// Convert linear values (0 to 1) to decibel values (-160 to 0)
+    var decibel: Float {
+        var result = 20.0 * log10(abs(self))
+        if result < -160 || result == Float.infinity {
+            result = -160
+        }
+        return result
     }
     
 }
@@ -82,6 +111,48 @@ extension String {
         }
         
         return ""
+    }
+    
+    /// Convert String value to time Float value
+    /// Self: The time in String formated as 00:00.00
+    ///
+    /// - Returns: The time in Float value (milliseconds)
+    func stringToTime() -> Float {
+        
+        var value: Float = 0.0
+        var minutes: Float = 0
+        var seconds: Float = 0
+        var thousandth: Float = 0
+        
+        let minutesArray = self.components(separatedBy: ":")
+        
+        if let min = Float(minutesArray[0]) {
+            minutes = min
+        }
+        
+        if minutesArray.count > 1 {
+            let secondsArray = minutesArray[1].components(separatedBy: ".")
+            
+            if let sec = Float(secondsArray[0]) {
+                seconds = sec
+            }
+            
+            if secondsArray.count > 1 {
+                if let thou = Float(secondsArray[1]) {
+                    thousandth = thou
+                }
+            }
+        } else {
+            seconds = minutes
+            minutes = 0
+        }
+        
+        value += Float(minutes*60)
+        value += Float(seconds)
+        value += Float(thousandth/1000)
+        
+        return value
+        
     }
 }
 

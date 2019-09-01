@@ -15,6 +15,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         Swift.print("AppDelegate > applicationDidFinishLaunching")
+        
+        //Initialize value transformers
+        let timeValueTransformer = TimeValueTransformer()
+        let timeValueTransformerName = NSValueTransformerName.init("TimeValueTransformer")
+        ValueTransformer.setValueTransformer(timeValueTransformer, forName: timeValueTransformerName)
+        
+        let markerCountValueTransformer = MarkerCountValueTransformer()
+        let markerCountValueTransformerName = NSValueTransformerName.init("MarkerCountValueTransformer")
+        ValueTransformer.setValueTransformer(markerCountValueTransformer, forName: markerCountValueTransformerName)
+        
+        let notNilEnableValueTransformer = NotNilEnableValueTransformer()
+        let notNilEnableValueTransformerName = NSValueTransformerName.init("NotNilEnableValueTransformer")
+        ValueTransformer.setValueTransformer(notNilEnableValueTransformer, forName: notNilEnableValueTransformerName)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

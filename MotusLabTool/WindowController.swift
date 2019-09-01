@@ -20,10 +20,62 @@ class WindowController: NSWindowController {
     var consoleAControllerColors = [Int: NSColor]()
     var consoleBControllerColors = [Int: NSColor]()
     
-    @objc dynamic var displayedView: Int = 0
+    @objc dynamic var displayedView: Int = 0 {
+        didSet {
+            switch displayedView {
+            case 0:
+                self.setValue(false, forKey: "enableRecordToolbarButtons")
+                self.setValue(false, forKey: "enablePlayToolbarButtons")
+            case 1:
+                self.setValue(true, forKey: "enableRecordToolbarButtons")
+                self.setValue(false, forKey: "enablePlayToolbarButtons")
+            case 2:
+                self.setValue(false, forKey: "enableRecordToolbarButtons")
+                self.setValue(true, forKey: "enablePlayToolbarButtons")
+            default:
+                break
+            }
+        }
+    }
+    @objc dynamic var enableModeToolbarButton = false
+    @objc dynamic var enableRecordToolbarButtons = false
+    @objc dynamic var enablePlayToolbarButtons = false
     @objc dynamic var showAcousmonium: NSButton.StateValue = .off
+    @objc dynamic var toolbarPlay: NSButton.StateValue = .off
+    @IBOutlet weak var modeSegmentedControl: NSSegmentedControl!
+    var currentMode: String = Mode.none {
+        didSet {
+            switch currentMode {
+            case Mode.none :
+                self.modeSegmentedControl.setEnabled(true, forSegment: 0)
+                self.modeSegmentedControl.setEnabled(true, forSegment: 1)
+                self.modeSegmentedControl.setEnabled(true, forSegment: 2)
+            case Mode.recording :
+                self.modeSegmentedControl.setEnabled(true, forSegment: 0)
+                self.modeSegmentedControl.setEnabled(true, forSegment: 1)
+                self.modeSegmentedControl.setEnabled(false, forSegment: 2)
+            case Mode.playing :
+                self.modeSegmentedControl.setEnabled(true, forSegment: 0)
+                self.modeSegmentedControl.setEnabled(false, forSegment: 1)
+                self.modeSegmentedControl.setEnabled(true, forSegment: 2)
+            default:
+                break
+            }
+        }
+    }
+    
+    @IBOutlet weak var counterButton: NSButtonCounter!
+    @objc dynamic var timePosition: Float = 0 {
+        didSet {
+            self.counterButton.counterValue = self.timePosition
+        }
+    }
     
     var motusLabFileToSaveObservation: NSKeyValueObservation?
+    
+    @objc dynamic weak var leftViewController: LeftViewController! {
+        return (self.contentViewController as! MainSplitViewController).splitViewItems[0].viewController as? LeftViewController
+    }
     
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -167,6 +219,7 @@ class WindowController: NSWindowController {
                     self.fileUrl = url
                     self.createDocument()
                     self.setValue(1, forKey: "displayedView")
+                    self.setValue(true, forKey: "enableModeToolbarButton")
                 }
             }
         }
@@ -187,8 +240,10 @@ class WindowController: NSWindowController {
                         let data = try Data(contentsOf: url.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data))
                         self.fileUrl = url
                         self.motusLabFile = NSKeyedUnarchiver.unarchiveObject(with: data) as? MotusLabFile
-                        self.initializeMotusLabFileObserver()
+                        //self.initializeMotusLabFileObserver()
+                        self.leftViewController.selectedSession = IndexSet(integer: 0)
                         self.setValue(2, forKey: "displayedView")
+                        self.setValue(true, forKey: "enableModeToolbarButton")
                     } catch let error as NSError {
                         Swift.print("WindowController: openDocument() Error openning url \(url), context: " + error.localizedDescription)
                     }
@@ -285,6 +340,66 @@ class WindowController: NSWindowController {
     /// Update drawing of controllers in record mode
     func updateControllerView() {
         
+    }
+    
+    //MARK: - Toolbar
+    
+    @IBAction func record(_ sender: Any) {
+        if (sender as! NSButton).state == .on {
+            self.leftViewController.startRecording()
+        } else {
+            self.leftViewController.stopRecording()
+        }
+    }
+    
+    @IBAction func play(_ sender: Any) {
+        if (sender as! NSButton).state == .on {
+            self.leftViewController.startPlaying()
+        } else {
+            self.leftViewController.pausePlaying()
+        }
+    }
+    
+    @IBAction func stop(_ sender: Any) {
+        self.leftViewController.stopPlaying()
+    }
+    
+    @IBAction func addCamera(_ sender: Any) {
+        self.leftViewController.addCamera()
+    }
+    
+    @IBAction func showControllers(_ sender: Any) {
+        self.leftViewController.showControllersMenu(sender)
+    }
+    
+    @IBAction func showMidiPlayMenu(_ sender: Any) {
+        self.leftViewController.showMidiPlayMenu(sender)
+    }
+    
+    //MARK: - Menus
+    
+    @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        
+        if let action = menuItem.action {
+            
+            if action == #selector(self.changeMidiPlayMenu(_:)) {
+                if self.leftViewController.playTimelineView.playControllersView.controllersList[menuItem.tag].enable {
+                    menuItem.state = .on
+                } else {
+                    menuItem.state = .off
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    @IBAction func changeMidiPlayMenu(_ sender: NSMenuItem) {
+        self.leftViewController.changeMidiPlayMenu(sender)
+    }
+    
+    @IBAction func changeMidiPlayGroupMenu(_ sender: NSMenuItem) {
+        self.leftViewController.changeMidiPlayGroupMenu(sender)
     }
     
 }

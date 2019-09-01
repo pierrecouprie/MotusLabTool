@@ -93,3 +93,41 @@ struct AudioFormat {
     }
 }
 
+struct Mode {
+    static let none = "none"
+    static let recording = "recording"
+    static let playing = "playing"
+}
+
+func MIDIValueCorrection(_ value: Int, type: Int) -> Int {
+    if type == 1 {
+        switch value {
+        case 0..<16:
+            return (value * 6) / 15
+        case 16...27:
+            return (((value - 16) * 6) / 12) + 7
+        case 28...41:
+            return (((value - 28) * 10) / 14) + 13
+        case 42...58:
+            return (((value - 42) * 18) / 17) + 23
+        case 59...70:
+            return (((value - 59) * 13) / 12) + 41
+        case 71...86:
+            return (((value - 71) * 18) / 16) + 54
+        case 87...104:
+            return (((value - 87) * 18) / 18) + 72
+        case 105...118:
+            return (((value - 105) * 13) / 14) + 90
+        case 119...124:
+            return (((value - 119) * 13) / 5) + 103
+        case 125...126:
+            return (((value - 125) * 12) / 2) + 117
+        default:
+            break
+        }
+        return 127
+    }
+    return value
+}
+
+

@@ -9,7 +9,33 @@
 /* Begin PBXBuildFile section */
 		8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBC2316529E00064A8A /* DefaultSettings.swift */; };
 		8A156EBF2316531700064A8A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBE2316531700064A8A /* WindowController.swift */; };
+		8A189FB4231A561D00EA2B8D /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A189FB3231A561D00EA2B8D /* Window.swift */; };
+		8A6BEF45231B959700D5A84B /* VuMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF44231B959700D5A84B /* VuMeter.swift */; };
+		8A6BEF47231B961F00D5A84B /* AudioCaptureMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */; };
+		8A6BEF4A231B98EE00D5A84B /* RecordCamera.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6BEF48231B98EE00D5A84B /* RecordCamera.xib */; };
+		8A6BEF4C231B998300D5A84B /* RecordCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF4B231B998300D5A84B /* RecordCameraViewController.swift */; };
+		8A6BEF4E231B99FA00D5A84B /* VideoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF4D231B99FA00D5A84B /* VideoRecorder.swift */; };
+		8A6BEF50231B9D9B00D5A84B /* RecordCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF4F231B9D9B00D5A84B /* RecordCameraView.swift */; };
+		8A6BEF53231B9DE200D5A84B /* PreviewCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF52231B9DE200D5A84B /* PreviewCameraView.swift */; };
+		8A6BEF56231BB58300D5A84B /* PlayTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF55231BB58300D5A84B /* PlayTimelineView.swift */; };
+		8A6BEF58231BB5C700D5A84B /* PlayWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF57231BB5C700D5A84B /* PlayWaveformView.swift */; };
+		8A6BEF5A231BB5E500D5A84B /* PlayControllersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF59231BB5E500D5A84B /* PlayControllersView.swift */; };
+		8A6BEF5C231BB60300D5A84B /* PlayMarkersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF5B231BB60300D5A84B /* PlayMarkersView.swift */; };
+		8A6BEF5E231BB61D00D5A84B /* PlayPlayheadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF5D231BB61D00D5A84B /* PlayPlayheadView.swift */; };
+		8A6BEF60231BB66400D5A84B /* PlayTimeRulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF5F231BB66400D5A84B /* PlayTimeRulerView.swift */; };
+		8A6BEF62231BB8A200D5A84B /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF61231BB8A200D5A84B /* AudioPlayer.swift */; };
+		8A6BEF64231BBB2A00D5A84B /* MIDIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF63231BBB2A00D5A84B /* MIDIPlayer.swift */; };
+		8A6BEF66231BC47E00D5A84B /* AudioAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF65231BC47E00D5A84B /* AudioAnalyzer.swift */; };
+		8A6BEF68231BCEAC00D5A84B /* PlayCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF67231BCEAC00D5A84B /* PlayCameraView.swift */; };
 		8A7DA568231657620059B5C9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7DA567231657620059B5C9 /* Extensions.swift */; };
+		8AA84675231A698E00005A4D /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA84674231A698E00005A4D /* AudioRecorder.swift */; };
+		8AA8467A231AC12D00005A4D /* fileType.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8AA84677231AC12D00005A4D /* fileType.icns */; };
+		8AA8467B231AC12D00005A4D /* acousmoFileType.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8AA84678231AC12D00005A4D /* acousmoFileType.icns */; };
+		8AA8467C231AC12D00005A4D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8AA84679231AC12D00005A4D /* Credits.rtf */; };
+		8AA8467E231AC3CE00005A4D /* AddMarkerPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8467D231AC3CE00005A4D /* AddMarkerPopoverViewController.swift */; };
+		8AA84680231AC5AD00005A4D /* MIDIControllersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8467F231AC5AD00005A4D /* MIDIControllersView.swift */; };
+		8AA84686231AC88400005A4D /* NotNilEnableValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA84685231AC88400005A4D /* NotNilEnableValueTransformer.swift */; };
+		8AA84688231ACEE400005A4D /* MIDIRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA84687231ACEE400005A4D /* MIDIRecorder.swift */; };
 		8ABBBF6323190B6F00FA04A9 /* MainSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF6223190B6F00FA04A9 /* MainSplitViewController.swift */; };
 		8ABBBF6523190BF200FA04A9 /* NSButtonCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF6423190BF200FA04A9 /* NSButtonCounter.swift */; };
 		8ABBBF6723190C0400FA04A9 /* NSButtonCellCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF6623190C0400FA04A9 /* NSButtonCellCounter.swift */; };
@@ -20,6 +46,8 @@
 		8ABBBF752319583600FA04A9 /* MIDIControllerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF742319583600FA04A9 /* MIDIControllerEvent.swift */; };
 		8ABBBF772319585F00FA04A9 /* AcousmoniumFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF762319585F00FA04A9 /* AcousmoniumFile.swift */; };
 		8ABBBF7A23195A0900FA04A9 /* MIDITools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF7923195A0900FA04A9 /* MIDITools.swift */; };
+		8ABBBF7D23196D2600FA04A9 /* TimeValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF7C23196D2600FA04A9 /* TimeValueTransformer.swift */; };
+		8ABBBF7F23196D3E00FA04A9 /* MarkerCountValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */; };
 		8AE191732315045C006CD958 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE191722315045C006CD958 /* AppDelegate.swift */; };
 		8AE191772315045D006CD958 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191762315045D006CD958 /* Assets.xcassets */; };
 		8AE1917A2315045D006CD958 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191782315045D006CD958 /* Main.storyboard */; };
@@ -28,7 +56,33 @@
 /* Begin PBXFileReference section */
 		8A156EBC2316529E00064A8A /* DefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
 		8A156EBE2316531700064A8A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		8A189FB3231A561D00EA2B8D /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		8A6BEF44231B959700D5A84B /* VuMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VuMeter.swift; sourceTree = "<group>"; };
+		8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCaptureMeter.swift; sourceTree = "<group>"; };
+		8A6BEF49231B98EE00D5A84B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RecordCamera.xib; sourceTree = "<group>"; };
+		8A6BEF4B231B998300D5A84B /* RecordCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCameraViewController.swift; sourceTree = "<group>"; };
+		8A6BEF4D231B99FA00D5A84B /* VideoRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecorder.swift; sourceTree = "<group>"; };
+		8A6BEF4F231B9D9B00D5A84B /* RecordCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCameraView.swift; sourceTree = "<group>"; };
+		8A6BEF52231B9DE200D5A84B /* PreviewCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCameraView.swift; sourceTree = "<group>"; };
+		8A6BEF55231BB58300D5A84B /* PlayTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTimelineView.swift; sourceTree = "<group>"; };
+		8A6BEF57231BB5C700D5A84B /* PlayWaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayWaveformView.swift; sourceTree = "<group>"; };
+		8A6BEF59231BB5E500D5A84B /* PlayControllersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayControllersView.swift; sourceTree = "<group>"; };
+		8A6BEF5B231BB60300D5A84B /* PlayMarkersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMarkersView.swift; sourceTree = "<group>"; };
+		8A6BEF5D231BB61D00D5A84B /* PlayPlayheadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayPlayheadView.swift; sourceTree = "<group>"; };
+		8A6BEF5F231BB66400D5A84B /* PlayTimeRulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayTimeRulerView.swift; sourceTree = "<group>"; };
+		8A6BEF61231BB8A200D5A84B /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		8A6BEF63231BBB2A00D5A84B /* MIDIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIPlayer.swift; sourceTree = "<group>"; };
+		8A6BEF65231BC47E00D5A84B /* AudioAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAnalyzer.swift; sourceTree = "<group>"; };
+		8A6BEF67231BCEAC00D5A84B /* PlayCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCameraView.swift; sourceTree = "<group>"; };
 		8A7DA567231657620059B5C9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8AA84674231A698E00005A4D /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		8AA84677231AC12D00005A4D /* fileType.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = fileType.icns; sourceTree = "<group>"; };
+		8AA84678231AC12D00005A4D /* acousmoFileType.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = acousmoFileType.icns; sourceTree = "<group>"; };
+		8AA84679231AC12D00005A4D /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		8AA8467D231AC3CE00005A4D /* AddMarkerPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMarkerPopoverViewController.swift; sourceTree = "<group>"; };
+		8AA8467F231AC5AD00005A4D /* MIDIControllersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIControllersView.swift; sourceTree = "<group>"; };
+		8AA84685231AC88400005A4D /* NotNilEnableValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotNilEnableValueTransformer.swift; sourceTree = "<group>"; };
+		8AA84687231ACEE400005A4D /* MIDIRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIRecorder.swift; sourceTree = "<group>"; };
 		8ABBBF6223190B6F00FA04A9 /* MainSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSplitViewController.swift; sourceTree = "<group>"; };
 		8ABBBF6423190BF200FA04A9 /* NSButtonCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonCounter.swift; sourceTree = "<group>"; };
 		8ABBBF6623190C0400FA04A9 /* NSButtonCellCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonCellCounter.swift; sourceTree = "<group>"; };
@@ -39,6 +93,8 @@
 		8ABBBF742319583600FA04A9 /* MIDIControllerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIControllerEvent.swift; sourceTree = "<group>"; };
 		8ABBBF762319585F00FA04A9 /* AcousmoniumFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumFile.swift; sourceTree = "<group>"; };
 		8ABBBF7923195A0900FA04A9 /* MIDITools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITools.swift; sourceTree = "<group>"; };
+		8ABBBF7C23196D2600FA04A9 /* TimeValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeValueTransformer.swift; sourceTree = "<group>"; };
+		8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerCountValueTransformer.swift; sourceTree = "<group>"; };
 		8AE1916F2315045C006CD958 /* MotusLabTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotusLabTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE191722315045C006CD958 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AE191762315045D006CD958 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,6 +114,81 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A6BEF51231B9DD500D5A84B /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				8A6BEF52231B9DE200D5A84B /* PreviewCameraView.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		8A6BEF54231BB56400D5A84B /* Play */ = {
+			isa = PBXGroup;
+			children = (
+				8A6BEF55231BB58300D5A84B /* PlayTimelineView.swift */,
+				8A6BEF57231BB5C700D5A84B /* PlayWaveformView.swift */,
+				8A6BEF59231BB5E500D5A84B /* PlayControllersView.swift */,
+				8A6BEF5B231BB60300D5A84B /* PlayMarkersView.swift */,
+				8A6BEF5D231BB61D00D5A84B /* PlayPlayheadView.swift */,
+				8A6BEF5F231BB66400D5A84B /* PlayTimeRulerView.swift */,
+				8A6BEF67231BCEAC00D5A84B /* PlayCameraView.swift */,
+			);
+			path = Play;
+			sourceTree = "<group>";
+		};
+		8AA84676231AC0FF00005A4D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8AA84678231AC12D00005A4D /* acousmoFileType.icns */,
+				8AA84679231AC12D00005A4D /* Credits.rtf */,
+				8AA84677231AC12D00005A4D /* fileType.icns */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8AA84681231AC5C500005A4D /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				8AA8467D231AC3CE00005A4D /* AddMarkerPopoverViewController.swift */,
+				8AA8467F231AC5AD00005A4D /* MIDIControllersView.swift */,
+				8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */,
+				8A6BEF4B231B998300D5A84B /* RecordCameraViewController.swift */,
+				8A6BEF4D231B99FA00D5A84B /* VideoRecorder.swift */,
+				8A6BEF4F231B9D9B00D5A84B /* RecordCameraView.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		8AA84682231AC5DD00005A4D /* Various */ = {
+			isa = PBXGroup;
+			children = (
+				8ABBBF6423190BF200FA04A9 /* NSButtonCounter.swift */,
+				8ABBBF6623190C0400FA04A9 /* NSButtonCellCounter.swift */,
+				8A6BEF44231B959700D5A84B /* VuMeter.swift */,
+			);
+			path = Various;
+			sourceTree = "<group>";
+		};
+		8AA84683231AC5ED00005A4D /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				8ABBBF7923195A0900FA04A9 /* MIDITools.swift */,
+				8AA84687231ACEE400005A4D /* MIDIRecorder.swift */,
+				8A6BEF63231BBB2A00D5A84B /* MIDIPlayer.swift */,
+			);
+			path = MIDI;
+			sourceTree = "<group>";
+		};
+		8AA84684231AC5FA00005A4D /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				8AA84674231A698E00005A4D /* AudioRecorder.swift */,
+				8A6BEF61231BB8A200D5A84B /* AudioPlayer.swift */,
+				8A6BEF65231BC47E00D5A84B /* AudioAnalyzer.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		8ABBBF78231958B500FA04A9 /* Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +197,16 @@
 				8ABBBF762319585F00FA04A9 /* AcousmoniumFile.swift */,
 			);
 			path = Files;
+			sourceTree = "<group>";
+		};
+		8ABBBF7B23196D1200FA04A9 /* Value Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				8ABBBF7C23196D2600FA04A9 /* TimeValueTransformer.swift */,
+				8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */,
+				8AA84685231AC88400005A4D /* NotNilEnableValueTransformer.swift */,
+			);
+			path = "Value Transformers";
 			sourceTree = "<group>";
 		};
 		8AE191662315045C006CD958 = {
@@ -89,20 +230,27 @@
 			children = (
 				8AE191722315045C006CD958 /* AppDelegate.swift */,
 				8A156EBE2316531700064A8A /* WindowController.swift */,
+				8A189FB3231A561D00EA2B8D /* Window.swift */,
 				8ABBBF6D231950BB00FA04A9 /* MidiSettingsViewController.swift */,
 				8ABBBF6223190B6F00FA04A9 /* MainSplitViewController.swift */,
 				8ABBBF68231912BF00FA04A9 /* LeftViewController.swift */,
 				8A156EBC2316529E00064A8A /* DefaultSettings.swift */,
 				8A7DA567231657620059B5C9 /* Extensions.swift */,
-				8ABBBF6423190BF200FA04A9 /* NSButtonCounter.swift */,
-				8ABBBF6623190C0400FA04A9 /* NSButtonCellCounter.swift */,
-				8ABBBF7923195A0900FA04A9 /* MIDITools.swift */,
 				8ABBBF78231958B500FA04A9 /* Files */,
+				8ABBBF7B23196D1200FA04A9 /* Value Transformers */,
+				8AA84682231AC5DD00005A4D /* Various */,
+				8AA84681231AC5C500005A4D /* Record */,
+				8A6BEF54231BB56400D5A84B /* Play */,
+				8AA84684231AC5FA00005A4D /* Audio */,
+				8A6BEF51231B9DD500D5A84B /* Video */,
+				8AA84683231AC5ED00005A4D /* MIDI */,
 				8AE191762315045D006CD958 /* Assets.xcassets */,
 				8AE191782315045D006CD958 /* Main.storyboard */,
 				8ABBBF6F2319521C00FA04A9 /* Preferences.storyboard */,
+				8A6BEF48231B98EE00D5A84B /* RecordCamera.xib */,
 				8AE1917B2315045D006CD958 /* Info.plist */,
 				8AE1917C2315045D006CD958 /* MotusLabTool.entitlements */,
+				8AA84676231AC0FF00005A4D /* Resources */,
 			);
 			path = MotusLabTool;
 			sourceTree = "<group>";
@@ -174,7 +322,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ABBBF712319521C00FA04A9 /* Preferences.storyboard in Resources */,
+				8AA8467C231AC12D00005A4D /* Credits.rtf in Resources */,
 				8AE191772315045D006CD958 /* Assets.xcassets in Resources */,
+				8AA8467B231AC12D00005A4D /* acousmoFileType.icns in Resources */,
+				8A6BEF4A231B98EE00D5A84B /* RecordCamera.xib in Resources */,
+				8AA8467A231AC12D00005A4D /* fileType.icns in Resources */,
 				8AE1917A2315045D006CD958 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,23 +340,55 @@
 			files = (
 				8ABBBF6323190B6F00FA04A9 /* MainSplitViewController.swift in Sources */,
 				8A7DA568231657620059B5C9 /* Extensions.swift in Sources */,
+				8A6BEF5C231BB60300D5A84B /* PlayMarkersView.swift in Sources */,
+				8A6BEF60231BB66400D5A84B /* PlayTimeRulerView.swift in Sources */,
 				8ABBBF752319583600FA04A9 /* MIDIControllerEvent.swift in Sources */,
 				8ABBBF6723190C0400FA04A9 /* NSButtonCellCounter.swift in Sources */,
+				8A6BEF4C231B998300D5A84B /* RecordCameraViewController.swift in Sources */,
+				8A6BEF58231BB5C700D5A84B /* PlayWaveformView.swift in Sources */,
+				8A6BEF45231B959700D5A84B /* VuMeter.swift in Sources */,
+				8AA84686231AC88400005A4D /* NotNilEnableValueTransformer.swift in Sources */,
 				8ABBBF772319585F00FA04A9 /* AcousmoniumFile.swift in Sources */,
+				8A6BEF5E231BB61D00D5A84B /* PlayPlayheadView.swift in Sources */,
 				8A156EBF2316531700064A8A /* WindowController.swift in Sources */,
+				8AA8467E231AC3CE00005A4D /* AddMarkerPopoverViewController.swift in Sources */,
 				8ABBBF6E231950BB00FA04A9 /* MidiSettingsViewController.swift in Sources */,
+				8AA84688231ACEE400005A4D /* MIDIRecorder.swift in Sources */,
 				8AE191732315045C006CD958 /* AppDelegate.swift in Sources */,
+				8AA84680231AC5AD00005A4D /* MIDIControllersView.swift in Sources */,
+				8ABBBF7D23196D2600FA04A9 /* TimeValueTransformer.swift in Sources */,
+				8A6BEF5A231BB5E500D5A84B /* PlayControllersView.swift in Sources */,
+				8ABBBF7F23196D3E00FA04A9 /* MarkerCountValueTransformer.swift in Sources */,
+				8A6BEF64231BBB2A00D5A84B /* MIDIPlayer.swift in Sources */,
+				8A6BEF66231BC47E00D5A84B /* AudioAnalyzer.swift in Sources */,
+				8A6BEF68231BCEAC00D5A84B /* PlayCameraView.swift in Sources */,
+				8AA84675231A698E00005A4D /* AudioRecorder.swift in Sources */,
+				8A6BEF56231BB58300D5A84B /* PlayTimelineView.swift in Sources */,
+				8A6BEF47231B961F00D5A84B /* AudioCaptureMeter.swift in Sources */,
 				8ABBBF69231912BF00FA04A9 /* LeftViewController.swift in Sources */,
+				8A6BEF53231B9DE200D5A84B /* PreviewCameraView.swift in Sources */,
 				8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */,
+				8A6BEF62231BB8A200D5A84B /* AudioPlayer.swift in Sources */,
+				8A6BEF50231B9D9B00D5A84B /* RecordCameraView.swift in Sources */,
 				8ABBBF73231957AC00FA04A9 /* MotusLabFile.swift in Sources */,
+				8A6BEF4E231B99FA00D5A84B /* VideoRecorder.swift in Sources */,
 				8ABBBF7A23195A0900FA04A9 /* MIDITools.swift in Sources */,
 				8ABBBF6523190BF200FA04A9 /* NSButtonCounter.swift in Sources */,
+				8A189FB4231A561D00EA2B8D /* Window.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		8A6BEF48231B98EE00D5A84B /* RecordCamera.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A6BEF49231B98EE00D5A84B /* Base */,
+			);
+			name = RecordCamera.xib;
+			sourceTree = "<group>";
+		};
 		8ABBBF6F2319521C00FA04A9 /* Preferences.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -275,7 +459,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -330,7 +514,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;

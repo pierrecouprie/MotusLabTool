@@ -64,12 +64,14 @@ class MotusLabFile: NSObject, NSCoding {
         aCoder.encode(self.sessions, forKey: PropertyKey.sessionsKey)
     }
     
-    func createSession() {
+    func createSession() -> Session {
         let newSession = Session(title: "Untitled", number: self.sessions.count, motusLabFile: self)
         var sessions = self.sessions!
         sessions.append(newSession)
         self.setValue(sessions, forKey: PropertyKey.sessionsKey)
         self.save()
+        Swift.print("MotusLabFile > createSession > " + newSession.description)
+        return newSession
     }
     
     func save() {
@@ -119,6 +121,8 @@ class Session: NSObject, NSCoding {
         static let markersKey = "markers"
         static let markerCountKey = "markerCount"
         static let motusLabFileKey = "motusLabFile"
+        
+        static let isRecordingKey = "isRecording"
     }
     
     required override init() {
@@ -165,6 +169,7 @@ class Session: NSObject, NSCoding {
         self.markers.append(marker)
         self.setValue(self.markers.count, forKey: PropertyKey.markerCountKey)
         self.motusLabFile.save()
+        Swift.print("Session > addMarker > " + marker.description)
     }
 }
 

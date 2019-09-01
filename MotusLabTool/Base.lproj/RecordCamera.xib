@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14865.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="RecordCameraViewController" customModule="MotusLabTool" customModuleProvider="target">
+            <connections>
+                <outlet property="preview" destination="3FT-s6-d7Z" id="5Pz-D1-GD5"/>
+                <outlet property="view" destination="eTN-BG-CU0" id="9WY-02-DEf"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="eTN-BG-CU0">
+            <rect key="frame" x="0.0" y="0.0" width="297" height="228"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="3FT-s6-d7Z" customClass="RecordCameraView" customModule="MotusLabTool" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="297" height="193"/>
+                </customView>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1KM-2L-hga">
+                    <rect key="frame" x="7" y="198" width="253" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="4V1-JO-mej"/>
+                    </constraints>
+                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="74f-zp-UDf" id="Caf-NW-W06">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <menu key="menu" id="wno-40-N3u">
+                            <items>
+                                <menuItem title="Item 1" state="on" id="74f-zp-UDf"/>
+                                <menuItem title="Item 2" id="gPK-Ua-a53"/>
+                                <menuItem title="Item 3" id="xPz-2x-PkG"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="KzD-ml-byB" name="content" keyPath="arrangedObjects" id="IhE-OR-EDQ">
+                            <dictionary key="options">
+                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                            </dictionary>
+                        </binding>
+                        <binding destination="KzD-ml-byB" name="contentObjects" keyPath="arrangedObjects.id" previousBinding="IhE-OR-EDQ" id="bsH-dF-wQw">
+                            <dictionary key="options">
+                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                            </dictionary>
+                        </binding>
+                        <binding destination="KzD-ml-byB" name="contentValues" keyPath="arrangedObjects.name" previousBinding="bsH-dF-wQw" id="xIc-i2-Pgk">
+                            <dictionary key="options">
+                                <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="selectedObject" keyPath="self.cameraDevice" previousBinding="xIc-i2-Pgk" id="ML4-T1-aP4">
+                            <dictionary key="options">
+                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </popUpButton>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hQK-Qe-rdz">
+                    <rect key="frame" x="260" y="195" width="33" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="Hbi-My-JYl"/>
+                        <constraint firstAttribute="width" constant="23" id="oUZ-tz-XW5"/>
+                    </constraints>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LdN-md-AcI">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="removeCamera:" target="-2" id="gf9-8B-Dkl"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="3FT-s6-d7Z" firstAttribute="leading" secondItem="eTN-BG-CU0" secondAttribute="leading" id="1Kb-4u-w5q"/>
+                <constraint firstAttribute="trailing" secondItem="3FT-s6-d7Z" secondAttribute="trailing" id="7Fl-hi-ZUK"/>
+                <constraint firstItem="3FT-s6-d7Z" firstAttribute="top" secondItem="eTN-BG-CU0" secondAttribute="top" constant="35" id="LyO-uZ-tq8"/>
+                <constraint firstItem="1KM-2L-hga" firstAttribute="top" secondItem="eTN-BG-CU0" secondAttribute="top" constant="9" id="YTe-6G-ARF"/>
+                <constraint firstAttribute="bottom" secondItem="3FT-s6-d7Z" secondAttribute="bottom" id="YjJ-bl-fxC"/>
+                <constraint firstItem="1KM-2L-hga" firstAttribute="leading" secondItem="eTN-BG-CU0" secondAttribute="leading" constant="10" id="gGh-Iw-RA8"/>
+                <constraint firstItem="hQK-Qe-rdz" firstAttribute="leading" secondItem="1KM-2L-hga" secondAttribute="trailing" constant="8" id="sBV-rd-Ldm"/>
+                <constraint firstItem="hQK-Qe-rdz" firstAttribute="top" secondItem="eTN-BG-CU0" secondAttribute="top" constant="9" id="uWQ-8l-MCk"/>
+                <constraint firstAttribute="trailing" secondItem="hQK-Qe-rdz" secondAttribute="trailing" constant="9" id="z1o-vA-xvi"/>
+            </constraints>
+            <point key="canvasLocation" x="-401.5" y="-186"/>
+        </customView>
+        <arrayController objectClassName="VideoDevice" id="KzD-ml-byB" userLabel="Camera List">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.videoDevices" id="fwm-U2-Pbx"/>
+            </connections>
+        </arrayController>
+    </objects>
+    <resources>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
+    </resources>
+</document>

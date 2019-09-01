@@ -219,3 +219,19 @@ class MIDIParameters: NSObject {
     }
     
 }
+
+@objcMembers
+class ConsoleLastMidiMessage: NSObject {
+    var number: Int = 1
+    var value: Int = 0
+    
+    init(number: Int, value: Int) {
+        super.init()
+        self.number = number
+        self.value = value
+    }
+    
+    override var description: String {
+        return "ConsoleLastMidiMessage number: \(self.number), value: \(self.value)"
+    }
+}

@@ -4,6 +4,37 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>motuslab</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>fileType</string>
+			<key>CFBundleTypeName</key>
+			<string>motuslab</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>acousmonium</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>acousmoFileType</string>
+			<key>CFBundleTypeName</key>
+			<string>acousmonium</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<integer>1</integer>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
@@ -19,13 +50,17 @@
 	<key>CFBundleShortVersionString</key>
 	<string>2.0.1</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need camera access for recording video</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2019 Pierre Couprie. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>For using microphone</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
