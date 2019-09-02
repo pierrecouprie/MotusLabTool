@@ -29,6 +29,7 @@ class MainSplitViewController: NSSplitViewController {
         Swift.print("MainSplitViewController > initialization()")
         
         (self.splitViewItems[0].viewController as! LeftViewController).initialization()
+        (self.splitViewItems[1].viewController as! AcousmoniumViewController).initialization()
         
         if let window = self.view.window, let windowController = window.windowController {
             self.windowController = windowController as? WindowController

@@ -24,18 +24,12 @@ class AcousmoniumFile: NSObject, NSCoding {
     }
     var showImage: Bool = true {
         didSet {
-            //self.viewController.saveAcousmoniumFile(self)
+            self.save()
         }
     }
     dynamic var acousmoLoudspeakers: [AcousmoLoudspeaker] = []
     
-    /*weak var viewController: ViewController! {
-        didSet {
-            for loudspeaker in self.acousmoLoudspeakers {
-                loudspeaker.acousmoniumFile = self
-            }
-        }
-    }*/
+    dynamic var toSave: Int = 0
     
     override var description: String {
         var output = "AcousmoniumFile id: " + self.id + ", name: " + self.name + ", version: " + self.version + ", showImage: \(self.showImage)"
@@ -113,7 +107,7 @@ class AcousmoniumFile: NSObject, NSCoding {
     }
     
     func save() {
-        //self.viewController.saveAcousmoniumFile(self)
+        self.setValue(self.toSave + 1, forKey: "toSave")
     }
     
 }
@@ -154,6 +148,7 @@ class AcousmoLoudspeaker: NSObject, NSCoding {
         static let inputKey = "input"
         static let consoleKey = "console"
         static let colorKey = "color"
+        static let acousmoniumFileKey = "acousmoniumFile"
     }
     
     required override init() {
@@ -175,6 +170,7 @@ class AcousmoLoudspeaker: NSObject, NSCoding {
         self.input = aDecoder.decodeInteger(forKey: PropertyKey.inputKey)
         self.console = aDecoder.decodeInteger(forKey: PropertyKey.consoleKey)
         self.color = aDecoder.decodeObject(forKey: PropertyKey.colorKey) as? NSColor
+        self.acousmoniumFile = aDecoder.decodeObject(forKey: PropertyKey.acousmoniumFileKey) as? AcousmoniumFile
     }
     
     func encode(with aCoder: NSCoder) {
@@ -183,6 +179,7 @@ class AcousmoLoudspeaker: NSObject, NSCoding {
         aCoder.encode(self.input, forKey: PropertyKey.inputKey)
         aCoder.encode(self.console, forKey: PropertyKey.consoleKey)
         aCoder.encode(self.color, forKey: PropertyKey.colorKey)
+        aCoder.encode(self.acousmoniumFile, forKey: PropertyKey.acousmoniumFileKey)
     }
     
 }

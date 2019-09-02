@@ -10,6 +10,7 @@ import Cocoa
 
 class WindowController: NSWindowController {
     
+    var appSupportFolder: URL!
     @objc dynamic var motusLabFile: MotusLabFile!
     var fileUrl: URL!
     var midiControllerEvents: [MIDIControllerEvent]!
@@ -19,6 +20,23 @@ class WindowController: NSWindowController {
     @objc dynamic var consoleBParameters: MIDIParameters!
     var consoleAControllerColors = [Int: NSColor]()
     var consoleBControllerColors = [Int: NSColor]()
+    
+    //Acousmoniums
+    @objc dynamic var acousmoniumFiles = [AcousmoniumFile]()
+    @objc dynamic weak var selectedAcousmoniumFile: AcousmoniumFile! {
+        didSet {
+            if self.selectedAcousmoniumFile != nil {
+                let toSavePath = \AcousmoniumFile.toSave
+                self.acousmoniumFileToSaveObservation = self.selectedAcousmoniumFile.observe(toSavePath) { [unowned self] object, change in
+                    self.saveAcousmoniumFile(self.selectedAcousmoniumFile)
+                }
+            } else {
+                self.acousmoniumFileToSaveObservation = nil
+            }
+        }
+    }
+    var acousmoniumFilesFolderPathUrl: URL!
+    @objc dynamic var editAcousmonium = false
     
     @objc dynamic var displayedView: Int = 0 {
         didSet {
@@ -72,6 +90,7 @@ class WindowController: NSWindowController {
     }
     
     var motusLabFileToSaveObservation: NSKeyValueObservation?
+    var acousmoniumFileToSaveObservation: NSKeyValueObservation?
     
     @objc dynamic weak var leftViewController: LeftViewController! {
         return (self.contentViewController as! MainSplitViewController).splitViewItems[0].viewController as? LeftViewController
@@ -81,10 +100,10 @@ class WindowController: NSWindowController {
         super.windowDidLoad()
         Swift.print("WindowController > windowDidLoad")
         
-        //Initialize user preferences
-        self.loadPreferences()
-        
         //Initializers
+        self.loadPreferences()
+        self.initializeAcousmonium()
+        self.loadAcousmoniums()
         self.consoleAParameters = MIDIParameters(console: 0, windowController: self)
         self.consoleBParameters = MIDIParameters(console: 1, windowController: self, enable: false)
         (self.contentViewController as! MainSplitViewController).initialization()
@@ -205,6 +224,12 @@ class WindowController: NSWindowController {
             }
         }
         
+    }
+    
+    func initializeAcousmonium() {
+        let paths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
+        self.appSupportFolder = URL(fileURLWithPath: paths[0]).appendingPathComponent(FilePath.motuLab)
+        self.acousmoniumFilesFolderPathUrl = self.appSupportFolder.appendingPathComponent(FilePath.acousmoniums)
     }
     
     //MARK: - File read and save
@@ -332,6 +357,63 @@ class WindowController: NSWindowController {
             }
         } else {
             Swift.print("WindowController: saveMidi() Cannot access last recorded session!")
+        }
+    }
+    
+    //MARK: - Read and save acousmonium files
+       
+    func loadAcousmoniums() {
+        
+        let fileManager = FileManager.default
+        
+        //Create acousmonium folder
+        if !fileManager.fileExists(atPath: self.acousmoniumFilesFolderPathUrl.path, isDirectory: nil) {
+            do {
+                try fileManager.createDirectory(at: self.acousmoniumFilesFolderPathUrl, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                Swift.print("WindowController: createBundle() Cannot copy bundle to url (" + self.fileUrl.path + ")!")
+            }
+        }
+        
+        //Read acousmonium files
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: self.acousmoniumFilesFolderPathUrl, includingPropertiesForKeys: nil)
+            if fileURLs.count == 0 {
+                
+            } else {
+                for file in fileURLs {
+                    do {
+                        let acousmoniumData = try Data(contentsOf: file)
+                        if let acousmonium = NSKeyedUnarchiver.unarchiveObject(with: acousmoniumData) as? AcousmoniumFile {
+                            self.acousmoniumFiles.append(acousmonium)
+                        }
+                    } catch let error as NSError {
+                        Swift.print("ViewController: loadAcousmoniums() Error openning url \(file), context: " + error.localizedDescription)
+                    }
+                }
+            }
+        } catch {
+            print("WindowController: loadAcousmoniums Error while enumerating files \(self.acousmoniumFilesFolderPathUrl.path): \(error.localizedDescription)")
+        }
+        
+    }
+    
+    func createAcousmoniumFile(_ name: String) {
+        var acousmoniumFiles = self.acousmoniumFiles
+        let newAcousmoniumFile = AcousmoniumFile(name: name)
+        acousmoniumFiles.append(newAcousmoniumFile)
+        self.setValue(acousmoniumFiles, forKey: "acousmoniumFiles")
+        self.setValue(newAcousmoniumFile, forKey: "selectedAcousmoniumFile")
+        self.saveAcousmoniumFile(newAcousmoniumFile)
+    }
+    
+    func saveAcousmoniumFile(_ acousmoniumFile: AcousmoniumFile) {
+        let acousmoniumData:Data = NSKeyedArchiver.archivedData(withRootObject: acousmoniumFile)
+        let fileUrl = self.appSupportFolder.appendingPathComponent(FilePath.acousmoniums).appendingPathComponent(acousmoniumFile.id).appendingPathExtension(FileExtension.acousmonium)
+        do {
+            try acousmoniumData.write(to: fileUrl)
+        } catch let error as NSError {
+            Swift.print("WindowController: saveAcousmoniumFile() Error saving data to url \(fileUrl), context: " + error.localizedDescription)
         }
     }
     

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0AE004231D48DA0024FACF /* AcousmoniumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE003231D48DA0024FACF /* AcousmoniumViewController.swift */; };
+		8A0AE006231D48EC0024FACF /* AcousmoniumPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE005231D48EC0024FACF /* AcousmoniumPropertyViewController.swift */; };
+		8A0AE00A231D54540024FACF /* AcousmoniumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE009231D54540024FACF /* AcousmoniumView.swift */; };
 		8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBC2316529E00064A8A /* DefaultSettings.swift */; };
 		8A156EBF2316531700064A8A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBE2316531700064A8A /* WindowController.swift */; };
 		8A189FB4231A561D00EA2B8D /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A189FB3231A561D00EA2B8D /* Window.swift */; };
@@ -54,6 +57,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A0AE003231D48DA0024FACF /* AcousmoniumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumViewController.swift; sourceTree = "<group>"; };
+		8A0AE005231D48EC0024FACF /* AcousmoniumPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumPropertyViewController.swift; sourceTree = "<group>"; };
+		8A0AE009231D54540024FACF /* AcousmoniumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumView.swift; sourceTree = "<group>"; };
 		8A156EBC2316529E00064A8A /* DefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
 		8A156EBE2316531700064A8A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8A189FB3231A561D00EA2B8D /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
@@ -114,6 +120,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A0AE002231D489B0024FACF /* Acousmonium */ = {
+			isa = PBXGroup;
+			children = (
+				8A0AE003231D48DA0024FACF /* AcousmoniumViewController.swift */,
+				8A0AE005231D48EC0024FACF /* AcousmoniumPropertyViewController.swift */,
+				8A0AE009231D54540024FACF /* AcousmoniumView.swift */,
+			);
+			path = Acousmonium;
+			sourceTree = "<group>";
+		};
 		8A6BEF51231B9DD500D5A84B /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +255,7 @@
 				8ABBBF78231958B500FA04A9 /* Files */,
 				8ABBBF7B23196D1200FA04A9 /* Value Transformers */,
 				8AA84682231AC5DD00005A4D /* Various */,
+				8A0AE002231D489B0024FACF /* Acousmonium */,
 				8AA84681231AC5C500005A4D /* Record */,
 				8A6BEF54231BB56400D5A84B /* Play */,
 				8AA84684231AC5FA00005A4D /* Audio */,
@@ -339,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ABBBF6323190B6F00FA04A9 /* MainSplitViewController.swift in Sources */,
+				8A0AE006231D48EC0024FACF /* AcousmoniumPropertyViewController.swift in Sources */,
 				8A7DA568231657620059B5C9 /* Extensions.swift in Sources */,
 				8A6BEF5C231BB60300D5A84B /* PlayMarkersView.swift in Sources */,
 				8A6BEF60231BB66400D5A84B /* PlayTimeRulerView.swift in Sources */,
@@ -356,6 +374,7 @@
 				8AA84688231ACEE400005A4D /* MIDIRecorder.swift in Sources */,
 				8AE191732315045C006CD958 /* AppDelegate.swift in Sources */,
 				8AA84680231AC5AD00005A4D /* MIDIControllersView.swift in Sources */,
+				8A0AE00A231D54540024FACF /* AcousmoniumView.swift in Sources */,
 				8ABBBF7D23196D2600FA04A9 /* TimeValueTransformer.swift in Sources */,
 				8A6BEF5A231BB5E500D5A84B /* PlayControllersView.swift in Sources */,
 				8ABBBF7F23196D3E00FA04A9 /* MarkerCountValueTransformer.swift in Sources */,
@@ -373,6 +392,7 @@
 				8ABBBF73231957AC00FA04A9 /* MotusLabFile.swift in Sources */,
 				8A6BEF4E231B99FA00D5A84B /* VideoRecorder.swift in Sources */,
 				8ABBBF7A23195A0900FA04A9 /* MIDITools.swift in Sources */,
+				8A0AE004231D48DA0024FACF /* AcousmoniumViewController.swift in Sources */,
 				8ABBBF6523190BF200FA04A9 /* NSButtonCounter.swift in Sources */,
 				8A189FB4231A561D00EA2B8D /* Window.swift in Sources */,
 			);
@@ -530,6 +550,7 @@
 				CODE_SIGN_ENTITLEMENTS = MotusLabTool/MotusLabTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -538,6 +559,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -551,6 +573,7 @@
 				CODE_SIGN_ENTITLEMENTS = MotusLabTool/MotusLabTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -559,6 +582,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

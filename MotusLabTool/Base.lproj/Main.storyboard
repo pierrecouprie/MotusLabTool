@@ -1365,7 +1365,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="824" height="600"/>
                                                     <clipView key="contentView" id="KA9-bP-w8x">
                                                         <rect key="frame" x="1" y="1" width="822" height="598"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="73" rowSizeStyle="automatic" viewBased="YES" id="ZBN-W8-u8s">
                                                                 <rect key="frame" x="0.0" y="0.0" width="822" height="598"/>
@@ -2041,32 +2041,541 @@ Gw
             </objects>
             <point key="canvasLocation" x="-247" y="2048"/>
         </scene>
-        <!--View Controller-->
+        <!--Acousmonium View Controller-->
         <scene sceneID="1AP-fr-Xlz">
             <objects>
-                <viewController id="KyK-xG-41m" sceneMemberID="viewController">
+                <viewController id="KyK-xG-41m" customClass="AcousmoniumViewController" customModule="MotusLabTool" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="jFL-eo-KdZ">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UAZ-9Y-giW">
-                                <rect key="frame" x="18" y="563" width="90" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Acousmonium" id="2BO-ss-BLz">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GVP-Rr-77W">
+                                <rect key="frame" x="4" y="572" width="158" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="zuR-Re-PVq"/>
+                                </constraints>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="hGZ-WZ-Zew" id="v2R-yy-VOx">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <menu key="menu" id="jpA-yv-2Qe">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="hGZ-WZ-Zew"/>
+                                            <menuItem title="Item 2" id="bUA-0E-xwe"/>
+                                            <menuItem title="Item 3" id="j3I-TU-ZGo"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="uue-Lc-Gyt" name="content" keyPath="arrangedObjects" id="3eb-8p-yn7">
+                                        <dictionary key="options">
+                                            <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="uue-Lc-Gyt" name="contentValues" keyPath="arrangedObjects.name" previousBinding="3eb-8p-yn7" id="6GR-AG-8PE">
+                                        <dictionary key="options">
+                                            <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="KyK-xG-41m" name="selectedObject" keyPath="self.windowController.selectedAcousmoniumFile" previousBinding="6GR-AG-8PE" id="OdT-w9-f5W">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z8k-Ua-tI3">
+                                <rect key="frame" x="162" y="569" width="36" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="QKX-uM-BQY"/>
+                                    <constraint firstAttribute="width" constant="26" id="qti-9X-les"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSActionTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wn9-dO-UUa">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <segue destination="hrQ-2A-oKe" kind="show" id="5Pi-mb-fqJ"/>
+                                </connections>
+                            </button>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="7Pq-gl-3bh" customClass="AcousmoniumView" customModule="MotusLabTool" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="567"/>
+                            </customView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="GVP-Rr-77W" firstAttribute="top" secondItem="jFL-eo-KdZ" secondAttribute="top" constant="7" id="HSZ-Z5-9Tc"/>
+                            <constraint firstItem="z8k-Ua-tI3" firstAttribute="top" secondItem="jFL-eo-KdZ" secondAttribute="top" constant="7" id="QFf-VT-Cgq"/>
+                            <constraint firstAttribute="trailing" secondItem="7Pq-gl-3bh" secondAttribute="trailing" id="Wmu-6N-cqL"/>
+                            <constraint firstItem="7Pq-gl-3bh" firstAttribute="top" secondItem="jFL-eo-KdZ" secondAttribute="top" constant="33" id="atG-bh-8tE"/>
+                            <constraint firstItem="z8k-Ua-tI3" firstAttribute="leading" secondItem="GVP-Rr-77W" secondAttribute="trailing" constant="8" id="gZg-Pe-SBg"/>
+                            <constraint firstAttribute="trailing" secondItem="z8k-Ua-tI3" secondAttribute="trailing" constant="7" id="l49-Lu-fj2"/>
+                            <constraint firstItem="7Pq-gl-3bh" firstAttribute="leading" secondItem="jFL-eo-KdZ" secondAttribute="leading" id="myx-6K-XPo"/>
+                            <constraint firstAttribute="bottom" secondItem="7Pq-gl-3bh" secondAttribute="bottom" id="nKM-fM-Kmi"/>
+                            <constraint firstItem="GVP-Rr-77W" firstAttribute="leading" secondItem="jFL-eo-KdZ" secondAttribute="leading" constant="7" id="zyd-Nb-zB5"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="VKD-Vi-QOe" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <arrayController objectClassName="AcousmoniumFile" id="uue-Lc-Gyt" userLabel="Acousmoniums">
+                    <connections>
+                        <binding destination="KyK-xG-41m" name="contentArray" keyPath="self.windowController.acousmoniumFiles" id="JQK-ub-ngT"/>
+                    </connections>
+                </arrayController>
             </objects>
             <point key="canvasLocation" x="302" y="1542"/>
         </scene>
+        <!--Acousmonium Property View Controller-->
+        <scene sceneID="gXJ-cY-a7T">
+            <objects>
+                <viewController id="0wY-OB-6Bh" customClass="AcousmoniumPropertyViewController" customModule="MotusLabTool" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="g0I-0D-lqL">
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6S-KA-kbc">
+                                <rect key="frame" x="20" y="355" width="66" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Opacity" id="b6E-nG-OMW">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nFy-xP-0C8">
+                                <rect key="frame" x="96" y="355" width="165" height="13"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="0.10000000000000001" maxValue="1" doubleValue="0.80000000000000004" tickMarkPosition="above" sliderType="linear" id="k0M-sC-1Hf"/>
+                                <connections>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="wgu-jb-lHu">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="dkK-iN-SPS" name="value" keyPath="values.acousmoOpacity" id="rew-Je-5Rn">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y48-wx-jkH">
+                                <rect key="frame" x="20" y="333" width="66" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Size" id="5HG-SG-ZeI">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x1K-Am-zxy">
+                                <rect key="frame" x="20" y="311" width="66" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Titles" id="iUT-Ee-DkA">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UOd-iY-ogQ">
+                                <rect key="frame" x="96" y="333" width="165" height="13"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="0.01" maxValue="0.5" doubleValue="0.25" tickMarkPosition="above" sliderType="linear" id="g4O-QN-Hsx"/>
+                                <connections>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="hkx-4k-6Ye">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="dkK-iN-SPS" name="value" keyPath="values.acousmoSize" id="SCM-j1-cix">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </slider>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W9f-g8-yOu">
+                                <rect key="frame" x="96" y="311" width="165" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Visible" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="G8a-tM-JeA">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="wfX-vH-BIa">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="dkK-iN-SPS" name="value" keyPath="values.acousmoShowTitles" id="dGy-8B-eXT">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uw9-Cs-Nuh">
+                                <rect key="frame" x="241" y="278" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="7QS-Vh-68i">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <action selector="removeLoudspeaker:" target="0wY-OB-6Bh" id="TEk-RV-qT1"/>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="kY9-Jo-CEJ">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmx-o3-bRS">
+                                <rect key="frame" x="208" y="278" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="HM5-0V-xlm">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <action selector="addLoudspeaker:" target="0wY-OB-6Bh" id="NYf-hK-cDp"/>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="eVB-ld-sus">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1px-On-0wP">
+                                <rect key="frame" x="96" y="377" width="165" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Edit graphic positions" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="4NW-cJ-8UT">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="Sy3-34-5jF">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="0wY-OB-6Bh" name="value" keyPath="self.windowController.editAcousmonium" id="1iO-5T-4xW">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dhI-JG-nT9">
+                                <rect key="frame" x="19" y="478" width="244" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Background image" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="cDU-aR-nsU">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="systemBold" size="11"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="L1h-jP-gD1">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="0wY-OB-6Bh" name="value" keyPath="self.windowController.selectedAcousmoniumFile.showImage" id="PNt-SR-Oy6"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oec-7E-g1O">
+                                <rect key="frame" x="20" y="566" width="241" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preset" id="olh-4g-m2Q">
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EWb-fM-2cF">
+                                <rect key="frame" x="17" y="540" width="183" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ln5-is-GZA" id="fQj-VS-lBV">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <menu key="menu" id="POe-os-QoP">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="ln5-is-GZA"/>
+                                            <menuItem title="Item 2" id="r1J-mc-ErI"/>
+                                            <menuItem title="Item 3" id="2Pj-FC-v6M"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="zfv-4j-r5C" name="content" keyPath="arrangedObjects" id="uWn-PC-lTq">
+                                        <dictionary key="options">
+                                            <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="zfv-4j-r5C" name="contentValues" keyPath="arrangedObjects.name" previousBinding="uWn-PC-lTq" id="jvN-QV-H8C">
+                                        <dictionary key="options">
+                                            <bool key="NSInsertsNullPlaceholder" value="YES"/>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="0wY-OB-6Bh" name="selectedObject" keyPath="self.windowController.selectedAcousmoniumFile" previousBinding="jvN-QV-H8C" id="mff-Km-J0W">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QDu-Md-9sJ">
+                                <rect key="frame" x="208" y="536" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="0Hx-sz-kvU">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <action selector="addPreset:" target="0wY-OB-6Bh" id="X9r-Pc-AjX"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ES-Z2-aFd">
+                                <rect key="frame" x="241" y="537" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="gVh-4i-ymq">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <action selector="removePreset:" target="0wY-OB-6Bh" id="U7s-qM-mbB"/>
+                                </connections>
+                            </button>
+                            <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="PFR-g4-mII">
+                                <rect key="frame" x="20" y="499" width="241" height="4"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </box>
+                            <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="GJw-Gw-7bX">
+                                <rect key="frame" x="20" y="420" width="241" height="4"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </box>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10W-eB-XUf">
+                                <rect key="frame" x="20" y="399" width="241" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Loudspeakers" id="PnV-hC-h8k">
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wx9-13-1nJ">
+                                <rect key="frame" x="17" y="449" width="247" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Import image" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zUg-Vd-utm">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="importImage:" target="0wY-OB-6Bh" id="YaY-Jd-KhD"/>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="C6Y-zY-VFs">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yY8-U4-yfD">
+                                <rect key="frame" x="20" y="20" width="241" height="250"/>
+                                <clipView key="contentView" id="duJ-zS-Ncl">
+                                    <rect key="frame" x="1" y="1" width="239" height="248"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" viewBased="YES" id="nS7-8p-O35">
+                                            <rect key="frame" x="0.0" y="0.0" width="239" height="248"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <tableColumns>
+                                                <tableColumn width="236" minWidth="40" maxWidth="1000" id="jjY-eU-4aN">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="KTg-Rv-60T">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView id="h27-L5-p3h">
+                                                            <rect key="frame" x="1" y="1" width="236" height="29"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S7B-2A-m9o">
+                                                                    <rect key="frame" x="11" y="8" width="118" height="14"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="m1E-FU-Okv">
+                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="h27-L5-p3h" name="value" keyPath="objectValue.title" id="Ijv-sD-1UZ">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJy-BP-bG4">
+                                                                    <rect key="frame" x="191" y="8" width="44" height="14"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="center" title="0" id="2bj-5h-FFr">
+                                                                        <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="Wx0-dt-UwW">
+                                                                            <real key="minimum" value="1"/>
+                                                                            <real key="maximum" value="128"/>
+                                                                        </numberFormatter>
+                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="h27-L5-p3h" name="value" keyPath="objectValue.input" id="xmh-1t-tEG">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KIE-4K-KDW">
+                                                                    <rect key="frame" x="132" y="3" width="56" height="22"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <popUpButtonCell key="cell" type="push" title="A" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="mUQ-Rf-RrL" id="cky-aT-sza">
+                                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <menu key="menu" id="1az-XG-j2X">
+                                                                            <items>
+                                                                                <menuItem title="A" state="on" id="mUQ-Rf-RrL"/>
+                                                                                <menuItem title="B" id="veT-kG-pU1"/>
+                                                                            </items>
+                                                                        </menu>
+                                                                    </popUpButtonCell>
+                                                                    <connections>
+                                                                        <binding destination="h27-L5-p3h" name="selectedIndex" keyPath="objectValue.console" id="C31-vT-y2D"/>
+                                                                    </connections>
+                                                                </popUpButton>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="textField" destination="S7B-2A-m9o" id="pWR-M1-Oqj"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                    </prototypeCellViews>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <binding destination="hU9-dZ-F33" name="content" keyPath="arrangedObjects" id="UbW-9k-kal"/>
+                                                <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="nTq-Lm-gPE">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSIsNotNil</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="jX3-UC-cfj">
+                                    <rect key="frame" x="1" y="118" width="239" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ULs-Vd-XoM">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yH-Vu-WDI">
+                                <rect key="frame" x="96" y="509" width="165" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="14v-gh-lrq">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="6y8-kB-snF">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="0wY-OB-6Bh" name="value" keyPath="self.windowController.selectedAcousmoniumFile.name" id="Pj6-66-tfg">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bj2-se-s6z">
+                                <rect key="frame" x="20" y="511" width="66" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Title" id="x5f-Se-h1a">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="yY8-U4-yfD" secondAttribute="bottom" constant="20" id="1Xl-tZ-iLa"/>
+                            <constraint firstItem="yY8-U4-yfD" firstAttribute="top" secondItem="g0I-0D-lqL" secondAttribute="top" constant="330" id="6bH-f0-Yg8"/>
+                            <constraint firstItem="yY8-U4-yfD" firstAttribute="leading" secondItem="g0I-0D-lqL" secondAttribute="leading" constant="20" id="9cH-Rg-bzf"/>
+                            <constraint firstAttribute="trailing" secondItem="yY8-U4-yfD" secondAttribute="trailing" constant="19" id="aSx-8X-Ayy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="nS7-8p-O35" id="TSz-2s-a9X"/>
+                    </connections>
+                </viewController>
+                <customObject id="x7g-6K-Usx" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <arrayController objectClassName="AcousmoniumFile" id="zfv-4j-r5C" userLabel="Acousmoniums">
+                    <connections>
+                        <binding destination="0wY-OB-6Bh" name="contentArray" keyPath="self.windowController.acousmoniumFiles" id="8ym-fL-Ma5"/>
+                    </connections>
+                </arrayController>
+                <arrayController objectClassName="AcousmoLoudspeaker" id="hU9-dZ-F33" userLabel="Loudspeakers">
+                    <connections>
+                        <binding destination="0wY-OB-6Bh" name="contentArray" keyPath="self.windowController.selectedAcousmoniumFile.acousmoLoudspeakers" id="Oje-uP-0mH"/>
+                    </connections>
+                </arrayController>
+                <userDefaultsController id="dkK-iN-SPS"/>
+            </objects>
+            <point key="canvasLocation" x="1023" y="1542"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="P2S-4k-GIj">
+            <objects>
+                <windowController id="hrQ-2A-oKe" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titleVisibility="hidden" id="sGc-gH-yug">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="425" y="461" width="281" height="600"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+                        <value key="minSize" type="size" width="281" height="600"/>
+                        <value key="maxSize" type="size" width="281" height="1024"/>
+                        <connections>
+                            <outlet property="delegate" destination="hrQ-2A-oKe" id="MnO-CK-iHJ"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="0wY-OB-6Bh" kind="relationship" relationship="window.shadowedContentViewController" id="EIx-5P-bdt"/>
+                    </connections>
+                </windowController>
+                <customObject id="yML-kj-6sD" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="650" y="1551"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="mainTBAcousmonium" width="19" height="19"/>
         <image name="mainTBAddCamera" width="19" height="19"/>
         <image name="mainTBControllers" width="19" height="19"/>
