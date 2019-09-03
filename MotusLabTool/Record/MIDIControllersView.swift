@@ -38,6 +38,7 @@ class MIDIControllersView: NSView {
     }
     
     @objc func userDefaultsDidChange(_ notification: Notification) {
+        self.midiValueCorrection = self.preferences.integer(forKey: PreferenceKey.valueCorrection)
         self.setNeedsDisplay(self.bounds)
     }
     
@@ -54,40 +55,40 @@ class MIDIControllersView: NSView {
             var faderX: CGFloat = 0
             
             //Draw faders of console A
-            context.saveGState()
             for (index,fader) in self.consoleAParameters.filterControllers.enumerated() {
                 let value = CGFloat(MIDIValueCorrection(self.consoleAParameters.controllerValues[index], type: self.midiValueCorrection))
                 if fader {
                     if value > 0 {
+                        context.saveGState()
                         let color = self.windowController.consoleAControllerColors[index]!
                         context.setFillColor(color.cgColor)
                         faderRect.origin.x = faderX
                         faderRect.size.height = (value * self.bounds.size.height) / 127
                         context.addRect(faderRect)
+                        context.drawPath(using: .fill)
+                        context.restoreGState()
                     }
                     faderX += faderWidth
                 }
             }
-            context.drawPath(using: .fill)
-            context.restoreGState()
             
             //Draw faders of console B
-            context.saveGState()
             for (index,fader) in self.consoleBParameters.filterControllers.enumerated() {
                 let value = CGFloat(MIDIValueCorrection(self.consoleBParameters.controllerValues[index], type: self.midiValueCorrection))
                 if fader {
                     if value > 0 {
+                        context.saveGState()
                         let color = self.windowController.consoleBControllerColors[index]!
                         context.setFillColor(color.cgColor)
                         faderRect.origin.x = faderX
                         faderRect.size.height = (value * self.bounds.size.height) / 127
                         context.addRect(faderRect)
+                        context.drawPath(using: .fill)
+                        context.restoreGState()
                     }
                     faderX += faderWidth
                 }
             }
-            context.drawPath(using: .fill)
-            context.restoreGState()
             
         }
         

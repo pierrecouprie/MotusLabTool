@@ -50,14 +50,16 @@ class MIDIPlayer: NSObject {
         //Add observers
         let timePositionPath = \WindowController.timePosition
         self.timePositionObservation = self.leftViewController.windowController.observe(timePositionPath) { [unowned self] object, change in
-            if self.midiTimeTable != nil {
-                if self.isPlaying && (self.leftViewController.windowController.timePosition -  self.prevTimePosition).magnitude < 1 {
-                    self.updateTimePosition()
-                } else {
-                    self.goToTimePosition()
+            if self.leftViewController.windowController.displayedView == 2 {
+                if self.midiTimeTable != nil {
+                    if self.isPlaying && (self.leftViewController.windowController.timePosition -  self.prevTimePosition).magnitude < 1 {
+                        self.updateTimePosition()
+                    } else {
+                        self.goToTimePosition()
+                    }
                 }
+                self.prevTimePosition = self.leftViewController.windowController.timePosition
             }
-            self.prevTimePosition = self.leftViewController.windowController.timePosition
         }
         
         let consoleAOutputDevicePath = \LeftViewController.consoleAOutputDevice
@@ -109,6 +111,8 @@ class MIDIPlayer: NSObject {
     //MARK: - load session
     
     func loadSession() {
+        
+        Swift.print("MIDIPlayer > loadSession()")
         
         //Swift.print("\(self.playViewController.midiControllerEvents.count) MIDI events")
         
@@ -165,30 +169,38 @@ class MIDIPlayer: NSObject {
     }
     
     func sendMessage(_ console: Int, number: Int, value: Int) {
-        if self.controllerEnabled(number, console: console) {
-            if console == 0 {
+        let controller = self.controllerEnabled(number, console: console)
+        //Swift.print("MIDIPlayer > sendMessage console: \(console), number: \(number), value: \(value)")
+        if console == 0 {
+            if controller.enabled {
                 var channel = self.leftViewController.windowController.consoleAParameters.channel
                 channel = channel == 0 ? channel : channel - 1
                 var midiPacketList = createMidiPacketList(status: (0xB0 + channel), val1: number, val2: value)
                 MIDISend(self.consoleAOutputPort, self.consoleADestinationEndpointRef, &midiPacketList)
+            }
+            if controller.all {
                 let message = ConsoleLastMidiMessage(number: number, value: value)
                 self.leftViewController.setValue(message, forKey: "consoleALastMidiMessage")
-            } else if self.preferences.bool(forKey: PreferenceKey.consoleBActivate) {
+            }
+        } else if self.preferences.bool(forKey: PreferenceKey.consoleBActivate) {
+            if controller.enabled {
                 var channel = self.leftViewController.windowController.consoleBParameters.channel
                 channel = channel == 0 ? channel : channel - 1
                 var midiPacketList = createMidiPacketList(status: (0xB0 + channel), val1: number, val2: value)
                 MIDISend(self.consoleBOutputPort, self.consoleBDestinationEndpointRef, &midiPacketList)
+            }
+            if controller.all {
                 let message = ConsoleLastMidiMessage(number: number, value: value)
                 self.leftViewController.setValue(message, forKey: "consoleBLastMidiMessage")
             }
         }
     }
     
-    func controllerEnabled(_ number: Int , console: Int) -> Bool {
-        if let index = self.leftViewController.playTimelineView.playControllersView.controllersList.firstIndex(where: { $0.ctl == number && $0.console == console} ) {
-            return self.leftViewController.playTimelineView.playControllersView.controllersList[index].enable
+    func controllerEnabled(_ number: Int, console: Int) -> (all: Bool, enabled: Bool) {
+        if let index = self.leftViewController.controllersList.firstIndex(where: { $0.ctl == number && $0.console == console} ) {
+            return (true, self.leftViewController.controllersList[index].enable)
         }
-        return false
+        return (false, false)
     }
     
     func createMidiPacketList(status: Int, val1: Int, val2 :Int) -> MIDIPacketList {
@@ -204,9 +216,10 @@ class MIDIPlayer: NSObject {
     }
     
     func goToTimePosition() {
-        guard self.leftViewController.windowController.displayedView == 3 else {
+        guard self.leftViewController.windowController.displayedView == 2 else {
             return
         }
+        //Swift.print("MIDIPlayer > goToTimePosition")
         let timePosition = self.leftViewController.windowController.timePosition
         let indexes = self.indexOfTime(timePosition)
         if self.consoleAMidiControllerTable[indexes.timeTable].count > 1 && self.consoleBMidiControllerTable[indexes.timeTable].count > 1 {
@@ -225,15 +238,18 @@ class MIDIPlayer: NSObject {
     }
     
     func updateTimePosition() {
-        guard self.leftViewController.windowController.displayedView == 3 else {
+        guard self.leftViewController.windowController.displayedView == 2 else {
             return
         }
+        //Swift.print("MIDIPlayer > updateTimePosition")
         let timePosition = self.leftViewController.windowController.timePosition
         let indexes = self.indexOfTime(timePosition)
         let index = indexes.index
         if index > self.currentEventIndex {
-            let startIndex = self.currentEventIndex
-            let endIndex = index
+            var startIndex = self.currentEventIndex
+            startIndex = startIndex < 0 ? 0 : startIndex
+            var endIndex = index
+            endIndex = endIndex <= startIndex ? startIndex + 1 : endIndex
             for n in startIndex..<endIndex {
                 self.sendMessage(self.leftViewController.windowController.midiControllerEvents[n].console,
                                  number: self.leftViewController.windowController.midiControllerEvents[n].number,

@@ -10,6 +10,8 @@
 		8A0AE004231D48DA0024FACF /* AcousmoniumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE003231D48DA0024FACF /* AcousmoniumViewController.swift */; };
 		8A0AE006231D48EC0024FACF /* AcousmoniumPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE005231D48EC0024FACF /* AcousmoniumPropertyViewController.swift */; };
 		8A0AE00A231D54540024FACF /* AcousmoniumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE009231D54540024FACF /* AcousmoniumView.swift */; };
+		8A0AE00C231D879B0024FACF /* PlayFadersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE00B231D879B0024FACF /* PlayFadersView.swift */; };
+		8A0AE00F231D8A7A0024FACF /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE00E231D8A7A0024FACF /* PlaylistViewController.swift */; };
 		8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBC2316529E00064A8A /* DefaultSettings.swift */; };
 		8A156EBF2316531700064A8A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBE2316531700064A8A /* WindowController.swift */; };
 		8A189FB4231A561D00EA2B8D /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A189FB3231A561D00EA2B8D /* Window.swift */; };
@@ -60,6 +62,8 @@
 		8A0AE003231D48DA0024FACF /* AcousmoniumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumViewController.swift; sourceTree = "<group>"; };
 		8A0AE005231D48EC0024FACF /* AcousmoniumPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumPropertyViewController.swift; sourceTree = "<group>"; };
 		8A0AE009231D54540024FACF /* AcousmoniumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumView.swift; sourceTree = "<group>"; };
+		8A0AE00B231D879B0024FACF /* PlayFadersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayFadersView.swift; sourceTree = "<group>"; };
+		8A0AE00E231D8A7A0024FACF /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		8A156EBC2316529E00064A8A /* DefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
 		8A156EBE2316531700064A8A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8A189FB3231A561D00EA2B8D /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
@@ -130,6 +134,14 @@
 			path = Acousmonium;
 			sourceTree = "<group>";
 		};
+		8A0AE00D231D8A630024FACF /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				8A0AE00E231D8A7A0024FACF /* PlaylistViewController.swift */,
+			);
+			path = Playlist;
+			sourceTree = "<group>";
+		};
 		8A6BEF51231B9DD500D5A84B /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +160,7 @@
 				8A6BEF5D231BB61D00D5A84B /* PlayPlayheadView.swift */,
 				8A6BEF5F231BB66400D5A84B /* PlayTimeRulerView.swift */,
 				8A6BEF67231BCEAC00D5A84B /* PlayCameraView.swift */,
+				8A0AE00B231D879B0024FACF /* PlayFadersView.swift */,
 			);
 			path = Play;
 			sourceTree = "<group>";
@@ -256,6 +269,7 @@
 				8ABBBF7B23196D1200FA04A9 /* Value Transformers */,
 				8AA84682231AC5DD00005A4D /* Various */,
 				8A0AE002231D489B0024FACF /* Acousmonium */,
+				8A0AE00D231D8A630024FACF /* Playlist */,
 				8AA84681231AC5C500005A4D /* Record */,
 				8A6BEF54231BB56400D5A84B /* Play */,
 				8AA84684231AC5FA00005A4D /* Audio */,
@@ -357,6 +371,7 @@
 			files = (
 				8ABBBF6323190B6F00FA04A9 /* MainSplitViewController.swift in Sources */,
 				8A0AE006231D48EC0024FACF /* AcousmoniumPropertyViewController.swift in Sources */,
+				8A0AE00F231D8A7A0024FACF /* PlaylistViewController.swift in Sources */,
 				8A7DA568231657620059B5C9 /* Extensions.swift in Sources */,
 				8A6BEF5C231BB60300D5A84B /* PlayMarkersView.swift in Sources */,
 				8A6BEF60231BB66400D5A84B /* PlayTimeRulerView.swift in Sources */,
@@ -382,6 +397,7 @@
 				8A6BEF66231BC47E00D5A84B /* AudioAnalyzer.swift in Sources */,
 				8A6BEF68231BCEAC00D5A84B /* PlayCameraView.swift in Sources */,
 				8AA84675231A698E00005A4D /* AudioRecorder.swift in Sources */,
+				8A0AE00C231D879B0024FACF /* PlayFadersView.swift in Sources */,
 				8A6BEF56231BB58300D5A84B /* PlayTimelineView.swift in Sources */,
 				8A6BEF47231B961F00D5A84B /* AudioCaptureMeter.swift in Sources */,
 				8ABBBF69231912BF00FA04A9 /* LeftViewController.swift in Sources */,
@@ -550,7 +566,7 @@
 				CODE_SIGN_ENTITLEMENTS = MotusLabTool/MotusLabTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -573,7 +589,7 @@
 				CODE_SIGN_ENTITLEMENTS = MotusLabTool/MotusLabTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;

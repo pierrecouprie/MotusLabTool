@@ -105,7 +105,9 @@ class WindowController: NSWindowController {
         self.initializeAcousmonium()
         self.loadAcousmoniums()
         self.consoleAParameters = MIDIParameters(console: 0, windowController: self)
+        self.consoleAParameters.filter = UserDefaults.standard.string(forKey: PreferenceKey.consoleAMapping)!
         self.consoleBParameters = MIDIParameters(console: 1, windowController: self, enable: false)
+        self.consoleBParameters.filter = UserDefaults.standard.string(forKey: PreferenceKey.consoleBMapping)!
         (self.contentViewController as! MainSplitViewController).initialization()
         
         //Add observer to detect preferences properties
@@ -465,7 +467,7 @@ class WindowController: NSWindowController {
         if let action = menuItem.action {
             
             if action == #selector(self.changeMidiPlayMenu(_:)) {
-                if self.leftViewController.playTimelineView.playControllersView.controllersList[menuItem.tag].enable {
+                if self.leftViewController.controllersList[menuItem.tag].enable {
                     menuItem.state = .on
                 } else {
                     menuItem.state = .off

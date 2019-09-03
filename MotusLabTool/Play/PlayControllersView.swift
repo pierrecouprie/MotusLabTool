@@ -22,7 +22,7 @@ class PlayControllersView: NSView {
     weak var leftViewController: LeftViewController! 
     
     var controllers: [Int:[(date: Float, value: Int)]]!
-    var controllersList = [ControllerItem]()
+    //var controllersList = [ControllerItem]()
     var consoleAMaxNumber: Int = 0
     var consoleBStartId: Int = 0
     var playCTRLColors: Int = 0
@@ -58,13 +58,13 @@ class PlayControllersView: NSView {
             self.alphaValue = CGFloat(self.playCTRLAlpha)
         } else if self.preferences.integer(forKey: PreferenceKey.valueCorrection) != self.midiValueCorrection {
             self.midiValueCorrection = self.preferences.integer(forKey: PreferenceKey.valueCorrection)
-            self.setNeedsDisplay(self.bounds)
         }
+        self.setNeedsDisplay(self.bounds)
     }
     
     func convertEvents() {
         var output = [Int:[(date: Float, value: Int)]]()
-        self.controllersList = []
+        self.leftViewController.controllersList = []
         
         func readControllers(_ consoleControllers: [Bool], start: Int = 0) -> Int {
             var maxNumber: Int = 1
@@ -76,10 +76,10 @@ class PlayControllersView: NSView {
                     if start > 0 {
                         controllerItem.console = 1
                         if n == 1 {
-                            self.consoleBStartId = self.controllersList.count
+                            self.consoleBStartId = self.leftViewController.controllersList.count
                         }
                     }
-                    self.controllersList.append(controllerItem)
+                    self.leftViewController.controllersList.append(controllerItem)
                     maxNumber = n + start
                 }
             }
@@ -91,8 +91,8 @@ class PlayControllersView: NSView {
         let _ = readControllers(self.leftViewController.currentSession.consoleBControllers, start: self.consoleAMaxNumber)
         
         //Create id in controllersList {
-        for n in 0..<self.controllersList.count{
-            self.controllersList[n].id = n
+        for n in 0..<self.leftViewController.controllersList.count{
+            self.leftViewController.controllersList[n].id = n
         }
         
         //Read controllers
@@ -117,13 +117,13 @@ class PlayControllersView: NSView {
         }
         
         if let context = NSGraphicsContext.current?.cgContext {
-            let controllerCount = self.controllersList.filter( { $0.show == true } ).count
+            let controllerCount = self.leftViewController.controllersList.filter( { $0.show == true } ).count
             let height: CGFloat = self.bounds.size.height / CGFloat(controllerCount)
             let heightTranslation: CGFloat = height
             
             var yTranslation: CGFloat = 0.0
-            for n in stride(from: self.controllersList.count - 1, through: 0, by: -1) {
-                let controllerItem = self.controllersList[n]
+            for n in stride(from: self.leftViewController.controllersList.count - 1, through: 0, by: -1) {
+                let controllerItem = self.leftViewController.controllersList[n]
                 
                 if !controllerItem.show {
                     continue
@@ -138,7 +138,7 @@ class PlayControllersView: NSView {
                     drawingPath = curvePath as! CGMutablePath
                 }
                 
-                self.drawPath(context: context, curveClosePath: drawingPath, color: self.selectColor(controllerItem))
+                self.drawPath(context: context, curveClosePath: drawingPath, color: self.leftViewController.controllerColor(from: controllerItem.ctl, console: controllerItem.console))
                 
                 yTranslation += heightTranslation
             }
@@ -235,7 +235,7 @@ class PlayControllersView: NSView {
         
     }
     
-    func selectColor(_ controller: ControllerItem) -> NSColor {
+    /*func selectColor(_ controller: ControllerItem) -> NSColor {
         
         if !controller.enable {
             return NSColor.gray
@@ -243,14 +243,14 @@ class PlayControllersView: NSView {
         
         if let windowController = self.leftViewController.windowController {
             if controller.console == 0 {
-                return windowController.consoleAControllerColors[controller.number]!
+                return windowController.consoleAControllerColors[controller.ctl]!
             } else if controller.console == 1 {
-                return windowController.consoleBControllerColors[controller.number]!
+                return windowController.consoleBControllerColors[controller.ctl]!
             }
         }
         
-        return NSColor.gray
+        return NSColor.lightGray
         
-    }
+    }*/
     
 }

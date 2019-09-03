@@ -12,6 +12,7 @@ import AVFoundation
 class LeftViewController: NSViewController {
     
     @objc dynamic weak var windowController: WindowController!
+    weak var acousmoniumViewController: AcousmoniumViewController!
     let preferences = UserDefaults.standard
     @objc dynamic weak var currentSession: Session!
     var timer: Timer!
@@ -51,6 +52,7 @@ class LeftViewController: NSViewController {
     @objc dynamic var consoleBOutputDevice: Int = 0
     @objc dynamic var consoleALastMidiMessage: ConsoleLastMidiMessage!
     @objc dynamic var consoleBLastMidiMessage: ConsoleLastMidiMessage!
+    var controllersList = [ControllerItem]()
     
     var displayedViewObservation: NSKeyValueObservation?
     
@@ -60,6 +62,8 @@ class LeftViewController: NSViewController {
         super.viewDidLoad()
         Swift.print("LeftViewController > viewDidLoad")
     }
+    
+    @IBOutlet weak var playFadersView: PlayFadersView!
     
     func initialization() {
         Swift.print("LeftViewController > initialization()")
@@ -79,6 +83,9 @@ class LeftViewController: NSViewController {
             self.consoleBMidiRecorder = MIDIRecorder(leftViewController: self, consoleParameters: self.windowController.consoleBParameters)
             self.recordMidiControllerView.consoleAParameters = self.windowController.consoleAParameters
             self.recordMidiControllerView.consoleBParameters = self.windowController.consoleBParameters
+            
+            //Initialize MIDI Faders
+            self.playFadersView.addObservers(windowController: self.windowController)
             
             //Observers
             let displayedViewPath = \WindowController.displayedView
@@ -224,7 +231,9 @@ class LeftViewController: NSViewController {
             
             //Initialize video recorders
             for camera in self.recordCameraViewControllers {
-                self.videoRecorder.initializeVideoAssetWriter(camera.cameraDevice, session: self.currentSession)
+                if camera.cameraDevice != nil {
+                    self.videoRecorder.initializeVideoAssetWriter(camera.cameraDevice, session: self.currentSession)
+                }
             }
             
             //Switch to recording mode
@@ -388,6 +397,8 @@ class LeftViewController: NSViewController {
         let timePosition = Float(self.windowController.timePosition)
         if timePosition - 5 >= 0 {
             self.goToTime(timePosition - 5)
+        } else {
+            self.goToTime(0)
         }
     }
     
@@ -490,75 +501,75 @@ class LeftViewController: NSViewController {
     
     @IBAction func changeControllersMenu(_ sender: Any) {
         let tag = (sender as! NSMenuItem).tag
-        let controllerCount = self.playTimelineView.playControllersView.controllersList.count
-        let controllerConsoleBIndex = self.playTimelineView.playControllersView.controllersList.filter( { $0.console == 0 } ).count - 1
+        let controllerCount = self.controllersList.count
+        let controllerConsoleBIndex = self.controllersList.filter( { $0.console == 0 } ).count - 1
             switch tag {
             case -1:
                 for n in 0..<controllerCount {
-                    self.playTimelineView.playControllersView.controllersList[n].show = true
+                    self.controllersList[n].show = true
                 }
             case 0:
                 for n in 0..<controllerCount {
-                    if self.playTimelineView.playControllersView.controllersList[n].console == 0 {
-                        self.playTimelineView.playControllersView.controllersList[n].show = true
+                    if self.controllersList[n].console == 0 {
+                        self.controllersList[n].show = true
                     } else {
-                        self.playTimelineView.playControllersView.controllersList[n].show = false
+                        self.controllersList[n].show = false
                     }
                 }
             case 1:
                 for n in 0..<controllerCount {
-                    if self.playTimelineView.playControllersView.controllersList[n].console == 1 {
-                        self.playTimelineView.playControllersView.controllersList[n].show = true
+                    if self.controllersList[n].console == 1 {
+                        self.controllersList[n].show = true
                     } else {
-                        self.playTimelineView.playControllersView.controllersList[n].show = false
+                        self.controllersList[n].show = false
                     }
                 }
             case 2:
                 for n in 0..<controllerCount {
-                    if self.playTimelineView.playControllersView.controllersList[n].console == 0 && n < 8 {
-                        self.playTimelineView.playControllersView.controllersList[n].show = true
+                    if self.controllersList[n].console == 0 && n < 8 {
+                        self.controllersList[n].show = true
                     } else {
-                        self.playTimelineView.playControllersView.controllersList[n].show = false
+                        self.controllersList[n].show = false
                     }
                 }
             case 3:
                 for n in 0..<controllerCount {
-                    if self.playTimelineView.playControllersView.controllersList[n].console == 0 && n > 7 && n < 16 {
-                        self.playTimelineView.playControllersView.controllersList[n].show = true
+                    if self.controllersList[n].console == 0 && n > 7 && n < 16 {
+                        self.controllersList[n].show = true
                     } else {
-                        self.playTimelineView.playControllersView.controllersList[n].show = false
+                        self.controllersList[n].show = false
                     }
                 }
             case 4:
                 for n in 0..<controllerCount {
-                    if self.playTimelineView.playControllersView.controllersList[n].console == 0 && n > 15 {
-                        self.playTimelineView.playControllersView.controllersList[n].show = true
+                    if self.controllersList[n].console == 0 && n > 15 {
+                        self.controllersList[n].show = true
                     } else {
-                        self.playTimelineView.playControllersView.controllersList[n].show = false
+                        self.controllersList[n].show = false
                     }
                 }
             case 5:
                 for n in 0..<controllerCount {
-                    if self.playTimelineView.playControllersView.controllersList[n].console == 1 && n - controllerConsoleBIndex < 8 {
-                        self.playTimelineView.playControllersView.controllersList[n].show = true
+                    if self.controllersList[n].console == 1 && n - controllerConsoleBIndex < 8 {
+                        self.controllersList[n].show = true
                     } else {
-                        self.playTimelineView.playControllersView.controllersList[n].show = false
+                        self.controllersList[n].show = false
                     }
                 }
             case 6:
                 for n in 0..<controllerCount {
-                    if self.playTimelineView.playControllersView.controllersList[n].console == 1 && n - controllerConsoleBIndex > 7 && n - controllerConsoleBIndex < 16 {
-                        self.playTimelineView.playControllersView.controllersList[n].show = true
+                    if self.controllersList[n].console == 1 && n - controllerConsoleBIndex > 7 && n - controllerConsoleBIndex < 16 {
+                        self.controllersList[n].show = true
                     } else {
-                        self.playTimelineView.playControllersView.controllersList[n].show = false
+                        self.controllersList[n].show = false
                     }
                 }
             case 7:
                 for n in 0..<controllerCount {
-                    if self.playTimelineView.playControllersView.controllersList[n].console == 1 && n - controllerConsoleBIndex > 15 {
-                        self.playTimelineView.playControllersView.controllersList[n].show = true
+                    if self.controllersList[n].console == 1 && n - controllerConsoleBIndex > 15 {
+                        self.controllersList[n].show = true
                     } else {
-                        self.playTimelineView.playControllersView.controllersList[n].show = false
+                        self.controllersList[n].show = false
                     }
                 }
             default:
@@ -584,7 +595,7 @@ class LeftViewController: NSViewController {
         self.midiPlayGroupSubMenu.submenu?.removeAllItems()
         var group: Int = 1
         var firstGroupItem: Int = 1
-        for controller in self.playTimelineView.playControllersView.controllersList {
+        for controller in self.controllersList {
             if controller.id == self.playTimelineView.playControllersView.consoleBStartId {
                 self.midiPlaySubMenu.submenu?.addItem(NSMenuItem.separator())
                 self.midiPlayGroupSubMenu.submenu?.addItem(NSMenuItem.separator())
@@ -616,27 +627,39 @@ class LeftViewController: NSViewController {
     /// User select a controller
     @IBAction func changeMidiPlayMenu(_ sender: NSMenuItem) {
         let tag = sender.tag
-        let enable = self.playTimelineView.playControllersView.controllersList[tag].enable
-        self.playTimelineView.playControllersView.controllersList[tag].enable = !enable
+        let enable = self.controllersList[tag].enable
+        self.controllersList[tag].enable = !enable
         self.playTimelineView.playControllersView.setNeedsDisplay(self.playTimelineView.playControllersView.bounds)
+        self.playFadersView.setNeedsDisplay(self.playFadersView.bounds)
+        if let acousmoContainer = acousmoniumViewController.acousmoniumView.subviews.first {
+            for subview in acousmoContainer.subviews {
+                subview.setNeedsDisplay(subview.bounds)
+            }
+        }
     }
     
     /// User select a group of controllers
     @IBAction func changeMidiPlayGroupMenu(_ sender: NSMenuItem) {
         let tag = sender.tag
-        let console = self.playTimelineView.playControllersView.controllersList[tag].console
-        let enable = self.playTimelineView.playControllersView.controllersList[tag].enable
+        let console = self.controllersList[tag].console
+        let enable = self.controllersList[tag].enable
         for n in tag..<(tag + 8) {
-            if n > self.playTimelineView.playControllersView.controllersList.count - 1 {
+            if n > self.controllersList.count - 1 {
                 break
             }
-            if self.playTimelineView.playControllersView.controllersList[n].console == console {
-                self.playTimelineView.playControllersView.controllersList[n].enable = !enable
+            if self.controllersList[n].console == console {
+                self.controllersList[n].enable = !enable
             } else {
                 break
             }
         }
         self.playTimelineView.playControllersView.setNeedsDisplay(self.playTimelineView.playControllersView.bounds)
+        self.playFadersView.setNeedsDisplay(self.playFadersView.bounds)
+        if let acousmoContainer = acousmoniumViewController.acousmoniumView.subviews.first {
+            for subview in acousmoContainer.subviews {
+                subview.setNeedsDisplay(subview.bounds)
+            }
+        }
     }
     
     // User select a console
@@ -644,16 +667,49 @@ class LeftViewController: NSViewController {
         let tag = sender.tag
         var enable = true
         var first = true
-        for n in 0..<self.playTimelineView.playControllersView.controllersList.count {
-            if self.playTimelineView.playControllersView.controllersList[n].console == tag {
+        for n in 0..<self.controllersList.count {
+            if self.controllersList[n].console == tag {
                 if first {
                     first = false
-                    enable = self.playTimelineView.playControllersView.controllersList[n].enable
+                    enable = self.controllersList[n].enable
                 }
-                self.playTimelineView.playControllersView.controllersList[n].enable = !enable
+                self.controllersList[n].enable = !enable
             }
         }
         self.playTimelineView.playControllersView.setNeedsDisplay(self.playTimelineView.playControllersView.bounds)
+        self.playFadersView.setNeedsDisplay(self.playFadersView.bounds)
+        if let acousmoContainer = acousmoniumViewController.acousmoniumView.subviews.first {
+            for subview in acousmoContainer.subviews {
+                subview.setNeedsDisplay(subview.bounds)
+            }
+        }
+    }
+    
+    func controllerColor(from number: Int, console: Int) -> NSColor {
+        if let windowController = self.windowController {
+            if windowController.displayedView == 1 {
+                if console == 0 {
+                    return windowController.consoleAControllerColors[number]!
+                } else {
+                    return windowController.consoleBControllerColors[number]!
+                }
+            } else if windowController.displayedView == 2 {
+                for controllerItem in self.controllersList {
+                    if controllerItem.ctl == number && controllerItem.console == console {
+                        if controllerItem.enable {
+                            if console == 0 {
+                                return windowController.consoleAControllerColors[number]!
+                            } else {
+                                return windowController.consoleBControllerColors[number]!
+                            }
+                        }
+                        break
+                    }
+                }
+            }
+        }
+        
+        return NSColor.lightGray
     }
     
     //MARK: - Play > Commands

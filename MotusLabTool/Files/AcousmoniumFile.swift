@@ -28,7 +28,7 @@ class AcousmoniumFile: NSObject, NSCoding {
         }
     }
     dynamic var acousmoLoudspeakers: [AcousmoLoudspeaker] = []
-    
+    dynamic var selectedLoudspeakerIndex = IndexSet()
     dynamic var toSave: Int = 0
     
     override var description: String {
@@ -92,6 +92,7 @@ class AcousmoniumFile: NSObject, NSCoding {
         acousmoLoudspeakers.append(newLoudspeaker)
         newLoudspeaker.acousmoniumFile = self
         self.setValue(acousmoLoudspeakers, forKey: PropertyKey.acousmoLoudspeakersKey)
+        self.save()
     }
     
     func removeLoudspeaker(_ acousmoLoudspeaker: AcousmoLoudspeaker) {
@@ -119,7 +120,8 @@ class AcousmoLoudspeaker: NSObject, NSCoding {
             self.acousmoniumFile.save()
         }
     }
-    var position: CGPoint! //saved when mouseUp
+    var x: Float = 0.5
+    var y: Float = 0.5
     var input: Int = 0 {
         didSet {
             self.acousmoniumFile.save()
@@ -139,12 +141,13 @@ class AcousmoLoudspeaker: NSObject, NSCoding {
     weak var acousmoniumFile: AcousmoniumFile!
     
     override var description: String {
-        return "AcousmoLoudspeaker title: " + self.title + ", position: \(String(describing: self.position)), input: \(String(describing: self.input)), console: \(String(describing: self.console)), color: \(String(describing: self.color))"
+        return "AcousmoLoudspeaker title: " + self.title + ", x: \(String(describing: self.x)), y: \(String(describing: self.y)), input: \(String(describing: self.input)), console: \(String(describing: self.console)), color: \(String(describing: self.color))"
     }
     
     struct PropertyKey {
         static let titleKey = "title"
-        static let positionKey = "position"
+        static let xKey = "x"
+        static let yKey = "y"
         static let inputKey = "input"
         static let consoleKey = "console"
         static let colorKey = "color"
@@ -158,7 +161,6 @@ class AcousmoLoudspeaker: NSObject, NSCoding {
     convenience init(title: String, input: Int = 0, console: Int = 0) {
         self.init()
         self.title = title
-        self.position = CGPoint(x: 0.5, y: 0.5)
         self.input = input
         self.console = console
         self.color = NSColor.black
@@ -166,7 +168,8 @@ class AcousmoLoudspeaker: NSObject, NSCoding {
     
     required init(coder aDecoder: NSCoder) {
         self.title = aDecoder.decodeObject(forKey: PropertyKey.titleKey) as? String
-        self.position = aDecoder.decodePoint(forKey: PropertyKey.positionKey)
+        self.x = aDecoder.decodeFloat(forKey: PropertyKey.xKey)
+        self.y = aDecoder.decodeFloat(forKey: PropertyKey.yKey)
         self.input = aDecoder.decodeInteger(forKey: PropertyKey.inputKey)
         self.console = aDecoder.decodeInteger(forKey: PropertyKey.consoleKey)
         self.color = aDecoder.decodeObject(forKey: PropertyKey.colorKey) as? NSColor
@@ -175,7 +178,8 @@ class AcousmoLoudspeaker: NSObject, NSCoding {
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.title, forKey: PropertyKey.titleKey)
-        aCoder.encode(self.position, forKey: PropertyKey.positionKey)
+        aCoder.encode(self.x, forKey: PropertyKey.xKey)
+        aCoder.encode(self.y, forKey: PropertyKey.yKey)
         aCoder.encode(self.input, forKey: PropertyKey.inputKey)
         aCoder.encode(self.console, forKey: PropertyKey.consoleKey)
         aCoder.encode(self.color, forKey: PropertyKey.colorKey)

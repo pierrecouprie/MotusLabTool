@@ -47,9 +47,11 @@ class PlayPlayheadView: NSView {
     
     func updateTimePosition() {
         if let leftViewController = self.leftViewController, let currentSession = leftViewController.currentSession {
-            let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(currentSession.duration)
-            let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
-            self.playheadView.frame = frame
+            if leftViewController.windowController.displayedView == 2 {
+                let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(currentSession.duration)
+                let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
+                self.playheadView.frame = frame
+            }
         } else {
             self.playheadView.frame = CGRect(x: 0, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
         }

@@ -151,7 +151,17 @@ class MIDIRecorder: NSObject {
                                            channel: channel,
                                            number: number,
                                            value: value)
-            //Swift.print(newEvent.description)
+            
+            //used for acousmonium representation
+            DispatchQueue.main.async {
+                if self.consoleParameters.console == 0 {
+                    let message = ConsoleLastMidiMessage(number: number, value: value)
+                    self.leftViewController.setValue(message, forKey: "consoleALastMidiMessage")
+                } else {
+                    let message = ConsoleLastMidiMessage(number: number, value: value)
+                    self.leftViewController.setValue(message, forKey: "consoleBLastMidiMessage")
+                }
+            }
         }
         
         if let event = newEvent {

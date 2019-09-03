@@ -11,6 +11,7 @@ import Cocoa
 class AcousmoniumViewController: NSViewController {
     
     @objc dynamic weak var windowController: WindowController!
+    @IBOutlet weak var acousmoniumView: AcousmoniumView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,7 @@ class AcousmoniumViewController: NSViewController {
         Swift.print("AcousmoniumViewController > initialization()")
         if let window = self.view.window, let windowController = window.windowController {
             self.windowController = windowController as? WindowController
+            self.acousmoniumView.windowController = self.windowController
         }
     }
     

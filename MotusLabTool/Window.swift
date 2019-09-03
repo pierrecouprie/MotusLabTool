@@ -21,17 +21,19 @@ class Window: NSWindow {
                 if event.keyCode == 49 {
                     if (windowController as! WindowController).toolbarPlay == .off {
                         (windowController as! WindowController).toolbarPlay = .on
+                        (windowController as! WindowController).leftViewController.startPlaying()
                     } else {
                         (windowController as! WindowController).toolbarPlay = .off
+                        (windowController as! WindowController).leftViewController.pausePlaying()
                     }
                     
                 //<-
                 } else if event.keyCode == 123 {
-                    //(windowController as! WindowController).viewController.playViewController.prev()
+                    (windowController as! WindowController).leftViewController.prev()
                     
                 //->
                 } else if event.keyCode == 124 {
-                    //(windowController as! WindowController).viewController.playViewController.next()
+                    (windowController as! WindowController).leftViewController.next()
                 }
                 
             }
