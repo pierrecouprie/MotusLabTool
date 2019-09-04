@@ -812,7 +812,6 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="showMidiPlayMenu:" target="B8D-0N-5wS" id="aVd-bY-roM"/>
-                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="vhr-2x-tuf"/>
                                             <segue destination="WDW-ie-XCX" kind="sheet" id="wYn-ss-kuj"/>
                                         </connections>
                                     </button>
@@ -1333,10 +1332,152 @@
                                     <action selector="dismissController:" target="WDW-ie-XCX" id="zgc-M3-xcP"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rnk-2Y-KPi">
+                                <rect key="frame" x="17" y="356" width="677" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Use playlist" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="nyW-Ns-eJy">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="WDW-ie-XCX" name="enabled" keyPath="self.windowController.playlistSelectedFile" id="205-jJ-dxt">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="9j9-a6-g9u" name="value" keyPath="values.usePlaylist" id="lvw-9N-KhV">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N6d-sA-IOn">
+                                <rect key="frame" x="20" y="50" width="746" height="301"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <clipView key="contentView" ambiguous="YES" id="9VR-4g-JaM">
+                                    <rect key="frame" x="1" y="1" width="744" height="299"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" viewBased="YES" id="Lir-Nl-fUF">
+                                            <rect key="frame" x="0.0" y="0.0" width="744" height="299"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <tableColumns>
+                                                <tableColumn width="741" minWidth="40" maxWidth="1000" id="vp1-S4-vml">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="y9E-kf-aDf">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView id="9cd-29-Qme">
+                                                            <rect key="frame" x="1" y="1" width="741" height="37"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZRS-f4-JCu">
+                                                                    <rect key="frame" x="13" y="19" width="714" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="VMj-Jv-Okd">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="9cd-29-Qme" name="value" keyPath="objectValue.name" id="ApC-k0-tlK">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qnq-sQ-ZIR">
+                                                                    <rect key="frame" x="13" y="1" width="714" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="PXP-25-npY">
+                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="9cd-29-Qme" name="value" keyPath="objectValue.folderURL" id="U9J-44-D1F">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="textField" destination="ZRS-f4-JCu" id="DgK-YC-SjK"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                    </prototypeCellViews>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <binding destination="Izo-Rx-mRj" name="content" keyPath="arrangedObjects" id="5f8-zD-Rt2"/>
+                                                <binding destination="WDW-ie-XCX" name="selectionIndexes" keyPath="self.windowController.playlistSelectedFile" previousBinding="5f8-zD-Rt2" id="TTS-SR-sdc"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="zs4-Mf-3nO">
+                                    <rect key="frame" x="1" y="118" width="744" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Iuz-gZ-Rbk">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PIp-nL-sjO">
+                                <rect key="frame" x="713" y="353" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="NMQ-I1-MpL">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <action selector="addFiles:" target="WDW-ie-XCX" id="xly-lg-tN2"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2p4-tV-7yi">
+                                <rect key="frame" x="747" y="353" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="tyl-ED-M8j">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <action selector="removeFiles:" target="WDW-ie-XCX" id="6dR-RF-l32"/>
+                                    <binding destination="WDW-ie-XCX" name="enabled" keyPath="self.windowController.playlistSelectedFile" id="7uC-bc-KuQ">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                 </viewController>
                 <customObject id="c8Q-4B-bAW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController id="9j9-a6-g9u"/>
+                <arrayController id="Izo-Rx-mRj" userLabel="playlistFiles">
+                    <connections>
+                        <binding destination="WDW-ie-XCX" name="contentArray" keyPath="self.windowController.playlistFiles" id="emD-Rx-dbG"/>
+                    </connections>
+                </arrayController>
             </objects>
             <point key="canvasLocation" x="1163" y="467.5"/>
         </scene>
@@ -2382,7 +2523,7 @@ Gw
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ES-Z2-aFd">
-                                <rect key="frame" x="242" y="537" width="25" height="25"/>
+                                <rect key="frame" x="242" y="536" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="gVh-4i-ymq">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

@@ -15,6 +15,7 @@ struct FileExtension {
     static let json = "json"
     static let mp4 = "mp4"
     static let acousmonium = "acousmonium"
+    static let waveform = "waveform"
 }
 
 struct FilePath {
@@ -24,6 +25,8 @@ struct FilePath {
     static let midi = "midi"
     static let motuLab = "motuLab"
     static let acousmoniums = "acousmoniums"
+    static let playlist = "playlist"
+    static let waveforms = "waveforms"
 }
 
 struct PreferenceKey {
@@ -65,6 +68,7 @@ struct PreferenceKey {
     
     //Other
     static let valueCorrection = "valueCorrection"
+    static let usePlaylist = "usePlaylist"
     
 }
 

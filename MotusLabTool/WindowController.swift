@@ -38,6 +38,11 @@ class WindowController: NSWindowController {
     var acousmoniumFilesFolderPathUrl: URL!
     @objc dynamic var editAcousmonium = false
     
+    //Playlist audio files
+    var playlistFilesFolderPathUrl: URL!
+    @objc dynamic var playlistFiles = [[String: Any]]()
+    @objc dynamic var playlistSelectedFile: IndexSet!
+    
     @objc dynamic var displayedView: Int = 0 {
         didSet {
             switch displayedView {
@@ -104,6 +109,8 @@ class WindowController: NSWindowController {
         self.loadPreferences()
         self.initializeAcousmonium()
         self.loadAcousmoniums()
+        self.initializeWaveformPlaylist()
+        self.loadPlaylistFiles()
         self.consoleAParameters = MIDIParameters(console: 0, windowController: self)
         self.consoleAParameters.filter = UserDefaults.standard.string(forKey: PreferenceKey.consoleAMapping)!
         self.consoleBParameters = MIDIParameters(console: 1, windowController: self, enable: false)
@@ -131,6 +138,8 @@ class WindowController: NSWindowController {
         
         if let midiSettingsViewController = segue.destinationController as? MidiSettingsViewController {
             midiSettingsViewController.windowController = self
+        } else if let playlistViewController = segue.destinationController as? PlaylistViewController {
+            playlistViewController.windowController = self
         }
     }
     
@@ -172,6 +181,7 @@ class WindowController: NSWindowController {
         preferences[PreferenceKey.acousmoShowTitles] = false
         
         preferences[PreferenceKey.valueCorrection] = 0 //0: None, 1: Yamaha02R96
+        preferences[PreferenceKey.usePlaylist] = false
         
         UserDefaults.standard.register(defaults: preferences)
         
@@ -232,6 +242,12 @@ class WindowController: NSWindowController {
         let paths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
         self.appSupportFolder = URL(fileURLWithPath: paths[0]).appendingPathComponent(FilePath.motuLab)
         self.acousmoniumFilesFolderPathUrl = self.appSupportFolder.appendingPathComponent(FilePath.acousmoniums)
+    }
+    
+    func initializeWaveformPlaylist() {
+        let paths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
+        self.appSupportFolder = URL(fileURLWithPath: paths[0]).appendingPathComponent(FilePath.motuLab)
+        self.playlistFilesFolderPathUrl = self.appSupportFolder.appendingPathComponent(FilePath.waveforms)
     }
     
     //MARK: - File read and save
@@ -373,25 +389,21 @@ class WindowController: NSWindowController {
             do {
                 try fileManager.createDirectory(at: self.acousmoniumFilesFolderPathUrl, withIntermediateDirectories: true, attributes: nil)
             } catch {
-                Swift.print("WindowController: createBundle() Cannot copy bundle to url (" + self.fileUrl.path + ")!")
+                Swift.print("WindowController: loadAcousmoniums() Cannot copy bundle to url (" + self.fileUrl.path + ")!")
             }
         }
         
         //Read acousmonium files
         do {
             let fileURLs = try fileManager.contentsOfDirectory(at: self.acousmoniumFilesFolderPathUrl, includingPropertiesForKeys: nil)
-            if fileURLs.count == 0 {
-                
-            } else {
-                for file in fileURLs {
-                    do {
-                        let acousmoniumData = try Data(contentsOf: file)
-                        if let acousmonium = NSKeyedUnarchiver.unarchiveObject(with: acousmoniumData) as? AcousmoniumFile {
-                            self.acousmoniumFiles.append(acousmonium)
-                        }
-                    } catch let error as NSError {
-                        Swift.print("ViewController: loadAcousmoniums() Error openning url \(file), context: " + error.localizedDescription)
+            for file in fileURLs {
+                do {
+                    let acousmoniumData = try Data(contentsOf: file)
+                    if let acousmonium = NSKeyedUnarchiver.unarchiveObject(with: acousmoniumData) as? AcousmoniumFile {
+                        self.acousmoniumFiles.append(acousmonium)
                     }
+                } catch let error as NSError {
+                    Swift.print("ViewController: loadAcousmoniums() Error openning url \(file), context: " + error.localizedDescription)
                 }
             }
         } catch {
@@ -416,6 +428,89 @@ class WindowController: NSWindowController {
             try acousmoniumData.write(to: fileUrl)
         } catch let error as NSError {
             Swift.print("WindowController: saveAcousmoniumFile() Error saving data to url \(fileUrl), context: " + error.localizedDescription)
+        }
+    }
+    
+    //MARK: - Read and save playlist
+    
+    func loadPlaylistFiles() {
+        
+        let fileManager = FileManager.default
+        
+        //Create waveform folder
+        if !fileManager.fileExists(atPath: self.playlistFilesFolderPathUrl.path, isDirectory: nil) {
+            do {
+                try fileManager.createDirectory(at: self.playlistFilesFolderPathUrl, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                Swift.print("WindowController: loadPlaylistFiles() Cannot copy bundle to url (" + self.fileUrl.path + ")!")
+            }
+        }
+        
+        //Read playlist file
+        let playlistFileURL = self.appSupportFolder.appendingPathComponent(FilePath.playlist).appendingPathExtension(FileExtension.data)
+        do {
+            let playlistData = try Data(contentsOf: playlistFileURL)
+            if let playlist = NSKeyedUnarchiver.unarchiveObject(with: playlistData) as? [[String: Any]] {
+                self.playlistFiles = playlist
+            }
+        } catch let error as NSError {
+            Swift.print("ViewController: loadPlaylistFiles() Error openning url \(playlistFileURL), context: " + error.localizedDescription)
+        }
+
+    }
+    
+    func addPlaylistFiles(_ urls: [URL]) {
+        var playlistFiles = self.playlistFiles
+        for url in urls {
+            let id = UUID().uuidString
+            let folderURL = url.deletingPathExtension().deletingLastPathComponent()
+            let name = url.fileName
+            let newFile: [String: Any] = ["url": url, "id": id, "folderURL": folderURL, "name": name]
+            let audioAnalyzer = AudioAnalyzer(url)
+            if let waveform = audioAnalyzer.computeChannelsData() {
+                let waveformData:Data = NSKeyedArchiver.archivedData(withRootObject: waveform)
+                let waveformURL = self.playlistFilesFolderPathUrl.appendingPathComponent(id).appendingPathExtension(FileExtension.waveform)
+                do {
+                    try waveformData.write(to: waveformURL)
+                    playlistFiles.append(newFile)
+                } catch let error as NSError {
+                    Swift.print("WindowController: savePlaylist() Error saving data to url \(String(describing: fileUrl)), context: " + error.localizedDescription)
+                }
+            } else {
+                Swift.print("WindowController: addPlaylistFiles() Error computing waveform from file \(url)")
+            }
+        }
+        self.setValue(playlistFiles, forKey: "playlistFiles")
+        self.savePlaylist()
+    }
+    
+    func removeSelectedFiles() {
+        if let playlistSelectedFile = self.playlistSelectedFile, let playlistFilesFolderPathUrl = self.playlistFilesFolderPathUrl {
+            let fileManager = FileManager.default
+            var playlistFiles = self.playlistFiles
+            let fileCount = playlistFiles.count
+            for n in stride(from: fileCount - 1, through: 0, by: -1) {
+                if playlistSelectedFile.contains(n) {
+                    let waveformURL = playlistFilesFolderPathUrl.appendingPathComponent(playlistFiles[n]["id"] as! String).appendingPathExtension(FileExtension.waveform)
+                    do {
+                        try fileManager.removeItem(at: waveformURL)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: removeSelectedFiles() Error deleting waveform to url \(String(describing: waveformURL)), context: " + error.localizedDescription)
+                    }
+                    playlistFiles.remove(at: n)
+                }
+            }
+            self.setValue(playlistFiles, forKey: "playlistFiles")
+        }
+    }
+    
+    func savePlaylist() {
+        let playlistData:Data = NSKeyedArchiver.archivedData(withRootObject: self.playlistFiles)
+        let fileUrl = self.appSupportFolder.appendingPathComponent(FilePath.playlist).appendingPathExtension(FileExtension.data)
+        do {
+            try playlistData.write(to: fileUrl)
+        } catch let error as NSError {
+            Swift.print("WindowController: savePlaylist() Error saving data to url \(fileUrl), context: " + error.localizedDescription)
         }
     }
     
