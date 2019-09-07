@@ -262,6 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				8AE191712315045C006CD958 /* MotusLabTool */,
+				8A2BB9B42323A97300FB6106 /* README.md */,
+				8A2BB9B52323A9A200FB6106 /* LICENSE.md */,
 				8AE191702315045C006CD958 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -302,8 +304,6 @@
 				8AE1917B2315045D006CD958 /* Info.plist */,
 				8AE1917C2315045D006CD958 /* MotusLabTool.entitlements */,
 				8AA84676231AC0FF00005A4D /* Resources */,
-				8A2BB9B42323A97300FB6106 /* README.md */,
-				8A2BB9B52323A9A200FB6106 /* LICENSE.md */,
 			);
 			path = MotusLabTool;
 			sourceTree = "<group>";
