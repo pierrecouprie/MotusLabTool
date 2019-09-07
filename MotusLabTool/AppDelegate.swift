@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         Swift.print("AppDelegate > applicationDidFinishLaunching")
         
-        //Initialize value transformers
+        // Initialize value transformers
         let timeValueTransformer = TimeValueTransformer()
         let timeValueTransformerName = NSValueTransformerName.init("TimeValueTransformer")
         ValueTransformer.setValueTransformer(timeValueTransformer, forName: timeValueTransformerName)
@@ -47,6 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     
+    /// Open window of preferences
     @IBAction func showPreferences(_ sender: Any) {
         if self.preferencesWindowController == nil {
             self.preferencesWindowController = NSStoryboard(name: "Preferences", bundle: nil).instantiateInitialController() as? NSWindowController

@@ -1420,10 +1420,10 @@
                                                                 </splitView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="Edr-tB-0lB" secondAttribute="trailing" id="5Qe-0y-gWG"/>
-                                                                <constraint firstAttribute="bottom" secondItem="Edr-tB-0lB" secondAttribute="bottom" id="Bo1-Ia-0zM"/>
-                                                                <constraint firstItem="Edr-tB-0lB" firstAttribute="leading" secondItem="3Rc-9z-HFh" secondAttribute="leading" id="KaA-sh-38f"/>
-                                                                <constraint firstItem="Edr-tB-0lB" firstAttribute="top" secondItem="3Rc-9z-HFh" secondAttribute="top" id="dNP-ju-Mdm"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Edr-tB-0lB" secondAttribute="bottom" id="863-uH-OYT"/>
+                                                                <constraint firstAttribute="trailing" secondItem="Edr-tB-0lB" secondAttribute="trailing" id="X3Y-bC-EJN"/>
+                                                                <constraint firstItem="Edr-tB-0lB" firstAttribute="top" secondItem="3Rc-9z-HFh" secondAttribute="top" id="lG9-fW-yfQ"/>
+                                                                <constraint firstItem="Edr-tB-0lB" firstAttribute="leading" secondItem="3Rc-9z-HFh" secondAttribute="leading" id="u4p-7K-hOm"/>
                                                             </constraints>
                                                         </customView>
                                                         <customView fixedFrame="YES" id="4Ok-FF-mLb" customClass="PlayFadersView" customModule="MotusLabTool" customModuleProvider="target">
@@ -1827,7 +1827,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nFy-xP-0C8">
-                                <rect key="frame" x="96" y="380" width="165" height="13"/>
+                                <rect key="frame" x="99" y="380" width="160" height="13"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="0.10000000000000001" maxValue="1" doubleValue="0.80000000000000004" tickMarkPosition="above" sliderType="linear" id="k0M-sC-1Hf"/>
                                 <connections>
@@ -1862,7 +1862,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UOd-iY-ogQ">
-                                <rect key="frame" x="96" y="358" width="165" height="13"/>
+                                <rect key="frame" x="99" y="358" width="162" height="13"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="0.01" maxValue="0.5" doubleValue="0.25" tickMarkPosition="above" sliderType="linear" id="g4O-QN-Hsx"/>
                                 <connections>

@@ -30,13 +30,14 @@ class MainSplitViewController: NSSplitViewController {
         super.viewDidLoad()
         Swift.print("MainSplitViewController > viewDidLoad")
         
-        //Fix acousmonium view item size properties
+        // Fix acousmonium view (at right) item size properties
         self.splitViewItems[1].minimumThickness = 200
         self.splitViewItems[1].maximumThickness = 600
         self.splitViewItems[1].isCollapsed = true
         
     }
     
+    /// Initialization of each contained views
     func initialization() {
         Swift.print("MainSplitViewController > initialization()")
         
@@ -44,6 +45,7 @@ class MainSplitViewController: NSSplitViewController {
         (self.splitViewItems[1].viewController as! AcousmoniumViewController).initialization()
         (self.splitViewItems[0].viewController as! LeftViewController).acousmoniumViewController = self.splitViewItems[1].viewController as? AcousmoniumViewController
         
+        // Add observer to show or hide (collapsed or not) acousmonium view in right
         if let window = self.view.window, let windowController = window.windowController {
             self.windowController = windowController as? WindowController
             let showAcousmoniumPath = \WindowController.showAcousmonium

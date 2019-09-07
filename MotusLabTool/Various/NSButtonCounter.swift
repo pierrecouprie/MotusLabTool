@@ -29,9 +29,7 @@ class NSButtonCounter: NSButton {
         }
     }
     
-    /**
-     Blocking user actions
-     */
+    /// Blocking user actions
     override func mouseDown(with theEvent: NSEvent) { }
     
 }

@@ -20,6 +20,7 @@
 
 import Foundation
 
+/// Extensions of files in bundle
 struct FileExtension {
     static let motuslab = "motuslab"
     static let event = "event"
@@ -30,6 +31,7 @@ struct FileExtension {
     static let waveform = "waveform"
 }
 
+/// Last item paths
 struct FilePath {
     static let motusLabFile = "motusLabFile"
     static let audio = "audio"
@@ -41,9 +43,10 @@ struct FilePath {
     static let waveforms = "waveforms"
 }
 
+/// Preference keys
 struct PreferenceKey {
     
-    //Recorder
+    // Recorder
     static let audioFormat = "audioFormat"
     static let consoleAColor = "consoleAColor"
     static let consoleBColor = "consoleBColor"
@@ -52,7 +55,7 @@ struct PreferenceKey {
     static let consoleBActivate = "consoleBActivate"
     static let switchPlayMode = "switchPlayMode"
     
-    //Colors
+    // Colors
     static let colorMode = "colorMode"
     static let color1 = "color1"
     static let color2 = "color2"
@@ -63,7 +66,7 @@ struct PreferenceKey {
     static let color7 = "color7"
     static let color8 = "color8"
     
-    //Player
+    // Player
     static let playTimelineWaveform = "playTimelineWaveform"
     static let playTimelineControllers = "playTimelineControllers"
     static let playTimelineMarkers = "playTimelineMarkers"
@@ -72,18 +75,19 @@ struct PreferenceKey {
     static let playMarkerColor = "playMarkerColor"
     static let playPlayheadColor = "playPlayheadColor"
     
-    //Acousmonium
+    // Acousmonium
     static let acousmoShowImage = "acousmoShowImage"
     static let acousmoOpacity = "acousmoOpacity"
     static let acousmoSize = "acousmoSize"
     static let acousmoShowTitles = "acousmoShowTitles"
     
-    //Other
+    // Other
     static let valueCorrection = "valueCorrection"
     static let usePlaylist = "usePlaylist"
     
 }
 
+/// Audio formats
 struct AudioFormat {
     static let aac = "m4a"
     static let pcm = "wav"
@@ -115,6 +119,7 @@ struct Mode {
     static let playing = "playing"
 }
 
+/// Correction of MIDI value for Yamaha 02r96
 func MIDIValueCorrection(_ value: Int, type: Int) -> Int {
     if type == 1 {
         switch value {

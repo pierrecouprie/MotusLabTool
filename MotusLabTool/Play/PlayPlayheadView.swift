@@ -22,11 +22,12 @@ import Cocoa
 
 let kPlayheadWidth: CGFloat = 2
 
+/// This view contains the playhead as a subview
 class PlayPlayheadView: NSView {
     
     @objc dynamic weak var leftViewController: LeftViewController! {
         didSet {
-            //Add Observer for timePosition
+            // Add Observer for timePosition
             let timePositionPath = \WindowController.timePosition
             self.timePositionObservation = self.leftViewController.windowController.observe(timePositionPath) { [unowned self] object, change in
                 self.updateTimePosition()
@@ -76,6 +77,7 @@ class PlayPlayheadView: NSView {
     
 }
 
+/// Playhead subview
 class PlayheadView: NSView {
     
     override init(frame frameRect: NSRect) {

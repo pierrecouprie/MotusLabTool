@@ -45,8 +45,9 @@ class PlayTimelineView: NSView {
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
         self.wantsLayer = true
+        self.layer?.backgroundColor = NSColor(named: "paneBackground")!.cgColor
         
-        //Create subviews
+        // Create subviews
         self.playWaveformView = PlayWaveformView(frame: self.bounds)
         self.addSubview(self.playWaveformView)
         self.playTimeRulerView = PlayTimeRulerView(frame: self.bounds)
@@ -58,10 +59,10 @@ class PlayTimelineView: NSView {
         self.playPlayheadView = PlayPlayheadView(frame: self.bounds)
         self.addSubview(self.playPlayheadView)
         
-        //hide/show views
+        // hide/show views
         self.updatePreferencesProperties()
         
-        //Add contraints to subviews
+        // Add contraints to subviews
         for subview in self.subviews {
             subview.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: subview, attribute: .left, multiplier: 1.0, constant:0.0).isActive = true
@@ -75,7 +76,7 @@ class PlayTimelineView: NSView {
             }
         }
         
-        //Add observer to detect preferences properties
+        // Add observer to detect preferences properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
     }
     
@@ -95,10 +96,6 @@ class PlayTimelineView: NSView {
         self.playMarkersView.setNeedsDisplay(self.playMarkersView.bounds)
         self.playPlayheadView.isHidden = !preferences.bool(forKey: PreferenceKey.playTimelinePlayhead)
         self.playPlayheadView.updateColor()
-    }
-    
-    override func draw(_ dirtyRect: NSRect) {
-        self.layer?.backgroundColor = NSColor(named: "paneBackground")!.cgColor
     }
     
     override func mouseDown(with event: NSEvent) {

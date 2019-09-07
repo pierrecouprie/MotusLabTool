@@ -38,10 +38,13 @@ class MidiSettingsViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Initialize list of MIDI device names (input and output)
+        // Names of devices are not used after (MIDIRecorder and MIDIPlayer only used index of devices)
         self.midiInputDevices = MIDIInputDevices()
         self.midiOutputDevices = MIDIOutputDevices()
         
-        //Observers
+        // Initialize observers (MIDI messages in input of each console)
+        // Use observer instead of binding because binding does not work (I don't know why)
         let ledPath = \MIDIParameters.led
         self.consoleAMidiMessageObservation = self.windowController.consoleAParameters.observe(ledPath) { [unowned self] object, change in
             self.consoleALed.doubleValue = self.windowController.consoleAParameters.led

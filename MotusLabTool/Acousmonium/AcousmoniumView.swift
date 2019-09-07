@@ -20,6 +20,12 @@
 
 import Cocoa
 
+/// The main view
+///
+/// AcousmoniumView -subview-> AcousmoniumContainer -subview-> AcousmoniumLoudspeakerView
+///                                     |
+///                            CALayer.contents = background image of acousmonium
+///
 class AcousmoniumView: NSView {
     
     weak var windowController: WindowController! {
@@ -32,7 +38,7 @@ class AcousmoniumView: NSView {
     
     @objc dynamic weak var acousmoniumFile: AcousmoniumFile!
     
-    var acousmoContainer: AcousmoContainer!
+    var acousmoniumContainer: AcousmoniumContainer!
     
     var acousmoniumFileObservation: NSKeyValueObservation?
     
@@ -48,21 +54,21 @@ class AcousmoniumView: NSView {
         let acousmoniumFilePath = \WindowController.selectedAcousmoniumFile
         self.acousmoniumFileObservation = self.windowController.observe(acousmoniumFilePath) { [unowned self] object, change in
             
-            //Delete previous acousmonium
-            if self.acousmoContainer != nil {
-                self.acousmoContainer.removeFromSuperview()
+            // Delete previous acousmonium
+            if self.acousmoniumContainer != nil {
+                self.acousmoniumContainer.removeFromSuperview()
             }
             
-            //Add new acousmonium
+            // Add new acousmonium
             if let acousmoniumFile = self.windowController.selectedAcousmoniumFile {
                 self.acousmoniumFile = acousmoniumFile
-                self.acousmoContainer = AcousmoContainer(frame: NSZeroRect, acousmoniumFile: self.acousmoniumFile, windowController: self.windowController)
-                self.addSubview(self.acousmoContainer)
-                self.acousmoContainer.updateSize()
-                self.acousmoContainer.loadImage()
-                self.acousmoContainer.loadLoudspeakers()
+                self.acousmoniumContainer = AcousmoniumContainer(frame: NSZeroRect, acousmoniumFile: self.acousmoniumFile, windowController: self.windowController)
+                self.addSubview(self.acousmoniumContainer)
+                self.acousmoniumContainer.updateSize()
+                self.acousmoniumContainer.loadImage()
+                self.acousmoniumContainer.loadLoudspeakers()
             } else {
-                self.acousmoContainer = nil
+                self.acousmoniumContainer = nil
             }
             
         }
@@ -70,7 +76,8 @@ class AcousmoniumView: NSView {
     
 }
 
-class AcousmoContainer: NSView {
+/// This view contains acousmonium
+class AcousmoniumContainer: NSView {
     
     weak var windowController: WindowController!
     @objc dynamic weak var acousmoniumFile: AcousmoniumFile!
@@ -92,7 +99,7 @@ class AcousmoContainer: NSView {
     var hpObservation: NSKeyValueObservation?
     var selectedLoudspeakerIndexObservation: NSKeyValueObservation?
     
-    var selectedLoudspeaker: (loudspeaker: AcousmoLoudspeakerView?, position: CGPoint) = (nil,NSZeroPoint)
+    var selectedLoudspeaker: (loudspeaker: AcousmoniumLoudspeakerView?, position: CGPoint) = (nil,NSZeroPoint)
     
     init(frame frameRect: NSRect, acousmoniumFile: AcousmoniumFile, windowController: WindowController) {
         super.init(frame: frameRect)
@@ -102,7 +109,7 @@ class AcousmoContainer: NSView {
         self.acousmoniumFile = acousmoniumFile
         self.windowController = windowController
         
-        //Observers
+        // Initialize observers
         let showImagePath = \AcousmoniumFile.showImage
         self.showImageObservation = self.acousmoniumFile.observe(showImagePath) { [unowned self] object, change in
             self.loadImage()
@@ -111,7 +118,7 @@ class AcousmoContainer: NSView {
         self.imageObservation = self.acousmoniumFile.observe(imagePath) { [unowned self] object, change in
             self.loadImage()
         }
-        let loudspeakersPath = \AcousmoniumFile.acousmoLoudspeakers
+        let loudspeakersPath = \AcousmoniumFile.acousmoniumLoudspeakers
         self.hpObservation = self.acousmoniumFile.observe(loudspeakersPath) { [unowned self] object, change in
             self.loadLoudspeakers()
         }
@@ -122,7 +129,7 @@ class AcousmoContainer: NSView {
             }
         }
         
-        //Add observer to detect preferences properties
+        // Add observer to detect preferences properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
         self.acousmoOpacity = UserDefaults.standard.float(forKey: PreferenceKey.acousmoOpacity)
         self.acousmoSize = UserDefaults.standard.float(forKey: PreferenceKey.acousmoSize)
@@ -152,10 +159,12 @@ class AcousmoContainer: NSView {
         }
     }
     
+    /// update the size of frame if superview is resized
     override func resize(withOldSuperviewSize oldSize: NSSize) {
         self.updateSize()
     }
     
+    /// Update size of view proportionaly to ratioSize
     func updateSize() {
         if let superview = self.superview {
             let superviewBounds = superview.bounds
@@ -169,6 +178,7 @@ class AcousmoContainer: NSView {
         }
     }
     
+    /// Load image in the contents of CALayer
     func loadImage() {
         if let acousmoniumFile = self.acousmoniumFile, let data = acousmoniumFile.image, let image = NSImage(data: data) {
             if acousmoniumFile.showImage {
@@ -181,19 +191,20 @@ class AcousmoContainer: NSView {
         self.layer?.contents = nil
     }
     
+    /// When list of loudspeaker is changed, this function update subviews
     func loadLoudspeakers() {
         
-        //Add missing loudspeakers
-        for loudspeaker in self.acousmoniumFile.acousmoLoudspeakers {
-            if self.subviews.filter( { ($0 as! AcousmoLoudspeakerView).acousmoLoudspeaker == loudspeaker } ).count == 0 {
+        // Add missing loudspeakers
+        for loudspeaker in self.acousmoniumFile.acousmoniumLoudspeakers {
+            if self.subviews.filter( { ($0 as! AcousmoniumLoudspeakerView).acousmoniumLoudspeaker == loudspeaker } ).count == 0 {
                 self.createLoudspeaker(loudspeaker)
             }
         }
         
-        //Delete removed loudspeaker
+        // Delete removed loudspeaker
         for subview in self.subviews {
-            if let acousmoLoudspeaker = (subview as! AcousmoLoudspeakerView).acousmoLoudspeaker {
-                if !self.acousmoniumFile.acousmoLoudspeakers.contains(acousmoLoudspeaker) {
+            if let acousmoniumLoudspeaker = (subview as! AcousmoniumLoudspeakerView).acousmoniumLoudspeaker {
+                if !self.acousmoniumFile.acousmoniumLoudspeakers.contains(acousmoniumLoudspeaker) {
                     subview.removeFromSuperview()
                     break
                 }
@@ -201,23 +212,24 @@ class AcousmoContainer: NSView {
         }
     }
     
-    func createLoudspeaker(_ acousmoLoudspeaker: AcousmoLoudspeaker) {
+    /// Create a new loudspeaker (subview)
+    func createLoudspeaker(_ acousmoniumLoudspeaker: AcousmoniumLoudspeaker) {
         let defaultFrame = CGRect(x: self.bounds.midX, y: self.bounds.midY, width: self.bounds.size.width * CGFloat(self.acousmoSize), height: self.bounds.size.height * CGFloat(self.acousmoSize))
-        let acousmoLoudspeakerView = AcousmoLoudspeakerView(frame: defaultFrame, acousmoLoudspeaker: acousmoLoudspeaker, windowController: self.windowController)
-        self.addSubview(acousmoLoudspeakerView)
-        acousmoLoudspeakerView.updateFrame()
-        acousmoLoudspeakerView.updateObserver()
+        let acousmoniumLoudspeakerView = AcousmoniumLoudspeakerView(frame: defaultFrame, acousmoniumLoudspeaker: acousmoniumLoudspeaker, windowController: self.windowController)
+        self.addSubview(acousmoniumLoudspeakerView)
+        acousmoniumLoudspeakerView.updateFrame()
+        acousmoniumLoudspeakerView.updateObserver()
     }
     
     func updateLoudspeakerOpacity() {
         for subview in self.subviews {
-            (subview as! AcousmoLoudspeakerView).updateAlpha()
+            (subview as! AcousmoniumLoudspeakerView).updateAlpha()
         }
     }
     
     func updateLoudspeakerSize() {
         for subview in self.subviews {
-            (subview as! AcousmoLoudspeakerView).updateFrame()
+            (subview as! AcousmoniumLoudspeakerView).updateFrame()
         }
     }
     
@@ -227,7 +239,7 @@ class AcousmoContainer: NSView {
         for subview in self.subviews {
             if NSPointInRect(mouse, subview.frame) {
                 let position = CGPoint(x: mouse.x - subview.frame.origin.x, y: mouse.y - subview.frame.origin.y)
-                self.selectedLoudspeaker = (subview as? AcousmoLoudspeakerView, position)
+                self.selectedLoudspeaker = (subview as? AcousmoniumLoudspeakerView, position)
             }
         }
     }
@@ -236,8 +248,8 @@ class AcousmoContainer: NSView {
         if let loudspeaker = self.selectedLoudspeaker.loudspeaker {
             let mouse = self.convert(event.locationInWindow, from: nil)
             let refSize = self.frame.size.width * CGFloat(self.acousmoSize)
-            loudspeaker.acousmoLoudspeaker.x = Float((mouse.x - self.selectedLoudspeaker.position.x  + (refSize / 2)) / self.frame.size.width)
-            loudspeaker.acousmoLoudspeaker.y = Float((mouse.y - self.selectedLoudspeaker.position.y + (refSize / 2)) / self.frame.size.height)
+            loudspeaker.acousmoniumLoudspeaker.x = Float((mouse.x - self.selectedLoudspeaker.position.x  + (refSize / 2)) / self.frame.size.width)
+            loudspeaker.acousmoniumLoudspeaker.y = Float((mouse.y - self.selectedLoudspeaker.position.y + (refSize / 2)) / self.frame.size.height)
             loudspeaker.updateFrame()
         }
     }
@@ -249,10 +261,11 @@ class AcousmoContainer: NSView {
     
 }
 
-class AcousmoLoudspeakerView: NSView {
+/// This view represent a loudspeaker
+class AcousmoniumLoudspeakerView: NSView {
     
     weak var windowController: WindowController!
-    weak var acousmoLoudspeaker: AcousmoLoudspeaker!
+    weak var acousmoniumLoudspeaker: AcousmoniumLoudspeaker!
     var value: Int = 0 {
         didSet {
             self.updateFrame()
@@ -266,21 +279,21 @@ class AcousmoLoudspeakerView: NSView {
     var valueObservation: NSKeyValueObservation?
     var editObservation: NSKeyValueObservation?
     
-    init(frame frameRect: NSRect, acousmoLoudspeaker: AcousmoLoudspeaker, windowController: WindowController) {
+    init(frame frameRect: NSRect, acousmoniumLoudspeaker: AcousmoniumLoudspeaker, windowController: WindowController) {
         super.init(frame: frameRect)
-        self.acousmoLoudspeaker = acousmoLoudspeaker
+        self.acousmoniumLoudspeaker = acousmoniumLoudspeaker
         self.windowController = windowController
         self.wantsLayer = true
         self.updateAlpha()
         
         //Observers
-        let consolePath = \AcousmoLoudspeaker.console
-        self.consoleObservation = self.acousmoLoudspeaker.observe(consolePath) { [unowned self] object, change in
+        let consolePath = \AcousmoniumLoudspeaker.console
+        self.consoleObservation = self.acousmoniumLoudspeaker.observe(consolePath) { [unowned self] object, change in
             self.updateObserver()
         }
         
-        let inputPath = \AcousmoLoudspeaker.input
-        self.inputObservation = self.acousmoLoudspeaker.observe(inputPath) { [unowned self] object, change in
+        let inputPath = \AcousmoniumLoudspeaker.input
+        self.inputObservation = self.acousmoniumLoudspeaker.observe(inputPath) { [unowned self] object, change in
             self.updateObserver()
         }
         
@@ -295,20 +308,20 @@ class AcousmoLoudspeakerView: NSView {
     }
     
     func updateObserver() {
-        if self.acousmoLoudspeaker.console == 0 {
+        if self.acousmoniumLoudspeaker.console == 0 {
             let consoleALastMidiMessagePath = \LeftViewController.consoleALastMidiMessage
             self.valueObservation = self.windowController.leftViewController.observe(consoleALastMidiMessagePath) { [unowned self] object, change in
                 if let message = self.windowController.leftViewController.consoleALastMidiMessage {
-                    if message.number == self.acousmoLoudspeaker.input && self.value != message.value {
+                    if message.number == self.acousmoniumLoudspeaker.input && self.value != message.value {
                         self.value = message.value
                     }
                 }
             }
-        } else if self.acousmoLoudspeaker.console == 1 {
+        } else if self.acousmoniumLoudspeaker.console == 1 {
             let consoleBLastMidiMessagePath = \LeftViewController.consoleBLastMidiMessage
             self.valueObservation = self.windowController.leftViewController.observe(consoleBLastMidiMessagePath) { [unowned self] object, change in
                 if let message = self.windowController.leftViewController.consoleBLastMidiMessage {
-                    if message.number == self.acousmoLoudspeaker.input && self.value != message.value {
+                    if message.number == self.acousmoniumLoudspeaker.input && self.value != message.value {
                         self.value = message.value
                     }
                 }
@@ -321,15 +334,15 @@ class AcousmoLoudspeakerView: NSView {
     }
     
     func updateAlpha() {
-        if let superview = self.superview, let acousmoContainer = superview as? AcousmoContainer {
+        if let superview = self.superview, let acousmoniumContainer = superview as? AcousmoniumContainer {
             if self.windowController.editAcousmonium {
-                self.alphaValue = CGFloat(acousmoContainer.acousmoOpacity)
+                self.alphaValue = CGFloat(acousmoniumContainer.acousmoOpacity)
             } else {
                 if self.value == 0 {
                     self.alphaValue = 0
                 } else {
-                    if self.alphaValue != CGFloat(acousmoContainer.acousmoOpacity) {
-                        self.alphaValue = CGFloat(acousmoContainer.acousmoOpacity)
+                    if self.alphaValue != CGFloat(acousmoniumContainer.acousmoOpacity) {
+                        self.alphaValue = CGFloat(acousmoniumContainer.acousmoOpacity)
                     }
                 }
             }
@@ -337,13 +350,13 @@ class AcousmoLoudspeakerView: NSView {
     }
     
     func updateFrame() {
-        if let superview = self.superview, let acousmoContainer = superview as? AcousmoContainer {
-            var refSize = superview.frame.size.width * CGFloat(acousmoContainer.acousmoSize)
+        if let superview = self.superview, let acousmoniumContainer = superview as? AcousmoniumContainer {
+            var refSize = superview.frame.size.width * CGFloat(acousmoniumContainer.acousmoSize)
             if !self.windowController.editAcousmonium {
-                refSize = superview.frame.size.width * CGFloat(acousmoContainer.acousmoSize * (Float(value) / 128))
+                refSize = superview.frame.size.width * CGFloat(acousmoniumContainer.acousmoSize * (Float(value) / 128))
             }
-            var x = superview.frame.size.width * CGFloat(self.acousmoLoudspeaker.x)
-            var y = superview.frame.size.height * CGFloat(self.acousmoLoudspeaker.y)
+            var x = superview.frame.size.width * CGFloat(self.acousmoniumLoudspeaker.x)
+            var y = superview.frame.size.height * CGFloat(self.acousmoniumLoudspeaker.y)
             x -= (refSize / 2)
             y -= (refSize / 2)
             let frame = CGRect(x: x, y: y, width: refSize, height: refSize)
@@ -353,13 +366,13 @@ class AcousmoLoudspeakerView: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        if let context = NSGraphicsContext.current?.cgContext, let superview = self.superview, let acousmoContainer = superview as? AcousmoContainer, let windowController = self.windowController {
+        if let context = NSGraphicsContext.current?.cgContext, let superview = self.superview, let acousmoniumContainer = superview as? AcousmoniumContainer, let windowController = self.windowController {
             
             context.saveGState()
-            var loudspeakerColor = self.windowController.leftViewController.controllerColor(from: self.acousmoLoudspeaker.input, console: self.acousmoLoudspeaker.console)
+            var loudspeakerColor = self.windowController.leftViewController.controllerColor(from: self.acousmoniumLoudspeaker.input, console: self.acousmoniumLoudspeaker.console)
             if windowController.editAcousmonium {
-                if let fistIndex = acousmoContainer.acousmoniumFile.selectedLoudspeakerIndex.first {
-                    let loudspeaker = acousmoContainer.subviews[fistIndex]
+                if let fistIndex = acousmoniumContainer.acousmoniumFile.selectedLoudspeakerIndex.first {
+                    let loudspeaker = acousmoniumContainer.subviews[fistIndex]
                     if loudspeaker != self  {
                         loudspeakerColor = NSColor.lightGray
                     }

@@ -54,7 +54,7 @@ class PlayFadersView: NSView {
         
         Swift.print("PlayFadersView > addObservers()")
         
-        //Add observer to detect last MIDI message in each console
+        // Add observer to detect last MIDI message in each console
         let consoleALastMidiMessagePath = \LeftViewController.consoleALastMidiMessage
         self.consoleALastMidiMessageObservation = self.windowController.leftViewController.observe(consoleALastMidiMessagePath) { [unowned self] object, change in
             if let message = self.windowController.leftViewController.consoleALastMidiMessage {
@@ -92,7 +92,7 @@ class PlayFadersView: NSView {
             
             var faderX: CGFloat = 0
             
-            //Draw faders of console A
+            // Draw faders of console A
             for (index,fader) in consoleAParameters.filterControllers.enumerated() {
                 let value = CGFloat(MIDIValueCorrection(self.consoleALastValues[index], type: self.midiValueCorrection))
                 if fader {
@@ -111,7 +111,7 @@ class PlayFadersView: NSView {
                 }
             }
             
-            //Draw faders of console B
+            // Draw faders of console B
             for (index,fader) in consoleBParameters.filterControllers.enumerated() {
                 let value = CGFloat(MIDIValueCorrection(self.consoleBLastValues[index], type: self.midiValueCorrection))
                 if fader {
@@ -133,24 +133,5 @@ class PlayFadersView: NSView {
         }
         
     }
-    
-    /*func controllerColor(from number: Int, console: Int) -> NSColor {
-        if let windowController = self.windowController, let leftViewController = windowController.leftViewController {
-            for controllerItem in leftViewController.controllersList {
-                if controllerItem.ctl == number && controllerItem.console == console {
-                    if controllerItem.enable {
-                        if console == 0 {
-                            return windowController.consoleAControllerColors[number]!
-                        } else {
-                            return windowController.consoleBControllerColors[number]!
-                        }
-                    }
-                    break
-                }
-            }
-        }
-        
-        return NSColor.lightGray
-    }*/
     
 }

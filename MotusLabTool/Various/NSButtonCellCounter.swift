@@ -21,30 +21,21 @@
 import Cocoa
 
 class NSButtonCellCounter: NSButtonCell {
-    
-    /*
-     image = NSRect: {{279, 8.5}, {14, 14}}
-     texte = NSRect: {{9, 7}, {266, 17}}
-     */
-    
+
     var counterValue: Float = 0
     
-    /**
-     Formating the string to draw from :
-     - counterValue
-     - filename
-     */
+    
+    /// Formating the string to draw from :
+    /// - counterValue
+    /// - filename
     func createCounterText() -> String {
         let counterStr: String = self.counterValue.floatToTime()
         return counterStr
     }
     
-    /**
-     Drawing the string and images
-     */
+    /// Drawing the string label
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         
-        //I draw the Counter
         let counterStr: NSString = self.createCounterText() as NSString
         let font = NSFont.systemFont(ofSize: 12)
         

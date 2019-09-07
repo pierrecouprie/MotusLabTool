@@ -37,6 +37,9 @@ extension NSView {
 
 extension CALayer {
     
+    /// Add contraints in a CALayer to fit to its superlayer
+    ///
+    /// - Parameter superlayer: The superlayer
     func addInLayerContraints(superlayer: CALayer) {
         superlayer.name = "superlayer"
         let leftConstraint = CAConstraint(attribute: .minX,

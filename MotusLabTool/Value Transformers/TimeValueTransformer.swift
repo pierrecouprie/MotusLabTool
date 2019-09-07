@@ -20,6 +20,9 @@
 
 import Foundation
 
+
+
+/// Convert Float time value (eg 0) to String time value (eg "00:00.000")
 @objc(TimeValueTransformer) class TimeValueTransformer: ValueTransformer {
     
     override class func transformedValueClass() -> AnyClass {

@@ -30,30 +30,25 @@ class PlayTimeRulerView: NSView {
         }
     }
     
-    /**
-     Draw a time ruler vwith primary and secondary divisions
-     - parameter context: CGContext
-     - parameter bounds: The bounds of view
-     - parameter visibleRect: Draw only this frame
-     - parameter duration: Main duration
-     - parameter bgColor: Background color
-     - parameter fgColor: Color of graduations and texts
-     - parameter targetX: Start position of visibleRect (only used when export)
-     */
+    /// Draw a time ruler vwith primary and secondary divisions
+    /// - parameter context: CGContext
+    /// - parameter bounds: The bounds of view
+    /// - parameter visibleRect: Draw only this frame
+    /// - parameter targetX: Start position of visibleRect (only used when export)
     func drawRuler(context: CGContext, bounds: CGRect, visibleRect: CGRect, targetX: CGFloat = 0) {
         
-        //Calcul de l'espace temporel minimal
+        // Compute minimal space
         let minSpace: CGFloat = 80
         let minSpaceString = self.stringSize("00:00:000")
         let step: CGFloat = (minSpace * CGFloat(self.duration)) / bounds.width
         
-        //variables de la vue
+        // Define variables and constants
         var startX: CGFloat = visibleRect.minX
         let endX: CGFloat = visibleRect.maxX
         let width: CGFloat = bounds.size.width
         let height: CGFloat = bounds.size.height
         
-        //Variables d'affichage
+        // Define the display variables
         let smallHeight = bounds.size.height * 0.3
         let largeHeight = bounds.size.height * 0.7
         let textY = bounds.size.height * 0.1
@@ -63,59 +58,54 @@ class PlayTimeRulerView: NSView {
         var smallTimeStep: CGFloat = 1.0
         let displayTenth: Bool = false
         
-        /*if step < 0.1 { //Affichage par 1 èmes -> trop lent!
-         timeStep = 0.1
-         smallTimeStep = 0.01
-         //displayTenth = true
-         } else*/
-        if step < 0.5 { //Affichage par 5 èmes
+        if step < 0.5 { // 5th of seconds
             timeStep = 1.0
             smallTimeStep = 0.1
-        } else if step < 1 { //Affichage par 1 seconde
+        } else if step < 1 { // Seconds
             timeStep = 1.0
             smallTimeStep = 0.5
-        } else if step < 5 { //Affichage par 5 secondes
+        } else if step < 5 { // 5 seconds
             timeStep = 5.0
             smallTimeStep = 1.0
-        } else if step < 10 { //Affichage par 10 secondes
+        } else if step < 10 { // 10 seconds
             timeStep = 10.0
             smallTimeStep = 1.0
-        } else if step < 15 { //Affichage par 15 secondes
+        } else if step < 15 { // 15 seconds
             timeStep = 15.0
             smallTimeStep = 1.0
-        } else if step < 30 { //Affichage par 30 secondes
+        } else if step < 30 { // 30 seconds
             timeStep = 30.0
             smallTimeStep = 15.0
-        } else if step < 60 { //Affichage par minutes
+        } else if step < 60 { // Minutes
             timeStep = 60.0
             smallTimeStep = 15.0
-        } else if step < 300 { //Affichage par 5 minutes
+        } else if step < 300 { // 5 minutes
             timeStep = 300.0
             smallTimeStep = 60.0
-        } else if step < 600 { //Affichage par 10 minutes
+        } else if step < 600 { // 10 minutes
             timeStep = 600.0
             smallTimeStep = 60.0
-        } else if step < 1800 { //Affichage par 30 minutes
+        } else if step < 1800 { // 30 minutes
             timeStep = 1800.0
             smallTimeStep = 900.0
-        } else { //Affichage par heures
+        } else { // Hours
             timeStep = 3600.0
             smallTimeStep = 1800.0
         }
         
-        //Dessin
+        // Drawing
         context.saveGState()
         
-        //I draw background
+        // Draw background
         context.setFillColor(NSColor(named: "paneBackground")!.cgColor)
         context.addRect(bounds)
         context.drawPath(using: CGPathDrawingMode.fill)
         
-        //Propriétés des traits
+        // properties of line
         context.setStrokeColor(NSColor(named: "textForeground")!.cgColor)
         context.setLineWidth(1)
         
-        //To draw one primary graduation before the visibility (used when export)
+        // To draw one primary graduation before the visibility
         let stepX: CGFloat = (CGFloat(timeStep) * width) / CGFloat(self.duration)
         startX -= stepX
         
@@ -126,15 +116,15 @@ class PlayTimeRulerView: NSView {
             
             if case startX..<endX = x {
                 
-                //Dessin des graduations principales
-                let string = self.doubleToTimeRuler(CGFloat(unit), displayTenth: displayTenth)
+                // Main graduation drawing
+                let string = self.floatToTimeRuler(CGFloat(unit), displayTenth: displayTenth)
                 self.drawLine(context, x: x - targetX, y: height, size: largeHeight)
                 
                 if x + minSpaceString.width + 5 <= endX {
                     self.drawText(context, x: x + textX - targetX, y: textY, string: string, color: NSColor(named: "textForeground")!)
                 }
                 
-                //Dessin des graduations secondaires
+                // Secondary graduation drawing
                 var smallUnit: CGFloat = unit+smallTimeStep
                 repeat {
                     let x: CGFloat = (CGFloat(smallUnit) * width) / CGFloat(self.duration)
@@ -152,7 +142,8 @@ class PlayTimeRulerView: NSView {
         
     }
     
-    func doubleToTimeRuler(_ value: CGFloat, displayTenth: Bool) -> String {
+    /// Convert float value of time to String
+    func floatToTimeRuler(_ value: CGFloat, displayTenth: Bool) -> String {
         
         let seconds: Int = Int(floor(value).truncatingRemainder(dividingBy: 60))
         let minutes: Int = Int((floor(value)/60).truncatingRemainder(dividingBy: 60))
@@ -196,6 +187,7 @@ class PlayTimeRulerView: NSView {
         CTLineDraw(line, context)
     }
     
+    /// Compute string size
     func stringSize(_ string: String) -> CGSize {
         
         let font = NSFont.systemFont(ofSize: 11)

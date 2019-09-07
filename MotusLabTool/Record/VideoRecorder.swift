@@ -94,7 +94,7 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         super.init()
         self.leftViewController = leftViewController
         
-        //Configure capture session
+        // Configure capture session
         self.captureSession.sessionPreset = .high
     }
     
@@ -132,10 +132,10 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             do {
                 let avCaptureInput = try AVCaptureDeviceInput(device: device)
                 
-                //Clean previous input, output and connexions
+                // Clean previous input, output and connexions
                 self.removeInputConnection(deviceId)
                 
-                //Add input
+                // Add input
                 let videoPort = self.videoPort(avCaptureDeviceInput: avCaptureInput)
                 if self.captureSession.canAddInput(avCaptureInput) {
                     self.captureSession.addInputWithNoConnections(avCaptureInput)
@@ -143,7 +143,7 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                     Swift.print("VideoRecorder: initializeVideoCamera Cannot add input (" + deviceId + ")!")
                 }
                 
-                //Add output
+                // Add output
                 let captureDataOutput = AVCaptureVideoDataOutput()
                 captureDataOutput.setSampleBufferDelegate(self, queue: self.videoQueue)
                 if self.captureSession.canAddOutput(captureDataOutput) {
@@ -152,7 +152,7 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                     Swift.print("VideoRecorder: initializeVideoTrack Cannot add output!")
                 }
                 
-                //Add connexion
+                // Add connexion
                 let outputConnexion = AVCaptureConnection(inputPorts: videoPort, output: captureDataOutput)
                 if self.captureSession.canAddConnection(outputConnexion) {
                     self.captureSession.addConnection(outputConnexion)
@@ -160,15 +160,15 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                     Swift.print("VideoRecorder: initializeVideoCamera Cannot add connexion!")
                 }
                 
-                //Save references for the recording
+                // Save references for the recording
                 self.cameras[deviceId] = (name: name, connection: outputConnexion, captureInput: avCaptureInput, captureOutput: outputConnexion, assetWritter: nil, assetWritterInput: nil)
                 
-                //Start capture session if it's not
+                // Start capture session if it's not
                 if !self.captureSession.isRunning {
                     self.captureSession.startRunning()
                 }
                 
-                //Create preview layer for the rendering
+                // Create preview layer for the rendering
                 let previewLayer = AVCaptureVideoPreviewLayer(sessionWithNoConnection: self.captureSession)
                 previewView.wantsLayer = true
                 if let layer = previewView.layer {
@@ -248,7 +248,7 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
         
-        //Recording
+        // Recording
         for camera in self.cameras.enumerated() {
             
             let properties = camera.element.value
@@ -281,6 +281,7 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         
     }
     
+    /// Finalize video files when stoping recording
     func stopRecording() {
         self.videoQueue.async {
             for camera in self.cameras.enumerated() {

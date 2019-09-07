@@ -33,6 +33,8 @@ class MIDIDevice: NSObject {
     }
 }
 
+
+/// Initialize a list of input MIDI devices
 func MIDIInputDevices() -> [MIDIDevice] {
     Swift.print("Initialize MIDIInputDevices")
     
@@ -49,6 +51,7 @@ func MIDIInputDevices() -> [MIDIDevice] {
     return inputDevices
 }
 
+/// Initialize a list of output MIDI devices
 func MIDIOutputDevices() -> [MIDIDevice] {
     Swift.print("Initialize MIDIOutputDevices")
     
@@ -63,6 +66,7 @@ func MIDIOutputDevices() -> [MIDIDevice] {
     return outputDevices
 }
 
+/// Get the name of device in String
 func MIDIDisplayName(midiobject: MIDIObjectRef) -> String {
     var name : Unmanaged<CFString>?
     let err = MIDIObjectGetStringProperty(midiobject, kMIDIPropertyDisplayName, &name)
@@ -95,7 +99,6 @@ class MIDIParameters: NSObject {
     var filter = "1-128" {
         didSet {
             self.updateControllers()
-            self.windowController.updateControllerView()
             if self.console == 0 {
                 self.preferences.set(self.filter, forKey: PreferenceKey.consoleAMapping)
             } else {
@@ -172,7 +175,6 @@ class MIDIParameters: NSObject {
      "1 3 4 5 7-9 13 14 14 15 16 17 17" -> "1 3-5 7-9 13-17"
      "1 3 4 5 7-12 13 14 14 15 16 17 17" -> "1 3-5 7-17"
      */
-    
     func cleanMidiControlList() -> String {
         
         //Get a list of only activated controllers

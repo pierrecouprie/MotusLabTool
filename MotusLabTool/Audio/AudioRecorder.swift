@@ -52,6 +52,8 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
         var fileUrl: URL!
         let sessionId = self.leftViewController.currentSession.id
         
+        //Initialize audio recorder
+        
         if self.audioFormat == AudioFormat.aac {
             settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
                         AVSampleRateKey: 44100,

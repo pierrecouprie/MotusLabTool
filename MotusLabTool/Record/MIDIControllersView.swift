@@ -39,7 +39,7 @@ class MIDIControllersView: NSView {
         self.wantsLayer = true
         self.layer?.backgroundColor = NSColor(named: "paneBackground")?.cgColor
         
-        //Add observer to detect preferences properties
+        // Add observer to detect preferences properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
         
         self.userDefaultsDidChange(Notification(name: UserDefaults.didChangeNotification))
@@ -66,7 +66,7 @@ class MIDIControllersView: NSView {
             
             var faderX: CGFloat = 0
             
-            //Draw faders of console A
+            // Draw faders of console A
             for (index,fader) in self.consoleAParameters.filterControllers.enumerated() {
                 let value = CGFloat(MIDIValueCorrection(self.consoleAParameters.controllerValues[index], type: self.midiValueCorrection))
                 if fader {
@@ -84,7 +84,7 @@ class MIDIControllersView: NSView {
                 }
             }
             
-            //Draw faders of console B
+            // Draw faders of console B
             for (index,fader) in self.consoleBParameters.filterControllers.enumerated() {
                 let value = CGFloat(MIDIValueCorrection(self.consoleBParameters.controllerValues[index], type: self.midiValueCorrection))
                 if fader {

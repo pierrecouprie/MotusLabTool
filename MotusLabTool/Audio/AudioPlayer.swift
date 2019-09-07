@@ -55,8 +55,8 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         self.leftViewController.endOfPlayback()
     }
     
+    /// Initialize audio player from URL of sound file
     func createAudioPlayer(_ url: URL) {
-        
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: url)
             self.audioPlayer.delegate = self

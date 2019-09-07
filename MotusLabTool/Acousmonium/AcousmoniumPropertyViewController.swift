@@ -26,6 +26,7 @@ class AcousmoniumPropertyViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         Swift.print("AcousmoniumPropertyViewController > viewDidLoad")
     }
     
@@ -67,7 +68,7 @@ class AcousmoniumPropertyViewController: NSViewController {
         }
     }
     
-    //MARK: - HP list
+    //MARK: - Loudspeaker list
     
     @IBAction func addLoudspeaker(_ sender: Any) {
         if let selectedAcousmoniumFile = self.windowController.selectedAcousmoniumFile {
@@ -79,8 +80,8 @@ class AcousmoniumPropertyViewController: NSViewController {
     @IBAction func removeLoudspeaker(_ sender: Any) {
         let index = self.tableView.selectedRow
         if let selectedAcousmoniumFile = self.windowController.selectedAcousmoniumFile {
-            if index > -1 && index < selectedAcousmoniumFile.acousmoLoudspeakers.count {
-                let loudspeaker = selectedAcousmoniumFile.acousmoLoudspeakers[index]
+            if index > -1 && index < selectedAcousmoniumFile.acousmoniumLoudspeakers.count {
+                let loudspeaker = selectedAcousmoniumFile.acousmoniumLoudspeakers[index]
                 selectedAcousmoniumFile.removeLoudspeaker(loudspeaker)
             }
         }

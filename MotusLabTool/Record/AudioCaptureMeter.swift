@@ -30,7 +30,10 @@ class AudioCaptureMeter: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate 
     override init() {
         super.init()
         
+        // Open session
         self.session = AVCaptureSession()
+        
+        // Create connection from default audio input selected in sound system preferences to preview
         if let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio) {
             do {
                 let audioInput = try AVCaptureDeviceInput(device: audioDevice)
@@ -49,6 +52,7 @@ class AudioCaptureMeter: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate 
         }
     }
     
+    // Capture frame of audio input
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         if connection.audioChannels.count > 1 {
             let channel1: AVCaptureAudioChannel = connection.audioChannels[0]

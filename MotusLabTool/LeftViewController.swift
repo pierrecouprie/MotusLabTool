@@ -402,7 +402,7 @@ class LeftViewController: NSViewController {
         
         Swift.print("LeftViewController > loadSession")
     
-        guard self.windowController != nil && self.windowController.motusLabFile != nil && self.selectedSession != nil && self.playTimelineView != nil && self.windowController.motusLabFile.sessions.count > 0 else {
+        guard self.playTimelineView != nil && self.windowController.motusLabFile.sessions.count > 0 else {
             return
         }
         if let firstIndex = self.selectedSession.first {

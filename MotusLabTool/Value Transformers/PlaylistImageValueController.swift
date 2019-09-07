@@ -20,6 +20,7 @@
 
 import Cocoa
 
+/// Used in Playlist toolbar button
 @objc(PlaylistImageValueController) class PlaylistImageValueController: ValueTransformer {
     
     override class func transformedValueClass() -> AnyClass {

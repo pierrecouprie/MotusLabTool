@@ -27,11 +27,15 @@ class AcousmoniumViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         Swift.print("AcousmoniumViewController > viewDidLoad")
+        
     }
     
     func initialization() {
+        
         Swift.print("AcousmoniumViewController > initialization()")
+        
         if let window = self.view.window, let windowController = window.windowController {
             self.windowController = windowController as? WindowController
             self.acousmoniumView.windowController = self.windowController

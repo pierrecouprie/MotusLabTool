@@ -39,13 +39,13 @@ class AcousmoniumFile: NSObject, NSCoding {
             self.save()
         }
     }
-    dynamic var acousmoLoudspeakers: [AcousmoLoudspeaker] = []
+    dynamic var acousmoniumLoudspeakers: [AcousmoniumLoudspeaker] = []
     dynamic var selectedLoudspeakerIndex = IndexSet()
     dynamic var toSave: Int = 0
     
     override var description: String {
         var output = "AcousmoniumFile id: " + self.id + ", name: " + self.name + ", version: " + self.version + ", showImage: \(self.showImage)"
-        for loudspeaker in self.acousmoLoudspeakers {
+        for loudspeaker in self.acousmoniumLoudspeakers {
             output += "\r   " + loudspeaker.description
         }
         return output
@@ -56,7 +56,7 @@ class AcousmoniumFile: NSObject, NSCoding {
         static let nameKey = "name"
         static let versionKey = "version"
         static let imageKey = "image"
-        static let acousmoLoudspeakersKey = "acousmoLoudspeakers"
+        static let acousmoniumLoudspeakersKey = "acousmoniumLoudspeakers"
     }
     
     required override init() {
@@ -76,7 +76,7 @@ class AcousmoniumFile: NSObject, NSCoding {
         self.name = aDecoder.decodeObject(forKey: PropertyKey.nameKey) as? String
         self.version = aDecoder.decodeObject(forKey: PropertyKey.versionKey) as? String
         self.image = aDecoder.decodeObject(forKey: PropertyKey.imageKey) as? Data
-        self.acousmoLoudspeakers = aDecoder.decodeObject(forKey: PropertyKey.acousmoLoudspeakersKey) as! [AcousmoLoudspeaker]
+        self.acousmoniumLoudspeakers = aDecoder.decodeObject(forKey: PropertyKey.acousmoniumLoudspeakersKey) as! [AcousmoniumLoudspeaker]
     }
     
     func encode(with aCoder: NSCoder) {
@@ -84,7 +84,7 @@ class AcousmoniumFile: NSObject, NSCoding {
         aCoder.encode(self.name, forKey: PropertyKey.nameKey)
         aCoder.encode(self.version, forKey: PropertyKey.versionKey)
         aCoder.encode(self.image, forKey: PropertyKey.imageKey)
-        aCoder.encode(self.acousmoLoudspeakers, forKey: PropertyKey.acousmoLoudspeakersKey)
+        aCoder.encode(self.acousmoniumLoudspeakers, forKey: PropertyKey.acousmoniumLoudspeakersKey)
     }
     
     deinit {
@@ -94,29 +94,30 @@ class AcousmoniumFile: NSObject, NSCoding {
     func createLoudspeaker() {
         var previousConsole: Int = 0
         var previousInput = 0
-        if self.acousmoLoudspeakers.count > 0 {
-            previousConsole = self.acousmoLoudspeakers.last!.console
-            previousInput = self.acousmoLoudspeakers.last!.input
+        if self.acousmoniumLoudspeakers.count > 0 {
+            previousConsole = self.acousmoniumLoudspeakers.last!.console
+            previousInput = self.acousmoniumLoudspeakers.last!.input
         }
         previousInput += 1
-        var acousmoLoudspeakers = self.acousmoLoudspeakers
-        let newLoudspeaker = AcousmoLoudspeaker(title: "Untitled", input: previousInput, console: previousConsole)
+        var acousmoLoudspeakers = self.acousmoniumLoudspeakers
+        let newLoudspeaker = AcousmoniumLoudspeaker(title: "Untitled", input: previousInput, console: previousConsole)
         acousmoLoudspeakers.append(newLoudspeaker)
         newLoudspeaker.acousmoniumFile = self
-        self.setValue(acousmoLoudspeakers, forKey: PropertyKey.acousmoLoudspeakersKey)
+        self.setValue(acousmoLoudspeakers, forKey: PropertyKey.acousmoniumLoudspeakersKey)
         self.save()
     }
     
-    func removeLoudspeaker(_ acousmoLoudspeaker: AcousmoLoudspeaker) {
-        var acousmoLoudspeakers = self.acousmoLoudspeakers
+    func removeLoudspeaker(_ acousmoLoudspeaker: AcousmoniumLoudspeaker) {
+        var acousmoniumLoudspeakers = self.acousmoniumLoudspeakers
         
-        for (index, loudspeaker) in acousmoLoudspeakers.enumerated() {
+        for (index, loudspeaker) in acousmoniumLoudspeakers.enumerated() {
             if loudspeaker == acousmoLoudspeaker {
-                acousmoLoudspeakers.remove(at: index)
+                acousmoniumLoudspeakers.remove(at: index)
                 break
             }
         }
-        self.setValue(acousmoLoudspeakers, forKey: PropertyKey.acousmoLoudspeakersKey)
+        self.setValue(acousmoniumLoudspeakers, forKey: PropertyKey.acousmoniumLoudspeakersKey)
+        self.save()
     }
     
     func save() {
@@ -126,7 +127,7 @@ class AcousmoniumFile: NSObject, NSCoding {
 }
 
 @objcMembers
-class AcousmoLoudspeaker: NSObject, NSCoding {
+class AcousmoniumLoudspeaker: NSObject, NSCoding {
     var title: String! {
         didSet {
             self.acousmoniumFile.save()

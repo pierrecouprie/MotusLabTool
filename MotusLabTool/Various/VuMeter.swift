@@ -25,9 +25,10 @@ class VuMeter: NSView {
     var channels: Int = 2
     let min: Float = 0
     let max: Float = 100
-    let warning: Float = 98
-    let critical: Float = 99
+    let warning: Float = 98 // Orange limit
+    let critical: Float = 99 // Red limit
     
+    // Array of channel values
     var levels: [Float] = [0,0] {
         didSet {
             self.updateLevels()

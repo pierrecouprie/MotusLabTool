@@ -80,7 +80,7 @@ class MIDIRecorder: NSObject {
             Swift.print("MIDIRecorder: init Error creating client : \(status)")
         }
         
-        //Open inputPort
+        // Open input port
         let readBlock: MIDIReadBlock = self.midiReadBlock
         if status == noErr {
             status = MIDIInputPortCreateWithBlock(self.midiClient, "com.motuslabrecorder.MIDIInputPort" as CFString, &self.inputPort, readBlock)
@@ -89,10 +89,14 @@ class MIDIRecorder: NSObject {
         self.initializeSourceConnection(index: 0, disconnect: false)
     }
     
+    
+    /// Change input device
+    /// - Parameter index: The index of the new device
+    /// - Parameter disconnect: Disconnect or not the previous input device
     func initializeSourceConnection(index: Int, disconnect: Bool = true) {
         let sourceCount = MIDIGetNumberOfSources()
         
-        //Disconnect sources
+        // Disconnect old input device
         if disconnect {
             for srcIndex in 0..<sourceCount {
                 let midiEndPoint = MIDIGetSource(srcIndex)
@@ -104,7 +108,7 @@ class MIDIRecorder: NSObject {
             }
         }
         
-        //Connect new sources
+        // Connect new input device
         for srcIndex in 0..<sourceCount {
             if index == 0 || index == srcIndex + 1 {
                 //Swift.print("connect = \(srcIndex)")
@@ -122,9 +126,10 @@ class MIDIRecorder: NSObject {
     }
     
     func midiNotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
-        print("\ngot a MIDINotification!")
+        print("MIDIRecorder > midiNotifyBlock() Received a MIDINotification!")
     }
     
+    /// Receive MIDI packet
     func midiReadBlock(packetList: UnsafePointer<MIDIPacketList>, srcConnRefCon: UnsafeMutableRawPointer?) -> Swift.Void {
         let packets: MIDIPacketList = packetList.pointee
         for packet in packets.makeIterator() {
@@ -139,13 +144,13 @@ class MIDIRecorder: NSObject {
         }
     }
     
-    //var timerRun = false
     @objc func midiIntputOff() {
         DispatchQueue.main.async {
             self.consoleParameters.setValue(0.0, forKey: "led")
         }
     }
     
+    /// Parse MIDI packet
     func midiParser(_ packet: [UInt8]) {
         
         guard self.consoleParameters.enable else {
@@ -156,17 +161,17 @@ class MIDIRecorder: NSObject {
         let number = Int(packet[1])
         let value = Int(packet[2])
         let rawStatus = status & 0xF0 // without channel
-        let channel = Int(status & 0x0F) + 1 //+ 1 because channels are numeroted 0-15
+        let channel = Int(status & 0x0F) + 1 // + 1 because channels are numeroted 0-15
         
         var newEvent: MIDIControllerEvent!
-        if rawStatus == 0xB0 && self.channelValidation(channel) && (self.consoleParameters.filterControllers[number] || self.consoleParameters.learn == .on || self.consoleParameters.learnAll == .on) { //Only controller messages
+        if rawStatus == 0xB0 && self.channelValidation(channel) && (self.consoleParameters.filterControllers[number] || self.consoleParameters.learn == .on || self.consoleParameters.learnAll == .on) { // Only controller messages
             newEvent = MIDIControllerEvent(date: self.leftViewController.windowController.timePosition,
                                            console: self.consoleParameters.console,
                                            channel: channel,
                                            number: number,
                                            value: value)
             
-            //used for acousmonium representation
+            // Used for acousmonium representation
             DispatchQueue.main.async {
                 if self.leftViewController.windowController.displayedView == 1 {
                     if self.consoleParameters.console == 0 {
@@ -181,26 +186,29 @@ class MIDIRecorder: NSObject {
         }
         
         if let event = newEvent {
-            //Display led and message
+            
+            // Display led and message
             self.consoleParameters.midiControllerEvent = event
             self.consoleParameters.controllerValues[event.number] = event.value
             
+            //Switch on led and display message
             DispatchQueue.main.async {
                 self.leftViewController.updateControllerView()
                 self.consoleParameters.message = event.feedback
                 self.consoleParameters.setValue(1, forKey: "led")
             }
             
+            //Switch off led after 0.25 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: {
                 self.consoleParameters.setValue(0.0, forKey: "led")
             })
             
-            //Record event
+            // Record event
             if self.leftViewController.windowController.currentMode == Mode.recording {
                 self.leftViewController.windowController.midiControllerEvents.append(event)
             }
             
-            //Add event to current values
+            // Add event to current values for each controllers (used for next recording)
             let lastMessage = self.waitingMIDIControllerEvents.filter( { $0.console == event.console && $0.number == event.number } )
             let eventCopy = event.copyWithoutDate()
             eventCopy.date = 0
@@ -216,13 +224,14 @@ class MIDIRecorder: NSObject {
         }
     }
     
-    ///Add events recorded for each controller numbers before starting record
+    ///  Add current values of each controller at the beginning of recording
     func startRecording() {
         if self.waitingMIDIControllerEvents.count > 0 { //Add temp values
             self.leftViewController.windowController.midiControllerEvents.append(contentsOf: self.waitingMIDIControllerEvents)
         }
     }
     
+    /// Validate  if a channel is activated in MIDI preferences
     func channelValidation(_ channel: Int) -> Bool {
         if self.consoleParameters.channel == 0 || self.consoleParameters.channel == channel {
             return true

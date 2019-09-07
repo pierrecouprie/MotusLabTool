@@ -39,11 +39,11 @@ class Window: NSWindow {
                         (windowController as! WindowController).leftViewController.pausePlaying()
                     }
                     
-                //<-
+                // <- (left arrow)
                 } else if event.keyCode == 123 {
                     (windowController as! WindowController).leftViewController.prev()
                     
-                //->
+                // -> (right arrow)
                 } else if event.keyCode == 124 {
                     (windowController as! WindowController).leftViewController.next()
                 }

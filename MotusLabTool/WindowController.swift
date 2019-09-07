@@ -27,13 +27,13 @@ class WindowController: NSWindowController {
     var fileUrl: URL!
     var midiControllerEvents: [MIDIControllerEvent]!
     
-    //MIDI Controllers
+    // MIDI Controllers
     @objc dynamic var consoleAParameters: MIDIParameters!
     @objc dynamic var consoleBParameters: MIDIParameters!
     var consoleAControllerColors = [Int: NSColor]()
     var consoleBControllerColors = [Int: NSColor]()
     
-    //Acousmoniums
+    //  Acousmoniums
     @objc dynamic var acousmoniumFiles = [AcousmoniumFile]()
     @objc dynamic weak var selectedAcousmoniumFile: AcousmoniumFile! {
         didSet {
@@ -50,21 +50,23 @@ class WindowController: NSWindowController {
     var acousmoniumFilesFolderPathUrl: URL!
     @objc dynamic var editAcousmonium = false
     
-    //Playlist audio files
+    // Playlist audio files
     var playlistFilesFolderPathUrl: URL!
     @objc dynamic var playlistFiles = [[String: Any]]()
     @objc dynamic var playlistSelectedFile: IndexSet!
     
+    
+    // Interface
     @objc dynamic var displayedView: Int = 0 {
         didSet {
             switch displayedView {
-            case 0: //Session
+            case 0: // Session
                 self.setValue(false, forKey: "enableRecordToolbarButtons")
                 self.setValue(false, forKey: "enablePlayToolbarButtons")
-            case 1: //Record
+            case 1: // Record
                 self.setValue(true, forKey: "enableRecordToolbarButtons")
                 self.setValue(false, forKey: "enablePlayToolbarButtons")
-            case 2: //Play
+            case 2: // Play
                 self.setValue(false, forKey: "enableRecordToolbarButtons")
                 self.setValue(true, forKey: "enablePlayToolbarButtons")
             default:
@@ -112,6 +114,7 @@ class WindowController: NSWindowController {
     var motusLabFileToSaveObservation: NSKeyValueObservation?
     var acousmoniumFileToSaveObservation: NSKeyValueObservation?
     
+    // Alias
     @objc dynamic weak var leftViewController: LeftViewController! {
         return (self.contentViewController as! MainSplitViewController).splitViewItems[0].viewController as? LeftViewController
     }
@@ -120,7 +123,7 @@ class WindowController: NSWindowController {
         super.windowDidLoad()
         Swift.print("WindowController > windowDidLoad (Preferences)")
         
-        //Initializers
+        // Initializers
         self.loadPreferences()
         self.initializeAcousmonium()
         self.loadAcousmoniums()
@@ -132,7 +135,7 @@ class WindowController: NSWindowController {
         self.consoleBParameters.filter = UserDefaults.standard.string(forKey: PreferenceKey.consoleBMapping)!
         (self.contentViewController as! MainSplitViewController).initialization()
         
-        //Add observer to detect preferences properties
+        // Add observer to detect changes in preference properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
     }
     
@@ -140,6 +143,7 @@ class WindowController: NSWindowController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    /// Preference properties changes
     @objc func userDefaultsDidChange(_ notification: Notification) {
         if let consoleBParameters = self.consoleBParameters {
             let consoleBActivate = UserDefaults.standard.bool(forKey: PreferenceKey.consoleBActivate)
@@ -150,6 +154,7 @@ class WindowController: NSWindowController {
         }
     }
     
+    /// Open sheet windows
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -204,6 +209,7 @@ class WindowController: NSWindowController {
         
     }
     
+    /// Update the color of controllers (saved in consoleAControllerColors and consoleBControllerColors)
     func updateControllerColors() {
         //Swift.print("WindowController > updateControllerColors")
         
@@ -218,9 +224,9 @@ class WindowController: NSWindowController {
                 
                 if consoleAParameters.filterControllers[n] {
                     switch preferences.integer(forKey: PreferenceKey.colorMode) {
-                    case 0: //Consoles
+                    case 0: // Consoles
                         self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
-                    case 1: //Groups of 8
+                    case 1: // Groups of 8
                         if n < 9 {
                             self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
                         } else if n < 17 {
@@ -237,9 +243,9 @@ class WindowController: NSWindowController {
                 
                 if consoleBParameters.filterControllers[n] {
                     switch preferences.integer(forKey: PreferenceKey.colorMode) {
-                    case 0: //Consoles
+                    case 0: // Consoles
                         self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
-                    case 1: //Groups of 8
+                    case 1: // Groups of 8
                         if n < 9 {
                             self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
                         } else if n < 17 {
@@ -259,12 +265,14 @@ class WindowController: NSWindowController {
         
     }
     
+    /// Initialize URL of acousmonium folder (Library > App Support > motuLab > acousmoniums)
     func initializeAcousmonium() {
         let paths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
         self.appSupportFolder = URL(fileURLWithPath: paths[0]).appendingPathComponent(FilePath.motuLab)
         self.acousmoniumFilesFolderPathUrl = self.appSupportFolder.appendingPathComponent(FilePath.acousmoniums)
     }
     
+    /// Initialize URL for waveform folder used with playlist (Library > Application Support > motuLab > waveforms)
     func initializeWaveformPlaylist() {
         let paths = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true)
         self.appSupportFolder = URL(fileURLWithPath: paths[0]).appendingPathComponent(FilePath.motuLab)
@@ -273,6 +281,7 @@ class WindowController: NSWindowController {
     
     //MARK: - File read and save
     
+    /// Create a new document
     @IBAction func newDocument(_ sender: Any) {
         let savePanel = NSSavePanel()
         savePanel.allowedFileTypes = [FileExtension.motuslab]
@@ -282,13 +291,18 @@ class WindowController: NSWindowController {
                 if let url = savePanel.url {
                     self.fileUrl = url
                     self.createDocument()
+                    
+                    // Switch to record tabview page
                     self.setValue(1, forKey: "displayedView")
+                    
+                    // Enable toolbar items
                     self.setValue(true, forKey: "enableModeToolbarButton")
                 }
             }
         }
     }
     
+    /// Open a document
     @IBAction func openDocument(_ sender: Any) {
         let selectFilePanel:NSOpenPanel = NSOpenPanel()
         selectFilePanel.allowsMultipleSelection = false
@@ -301,12 +315,18 @@ class WindowController: NSWindowController {
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 if let url = selectFilePanel.urls.first {
                     do {
+                        // Load motusLab file
                         let data = try Data(contentsOf: url.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data))
                         self.fileUrl = url
                         self.motusLabFile = NSKeyedUnarchiver.unarchiveObject(with: data) as? MotusLabFile
+                        
+                        // Select first session
                         self.leftViewController.selectedSession = IndexSet(integer: 0)
+                        
+                        // Switch to play tabView page
                         self.setValue(2, forKey: "displayedView")
                         self.setValue(true, forKey: "enableModeToolbarButton")
+                        
                     } catch let error as NSError {
                         Swift.print("WindowController: openDocument() Error openning url \(url), context: " + error.localizedDescription)
                     }
@@ -316,7 +336,7 @@ class WindowController: NSWindowController {
         }
     }
     
-    /// Create and save file in project
+    /// Create a new document
     func createDocument() {
         self.motusLabFile = MotusLabFile(name: self.fileUrl.fileName)
         self.midiControllerEvents = [MIDIControllerEvent]()
@@ -325,6 +345,7 @@ class WindowController: NSWindowController {
         self.initializeMotusLabFileObserver()
     }
     
+    /// Initialize observer whcih manage saving of file
     func initializeMotusLabFileObserver() {
         let toSavePath = \MotusLabFile.toSave
         self.motusLabFileToSaveObservation = self.motusLabFile.observe(toSavePath) { [unowned self] object, change in
@@ -332,7 +353,12 @@ class WindowController: NSWindowController {
         }
     }
     
-    /// Create folders
+    /// Create folders of new document bundle
+    ///
+    /// newProject.motusLab (bundle)
+    ///   |- audio  (folder)
+    ///   |- midi   (folder)
+    ///   |- movie  (folder)
     func createBundle() {
         
         let audioUrl = self.fileUrl.appendingPathComponent(FilePath.audio)
@@ -366,7 +392,7 @@ class WindowController: NSWindowController {
         
     }
     
-    /// Save motusLab file
+    /// Save .motusLab file in project bundle
     func saveFile() {
         
         if let motusLabFile = self.motusLabFile {
@@ -383,7 +409,7 @@ class WindowController: NSWindowController {
         
     }
     
-    /// Save session MIDI events
+    /// Save session MIDI events (midi folder)
     func saveMidi() {
         if let lastSession = self.motusLabFile.sessions.last {
             let url = self.fileUrl.appendingPathComponent(FilePath.midi).appendingPathComponent(lastSession.id).appendingPathExtension(FileExtension.event)
@@ -399,12 +425,13 @@ class WindowController: NSWindowController {
     }
     
     //MARK: - Read and save acousmonium files
-       
+    
+    /// Load acousmonium files from library > Application Support > motusLab > acousmoniums
     func loadAcousmoniums() {
         
         let fileManager = FileManager.default
         
-        //Create acousmonium folder
+        // Create acousmoniums folder if does not exist
         if !fileManager.fileExists(atPath: self.acousmoniumFilesFolderPathUrl.path, isDirectory: nil) {
             do {
                 try fileManager.createDirectory(at: self.acousmoniumFilesFolderPathUrl, withIntermediateDirectories: true, attributes: nil)
@@ -413,7 +440,7 @@ class WindowController: NSWindowController {
             }
         }
         
-        //Read acousmonium files
+        // Read acousmonium files
         do {
             let fileURLs = try fileManager.contentsOfDirectory(at: self.acousmoniumFilesFolderPathUrl, includingPropertiesForKeys: nil)
             for file in fileURLs {
@@ -423,7 +450,7 @@ class WindowController: NSWindowController {
                         self.acousmoniumFiles.append(acousmonium)
                     }
                 } catch let error as NSError {
-                    Swift.print("ViewController: loadAcousmoniums() Error openning url \(file), context: " + error.localizedDescription)
+                    Swift.print("WindowController: loadAcousmoniums() Error openning url \(file), context: " + error.localizedDescription)
                 }
             }
         } catch {
@@ -432,6 +459,9 @@ class WindowController: NSWindowController {
         
     }
     
+    
+    /// Create a new acousmonium file (used from properties of acousmonium window)
+    /// - Parameter name: Name of the new acousmonium (untitled)
     func createAcousmoniumFile(_ name: String) {
         var acousmoniumFiles = self.acousmoniumFiles
         let newAcousmoniumFile = AcousmoniumFile(name: name)
@@ -441,6 +471,8 @@ class WindowController: NSWindowController {
         self.saveAcousmoniumFile(newAcousmoniumFile)
     }
     
+    /// Save parameters of selected acousmonium
+    /// - Parameter acousmoniumFile: The name of the acousmonium
     func saveAcousmoniumFile(_ acousmoniumFile: AcousmoniumFile) {
         let acousmoniumData:Data = NSKeyedArchiver.archivedData(withRootObject: acousmoniumFile)
         let fileUrl = self.appSupportFolder.appendingPathComponent(FilePath.acousmoniums).appendingPathComponent(acousmoniumFile.id).appendingPathExtension(FileExtension.acousmonium)
@@ -453,11 +485,12 @@ class WindowController: NSWindowController {
     
     //MARK: - Read and save playlist
     
+    /// Load list of playlist URLs
     func loadPlaylistFiles() {
         
         let fileManager = FileManager.default
         
-        //Create waveform folder
+        // Create waveform folder if it does not exist
         if !fileManager.fileExists(atPath: self.playlistFilesFolderPathUrl.path, isDirectory: nil) {
             do {
                 try fileManager.createDirectory(at: self.playlistFilesFolderPathUrl, withIntermediateDirectories: true, attributes: nil)
@@ -466,7 +499,7 @@ class WindowController: NSWindowController {
             }
         }
         
-        //Read playlist file
+        // Read playlist file (list of URLs)
         let playlistFileURL = self.appSupportFolder.appendingPathComponent(FilePath.playlist).appendingPathExtension(FileExtension.data)
         do {
             let playlistData = try Data(contentsOf: playlistFileURL)
@@ -479,6 +512,9 @@ class WindowController: NSWindowController {
 
     }
     
+    
+    /// Add new file(s) in playlist
+    /// - Parameter urls: One or several URLs in an Array
     func addPlaylistFiles(_ urls: [URL]) {
         var playlistFiles = self.playlistFiles
         for url in urls {
@@ -504,6 +540,7 @@ class WindowController: NSWindowController {
         self.savePlaylist()
     }
     
+    /// Delete selected playlist item
     func removeSelectedFiles() {
         if let playlistSelectedFile = self.playlistSelectedFile, let playlistFilesFolderPathUrl = self.playlistFilesFolderPathUrl {
             let fileManager = FileManager.default
@@ -521,9 +558,11 @@ class WindowController: NSWindowController {
                 }
             }
             self.setValue(playlistFiles, forKey: "playlistFiles")
+            self.savePlaylist()
         }
     }
     
+    /// Save the playlist file (Library > Application Support > motusLab > playlist.data)
     func savePlaylist() {
         let playlistData:Data = NSKeyedArchiver.archivedData(withRootObject: self.playlistFiles)
         let fileUrl = self.appSupportFolder.appendingPathComponent(FilePath.playlist).appendingPathExtension(FileExtension.data)
@@ -532,13 +571,6 @@ class WindowController: NSWindowController {
         } catch let error as NSError {
             Swift.print("WindowController: savePlaylist() Error saving data to url \(fileUrl), context: " + error.localizedDescription)
         }
-    }
-    
-    //MARK: - Interface
-    
-    /// Update drawing of controllers in record mode
-    func updateControllerView() {
-        
     }
     
     //MARK: - Toolbar
@@ -567,10 +599,12 @@ class WindowController: NSWindowController {
         self.leftViewController.addCamera()
     }
     
+    /// Manage which controllers is drowing in timeline (play nmode)
     @IBAction func showControllers(_ sender: Any) {
         self.leftViewController.showControllersMenu(sender)
     }
     
+    /// Manage which controllers send MIDI message to external mix console (play mode)
     @IBAction func showMidiPlayMenu(_ sender: Any) {
         self.leftViewController.showMidiPlayMenu(sender)
     }
@@ -593,10 +627,12 @@ class WindowController: NSWindowController {
         return true
     }
     
+    /// Send action to leftViewController (MIDI send)
     @IBAction func changeMidiPlayMenu(_ sender: NSMenuItem) {
         self.leftViewController.changeMidiPlayMenu(sender)
     }
     
+    /// Send action to leftViewController (MIDI send)
     @IBAction func changeMidiPlayGroupMenu(_ sender: NSMenuItem) {
         self.leftViewController.changeMidiPlayGroupMenu(sender)
     }

@@ -55,11 +55,11 @@ class MIDIPlayer: NSObject {
         
         self.leftViewController = leftViewController
         
-        //Initialize devices and outputs
+        // Initialize devices and outputs
         self.initializeConsoleA()
         self.initializeConsoleB()
         
-        //Add observers
+        // Initialize observers
         let timePositionPath = \WindowController.timePosition
         self.timePositionObservation = self.leftViewController.windowController.observe(timePositionPath) { [unowned self] object, change in
             if self.leftViewController.windowController.displayedView == 2 {
@@ -86,6 +86,7 @@ class MIDIPlayer: NSObject {
     
     //MARK: - Create devices and output ports
     
+    /// Initialize output device of console A
     func initializeConsoleA() {
         
         var status = MIDIClientCreateWithBlock("com.motuslabrecorder.MIDIClient" as CFString, &self.consoleAMidiClient, nil)
@@ -103,6 +104,7 @@ class MIDIPlayer: NSObject {
         
     }
     
+    /// Initialize output device of console B
     func initializeConsoleB() {
         
         var status = MIDIClientCreateWithBlock("com.motuslabrecorder.MIDIClient" as CFString, &self.consoleBMidiClient, nil)
@@ -122,6 +124,12 @@ class MIDIPlayer: NSObject {
     
     //MARK: - load session
     
+    /// Load a new controller session
+    /// This function create a time table (midiTimeTable) from MIDI events.
+    /// It is used when jump to a specific time position (goToTimePosition).
+    /// The time table contains 100 indexes (kMIDIPrecision) for each console with the value
+    /// of each controllers (consoleAMidiControllerTable and consoleBMidiControllerTable) and
+    /// the index of corresponding MIDI event
     func loadSession() {
         
         Swift.print("MIDIPlayer > loadSession()")
@@ -153,10 +161,10 @@ class MIDIPlayer: NSObject {
                 }
                 if date > tableTimePosition {
                     
-                    //Save index in midiControllerEvent
+                    // Save index in midiControllerEvent
                     self.midiTimeTable[n] = m
                     
-                    //Save last position of controller (to use with goToTimePosition)
+                    // Save last position of controller (to use with goToTimePosition)
                     self.consoleAMidiControllerTable[n] = consoleATotalControllers
                     self.consoleBMidiControllerTable[n] = consoleBTotalControllers
                     
@@ -171,6 +179,7 @@ class MIDIPlayer: NSObject {
     
     //MARK: - MIDI Player
     
+    /// Get index of consoleAMidiControllerTable in midiTimeTable for a specific time position
     func indexOfTime(_ time: Float) -> (timeTable: Int, index: Int) {
         let duration = self.leftViewController.currentSession.duration
         let indexf = (time * Float(self.midiTimeTable.count)) / duration
@@ -180,6 +189,7 @@ class MIDIPlayer: NSObject {
         return (indexi, self.midiTimeTable[indexi])
     }
     
+    /// Send MIDI message to output device
     func sendMessage(_ console: Int, number: Int, value: Int) {
         let controller = self.controllerEnabled(number, console: console)
         //Swift.print("MIDIPlayer > sendMessage console: \(console), number: \(number), value: \(value)")
@@ -208,13 +218,7 @@ class MIDIPlayer: NSObject {
         }
     }
     
-    func controllerEnabled(_ number: Int, console: Int) -> (all: Bool, enabled: Bool) {
-        if let index = self.leftViewController.controllersList.firstIndex(where: { $0.ctl == number && $0.console == console} ) {
-            return (true, self.leftViewController.controllersList[index].enable)
-        }
-        return (false, false)
-    }
-    
+    /// Create a MIDI packet
     func createMidiPacketList(status: Int, val1: Int, val2 :Int) -> MIDIPacketList {
         var midipacket = MIDIPacket()
         
@@ -227,6 +231,16 @@ class MIDIPlayer: NSObject {
         return MIDIPacketList(numPackets: 1, packet: midipacket)
     }
     
+    /// Get if controller is enabled (See toobar menu)
+    func controllerEnabled(_ number: Int, console: Int) -> (all: Bool, enabled: Bool) {
+        if let index = self.leftViewController.controllersList.firstIndex(where: { $0.ctl == number && $0.console == console} ) {
+            return (true, self.leftViewController.controllersList[index].enable)
+        }
+        return (false, false)
+    }
+    
+    /// Go to current time position saved in WindowController > timePosition
+    /// Used when user jump to a specific time position
     func goToTimePosition() {
         guard self.leftViewController.windowController.displayedView == 2 else {
             return
@@ -235,10 +249,6 @@ class MIDIPlayer: NSObject {
         let timePosition = self.leftViewController.windowController.timePosition
         let indexes = self.indexOfTime(timePosition)
         if self.consoleAMidiControllerTable[indexes.timeTable].count > 1 && self.consoleBMidiControllerTable[indexes.timeTable].count > 1 {
-            /*Swift.print("Console A ======")
-            Swift.print(self.consoleAMidiControllerTable[indexes.timeTable])
-            Swift.print("Console B ======")
-            Swift.print(self.consoleBMidiControllerTable[indexes.timeTable])*/
             for n in 1..<self.consoleAMidiControllerTable[indexes.timeTable].count {
                 self.sendMessage(0, number: n, value: self.consoleAMidiControllerTable[indexes.timeTable][n])
             }
@@ -249,19 +259,26 @@ class MIDIPlayer: NSObject {
         self.currentEventIndex = indexes.index
     }
     
+    /// Read MIDI event from the last sent to the new one
     func updateTimePosition() {
         guard self.leftViewController.windowController.displayedView == 2 else {
             return
         }
         //Swift.print("MIDIPlayer > updateTimePosition")
+        
+        // Compute current index of MIDI event which is just before timePosition
         let timePosition = self.leftViewController.windowController.timePosition
         let indexes = self.indexOfTime(timePosition)
         let index = indexes.index
         if index > self.currentEventIndex {
+            
+            // Compute index positions
             var startIndex = self.currentEventIndex
             startIndex = startIndex < 0 ? 0 : startIndex
             var endIndex = index
             endIndex = endIndex <= startIndex ? startIndex + 1 : endIndex
+            
+            //Send array of MIDI messages
             for n in startIndex..<endIndex {
                 self.sendMessage(self.leftViewController.windowController.midiControllerEvents[n].console,
                                  number: self.leftViewController.windowController.midiControllerEvents[n].number,

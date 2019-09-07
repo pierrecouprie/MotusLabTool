@@ -34,11 +34,12 @@ class AudioAnalyzer: NSObject {
         self.url = url
     }
     
+    /// Open audio file and extract waveform in [Float] for each channel
     func computeChannelsData() -> [[Float]]? {
         
         var result = [[Float]]()
         
-        //Open audio File
+        // Open audio File
         var af: ExtAudioFileRef? = nil
         var err: OSStatus = ExtAudioFileOpenURL(self.url as CFURL, &af)
         if err != noErr {
@@ -46,10 +47,10 @@ class AudioAnalyzer: NSObject {
             return nil
         }
         
-        //allocate an empty ASBD
+        // Allocate an empty ASBD
         var fileASBD = AudioStreamBasicDescription()
         
-        //get the ASBD from the file
+        // Get the ASBD from the file
         var fileSize = UInt32(MemoryLayout.size(ofValue: fileASBD))
         err = ExtAudioFileGetProperty(af!, kExtAudioFileProperty_FileDataFormat, &fileSize, &fileASBD)
         if err != noErr {
@@ -71,7 +72,7 @@ class AudioAnalyzer: NSObject {
         clientASBD.mChannelsPerFrame = channelCount
         clientASBD.mBitsPerChannel = 32
         
-        //set the ASBD to be used
+        // Set the ASBD to be used
         var clientSize = UInt32(MemoryLayout.size(ofValue: clientASBD))
         err = ExtAudioFileSetProperty(af!, kExtAudioFileProperty_ClientDataFormat, clientSize, &clientASBD)
         if err != noErr {
@@ -79,7 +80,7 @@ class AudioAnalyzer: NSObject {
             return nil
         }
         
-        //check the number of frames expected
+        // Check the number of frames expected
         var numberOfFrames: Int64 = 0
         var propertySize = UInt32(MemoryLayout<Int64>.size)
         err = ExtAudioFileGetProperty(af!, kExtAudioFileProperty_FileLengthFrames, &propertySize, &numberOfFrames)
@@ -87,18 +88,17 @@ class AudioAnalyzer: NSObject {
             Swift.print("AudioAnalyzer: computeChannelsData -> Could not get Audio File Size!")
             return nil
         }
-        //Correct number of frame expected to be in 44100
+        // Correct number of frame expected to be in 44100
         numberOfFrames = (numberOfFrames * 44100) / Int64(sampleRate)
         
-        //initialize a buffer and a place to put the final data
+        // Initialize a buffer and a place to put the final data
         let bufferFrames = 4096
         var finalData = UnsafeMutablePointer<Float>.allocate(capacity: Int(numberOfFrames) * Int(channelCount) * MemoryLayout<Float>.size)
         defer {
-            //finalData.deallocate(capacity: Int(numberOfFrames) * Int(channelCount) * MemoryLayout<Float>.size)
             finalData.deallocate()
         }
         
-        //pack all this into a buffer list
+        // Pack all this into a buffer list
         var bufferList = AudioBufferList(
             mNumberBuffers: 1,
             mBuffers: AudioBuffer(
@@ -108,7 +108,7 @@ class AudioAnalyzer: NSObject {
             )
         )
         
-        //read the data
+        // Read the data
         var count: UInt32 = 0
         var ioFrames: UInt32 = UInt32(bufferFrames)
         while ioFrames > 0 {
@@ -134,14 +134,14 @@ class AudioAnalyzer: NSObject {
         
         var outputData: [Float] = Array(UnsafeMutableBufferPointer(start: finalData, count: Int(numberOfFrames) * Int(channelCount)))
         
-        //dispose of the file
+        // Dispose of the file
         err = ExtAudioFileDispose(af!)
         if err != noErr {
             Swift.print("AudioAnalyzer: computeChannelsData -> An unknown error has occurred!")
             return nil
         }
         
-        //Uninterlace channels
+        // Uninterlace channels
         let numFrames = outputData.count
         if channelCount == 1 {
             result.append(outputData)
@@ -163,6 +163,7 @@ class AudioAnalyzer: NSObject {
         
     }
     
+    /// Downsample the waveform data
     func prepareWaveform(_ data: [[Float]]) -> [[Float]] {
         
         let serieCount = data.count
@@ -180,12 +181,10 @@ class AudioAnalyzer: NSObject {
         
     }
     
-    /**
-     Downsample array with max value
-     - parameter data: Input data
-     - parameter windowSize: Size of window
-     - returns: Output data downsampled
-     */
+     /// Downsample array with max value
+     /// - parameter data: Input data
+     /// - parameter windowSize: Size of window
+     /// - returns: Output data downsampled
     func downsampleMax(_ data: [Float], windowSize: Int) -> [Float] {
         
         let dataCount = data.count

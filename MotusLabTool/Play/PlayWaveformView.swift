@@ -45,6 +45,7 @@ class PlayWaveformView: NSView {
             let height: CGFloat = self.bounds.size.height / 2 / CGFloat(waveform.count)
             let heightTranslation = height * 2
             
+            //Draw each channel
             var yTranslation: CGFloat = height
             for channelWaveform in waveform {
                 
@@ -62,13 +63,11 @@ class PlayWaveformView: NSView {
         
     }
     
-    /**
-     Draw a path from a serie
-     - parameter context: CGContext
-     - parameter curvePath: the path to draw
-     - parameter height: the height of view
-     - parameter yTranslation: the y center position of serie
-     */
+    /// Draw a path from a serie
+    /// - parameter context: CGContext
+    /// - parameter curvePath: the path to draw
+    /// - parameter height: the height of view
+    /// - parameter yTranslation: the y center position of serie
     func drawPath(context: CGContext, curvePath: CGPath, height: CGFloat, yTranslation: CGFloat) {
         
         context.saveGState()
@@ -80,17 +79,17 @@ class PlayWaveformView: NSView {
         context.setLineWidth(1.0)
         context.setLineJoin(CGLineJoin.round)
         
-        //Top
+        // Top
         let tTransform = CGAffineTransform.init(translationX: 0, y: yTranslation)
         let sTransform = tTransform.scaledBy(x: 1, y: height)
         path.addPath(curvePath, transform: sTransform)
         
-        //Bottom with return
+        // Bottom with return
         let t2Transform = CGAffineTransform.init(translationX: 0, y: yTranslation)
         let s2Transform = t2Transform.scaledBy(x: 1, y: -height)
         path.addPath(curvePath, transform: s2Transform)
         
-        //Center line
+        // Center line
         path.move(to: CGPoint(x: 0, y: yTranslation))
         path.addLine(to: CGPoint(x: self.bounds.size.width, y: yTranslation))
         
@@ -101,11 +100,9 @@ class PlayWaveformView: NSView {
         
     }
     
-    /**
-     Create the path to draw from data
-     - parameter channel: Channel to draw, nil for mixed channels
-     - returns: The path to draw
-     */
+    /// Create the path to draw from data
+    /// - parameter channel: Channel to draw, nil for mixed channels
+    /// - returns: The path to draw
     func CurvePath(frame: NSRect, channelWaveform: [Float]) -> CGPath {
         
         let dataCountValues = waveform.first!.count

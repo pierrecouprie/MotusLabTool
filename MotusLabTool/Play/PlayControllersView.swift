@@ -34,7 +34,6 @@ class PlayControllersView: NSView {
     weak var leftViewController: LeftViewController! 
     
     var controllers: [Int:[(date: Float, value: Int)]]!
-    //var controllersList = [ControllerItem]()
     var consoleAMaxNumber: Int = 0
     var consoleBStartId: Int = 0
     var playCTRLColors: Int = 0
@@ -50,7 +49,7 @@ class PlayControllersView: NSView {
         self.wantsLayer = true
         self.alphaValue = CGFloat(self.preferences.float(forKey: PreferenceKey.playCTRLAlpha))
         
-        //Add observer to detect preferences properties
+        // Add observer to detect preferences properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
         
         self.userDefaultsDidChange(Notification(name: UserDefaults.didChangeNotification))
@@ -74,6 +73,7 @@ class PlayControllersView: NSView {
         self.setNeedsDisplay(self.bounds)
     }
     
+    /// Concert MIDI events to list of values for each controller numbers
     func convertEvents() {
         var output = [Int:[(date: Float, value: Int)]]()
         self.leftViewController.controllersList = []
@@ -98,16 +98,16 @@ class PlayControllersView: NSView {
             return maxNumber
         }
         
-        //Create indexes
+        // Create indexes
         self.consoleAMaxNumber = readControllers(self.leftViewController.currentSession.consoleAControllers)
         let _ = readControllers(self.leftViewController.currentSession.consoleBControllers, start: self.consoleAMaxNumber)
         
-        //Create id in controllersList {
+        // Create id in controllersList {
         for n in 0..<self.leftViewController.controllersList.count{
             self.leftViewController.controllersList[n].id = n
         }
         
-        //Read controllers
+        // Read controllers
         for controller in self.leftViewController.windowController.midiControllerEvents {
             let newEvent = (date: controller.date, value: controller.value)
             var number = controller.number
@@ -133,6 +133,7 @@ class PlayControllersView: NSView {
             let height: CGFloat = self.bounds.size.height / CGFloat(controllerCount)
             let heightTranslation: CGFloat = height
             
+            // Draw controller graphs
             var yTranslation: CGFloat = 0.0
             for n in stride(from: self.leftViewController.controllersList.count - 1, through: 0, by: -1) {
                 let controllerItem = self.leftViewController.controllersList[n]
@@ -158,13 +159,11 @@ class PlayControllersView: NSView {
         }
     }
     
-    /**
-     Draw a path from a serie
-     - parameter context: CGContext
-     - parameter curvePath: the path to draw
-     - parameter height: the height of view
-     - parameter yTranslation: the y center position of serie
-     */
+    /// Draw a path from a serie
+    /// - parameter context: CGContext
+    /// - parameter curvePath: the path to draw
+    /// - parameter height: the height of view
+    /// - parameter yTranslation: the y center position of serie
     func drawPath(context: CGContext, curveClosePath: CGPath, color: NSColor) {
         
         context.saveGState()
@@ -180,11 +179,9 @@ class PlayControllersView: NSView {
         
     }
     
-    /**
-     Create the path to draw from data
-     - parameter channel: Channel to draw, nil for mixed channels
-     - returns: The path to draw
-     */
+    /// Create the path to draw from data
+    /// - parameter channel: Channel to draw, nil for mixed channels
+    /// - returns: The path to draw
     func CurvePath(frame: NSRect, controller: Int) -> CGPath? {
         
         if let leftViewController = self.leftViewController, let currentSession = leftViewController.currentSession, let controllers = self.controllers {
@@ -246,23 +243,5 @@ class PlayControllersView: NSView {
         return nil
         
     }
-    
-    /*func selectColor(_ controller: ControllerItem) -> NSColor {
-        
-        if !controller.enable {
-            return NSColor.gray
-        }
-        
-        if let windowController = self.leftViewController.windowController {
-            if controller.console == 0 {
-                return windowController.consoleAControllerColors[controller.ctl]!
-            } else if controller.console == 1 {
-                return windowController.consoleBControllerColors[controller.ctl]!
-            }
-        }
-        
-        return NSColor.lightGray
-        
-    }*/
     
 }

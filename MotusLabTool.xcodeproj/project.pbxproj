@@ -68,6 +68,9 @@
 		8A156EBE2316531700064A8A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8A189FB3231A561D00EA2B8D /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		8A2BB9AF232397A900FB6106 /* PlaylistImageValueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistImageValueController.swift; sourceTree = "<group>"; };
+		8A2BB9B22323A93E00FB6106 /* QuickStart.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = QuickStart.md; sourceTree = "<group>"; };
+		8A2BB9B42323A97300FB6106 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8A2BB9B52323A9A200FB6106 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8A6BEF44231B959700D5A84B /* VuMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VuMeter.swift; sourceTree = "<group>"; };
 		8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCaptureMeter.swift; sourceTree = "<group>"; };
 		8A6BEF49231B98EE00D5A84B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RecordCamera.xib; sourceTree = "<group>"; };
@@ -142,6 +145,22 @@
 			path = Playlist;
 			sourceTree = "<group>";
 		};
+		8A2BB9B12323A91700FB6106 /* Manual */ = {
+			isa = PBXGroup;
+			children = (
+				8A2BB9B32323A94B00FB6106 /* Images */,
+				8A2BB9B22323A93E00FB6106 /* QuickStart.md */,
+			);
+			path = Manual;
+			sourceTree = "<group>";
+		};
+		8A2BB9B32323A94B00FB6106 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		8A6BEF51231B9DD500D5A84B /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +187,7 @@
 		8AA84676231AC0FF00005A4D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8A2BB9B12323A91700FB6106 /* Manual */,
 				8AA84678231AC12D00005A4D /* acousmoFileType.icns */,
 				8AA84679231AC12D00005A4D /* Credits.rtf */,
 				8AA84677231AC12D00005A4D /* fileType.icns */,
@@ -178,12 +198,12 @@
 		8AA84681231AC5C500005A4D /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				8A6BEF4F231B9D9B00D5A84B /* RecordCameraView.swift */,
 				8AA8467D231AC3CE00005A4D /* AddMarkerPopoverViewController.swift */,
 				8AA8467F231AC5AD00005A4D /* MIDIControllersView.swift */,
 				8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */,
 				8A6BEF4B231B998300D5A84B /* RecordCameraViewController.swift */,
 				8A6BEF4D231B99FA00D5A84B /* VideoRecorder.swift */,
-				8A6BEF4F231B9D9B00D5A84B /* RecordCameraView.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -282,6 +302,8 @@
 				8AE1917B2315045D006CD958 /* Info.plist */,
 				8AE1917C2315045D006CD958 /* MotusLabTool.entitlements */,
 				8AA84676231AC0FF00005A4D /* Resources */,
+				8A2BB9B42323A97300FB6106 /* README.md */,
+				8A2BB9B52323A9A200FB6106 /* LICENSE.md */,
 			);
 			path = MotusLabTool;
 			sourceTree = "<group>";
@@ -313,7 +335,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Pierre Couprie";
 				TargetAttributes = {
 					8AE1916E2315045C006CD958 = {
@@ -564,9 +586,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MotusLabTool/MotusLabTool.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -587,9 +610,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MotusLabTool/MotusLabTool.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;

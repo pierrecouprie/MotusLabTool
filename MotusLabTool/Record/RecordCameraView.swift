@@ -28,7 +28,6 @@ class RecordCameraView: NSView {
         super.init(coder: decoder)
         self.wantsLayer = true
         self.layer = CALayer()
-        //self.layer?.backgroundColor = NSColor(named: "paneBackground")?.cgColor
         
     }
     
