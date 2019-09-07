@@ -5,6 +5,18 @@
 //  Created by Pierre Couprie on 30/08/2019.
 //  Copyright © 2019 Pierre Couprie. All rights reserved.
 //
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import Foundation
 
@@ -93,6 +105,7 @@ class Session: NSObject, NSCoding {
         }
     }
     dynamic var duration: Float = 0
+    var audioFile: URL!
     var audioFormat: String = AudioFormat.pcm
     var consoleAControllers = [Bool](repeating: true, count: 129)
     var consoleBControllers = [Bool](repeating: true, count: 129)
@@ -115,6 +128,7 @@ class Session: NSObject, NSCoding {
         static let titleKey = "title"
         static let informationKey = "information"
         static let durationKey = "duration"
+        static let audioFileKey = "audioFile"
         static let audioFormatKey = "audioFormat"
         static let consoleAControllersKey = "consoleAControllers"
         static let consoleBControllersKey = "consoleBControllers"
@@ -144,6 +158,9 @@ class Session: NSObject, NSCoding {
         self.title = aDecoder.decodeObject(forKey: PropertyKey.titleKey) as? String
         self.information = aDecoder.decodeObject(forKey: PropertyKey.informationKey) as? String
         self.duration = aDecoder.decodeFloat(forKey: PropertyKey.durationKey)
+        if let fileUrl = aDecoder.decodeObject(forKey: PropertyKey.audioFileKey) as? URL {
+            self.audioFile = fileUrl
+        }
         self.audioFormat = aDecoder.decodeObject(forKey: PropertyKey.audioFormatKey) as! String
         self.consoleAControllers = aDecoder.decodeObject(forKey: PropertyKey.consoleAControllersKey) as! [Bool]
         self.consoleBControllers = aDecoder.decodeObject(forKey: PropertyKey.consoleBControllersKey) as! [Bool]
@@ -157,6 +174,7 @@ class Session: NSObject, NSCoding {
         aCoder.encode(self.title, forKey: PropertyKey.titleKey)
         aCoder.encode(self.information, forKey: PropertyKey.informationKey)
         aCoder.encode(self.duration, forKey: PropertyKey.durationKey)
+        aCoder.encode(self.audioFile, forKey: PropertyKey.audioFileKey)
         aCoder.encode(self.audioFormat, forKey: PropertyKey.audioFormatKey)
         aCoder.encode(self.consoleAControllers, forKey: PropertyKey.consoleAControllersKey)
         aCoder.encode(self.consoleBControllers, forKey: PropertyKey.consoleBControllersKey)

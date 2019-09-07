@@ -5,6 +5,18 @@
 //  Created by Pierre Couprie on 02/09/2019.
 //  Copyright © 2019 Pierre Couprie. All rights reserved.
 //
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import Cocoa
 
@@ -259,7 +271,7 @@ class AcousmoLoudspeakerView: NSView {
         self.acousmoLoudspeaker = acousmoLoudspeaker
         self.windowController = windowController
         self.wantsLayer = true
-        self.alphaValue = 0.7
+        self.updateAlpha()
         
         //Observers
         let consolePath = \AcousmoLoudspeaker.console
@@ -286,15 +298,19 @@ class AcousmoLoudspeakerView: NSView {
         if self.acousmoLoudspeaker.console == 0 {
             let consoleALastMidiMessagePath = \LeftViewController.consoleALastMidiMessage
             self.valueObservation = self.windowController.leftViewController.observe(consoleALastMidiMessagePath) { [unowned self] object, change in
-                if self.windowController.leftViewController.consoleALastMidiMessage.number == self.acousmoLoudspeaker.input {
-                    self.value = self.windowController.leftViewController.consoleALastMidiMessage.value
+                if let message = self.windowController.leftViewController.consoleALastMidiMessage {
+                    if message.number == self.acousmoLoudspeaker.input && self.value != message.value {
+                        self.value = message.value
+                    }
                 }
             }
         } else if self.acousmoLoudspeaker.console == 1 {
             let consoleBLastMidiMessagePath = \LeftViewController.consoleBLastMidiMessage
             self.valueObservation = self.windowController.leftViewController.observe(consoleBLastMidiMessagePath) { [unowned self] object, change in
-                if self.windowController.leftViewController.consoleBLastMidiMessage.number == self.acousmoLoudspeaker.input {
-                    self.value = self.windowController.leftViewController.consoleBLastMidiMessage.value
+                if let message = self.windowController.leftViewController.consoleBLastMidiMessage {
+                    if message.number == self.acousmoLoudspeaker.input && self.value != message.value {
+                        self.value = message.value
+                    }
                 }
             }
         }
@@ -338,6 +354,7 @@ class AcousmoLoudspeakerView: NSView {
     
     override func draw(_ dirtyRect: NSRect) {
         if let context = NSGraphicsContext.current?.cgContext, let superview = self.superview, let acousmoContainer = superview as? AcousmoContainer, let windowController = self.windowController {
+            
             context.saveGState()
             var loudspeakerColor = self.windowController.leftViewController.controllerColor(from: self.acousmoLoudspeaker.input, console: self.acousmoLoudspeaker.console)
             if windowController.editAcousmonium {

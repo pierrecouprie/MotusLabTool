@@ -15,6 +15,7 @@
 		8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBC2316529E00064A8A /* DefaultSettings.swift */; };
 		8A156EBF2316531700064A8A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBE2316531700064A8A /* WindowController.swift */; };
 		8A189FB4231A561D00EA2B8D /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A189FB3231A561D00EA2B8D /* Window.swift */; };
+		8A2BB9B0232397A900FB6106 /* PlaylistImageValueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BB9AF232397A900FB6106 /* PlaylistImageValueController.swift */; };
 		8A6BEF45231B959700D5A84B /* VuMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF44231B959700D5A84B /* VuMeter.swift */; };
 		8A6BEF47231B961F00D5A84B /* AudioCaptureMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */; };
 		8A6BEF4A231B98EE00D5A84B /* RecordCamera.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6BEF48231B98EE00D5A84B /* RecordCamera.xib */; };
@@ -39,7 +40,6 @@
 		8AA8467C231AC12D00005A4D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8AA84679231AC12D00005A4D /* Credits.rtf */; };
 		8AA8467E231AC3CE00005A4D /* AddMarkerPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8467D231AC3CE00005A4D /* AddMarkerPopoverViewController.swift */; };
 		8AA84680231AC5AD00005A4D /* MIDIControllersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8467F231AC5AD00005A4D /* MIDIControllersView.swift */; };
-		8AA84686231AC88400005A4D /* NotNilEnableValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA84685231AC88400005A4D /* NotNilEnableValueTransformer.swift */; };
 		8AA84688231ACEE400005A4D /* MIDIRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA84687231ACEE400005A4D /* MIDIRecorder.swift */; };
 		8ABBBF6323190B6F00FA04A9 /* MainSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF6223190B6F00FA04A9 /* MainSplitViewController.swift */; };
 		8ABBBF6523190BF200FA04A9 /* NSButtonCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF6423190BF200FA04A9 /* NSButtonCounter.swift */; };
@@ -67,6 +67,7 @@
 		8A156EBC2316529E00064A8A /* DefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
 		8A156EBE2316531700064A8A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8A189FB3231A561D00EA2B8D /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		8A2BB9AF232397A900FB6106 /* PlaylistImageValueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistImageValueController.swift; sourceTree = "<group>"; };
 		8A6BEF44231B959700D5A84B /* VuMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VuMeter.swift; sourceTree = "<group>"; };
 		8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCaptureMeter.swift; sourceTree = "<group>"; };
 		8A6BEF49231B98EE00D5A84B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RecordCamera.xib; sourceTree = "<group>"; };
@@ -91,7 +92,6 @@
 		8AA84679231AC12D00005A4D /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		8AA8467D231AC3CE00005A4D /* AddMarkerPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMarkerPopoverViewController.swift; sourceTree = "<group>"; };
 		8AA8467F231AC5AD00005A4D /* MIDIControllersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIControllersView.swift; sourceTree = "<group>"; };
-		8AA84685231AC88400005A4D /* NotNilEnableValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotNilEnableValueTransformer.swift; sourceTree = "<group>"; };
 		8AA84687231ACEE400005A4D /* MIDIRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIRecorder.swift; sourceTree = "<group>"; };
 		8ABBBF6223190B6F00FA04A9 /* MainSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSplitViewController.swift; sourceTree = "<group>"; };
 		8ABBBF6423190BF200FA04A9 /* NSButtonCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonCounter.swift; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 			children = (
 				8ABBBF7C23196D2600FA04A9 /* TimeValueTransformer.swift */,
 				8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */,
-				8AA84685231AC88400005A4D /* NotNilEnableValueTransformer.swift */,
+				8A2BB9AF232397A900FB6106 /* PlaylistImageValueController.swift */,
 			);
 			path = "Value Transformers";
 			sourceTree = "<group>";
@@ -380,7 +380,6 @@
 				8A6BEF4C231B998300D5A84B /* RecordCameraViewController.swift in Sources */,
 				8A6BEF58231BB5C700D5A84B /* PlayWaveformView.swift in Sources */,
 				8A6BEF45231B959700D5A84B /* VuMeter.swift in Sources */,
-				8AA84686231AC88400005A4D /* NotNilEnableValueTransformer.swift in Sources */,
 				8ABBBF772319585F00FA04A9 /* AcousmoniumFile.swift in Sources */,
 				8A6BEF5E231BB61D00D5A84B /* PlayPlayheadView.swift in Sources */,
 				8A156EBF2316531700064A8A /* WindowController.swift in Sources */,
@@ -403,6 +402,7 @@
 				8ABBBF69231912BF00FA04A9 /* LeftViewController.swift in Sources */,
 				8A6BEF53231B9DE200D5A84B /* PreviewCameraView.swift in Sources */,
 				8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */,
+				8A2BB9B0232397A900FB6106 /* PlaylistImageValueController.swift in Sources */,
 				8A6BEF62231BB8A200D5A84B /* AudioPlayer.swift in Sources */,
 				8A6BEF50231B9D9B00D5A84B /* RecordCameraView.swift in Sources */,
 				8ABBBF73231957AC00FA04A9 /* MotusLabFile.swift in Sources */,
@@ -566,7 +566,7 @@
 				CODE_SIGN_ENTITLEMENTS = MotusLabTool/MotusLabTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -589,7 +589,7 @@
 				CODE_SIGN_ENTITLEMENTS = MotusLabTool/MotusLabTool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;

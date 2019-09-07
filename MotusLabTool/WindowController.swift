@@ -5,6 +5,18 @@
 //  Created by Pierre Couprie on 28/08/2019.
 //  Copyright © 2019 Pierre Couprie. All rights reserved.
 //
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import Cocoa
 
@@ -46,13 +58,13 @@ class WindowController: NSWindowController {
     @objc dynamic var displayedView: Int = 0 {
         didSet {
             switch displayedView {
-            case 0:
+            case 0: //Session
                 self.setValue(false, forKey: "enableRecordToolbarButtons")
                 self.setValue(false, forKey: "enablePlayToolbarButtons")
-            case 1:
+            case 1: //Record
                 self.setValue(true, forKey: "enableRecordToolbarButtons")
                 self.setValue(false, forKey: "enablePlayToolbarButtons")
-            case 2:
+            case 2: //Play
                 self.setValue(false, forKey: "enableRecordToolbarButtons")
                 self.setValue(true, forKey: "enablePlayToolbarButtons")
             default:
@@ -73,6 +85,9 @@ class WindowController: NSWindowController {
                 self.modeSegmentedControl.setEnabled(true, forSegment: 0)
                 self.modeSegmentedControl.setEnabled(true, forSegment: 1)
                 self.modeSegmentedControl.setEnabled(true, forSegment: 2)
+                if self.toolbarPlay == .on {
+                    self.setValue(NSButton.StateValue.off, forKey: "toolbarPlay")
+                }
             case Mode.recording :
                 self.modeSegmentedControl.setEnabled(true, forSegment: 0)
                 self.modeSegmentedControl.setEnabled(true, forSegment: 1)
@@ -103,7 +118,7 @@ class WindowController: NSWindowController {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-        Swift.print("WindowController > windowDidLoad")
+        Swift.print("WindowController > windowDidLoad (Preferences)")
         
         //Initializers
         self.loadPreferences()
@@ -126,11 +141,13 @@ class WindowController: NSWindowController {
     }
     
     @objc func userDefaultsDidChange(_ notification: Notification) {
-        let consoleBActivate = UserDefaults.standard.bool(forKey: PreferenceKey.consoleBActivate)
-        if consoleBActivate != self.consoleBParameters.enable {
-            self.consoleBParameters.enable = consoleBActivate
+        if let consoleBParameters = self.consoleBParameters {
+            let consoleBActivate = UserDefaults.standard.bool(forKey: PreferenceKey.consoleBActivate)
+            if consoleBActivate != consoleBParameters.enable {
+                consoleBParameters.enable = consoleBActivate
+            }
+            self.updateControllerColors()
         }
-        self.updateControllerColors()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -188,52 +205,56 @@ class WindowController: NSWindowController {
     }
     
     func updateControllerColors() {
-        Swift.print("WindowController > updateControllerColors")
+        //Swift.print("WindowController > updateControllerColors")
         
-        self.consoleAControllerColors.removeAll()
-        self.consoleBControllerColors.removeAll()
-        
-        let preferences = UserDefaults.standard
-        
-        for n in 1..<129 {
+        if let consoleAParameters = self.consoleAParameters, let consoleBParameters = self.consoleBParameters {
             
-            if self.consoleAParameters.filterControllers[n] {
-                switch preferences.integer(forKey: PreferenceKey.colorMode) {
-                case 0: //Consoles
-                    self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
-                case 1: //Groups of 8
-                    if n < 9 {
+            self.consoleAControllerColors.removeAll()
+            self.consoleBControllerColors.removeAll()
+            
+            let preferences = UserDefaults.standard
+            
+            for n in 1..<129 {
+                
+                if consoleAParameters.filterControllers[n] {
+                    switch preferences.integer(forKey: PreferenceKey.colorMode) {
+                    case 0: //Consoles
                         self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
-                    } else if n < 17 {
-                        self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color2)?.color
-                    } else if n < 25 {
-                        self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color3)?.color
-                    } else {
-                        self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color4)?.color
+                    case 1: //Groups of 8
+                        if n < 9 {
+                            self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
+                        } else if n < 17 {
+                            self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color2)?.color
+                        } else if n < 25 {
+                            self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color3)?.color
+                        } else {
+                            self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color4)?.color
+                        }
+                    default:
+                        break
                     }
-                default:
-                    break
+                }
+                
+                if consoleBParameters.filterControllers[n] {
+                    switch preferences.integer(forKey: PreferenceKey.colorMode) {
+                    case 0: //Consoles
+                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
+                    case 1: //Groups of 8
+                        if n < 9 {
+                            self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
+                        } else if n < 17 {
+                            self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color6)?.color
+                        } else if n < 25 {
+                            self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color7)?.color
+                        } else {
+                            self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color8)?.color
+                        }
+                    default:
+                        break
+                    }
                 }
             }
             
-            if self.consoleBParameters.filterControllers[n] {
-                switch preferences.integer(forKey: PreferenceKey.colorMode) {
-                case 0: //Consoles
-                    self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
-                case 1: //Groups of 8
-                    if n < 9 {
-                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
-                    } else if n < 17 {
-                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color6)?.color
-                    } else if n < 25 {
-                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color7)?.color
-                    } else {
-                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color8)?.color
-                    }
-                default:
-                    break
-                }
-            }
         }
         
     }
@@ -283,7 +304,6 @@ class WindowController: NSWindowController {
                         let data = try Data(contentsOf: url.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data))
                         self.fileUrl = url
                         self.motusLabFile = NSKeyedUnarchiver.unarchiveObject(with: data) as? MotusLabFile
-                        //self.initializeMotusLabFileObserver()
                         self.leftViewController.selectedSession = IndexSet(integer: 0)
                         self.setValue(2, forKey: "displayedView")
                         self.setValue(true, forKey: "enableModeToolbarButton")

@@ -5,6 +5,18 @@
 //  Created by Pierre Couprie on 31/08/2019.
 //  Copyright © 2019 Pierre Couprie. All rights reserved.
 //
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import Cocoa
 import CoreMIDI
@@ -53,6 +65,8 @@ class MIDIRecorder: NSObject {
     var midiClient = MIDIClientRef()
     var inputPort = MIDIPortRef()
     var timer: Timer!
+    
+    var waitingMIDIControllerEvents = [MIDIControllerEvent]()
     
     init(leftViewController: LeftViewController, consoleParameters: MIDIParameters) {
         super.init()
@@ -154,12 +168,14 @@ class MIDIRecorder: NSObject {
             
             //used for acousmonium representation
             DispatchQueue.main.async {
-                if self.consoleParameters.console == 0 {
-                    let message = ConsoleLastMidiMessage(number: number, value: value)
-                    self.leftViewController.setValue(message, forKey: "consoleALastMidiMessage")
-                } else {
-                    let message = ConsoleLastMidiMessage(number: number, value: value)
-                    self.leftViewController.setValue(message, forKey: "consoleBLastMidiMessage")
+                if self.leftViewController.windowController.displayedView == 1 {
+                    if self.consoleParameters.console == 0 {
+                        let message = ConsoleLastMidiMessage(number: number, value: value)
+                        self.leftViewController.setValue(message, forKey: "consoleALastMidiMessage")
+                    } else {
+                        let message = ConsoleLastMidiMessage(number: number, value: value)
+                        self.leftViewController.setValue(message, forKey: "consoleBLastMidiMessage")
+                    }
                 }
             }
         }
@@ -183,6 +199,27 @@ class MIDIRecorder: NSObject {
             if self.leftViewController.windowController.currentMode == Mode.recording {
                 self.leftViewController.windowController.midiControllerEvents.append(event)
             }
+            
+            //Add event to current values
+            let lastMessage = self.waitingMIDIControllerEvents.filter( { $0.console == event.console && $0.number == event.number } )
+            let eventCopy = event.copyWithoutDate()
+            eventCopy.date = 0
+            if lastMessage.count > 0 {
+                if let first = lastMessage.first, let index = self.waitingMIDIControllerEvents.firstIndex(of: first) {
+                    self.waitingMIDIControllerEvents[index] = eventCopy
+                } else {
+                    self.waitingMIDIControllerEvents.append(eventCopy)
+                }
+            } else {
+                self.waitingMIDIControllerEvents.append(eventCopy)
+            }
+        }
+    }
+    
+    ///Add events recorded for each controller numbers before starting record
+    func startRecording() {
+        if self.waitingMIDIControllerEvents.count > 0 { //Add temp values
+            self.leftViewController.windowController.midiControllerEvents.append(contentsOf: self.waitingMIDIControllerEvents)
         }
     }
     

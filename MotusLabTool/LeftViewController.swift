@@ -5,6 +5,18 @@
 //  Created by Pierre Couprie on 30/08/2019.
 //  Copyright © 2019 Pierre Couprie. All rights reserved.
 //
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import Cocoa
 import AVFoundation
@@ -24,6 +36,8 @@ class LeftViewController: NSViewController {
     var audioRecorder: AudioRecorder!
     var audioCaptureMeter: AudioCaptureMeter!
     var audioPlayer: AudioPlayer!
+    var usePlaylist: Bool = false
+    var recordAudioPlayer: AudioPlayer!
     /// Save waveforms of each launched section here to avoid reload when launch them again
     /// Key: session id, value(Array): left and right channels
     var sessionWaveform = [String: [[Float]]]()
@@ -35,6 +49,7 @@ class LeftViewController: NSViewController {
     var playCameraViews: [PlayCameraView]!
     
     //MIDI
+    var consoleBActivated: Bool = false
     var consoleAMidiRecorder: MIDIRecorder!
     var consoleBMidiRecorder: MIDIRecorder!
     @objc dynamic var consoleAInputDevice: Int = 0 {
@@ -97,6 +112,22 @@ class LeftViewController: NSViewController {
                 }
             }
             
+            //Add observer to detect preferences properties
+            NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
+            self.consoleBActivated = UserDefaults.standard.bool(forKey: PreferenceKey.consoleBActivate)
+            
+        }
+    }
+    
+    @objc func userDefaultsDidChange(_ notification: Notification) {
+        self.consoleBActivated = UserDefaults.standard.bool(forKey: PreferenceKey.consoleBActivate)
+        if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
+            if self.audioMeterTimer != nil {
+                self.audioMeterTimer.invalidate()
+                self.audioMeterTimer = nil
+            }
+        } else {
+            self.initializeAudioMeterLevel()
         }
     }
     
@@ -218,16 +249,34 @@ class LeftViewController: NSViewController {
                 self.windowController.midiControllerEvents = []
             }
             self.windowController.midiControllerEvents.removeAll()
+            self.consoleAMidiRecorder.startRecording()
+            self.consoleBMidiRecorder.startRecording()
             
             //Save configurations of controllers
             self.currentSession.consoleAControllers = self.windowController.consoleAParameters.filterControllers
             self.currentSession.consoleBControllers = self.windowController.consoleBParameters.filterControllers
             
-            //Initialize audio recorder
-            let audioURL = windowController.fileUrl.appendingPathComponent(FilePath.audio)
-            let audioFormat = AudioFormat.typeFrom(self.preferences.integer(forKey: PreferenceKey.audioFormat))
-            self.audioRecorder = AudioRecorder(audioURL, audioFormat: audioFormat, leftViewController: self)
-            self.audioRecorder.createAudioRecorder()
+            //Initialize audio player or recorder
+            self.usePlaylist = false
+            if let playlistSelectedFile = self.windowController.playlistSelectedFile {
+                if self.preferences.bool(forKey: PreferenceKey.usePlaylist) && playlistSelectedFile.count > 0 && self.windowController.playlistFiles.count > 0 {
+                    if let first = playlistSelectedFile.first {
+                        let fileUrl = self.windowController.playlistFiles[first]["url"] as! URL
+                        self.recordAudioPlayer = AudioPlayer(self)
+                        self.recordAudioPlayer.createAudioPlayer(fileUrl)
+                        self.currentSession.audioFile = fileUrl
+                        self.usePlaylist = true
+                    }
+                }
+            }
+            
+            if !self.usePlaylist {
+                let audioURL = windowController.fileUrl.appendingPathComponent(FilePath.audio)
+                let audioFormat = AudioFormat.typeFrom(self.preferences.integer(forKey: PreferenceKey.audioFormat))
+                self.audioRecorder = AudioRecorder(audioURL, audioFormat: audioFormat, leftViewController: self)
+                self.audioRecorder.createAudioRecorder()
+            }
+            
             
             //Initialize video recorders
             for camera in self.recordCameraViewControllers {
@@ -244,7 +293,11 @@ class LeftViewController: NSViewController {
             RunLoop.current.add(self.timer, forMode: .common)
             
             //Start audio Recording
-            self.audioRecorder.startRecord()
+            if self.usePlaylist {
+                self.recordAudioPlayer.startPlaying()
+            } else {
+                self.audioRecorder.startRecord()
+            }
             
         }
     }
@@ -264,7 +317,22 @@ class LeftViewController: NSViewController {
         self.windowController.currentMode = Mode.none
         
         //Stop audio recording
-        self.audioRecorder.stopRecord()
+        if self.usePlaylist {
+            self.recordAudioPlayer.stopPlaying()
+            let audioExt = self.currentSession.audioFile.pathExtension
+            let destinationUrl =  self.windowController.fileUrl.appendingPathComponent(FilePath.audio).appendingPathComponent(self.currentSession.id).appendingPathExtension(audioExt)
+            let fileManager = FileManager.default
+            do {
+                try fileManager.copyItem(at: self.currentSession.audioFile, to: destinationUrl)
+                if let recordAudioPlayer = self.recordAudioPlayer, let duration = recordAudioPlayer.duration {
+                    self.currentSession.duration = Float(duration)
+                }
+            } catch let error as NSError {
+                Swift.print("LeftViewController: stopRecording() Error copying url \(String(describing: self.currentSession.audioFile)) to url \(destinationUrl), context: " + error.localizedDescription)
+            }
+        } else {
+            self.audioRecorder.stopRecord()
+        }
         
         //Stop video recording
         self.videoRecorder.stopRecording()
@@ -275,19 +343,36 @@ class LeftViewController: NSViewController {
         //Save file
         self.windowController.saveFile()
         
+        //Select last session
+        let lastIndex = self.windowController.motusLabFile.sessions.count
+        self.selectedSession = IndexSet(integer: lastIndex - 1)
+        
     }
     
     @objc func updateCounter() {
         if let windowController = self.windowController {
             if windowController.currentMode == Mode.recording {
                 
-                guard self.audioRecorder != nil else {
-                    Swift.print("LeftViewController: updateCounter Error audioRecorder is nil")
-                    return
+                if self.usePlaylist {
+                    guard self.recordAudioPlayer != nil else {
+                        Swift.print("LeftViewController: updateCounter Error recordAudioPlayer is nil")
+                        return
+                    }
+                    let timePosition = Float(self.recordAudioPlayer.timePosition)
+                    self.windowController.setValue(timePosition, forKey: "timePosition")
+                    self.currentSession.setValue(timePosition, forKey: Session.PropertyKey.durationKey)
+                    
+                    let meterValue = self.recordAudioPlayer.meterValue //-160 0
+                    self.recordVuMeter.levels = [(meterValue.left + 160) / 1.6 , (meterValue.right + 160) / 1.6]
+                } else {
+                    guard self.audioRecorder != nil else {
+                        Swift.print("LeftViewController: updateCounter Error audioRecorder is nil")
+                        return
+                    }
+                    let timePosition = Float(self.audioRecorder.timePosition)
+                    windowController.timePosition = timePosition
+                    self.currentSession.setValue(timePosition, forKey: Session.PropertyKey.durationKey)
                 }
-                let timePosition = Float(self.audioRecorder.timePosition)
-                windowController.timePosition = timePosition
-                self.currentSession.setValue(timePosition, forKey: Session.PropertyKey.durationKey)
                 
             } else if windowController.currentMode == Mode.playing {
                 
@@ -317,13 +402,19 @@ class LeftViewController: NSViewController {
         
         Swift.print("LeftViewController > loadSession")
     
-        guard self.playTimelineView != nil && self.windowController.motusLabFile.sessions.count > 0 else {
+        guard self.windowController != nil && self.windowController.motusLabFile != nil && self.selectedSession != nil && self.playTimelineView != nil && self.windowController.motusLabFile.sessions.count > 0 else {
             return
         }
         if let firstIndex = self.selectedSession.first {
+            
             guard !self.windowController.motusLabFile.sessions[firstIndex].isRecording else {
                 return
             }
+            
+            if self.windowController.currentMode == Mode.playing {
+                self.stopPlaying()
+            }
+            
             self.currentSession = self.windowController.motusLabFile.sessions[firstIndex]
             
             self.playTimelineView.leftViewController = self
@@ -343,8 +434,11 @@ class LeftViewController: NSViewController {
                 //Waveform data is saved in viewController to avoid loading several times the same waveform
                 let sessionId = self.currentSession.id!
                 if self.sessionWaveform[sessionId] == nil {
-                    
-                    let audioFileUrl = self.windowController.fileUrl.appendingPathComponent(FilePath.audio).appendingPathComponent(sessionId).appendingPathExtension("wav")
+                    var audioExt = self.currentSession.audioFormat
+                    if self.currentSession.audioFile != nil {
+                        audioExt = self.currentSession.audioFile.pathExtension
+                    }
+                    let audioFileUrl = self.windowController.fileUrl.appendingPathComponent(FilePath.audio).appendingPathComponent(sessionId).appendingPathExtension(audioExt)
                     let audioAnalyzer = AudioAnalyzer(audioFileUrl)
                     if let waveform = audioAnalyzer.computeChannelsData() {
                         self.sessionWaveform[sessionId] = waveform
@@ -359,6 +453,7 @@ class LeftViewController: NSViewController {
                 self.loadAudioFile()
                 self.loadCameras()
                 self.updateLevelsWithoutPlaying()
+                self.windowController.setValue(0, forKey: "timePosition")
             }
         }
     }
@@ -686,33 +781,40 @@ class LeftViewController: NSViewController {
     }
     
     func controllerColor(from number: Int, console: Int) -> NSColor {
+        
         if let windowController = self.windowController {
+            
             if windowController.displayedView == 1 {
-                if console == 0 {
+                
+                if console == 0 && windowController.consoleAControllerColors.count > number {
                     return windowController.consoleAControllerColors[number]!
-                } else {
+                } else if self.consoleBActivated && console == 1 && windowController.consoleBControllerColors.count > number {
                     return windowController.consoleBControllerColors[number]!
                 }
+                
             } else if windowController.displayedView == 2 {
+                
                 for controllerItem in self.controllersList {
                     if controllerItem.ctl == number && controllerItem.console == console {
                         if controllerItem.enable {
-                            if console == 0 {
+                            if console == 0 && windowController.consoleAControllerColors.count > number {
                                 return windowController.consoleAControllerColors[number]!
-                            } else {
+                            } else if self.consoleBActivated && console == 1 && windowController.consoleBControllerColors.count > number {
                                 return windowController.consoleBControllerColors[number]!
                             }
                         }
                         break
                     }
                 }
+                
             }
         }
         
         return NSColor.lightGray
+        
     }
     
-    //MARK: - Play > Commands
+    //MARK: - Playing > Commands
     
     func startPlaying() {
         
@@ -766,6 +868,10 @@ class LeftViewController: NSViewController {
         }
         
         self.windowController.currentMode = Mode.none
+        
+        if self.windowController.toolbarPlay == .on {
+            self.windowController.setValue(NSButton.StateValue.off, forKey: "toolbarPlay")
+        }
     }
     
 }
