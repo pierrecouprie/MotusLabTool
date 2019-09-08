@@ -30,7 +30,7 @@ class LeftViewController: NSViewController {
     var timer: Timer!
     var audioMeterTimer: Timer!
     
-    @objc dynamic var selectedSession = IndexSet(integer: 0)
+    @objc dynamic var selectedSessionIndex = IndexSet(integer: 0)
     
     //AUDIO
     var audioRecorder: AudioRecorder!
@@ -137,7 +137,7 @@ class LeftViewController: NSViewController {
         }
     }
     
-    //MARK: - Interface
+    //MARK: - Recording > MIDI controllers
     
     @IBOutlet weak var recordMidiControllerView: MIDIControllersView!
     func updateControllerView() {
@@ -208,7 +208,7 @@ class LeftViewController: NSViewController {
     @IBOutlet weak var recordVuMeter: VuMeter!
     
     /// Initialize AudioCaptureMeter to render the audio input level
-    /// Start the timer which render leverl
+    /// Start the timer which render levels
     func initializeAudioMeterLevel() {
         if self.audioCaptureMeter == nil {
             self.audioCaptureMeter = AudioCaptureMeter()
@@ -253,15 +253,15 @@ class LeftViewController: NSViewController {
             self.consoleBMidiRecorder.startRecording()
             
             //Save configurations of controllers
-            self.currentSession.consoleAControllers = self.windowController.consoleAParameters.filterControllers
-            self.currentSession.consoleBControllers = self.windowController.consoleBParameters.filterControllers
+            self.currentSession.consoleAControllers = windowController.consoleAParameters.filterControllers
+            self.currentSession.consoleBControllers = windowController.consoleBParameters.filterControllers
             
-            //Initialize audio player or recorder
+            //use playlist = initialize audio player
             self.usePlaylist = false
-            if let playlistSelectedFile = self.windowController.playlistSelectedFile {
+            if let playlistSelectedFile = windowController.playlistSelectedFile {
                 if self.preferences.bool(forKey: PreferenceKey.usePlaylist) && playlistSelectedFile.count > 0 && self.windowController.playlistFiles.count > 0 {
                     if let first = playlistSelectedFile.first {
-                        let fileUrl = self.windowController.playlistFiles[first]["url"] as! URL
+                        let fileUrl = windowController.playlistFiles[first]["url"] as! URL
                         self.recordAudioPlayer = AudioPlayer(self)
                         self.recordAudioPlayer.createAudioPlayer(fileUrl)
                         self.currentSession.audioFile = fileUrl
@@ -270,6 +270,7 @@ class LeftViewController: NSViewController {
                 }
             }
             
+            //Don't use playlist = initialize audio recorder
             if !self.usePlaylist {
                 let audioURL = windowController.fileUrl.appendingPathComponent(FilePath.audio)
                 let audioFormat = AudioFormat.typeFrom(self.preferences.integer(forKey: PreferenceKey.audioFormat))
@@ -288,14 +289,16 @@ class LeftViewController: NSViewController {
             //Switch to recording mode
             windowController.currentMode = Mode.recording
             
-            //Start timer
+            //Start counter timer
             self.timer = Timer(timeInterval: 0.01, target: self, selector: #selector(self.updateCounter), userInfo: nil, repeats: true)
             RunLoop.current.add(self.timer, forMode: .common)
             
             //Start audio Recording
             if self.usePlaylist {
+                //Use playlist = play file
                 self.recordAudioPlayer.startPlaying()
             } else {
+                // Don't use playlist = start recording
                 self.audioRecorder.startRecord()
             }
             
@@ -303,6 +306,7 @@ class LeftViewController: NSViewController {
     }
     
     func stopRecording() {
+        
         if let currentSession = self.currentSession {
             currentSession.setValue(false, forKey: Session.PropertyKey.isRecordingKey)
         }
@@ -316,7 +320,7 @@ class LeftViewController: NSViewController {
         //End of recording mode
         self.windowController.currentMode = Mode.none
         
-        //Stop audio recording
+        //Stop audio playing (playlist) or recording
         if self.usePlaylist {
             self.recordAudioPlayer.stopPlaying()
             let audioExt = self.currentSession.audioFile.pathExtension
@@ -345,7 +349,7 @@ class LeftViewController: NSViewController {
         
         //Select last session
         let lastIndex = self.windowController.motusLabFile.sessions.count
-        self.selectedSession = IndexSet(integer: lastIndex - 1)
+        self.selectedSessionIndex = IndexSet(integer: lastIndex - 1)
         
     }
     
@@ -354,6 +358,7 @@ class LeftViewController: NSViewController {
             if windowController.currentMode == Mode.recording {
                 
                 if self.usePlaylist {
+                    
                     guard self.recordAudioPlayer != nil else {
                         Swift.print("LeftViewController: updateCounter Error recordAudioPlayer is nil")
                         return
@@ -364,7 +369,9 @@ class LeftViewController: NSViewController {
                     
                     let meterValue = self.recordAudioPlayer.meterValue //-160 0
                     self.recordVuMeter.levels = [(meterValue.left + 160) / 1.6 , (meterValue.right + 160) / 1.6]
+                    
                 } else {
+                    
                     guard self.audioRecorder != nil else {
                         Swift.print("LeftViewController: updateCounter Error audioRecorder is nil")
                         return
@@ -372,6 +379,7 @@ class LeftViewController: NSViewController {
                     let timePosition = Float(self.audioRecorder.timePosition)
                     windowController.timePosition = timePosition
                     self.currentSession.setValue(timePosition, forKey: Session.PropertyKey.durationKey)
+                    
                 }
                 
             } else if windowController.currentMode == Mode.playing {
@@ -398,6 +406,7 @@ class LeftViewController: NSViewController {
     @IBOutlet weak var playVuMeter: VuMeter!
     
     /// Load session
+    /// This function initialize all elements to play a session
     func loadSession() {
         
         Swift.print("LeftViewController > loadSession")
@@ -405,7 +414,7 @@ class LeftViewController: NSViewController {
         guard self.playTimelineView != nil && self.windowController.motusLabFile.sessions.count > 0 else {
             return
         }
-        if let firstIndex = self.selectedSession.first {
+        if let firstIndex = self.selectedSessionIndex.first {
             
             guard !self.windowController.motusLabFile.sessions[firstIndex].isRecording else {
                 return
@@ -421,6 +430,7 @@ class LeftViewController: NSViewController {
             
             if case 0..<self.windowController.motusLabFile.sessions.count = firstIndex {
                 
+                //Initialize players
                 if self.midiPlayer  == nil {
                     self.midiPlayer = MIDIPlayer(self)
                 }
@@ -428,6 +438,7 @@ class LeftViewController: NSViewController {
                     self.audioPlayer = AudioPlayer(self)
                 }
                 
+                //Select session
                 self.setValue(self.windowController.motusLabFile.sessions[firstIndex], forKey: "currentSession")
                 
                 //Load audio waveform if needed
@@ -479,40 +490,6 @@ class LeftViewController: NSViewController {
         } catch let error as NSError {
             Swift.print("LeftViewController: loadMidiControllers() Error openning url \(url), context: " + error.localizedDescription)
         }
-    }
-    
-    func next() {
-        let timePosition = Float(self.windowController.timePosition)
-        if timePosition + 5 < self.currentSession.duration {
-            self.goToTime(timePosition + 5)
-        }
-    }
-    
-    func prev() {
-        let timePosition = Float(self.windowController.timePosition)
-        if timePosition - 5 >= 0 {
-            self.goToTime(timePosition - 5)
-        } else {
-            self.goToTime(0)
-        }
-    }
-    
-    func goToTime(_ position: Float) {
-        guard self.audioPlayer != nil else {
-            Swift.print("LeftViwController: updateCounter Error audioPlayer is nil")
-            return
-        }
-        self.audioPlayer.audioPlayer.currentTime = Double(position)
-        self.windowController.setValue(position, forKey: "timePosition")
-        
-        for camera in self.playCameraAVPlayers {
-            let timeScale = camera.currentTime().timescale
-            let timePosition = CMTime(seconds: Double(position), preferredTimescale: timeScale)
-            camera.seek(to: timePosition, toleranceBefore: .zero, toleranceAfter: .zero)
-        }
-        
-        self.updateLevelsWithoutPlaying()
-        
     }
     
     func updateLevelsWithoutPlaying() {
@@ -872,6 +849,40 @@ class LeftViewController: NSViewController {
         if self.windowController.toolbarPlay == .on {
             self.windowController.setValue(NSButton.StateValue.off, forKey: "toolbarPlay")
         }
+    }
+    
+    func next() {
+        let timePosition = Float(self.windowController.timePosition)
+        if timePosition + 5 < self.currentSession.duration {
+            self.goToTime(timePosition + 5)
+        }
+    }
+    
+    func prev() {
+        let timePosition = Float(self.windowController.timePosition)
+        if timePosition - 5 >= 0 {
+            self.goToTime(timePosition - 5)
+        } else {
+            self.goToTime(0)
+        }
+    }
+    
+    func goToTime(_ position: Float) {
+        guard self.audioPlayer != nil else {
+            Swift.print("LeftViwController: updateCounter Error audioPlayer is nil")
+            return
+        }
+        self.audioPlayer.audioPlayer.currentTime = Double(position)
+        self.windowController.setValue(position, forKey: "timePosition")
+        
+        for camera in self.playCameraAVPlayers {
+            let timeScale = camera.currentTime().timescale
+            let timePosition = CMTime(seconds: Double(position), preferredTimescale: timeScale)
+            camera.seek(to: timePosition, toleranceBefore: .zero, toleranceAfter: .zero)
+        }
+        
+        self.updateLevelsWithoutPlaying()
+        
     }
     
 }

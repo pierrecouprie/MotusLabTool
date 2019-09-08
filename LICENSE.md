@@ -1,6 +1,5 @@
-#  MotusLabTool License
+#  MotusLabTool
 
-Created by Pierre Couprie on 27/08/2019. <br/>
 Copyright © 2019 Pierre Couprie. All rights reserved.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

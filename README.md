@@ -6,14 +6,31 @@ Current version is 2.0.2
 
 Next Generation of [MotusLab Recorder](https://github.com/pierrecouprie/MotusLabRecorder), [MotusLab Reader](https://github.com/pierrecouprie/MotusLabReader), and [MotusLab Live](https://github.com/pierrecouprie/MotusLabLive)
 
-MotusLabTool is a software developed to record acousmatic music interpretation. It records audio, video (up to 4 webcams) and MIDI messages (up to 2 mix consoles).
+MotusLabTool is a software developed to record acousmatic music interpretation. It records audio, video, and MIDI messages.
 
-MotusLabTool is the result of a musicological research on the recording and analysis of acousmatic music.<br /> 
+## Research team
+
+* Development and research: Pierre Couprie ([Institute for research in Musicology](http://www.iremus.cnrs.fr/))
+* Research: Nathanaëlle Raboisson ([Motus Music Company](https://motus.fr/))
+* Consulting: Olivier Lamarche ([Motus Music Company](https://motus.fr/))
+
+## Acousmatic music interpretation
+
+MotusLabTool is the result of a musicological research on the recording and analysis of acousmatic music.
+
+Acousmatic music is only composed on a support and performed on a looudspeaker orchestra (called ‘acousmonium’). The interpreter distributes the sound from the support to the loudspeakers using one or more mixing tables. To study these interpretations, MotusLabTool allows you to record the motions of the mixers' faders, the audio used by the musician and up to 4 webcams.
+
+Different representations are available:
+
+* Representation of the faders of the mixing consoles
+* Time representation of the audio waveform, potentiometer graphs and markers
+* Representation of the opening of the loudspeakers on the installation plan in the concert hall.
+
 More [information](http://www.iremus.cnrs.fr/fr/programme-de-recherche/analyse-de-linterpretation-acousmatique).
 
 ## Why a new implementation?
 
-Original implementation was developed in Max (Cycling74) and there were lots of issues with video recording from webcams.
+Original implementation was developed in Max (Cycling74) and there were lots of limitations and issues with video recording of webcams and graphical representations.
 
 Then I will rewrite the software code in Swift. You are able to open project created with MotusLabTool in [iAnalyse 5](http://ianalyse5.pierrecouprie.fr).
 
@@ -29,6 +46,10 @@ Then I will rewrite the software code in Swift. You are able to open project cre
 
 ## Download
 
-From [here](https://github.com/pierrecouprie/MotusLabTool)
+Download binary [here](https://github.com/pierrecouprie/MotusLabTool)
+
+## License
+
+MotusLabTool is released under the GNU General Public License. See LICENSE for details.
 
 

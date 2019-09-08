@@ -321,7 +321,7 @@ class WindowController: NSWindowController {
                         self.motusLabFile = NSKeyedUnarchiver.unarchiveObject(with: data) as? MotusLabFile
                         
                         // Select first session
-                        self.leftViewController.selectedSession = IndexSet(integer: 0)
+                        self.leftViewController.selectedSessionIndex = IndexSet(integer: 0)
                         
                         // Switch to play tabView page
                         self.setValue(2, forKey: "displayedView")

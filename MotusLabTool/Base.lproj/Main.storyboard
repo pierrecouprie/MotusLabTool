@@ -1189,7 +1189,7 @@
                                                                 </tableColumns>
                                                                 <connections>
                                                                     <binding destination="mPl-yP-acX" name="content" keyPath="arrangedObjects" id="Efz-nj-2Rv"/>
-                                                                    <binding destination="lGi-zZ-3LO" name="selectionIndexes" keyPath="self.selectedSession" previousBinding="Efz-nj-2Rv" id="UHC-kj-n3P"/>
+                                                                    <binding destination="lGi-zZ-3LO" name="selectionIndexes" keyPath="self.selectedSessionIndex" previousBinding="Efz-nj-2Rv" id="MbM-Ac-E36"/>
                                                                 </connections>
                                                             </tableView>
                                                         </subviews>

@@ -1,2 +1,2 @@
-#  <#Title#>
+#  MotusLabTool: Quickstart
 
