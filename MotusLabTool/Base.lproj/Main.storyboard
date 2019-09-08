@@ -74,6 +74,12 @@
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="bVn-NM-KNZ"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="e6q-Gs-dz9"/>
+                                        <menuItem title="Export" keyEquivalent="e" id="br4-Ay-waq">
+                                            <connections>
+                                                <action selector="export:" target="Ady-hI-5gd" id="lgp-wJ-dVF"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -221,6 +227,11 @@
                                         <connections>
                                             <action selector="record:" target="B8D-0N-5wS" id="fvI-07-AQs"/>
                                             <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enableRecordToolbarButtons" id="4PZ-HU-AcT"/>
+                                            <binding destination="B8D-0N-5wS" name="value" keyPath="self.toolbarRecord" id="C5y-NV-Afy">
+                                                <dictionary key="options">
+                                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </button>
                                 </toolbarItem>
@@ -352,6 +363,27 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="2AC7D32B-9D87-4688-8898-1DC8EB97A45C" label="Big Counter" paletteLabel="Big Counter" image="mainTBBigCounter" id="wY7-Yh-d64">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="38" height="24"/>
+                                    <size key="maxSize" width="38" height="24"/>
+                                    <button key="view" verticalHuggingPriority="750" id="EPK-3j-X0M">
+                                        <rect key="frame" x="16" y="14" width="38" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="mainTBBigCounter" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5yq-DV-vVP">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enableRecordToolbarButtons" id="ceq-te-eZs"/>
+                                            <binding destination="B8D-0N-5wS" name="value" keyPath="self.showBigCounter" id="1dn-8o-9vO">
+                                                <dictionary key="options">
+                                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="0BE00CE1-CA90-42E0-9025-D18E14071482" label="Counter" paletteLabel="Counter" id="SlX-Ot-2GR">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="100" height="24"/>
@@ -394,6 +426,7 @@
                                 <toolbarItem reference="zuj-Ac-4qO"/>
                                 <toolbarItem reference="SlX-Ot-2GR"/>
                                 <toolbarItem reference="EKb-Sd-SXl"/>
+                                <toolbarItem reference="wY7-Yh-d64"/>
                                 <toolbarItem reference="jdQ-TF-3hq"/>
                                 <toolbarItem reference="ci5-eN-EPZ"/>
                                 <toolbarItem reference="MHs-4O-EOl"/>
@@ -953,7 +986,7 @@
                                             </tableColumns>
                                             <connections>
                                                 <binding destination="Izo-Rx-mRj" name="content" keyPath="arrangedObjects" id="5f8-zD-Rt2"/>
-                                                <binding destination="WDW-ie-XCX" name="selectionIndexes" keyPath="self.windowController.playlistSelectedFile" previousBinding="5f8-zD-Rt2" id="TTS-SR-sdc"/>
+                                                <binding destination="WDW-ie-XCX" name="selectionIndexes" keyPath="self.playlistSelectedFileIndex" previousBinding="5f8-zD-Rt2" id="Hwt-wB-Jis"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -989,7 +1022,7 @@
                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="removeFiles:" target="WDW-ie-XCX" id="6dR-RF-l32"/>
-                                    <binding destination="WDW-ie-XCX" name="enabled" keyPath="self.windowController.playlistSelectedFile" id="7uC-bc-KuQ">
+                                    <binding destination="WDW-ie-XCX" name="enabled" keyPath="self.windowController.playlistSelectedFileIndex" id="c0E-Tz-aUE">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSIsNotNil</string>
                                         </dictionary>
@@ -1001,7 +1034,7 @@
                 </viewController>
                 <customObject id="c8Q-4B-bAW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController id="9j9-a6-g9u"/>
-                <arrayController id="Izo-Rx-mRj" userLabel="playlistFiles">
+                <arrayController objectClassName="PlaylistFile" id="Izo-Rx-mRj" userLabel="playlistFiles">
                     <connections>
                         <binding destination="WDW-ie-XCX" name="contentArray" keyPath="self.windowController.playlistFiles" id="emD-Rx-dbG"/>
                     </connections>
@@ -1079,7 +1112,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="824" height="600"/>
                                                     <clipView key="contentView" id="KA9-bP-w8x">
                                                         <rect key="frame" x="1" y="1" width="822" height="598"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="73" rowSizeStyle="automatic" viewBased="YES" id="ZBN-W8-u8s">
                                                                 <rect key="frame" x="0.0" y="0.0" width="822" height="598"/>
@@ -1217,63 +1250,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="824" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <splitView arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="YTE-sD-Sdb">
-                                                    <rect key="frame" x="0.0" y="0.0" width="824" height="477"/>
-                                                    <subviews>
-                                                        <customView id="FHa-Ep-OLZ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="824" height="297"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <subviews>
-                                                                <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l7w-XT-G5c">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="824" height="297"/>
-                                                                    <subviews>
-                                                                        <customView fixedFrame="YES" id="yk0-jM-tUW">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="824" height="297"/>
-                                                                            <autoresizingMask key="autoresizingMask"/>
-                                                                        </customView>
-                                                                    </subviews>
-                                                                    <holdingPriorities>
-                                                                        <real value="250"/>
-                                                                    </holdingPriorities>
-                                                                </splitView>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="l7w-XT-G5c" secondAttribute="trailing" id="YDr-v6-XN9"/>
-                                                                <constraint firstItem="l7w-XT-G5c" firstAttribute="leading" secondItem="FHa-Ep-OLZ" secondAttribute="leading" id="aug-qs-Ri0"/>
-                                                                <constraint firstItem="l7w-XT-G5c" firstAttribute="top" secondItem="FHa-Ep-OLZ" secondAttribute="top" id="bUW-EW-H1e"/>
-                                                                <constraint firstAttribute="bottom" secondItem="l7w-XT-G5c" secondAttribute="bottom" id="djq-TC-Ck1"/>
-                                                            </constraints>
-                                                        </customView>
-                                                        <customView id="8p4-MP-EN7">
-                                                            <rect key="frame" x="0.0" y="298" width="824" height="179"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <subviews>
-                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="WkR-D8-j3D" customClass="MIDIControllersView" customModule="MotusLabTool" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="769" height="179"/>
-                                                                </customView>
-                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="ns1-Rz-9as" customClass="VuMeter" customModule="MotusLabTool" customModuleProvider="target">
-                                                                    <rect key="frame" x="777" y="0.0" width="47" height="179"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="47" id="rqN-YL-rvQ"/>
-                                                                    </constraints>
-                                                                </customView>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="WkR-D8-j3D" firstAttribute="leading" secondItem="8p4-MP-EN7" secondAttribute="leading" id="FVp-uX-PdL"/>
-                                                                <constraint firstAttribute="bottom" secondItem="WkR-D8-j3D" secondAttribute="bottom" id="h8g-lP-nUq"/>
-                                                                <constraint firstItem="WkR-D8-j3D" firstAttribute="top" secondItem="8p4-MP-EN7" secondAttribute="top" id="jKB-Zr-zLI"/>
-                                                                <constraint firstAttribute="trailing" secondItem="ns1-Rz-9as" secondAttribute="trailing" id="kst-Ia-xDs"/>
-                                                                <constraint firstAttribute="bottom" secondItem="ns1-Rz-9as" secondAttribute="bottom" id="nwm-gW-BJW"/>
-                                                                <constraint firstItem="ns1-Rz-9as" firstAttribute="top" secondItem="8p4-MP-EN7" secondAttribute="top" id="oK9-GR-ekt"/>
-                                                                <constraint firstItem="ns1-Rz-9as" firstAttribute="leading" secondItem="WkR-D8-j3D" secondAttribute="trailing" constant="8" id="vT3-hh-mV4"/>
-                                                            </constraints>
-                                                        </customView>
-                                                    </subviews>
-                                                    <holdingPriorities>
-                                                        <real value="250"/>
-                                                        <real value="250"/>
-                                                    </holdingPriorities>
-                                                </splitView>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ic-FK-UJv">
                                                     <rect key="frame" x="18" y="560" width="115" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1302,7 +1278,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-BL-U4p">
-                                                    <rect key="frame" x="221" y="487" width="585" height="14"/>
+                                                    <rect key="frame" x="221" y="487" width="490" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="0 Markers" id="EQP-c1-fyA">
                                                         <font key="font" metaFont="smallSystem"/>
@@ -1379,18 +1355,141 @@
                                                         <segue destination="622-Oa-93l" kind="popover" popoverAnchorView="hlo-2k-7Wo" popoverBehavior="t" preferredEdge="maxY" id="Am3-1w-5GJ"/>
                                                     </connections>
                                                 </button>
+                                                <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="tux-Fj-feV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="824" height="479"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <tabViewItems>
+                                                        <tabViewItem label="Record" identifier="" id="Yoa-KO-VR8">
+                                                            <view key="view" id="ejb-Ev-hG6">
+                                                                <rect key="frame" x="0.0" y="0.0" width="824" height="479"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <subviews>
+                                                                    <splitView arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="YTE-sD-Sdb">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="824" height="479"/>
+                                                                        <subviews>
+                                                                            <customView id="FHa-Ep-OLZ">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="824" height="298"/>
+                                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                                <subviews>
+                                                                                    <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l7w-XT-G5c">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="824" height="298"/>
+                                                                                        <subviews>
+                                                                                            <customView fixedFrame="YES" id="yk0-jM-tUW">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="824" height="298"/>
+                                                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                                            </customView>
+                                                                                        </subviews>
+                                                                                        <holdingPriorities>
+                                                                                            <real value="250"/>
+                                                                                        </holdingPriorities>
+                                                                                    </splitView>
+                                                                                </subviews>
+                                                                                <constraints>
+                                                                                    <constraint firstItem="l7w-XT-G5c" firstAttribute="top" secondItem="FHa-Ep-OLZ" secondAttribute="top" id="J2V-x3-fuB"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="l7w-XT-G5c" secondAttribute="bottom" id="bv9-5r-fHY"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="l7w-XT-G5c" secondAttribute="trailing" id="cwJ-Xc-bSV"/>
+                                                                                    <constraint firstItem="l7w-XT-G5c" firstAttribute="leading" secondItem="FHa-Ep-OLZ" secondAttribute="leading" id="dcw-ti-mc2"/>
+                                                                                </constraints>
+                                                                            </customView>
+                                                                            <customView id="8p4-MP-EN7">
+                                                                                <rect key="frame" x="0.0" y="299" width="824" height="180"/>
+                                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                                <subviews>
+                                                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="WkR-D8-j3D" customClass="MIDIControllersView" customModule="MotusLabTool" customModuleProvider="target">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="769" height="180"/>
+                                                                                    </customView>
+                                                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="ns1-Rz-9as" customClass="VuMeter" customModule="MotusLabTool" customModuleProvider="target">
+                                                                                        <rect key="frame" x="777" y="0.0" width="47" height="180"/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="width" constant="47" id="wMc-aq-F0o"/>
+                                                                                        </constraints>
+                                                                                    </customView>
+                                                                                </subviews>
+                                                                                <constraints>
+                                                                                    <constraint firstItem="WkR-D8-j3D" firstAttribute="leading" secondItem="8p4-MP-EN7" secondAttribute="leading" id="4km-jb-KzD"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="ns1-Rz-9as" secondAttribute="trailing" id="TyX-4F-cEj"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="ns1-Rz-9as" secondAttribute="bottom" id="YP3-Zu-E6M"/>
+                                                                                    <constraint firstAttribute="bottom" secondItem="WkR-D8-j3D" secondAttribute="bottom" id="ezc-1l-CMj"/>
+                                                                                    <constraint firstItem="ns1-Rz-9as" firstAttribute="top" secondItem="8p4-MP-EN7" secondAttribute="top" id="jaE-z6-TW0"/>
+                                                                                    <constraint firstItem="WkR-D8-j3D" firstAttribute="top" secondItem="8p4-MP-EN7" secondAttribute="top" id="knk-ma-Xpj"/>
+                                                                                    <constraint firstItem="ns1-Rz-9as" firstAttribute="leading" secondItem="WkR-D8-j3D" secondAttribute="trailing" constant="8" id="wg2-IT-Ft7"/>
+                                                                                </constraints>
+                                                                            </customView>
+                                                                        </subviews>
+                                                                        <holdingPriorities>
+                                                                            <real value="250"/>
+                                                                            <real value="250"/>
+                                                                        </holdingPriorities>
+                                                                    </splitView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="YTE-sD-Sdb" firstAttribute="top" secondItem="ejb-Ev-hG6" secondAttribute="top" id="OUe-MF-oR4"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="YTE-sD-Sdb" secondAttribute="trailing" id="YZs-sG-DPx"/>
+                                                                    <constraint firstItem="YTE-sD-Sdb" firstAttribute="leading" secondItem="ejb-Ev-hG6" secondAttribute="leading" id="eN5-3e-abY"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="YTE-sD-Sdb" secondAttribute="bottom" id="sSk-i9-7mw"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </tabViewItem>
+                                                        <tabViewItem label="Waveform" identifier="" id="irl-Me-gnq">
+                                                            <view key="view" id="HKP-H3-XZi">
+                                                                <rect key="frame" x="0.0" y="0.0" width="824" height="479"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <subviews>
+                                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="vfk-pd-iZA" customClass="RecordWaveformView" customModule="MotusLabTool" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="824" height="293"/>
+                                                                    </customView>
+                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E6O-qS-RpT">
+                                                                        <rect key="frame" x="192" y="301" width="441" height="158"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="437" id="ZSQ-eq-ObQ"/>
+                                                                            <constraint firstAttribute="height" constant="158" id="hok-GK-SBx"/>
+                                                                        </constraints>
+                                                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="00:00" id="Y2b-vp-BvU">
+                                                                            <font key="font" metaFont="systemBold" size="130"/>
+                                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                        <connections>
+                                                                            <binding destination="lGi-zZ-3LO" name="value" keyPath="self.windowController.timePosition" id="c80-X0-8T0">
+                                                                                <dictionary key="options">
+                                                                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                                                    <string key="NSValueTransformerName">SimpleTimeValueTransformer</string>
+                                                                                </dictionary>
+                                                                            </binding>
+                                                                        </connections>
+                                                                    </textField>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="E6O-qS-RpT" firstAttribute="top" secondItem="HKP-H3-XZi" secondAttribute="top" constant="20" id="Gz0-qH-Zv0"/>
+                                                                    <constraint firstItem="vfk-pd-iZA" firstAttribute="top" secondItem="HKP-H3-XZi" secondAttribute="top" constant="186" id="I6d-19-838"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="vfk-pd-iZA" secondAttribute="trailing" id="PeK-u2-C4Z"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="vfk-pd-iZA" secondAttribute="bottom" id="bDY-FC-fSl"/>
+                                                                    <constraint firstItem="E6O-qS-RpT" firstAttribute="centerX" secondItem="HKP-H3-XZi" secondAttribute="centerX" id="gsU-lb-7Uc"/>
+                                                                    <constraint firstItem="vfk-pd-iZA" firstAttribute="leading" secondItem="HKP-H3-XZi" secondAttribute="leading" id="hec-Ov-xZy"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </tabViewItem>
+                                                    </tabViewItems>
+                                                    <connections>
+                                                        <binding destination="lGi-zZ-3LO" name="selectedIndex" keyPath="self.windowController.showBigCounter" id="GD9-fS-Hla">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSButtonStateIntegerValueTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </tabView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="YTE-sD-Sdb" secondAttribute="trailing" id="Bmu-kb-gYp"/>
-                                                <constraint firstAttribute="bottom" secondItem="YTE-sD-Sdb" secondAttribute="bottom" id="Gr9-bh-XL8"/>
+                                                <constraint firstAttribute="bottom" secondItem="tux-Fj-feV" secondAttribute="bottom" id="QWX-ea-kuF"/>
                                                 <constraint firstItem="g9s-Nj-6gL" firstAttribute="top" secondItem="6fQ-sT-bYV" secondAttribute="top" constant="24" id="V5E-Bd-x71"/>
                                                 <constraint firstItem="pZH-eb-9OY" firstAttribute="top" secondItem="g9s-Nj-6gL" secondAttribute="bottom" constant="15" id="VZv-U6-D9l"/>
+                                                <constraint firstItem="tux-Fj-feV" firstAttribute="top" secondItem="6fQ-sT-bYV" secondAttribute="top" constant="121" id="Wgp-K2-1Ix"/>
+                                                <constraint firstAttribute="trailing" secondItem="tux-Fj-feV" secondAttribute="trailing" id="cEu-iV-B9q"/>
                                                 <constraint firstItem="g9s-Nj-6gL" firstAttribute="leading" secondItem="6fQ-sT-bYV" secondAttribute="leading" constant="139" id="cUy-eA-hdK"/>
-                                                <constraint firstItem="YTE-sD-Sdb" firstAttribute="leading" secondItem="6fQ-sT-bYV" secondAttribute="leading" id="dCe-NT-Qyc"/>
                                                 <constraint firstAttribute="trailing" secondItem="pZH-eb-9OY" secondAttribute="trailing" constant="20" id="fFu-xF-MhO"/>
                                                 <constraint firstItem="pZH-eb-9OY" firstAttribute="leading" secondItem="6fQ-sT-bYV" secondAttribute="leading" constant="139" id="hkF-tv-9Oj"/>
-                                                <constraint firstItem="YTE-sD-Sdb" firstAttribute="top" secondItem="6fQ-sT-bYV" secondAttribute="top" constant="123" id="kKg-9A-gqg"/>
                                                 <constraint firstAttribute="trailing" secondItem="g9s-Nj-6gL" secondAttribute="trailing" constant="20" id="t6c-OA-7R3"/>
+                                                <constraint firstItem="tux-Fj-feV" firstAttribute="leading" secondItem="6fQ-sT-bYV" secondAttribute="leading" id="tq0-wj-CFm"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>
@@ -1513,6 +1612,7 @@
                         <outlet property="recordCameraSplitView" destination="l7w-XT-G5c" id="T3V-Lb-aRp"/>
                         <outlet property="recordMidiControllerView" destination="WkR-D8-j3D" id="s2W-J3-8TF"/>
                         <outlet property="recordVuMeter" destination="ns1-Rz-9as" id="8XN-hr-rYd"/>
+                        <outlet property="recordWaveformView" destination="vfk-pd-iZA" id="aot-ke-tCt"/>
                         <outlet property="tabView" destination="bci-YS-Vkr" id="NJX-jQ-gNs"/>
                     </connections>
                 </viewController>
@@ -2059,17 +2159,17 @@ Gw
                                 </buttonCell>
                                 <connections>
                                     <action selector="importImage:" target="0wY-OB-6Bh" id="YaY-Jd-KhD"/>
+                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="C6Y-zY-VFs">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSIsNotNil</string>
+                                        </dictionary>
+                                    </binding>
                                     <binding destination="0wY-OB-6Bh" name="enabled2" keyPath="self.windowController.selectedAcousmoniumFile.showImage" previousBinding="C6Y-zY-VFs" id="8qB-rF-2um">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
                                             <integer key="NSNotApplicablePlaceholder" value="-1"/>
                                             <integer key="NSNullPlaceholder" value="-1"/>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="C6Y-zY-VFs">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSIsNotNil</string>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -2277,6 +2377,7 @@ Gw
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="mainTBAcousmonium" width="19" height="19"/>
         <image name="mainTBAddCamera" width="19" height="19"/>
+        <image name="mainTBBigCounter" width="19" height="19"/>
         <image name="mainTBControllers" width="19" height="19"/>
         <image name="mainTBMidi" width="19" height="19"/>
         <image name="mainTBMidiPlay" width="19" height="19"/>

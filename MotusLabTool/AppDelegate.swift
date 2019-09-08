@@ -33,6 +33,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let timeValueTransformerName = NSValueTransformerName.init("TimeValueTransformer")
         ValueTransformer.setValueTransformer(timeValueTransformer, forName: timeValueTransformerName)
         
+        let simpleTimeValueTransformer = SimpleTimeValueTransformer()
+        let simpleTimeValueTransformerName = NSValueTransformerName.init("SimpleTimeValueTransformer")
+        ValueTransformer.setValueTransformer(simpleTimeValueTransformer, forName: simpleTimeValueTransformerName)
+        
         let markerCountValueTransformer = MarkerCountValueTransformer()
         let markerCountValueTransformerName = NSValueTransformerName.init("MarkerCountValueTransformer")
         ValueTransformer.setValueTransformer(markerCountValueTransformer, forName: markerCountValueTransformerName)
@@ -40,6 +44,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let playlistImageValueController = PlaylistImageValueController()
         let playlistImageValueControllerName = NSValueTransformerName.init("PlaylistImageValueController")
         ValueTransformer.setValueTransformer(playlistImageValueController, forName: playlistImageValueControllerName)
+        
+        let nsbuttonStateIntegerValueTransformer = NSButtonStateIntegerValueTransformer()
+        let nsbuttonStateIntegerValueTransformerName = NSValueTransformerName.init("NSButtonStateIntegerValueTransformer")
+        ValueTransformer.setValueTransformer(nsbuttonStateIntegerValueTransformer, forName: nsbuttonStateIntegerValueTransformerName)
         
     }
 

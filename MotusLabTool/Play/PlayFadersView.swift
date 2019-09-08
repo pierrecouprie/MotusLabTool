@@ -98,7 +98,6 @@ class PlayFadersView: NSView {
                 if fader {
                     if value > 0 {
                         context.saveGState()
-                        //let color = windowController.consoleAControllerColors[index]!
                         let color = windowController.leftViewController.controllerColor(from: index, console: 0)
                         context.setFillColor(color.cgColor)
                         faderRect.origin.x = faderX
@@ -117,7 +116,6 @@ class PlayFadersView: NSView {
                 if fader {
                     if value > 0 {
                         context.saveGState()
-                        //let color = windowController.consoleBControllerColors[index]!
                         let color = windowController.leftViewController.controllerColor(from: index, console: 1)
                         context.setFillColor(color.cgColor)
                         faderRect.origin.x = faderX

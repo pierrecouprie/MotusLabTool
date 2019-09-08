@@ -24,6 +24,18 @@ class PlaylistViewController: NSViewController {
     
     @objc dynamic weak var windowController: WindowController!
     
+    @objc dynamic var playlistSelectedFileIndex: IndexSet! {
+        didSet {
+            self.windowController.playlistSelectedFileIndex = self.playlistSelectedFileIndex
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.setValue(self.windowController.playlistSelectedFileIndex, forKey: "playlistSelectedFileIndex")
+    }
+    
     @IBAction func addFiles(_ sender: Any) {
         let selectFilesPanel:NSOpenPanel = NSOpenPanel()
         selectFilesPanel.allowsMultipleSelection = true

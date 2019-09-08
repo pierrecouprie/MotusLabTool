@@ -16,6 +16,11 @@
 		8A156EBF2316531700064A8A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBE2316531700064A8A /* WindowController.swift */; };
 		8A189FB4231A561D00EA2B8D /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A189FB3231A561D00EA2B8D /* Window.swift */; };
 		8A2BB9B0232397A900FB6106 /* PlaylistImageValueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BB9AF232397A900FB6106 /* PlaylistImageValueController.swift */; };
+		8A41E9012325299B00613745 /* SimpleTimeValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */; };
+		8A41E90323252A4200613745 /* RecordWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E90223252A4200613745 /* RecordWaveformView.swift */; };
+		8A41E905232542C700613745 /* PlaylistFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E904232542C700613745 /* PlaylistFile.swift */; };
+		8A694A6E23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A694A6D23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift */; };
+		8A694A7023257F54001BD253 /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A694A6F23257F54001BD253 /* Export.swift */; };
 		8A6BEF45231B959700D5A84B /* VuMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF44231B959700D5A84B /* VuMeter.swift */; };
 		8A6BEF47231B961F00D5A84B /* AudioCaptureMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */; };
 		8A6BEF4A231B98EE00D5A84B /* RecordCamera.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6BEF48231B98EE00D5A84B /* RecordCamera.xib */; };
@@ -71,6 +76,11 @@
 		8A2BB9B22323A93E00FB6106 /* QuickStart.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = QuickStart.md; sourceTree = "<group>"; };
 		8A2BB9B42323A97300FB6106 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A2BB9B52323A9A200FB6106 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTimeValueTransformer.swift; sourceTree = "<group>"; };
+		8A41E90223252A4200613745 /* RecordWaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordWaveformView.swift; sourceTree = "<group>"; };
+		8A41E904232542C700613745 /* PlaylistFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFile.swift; sourceTree = "<group>"; };
+		8A694A6D23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonStateIntegerValueTransformer.swift; sourceTree = "<group>"; };
+		8A694A6F23257F54001BD253 /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
 		8A6BEF44231B959700D5A84B /* VuMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VuMeter.swift; sourceTree = "<group>"; };
 		8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCaptureMeter.swift; sourceTree = "<group>"; };
 		8A6BEF49231B98EE00D5A84B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RecordCamera.xib; sourceTree = "<group>"; };
@@ -204,6 +214,7 @@
 				8A6BEF46231B961F00D5A84B /* AudioCaptureMeter.swift */,
 				8A6BEF4B231B998300D5A84B /* RecordCameraViewController.swift */,
 				8A6BEF4D231B99FA00D5A84B /* VideoRecorder.swift */,
+				8A41E90223252A4200613745 /* RecordWaveformView.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -244,6 +255,7 @@
 				8ABBBF72231957AC00FA04A9 /* MotusLabFile.swift */,
 				8ABBBF742319583600FA04A9 /* MIDIControllerEvent.swift */,
 				8ABBBF762319585F00FA04A9 /* AcousmoniumFile.swift */,
+				8A41E904232542C700613745 /* PlaylistFile.swift */,
 			);
 			path = Files;
 			sourceTree = "<group>";
@@ -252,8 +264,10 @@
 			isa = PBXGroup;
 			children = (
 				8ABBBF7C23196D2600FA04A9 /* TimeValueTransformer.swift */,
+				8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */,
 				8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */,
 				8A2BB9AF232397A900FB6106 /* PlaylistImageValueController.swift */,
+				8A694A6D23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift */,
 			);
 			path = "Value Transformers";
 			sourceTree = "<group>";
@@ -285,6 +299,7 @@
 				8ABBBF6D231950BB00FA04A9 /* MidiSettingsViewController.swift */,
 				8ABBBF6223190B6F00FA04A9 /* MainSplitViewController.swift */,
 				8ABBBF68231912BF00FA04A9 /* LeftViewController.swift */,
+				8A694A6F23257F54001BD253 /* Export.swift */,
 				8A156EBC2316529E00064A8A /* DefaultSettings.swift */,
 				8A7DA567231657620059B5C9 /* Extensions.swift */,
 				8ABBBF78231958B500FA04A9 /* Files */,
@@ -394,6 +409,8 @@
 				8ABBBF6323190B6F00FA04A9 /* MainSplitViewController.swift in Sources */,
 				8A0AE006231D48EC0024FACF /* AcousmoniumPropertyViewController.swift in Sources */,
 				8A0AE00F231D8A7A0024FACF /* PlaylistViewController.swift in Sources */,
+				8A41E905232542C700613745 /* PlaylistFile.swift in Sources */,
+				8A694A7023257F54001BD253 /* Export.swift in Sources */,
 				8A7DA568231657620059B5C9 /* Extensions.swift in Sources */,
 				8A6BEF5C231BB60300D5A84B /* PlayMarkersView.swift in Sources */,
 				8A6BEF60231BB66400D5A84B /* PlayTimeRulerView.swift in Sources */,
@@ -408,12 +425,15 @@
 				8AA8467E231AC3CE00005A4D /* AddMarkerPopoverViewController.swift in Sources */,
 				8ABBBF6E231950BB00FA04A9 /* MidiSettingsViewController.swift in Sources */,
 				8AA84688231ACEE400005A4D /* MIDIRecorder.swift in Sources */,
+				8A41E9012325299B00613745 /* SimpleTimeValueTransformer.swift in Sources */,
+				8A694A6E23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift in Sources */,
 				8AE191732315045C006CD958 /* AppDelegate.swift in Sources */,
 				8AA84680231AC5AD00005A4D /* MIDIControllersView.swift in Sources */,
 				8A0AE00A231D54540024FACF /* AcousmoniumView.swift in Sources */,
 				8ABBBF7D23196D2600FA04A9 /* TimeValueTransformer.swift in Sources */,
 				8A6BEF5A231BB5E500D5A84B /* PlayControllersView.swift in Sources */,
 				8ABBBF7F23196D3E00FA04A9 /* MarkerCountValueTransformer.swift in Sources */,
+				8A41E90323252A4200613745 /* RecordWaveformView.swift in Sources */,
 				8A6BEF64231BBB2A00D5A84B /* MIDIPlayer.swift in Sources */,
 				8A6BEF66231BC47E00D5A84B /* AudioAnalyzer.swift in Sources */,
 				8A6BEF68231BCEAC00D5A84B /* PlayCameraView.swift in Sources */,
@@ -591,7 +611,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -600,7 +620,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -615,7 +635,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -624,7 +644,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -52,9 +52,9 @@ class WindowController: NSWindowController {
     
     // Playlist audio files
     var playlistFilesFolderPathUrl: URL!
-    @objc dynamic var playlistFiles = [[String: Any]]()
-    @objc dynamic var playlistSelectedFile: IndexSet!
-    
+    @objc dynamic var playlistFiles = [PlaylistFile]()
+    @objc dynamic var playlistSelectedFileIndex: IndexSet!
+    @objc dynamic var showBigCounter: Bool = false
     
     // Interface
     @objc dynamic var displayedView: Int = 0 {
@@ -78,6 +78,7 @@ class WindowController: NSWindowController {
     @objc dynamic var enableRecordToolbarButtons = false
     @objc dynamic var enablePlayToolbarButtons = false
     @objc dynamic var showAcousmonium: NSButton.StateValue = .off
+    @objc dynamic var toolbarRecord: NSButton.StateValue = .off
     @objc dynamic var toolbarPlay: NSButton.StateValue = .off
     @IBOutlet weak var modeSegmentedControl: NSSegmentedControl!
     var currentMode: String = Mode.none {
@@ -526,15 +527,17 @@ class WindowController: NSWindowController {
         let playlistFileURL = self.appSupportFolder.appendingPathComponent(FilePath.playlist).appendingPathExtension(FileExtension.data)
         do {
             let playlistData = try Data(contentsOf: playlistFileURL)
-            if let playlist = NSKeyedUnarchiver.unarchiveObject(with: playlistData) as? [[String: Any]] {
+            if let playlist = NSKeyedUnarchiver.unarchiveObject(with: playlistData) as? [PlaylistFile] {
                 self.playlistFiles = playlist
+                if self.playlistFiles.count > 0 {
+                    self.setValue(IndexSet(integer: 0), forKey: "playlistSelectedFileIndex")
+                }
             }
         } catch let error as NSError {
             Swift.print("ViewController: loadPlaylistFiles() Error openning url \(playlistFileURL), context: " + error.localizedDescription)
         }
 
     }
-    
     
     /// Add new file(s) in playlist
     /// - Parameter urls: One or several URLs in an Array
@@ -544,14 +547,14 @@ class WindowController: NSWindowController {
             let id = UUID().uuidString
             let folderURL = url.deletingPathExtension().deletingLastPathComponent()
             let name = url.fileName
-            let newFile: [String: Any] = ["url": url, "id": id, "folderURL": folderURL, "name": name]
             let audioAnalyzer = AudioAnalyzer(url)
             if let waveform = audioAnalyzer.computeChannelsData() {
+                let playlistFile = PlaylistFile(url: url, folderURL: folderURL, id: id, name: name, duration: audioAnalyzer.duration)
                 let waveformData:Data = NSKeyedArchiver.archivedData(withRootObject: waveform)
                 let waveformURL = self.playlistFilesFolderPathUrl.appendingPathComponent(id).appendingPathExtension(FileExtension.waveform)
                 do {
                     try waveformData.write(to: waveformURL)
-                    playlistFiles.append(newFile)
+                    playlistFiles.append(playlistFile)
                 } catch let error as NSError {
                     Swift.print("WindowController: savePlaylist() Error saving data to url \(String(describing: fileUrl)), context: " + error.localizedDescription)
                 }
@@ -565,13 +568,13 @@ class WindowController: NSWindowController {
     
     /// Delete selected playlist item
     func removeSelectedFiles() {
-        if let playlistSelectedFile = self.playlistSelectedFile, let playlistFilesFolderPathUrl = self.playlistFilesFolderPathUrl {
+        if let playlistSelectedFileIndex = self.playlistSelectedFileIndex, let playlistFilesFolderPathUrl = self.playlistFilesFolderPathUrl {
             let fileManager = FileManager.default
             var playlistFiles = self.playlistFiles
             let fileCount = playlistFiles.count
             for n in stride(from: fileCount - 1, through: 0, by: -1) {
-                if playlistSelectedFile.contains(n) {
-                    let waveformURL = playlistFilesFolderPathUrl.appendingPathComponent(playlistFiles[n]["id"] as! String).appendingPathExtension(FileExtension.waveform)
+                if playlistSelectedFileIndex.contains(n) {
+                    let waveformURL = playlistFilesFolderPathUrl.appendingPathComponent(playlistFiles[n].id).appendingPathExtension(FileExtension.waveform)
                     do {
                         try fileManager.removeItem(at: waveformURL)
                     } catch let error as NSError {
@@ -645,9 +648,30 @@ class WindowController: NSWindowController {
                     menuItem.state = .off
                 }
             }
+            
+            if action == #selector(self.export) {
+                if self.motusLabFile == nil {
+                    return false
+                }
+            }
         }
         
         return true
+    }
+    
+    @IBAction func export(_ sender: Any) {
+        let exportPanel = NSSavePanel()
+        exportPanel.canCreateDirectories = true
+        exportPanel.begin { (result: NSApplication.ModalResponse) -> Void in
+            if result == .OK {
+                if let url = exportPanel.url {
+                    
+                    let export = Export(url, fileURL: self.fileUrl, motusLabFile: self.motusLabFile)
+                    export.export()
+                    
+                }
+            }
+        }
     }
     
     /// Send action to leftViewController (MIDI send)

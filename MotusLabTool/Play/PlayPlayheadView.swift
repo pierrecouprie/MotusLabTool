@@ -35,6 +35,8 @@ class PlayPlayheadView: NSView {
         }
     }
     
+    var playlistPlayhead = false
+    
     var timePositionObservation: NSKeyValueObservation?
     var playheadView: PlayheadView!
     
@@ -46,12 +48,26 @@ class PlayPlayheadView: NSView {
         self.playheadView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: self.playheadView!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0).isActive = true
         NSLayoutConstraint(item: self.playheadView!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0).isActive = true
+        
+        //Initilialize properties
         self.updateTimePosition()
         self.updateColor()
+        
+        //Add observer to detect changes in preference properties
+        NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
     }
     
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    /// Preference properties changes
+    @objc func userDefaultsDidChange(_ notification: Notification) {
+        self.updateColor()
     }
     
     override func resize(withOldSuperviewSize oldSize: NSSize) {
@@ -60,7 +76,7 @@ class PlayPlayheadView: NSView {
     
     func updateTimePosition() {
         if let leftViewController = self.leftViewController, let currentSession = leftViewController.currentSession {
-            if leftViewController.windowController.displayedView == 2 {
+            if leftViewController.windowController.displayedView == 2 || (leftViewController.windowController.displayedView == 1 && self.playlistPlayhead && UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist)) {
                 let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(currentSession.duration)
                 let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
                 self.playheadView.frame = frame
@@ -71,8 +87,7 @@ class PlayPlayheadView: NSView {
     }
     
     func updateColor() {
-        let preferences = UserDefaults.standard
-        self.playheadView.layer?.backgroundColor = preferences.data(forKey: PreferenceKey.playPlayheadColor)?.color.cgColor
+        self.playheadView.layer?.backgroundColor = UserDefaults.standard.data(forKey: PreferenceKey.playPlayheadColor)?.color.cgColor
     }
     
 }
@@ -84,7 +99,6 @@ class PlayheadView: NSView {
         super.init(frame: frameRect)
         
         self.wantsLayer = true
-        self.layer!.backgroundColor = NSColor.red.cgColor
     }
     
     required init?(coder decoder: NSCoder) {

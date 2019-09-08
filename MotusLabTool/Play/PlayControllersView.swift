@@ -100,7 +100,9 @@ class PlayControllersView: NSView {
         
         // Create indexes
         self.consoleAMaxNumber = readControllers(self.leftViewController.currentSession.consoleAControllers)
-        let _ = readControllers(self.leftViewController.currentSession.consoleBControllers, start: self.consoleAMaxNumber)
+        if self.preferences.bool(forKey: PreferenceKey.consoleBActivate) {
+            let _ = readControllers(self.leftViewController.currentSession.consoleBControllers, start: self.consoleAMaxNumber)
+        }
         
         // Create id in controllersList {
         for n in 0..<self.leftViewController.controllersList.count{

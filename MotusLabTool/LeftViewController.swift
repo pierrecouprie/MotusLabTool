@@ -70,8 +70,10 @@ class LeftViewController: NSViewController {
     var controllersList = [ControllerItem]()
     
     var displayedViewObservation: NSKeyValueObservation?
+    var bigCounterObservation: NSKeyValueObservation?
     
     @IBOutlet weak var tabView: NSTabView!
+    @IBOutlet weak var recordWaveformView: RecordWaveformView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +104,9 @@ class LeftViewController: NSViewController {
             //Initialize MIDI Faders
             self.playFadersView.addObservers(windowController: self.windowController)
             
+            //Initialize waveform record view
+            self.recordWaveformView.initialize(self.windowController)
+            
             //Observers
             let displayedViewPath = \WindowController.displayedView
             self.displayedViewObservation = self.windowController.observe(displayedViewPath) { [unowned self] object, change in
@@ -110,6 +115,11 @@ class LeftViewController: NSViewController {
                 if index == 3 {
                     self.loadSession()
                 }
+            }
+            
+            let bigCounterPath = \WindowController.showBigCounter
+            self.bigCounterObservation = self.windowController.observe(bigCounterPath) { [unowned self] object, change in
+                self.recordWaveformView.loadPlaylistFile()
             }
             
             //Add observer to detect preferences properties
@@ -128,6 +138,11 @@ class LeftViewController: NSViewController {
             }
         } else {
             self.initializeAudioMeterLevel()
+        }
+        self.usePlaylist = UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist)
+        if self.usePlaylist {
+            self.recordVuMeter.levels = [0,0]
+            self.playVuMeter.levels = [0,0]
         }
     }
     
@@ -225,8 +240,10 @@ class LeftViewController: NSViewController {
             return
         }
         
-        let meterValue = self.audioCaptureMeter.meterLevels //-100 +6
-        self.recordVuMeter.levels = [(meterValue.left + 100) / 1.06 , (meterValue.right + 100) / 1.06]
+        if !self.usePlaylist {
+            let meterValue = self.audioCaptureMeter.meterLevels //-100 +6
+            self.recordVuMeter.levels = [(meterValue.left + 100) / 1.06 , (meterValue.right + 100) / 1.06]
+        }
     }
     
     //MARK: - Recording > Commands
@@ -258,12 +275,14 @@ class LeftViewController: NSViewController {
             
             //use playlist = initialize audio player
             self.usePlaylist = false
-            if let playlistSelectedFile = windowController.playlistSelectedFile {
+            if let playlistSelectedFile = windowController.playlistSelectedFileIndex {
                 if self.preferences.bool(forKey: PreferenceKey.usePlaylist) && playlistSelectedFile.count > 0 && self.windowController.playlistFiles.count > 0 {
                     if let first = playlistSelectedFile.first {
-                        let fileUrl = windowController.playlistFiles[first]["url"] as! URL
+                        let playlistFile = windowController.playlistFiles[first]
+                        let fileUrl = playlistFile.url!
                         self.recordAudioPlayer = AudioPlayer(self)
                         self.recordAudioPlayer.createAudioPlayer(fileUrl)
+                        self.currentSession.duration = playlistFile.duration
                         self.currentSession.audioFile = fileUrl
                         self.usePlaylist = true
                     }
@@ -328,9 +347,9 @@ class LeftViewController: NSViewController {
             let fileManager = FileManager.default
             do {
                 try fileManager.copyItem(at: self.currentSession.audioFile, to: destinationUrl)
-                if let recordAudioPlayer = self.recordAudioPlayer, let duration = recordAudioPlayer.duration {
+                /*if let recordAudioPlayer = self.recordAudioPlayer, let duration = recordAudioPlayer.duration {
                     self.currentSession.duration = Float(duration)
-                }
+                }*/
             } catch let error as NSError {
                 Swift.print("LeftViewController: stopRecording() Error copying url \(String(describing: self.currentSession.audioFile)) to url \(destinationUrl), context: " + error.localizedDescription)
             }
@@ -365,7 +384,6 @@ class LeftViewController: NSViewController {
                     }
                     let timePosition = Float(self.recordAudioPlayer.timePosition)
                     self.windowController.setValue(timePosition, forKey: "timePosition")
-                    self.currentSession.setValue(timePosition, forKey: Session.PropertyKey.durationKey)
                     
                     let meterValue = self.recordAudioPlayer.meterValue //-160 0
                     self.recordVuMeter.levels = [(meterValue.left + 160) / 1.6 , (meterValue.right + 160) / 1.6]
@@ -504,6 +522,12 @@ class LeftViewController: NSViewController {
     }
     
     func endOfPlayback() {
+        //If using playlist during recording
+        if self.windowController.currentMode == Mode.recording {
+            self.stopRecording()
+            self.windowController.setValue(NSButton.StateValue.off, forKey: "toolbarRecord")
+        }
+        
         self.windowController.currentMode = Mode.none
     }
     
@@ -764,9 +788,9 @@ class LeftViewController: NSViewController {
             if windowController.displayedView == 1 {
                 
                 if console == 0 && windowController.consoleAControllerColors.count > number {
-                    return windowController.consoleAControllerColors[number]!
+                    return windowController.consoleAControllerColors[number] ?? NSColor.black
                 } else if self.consoleBActivated && console == 1 && windowController.consoleBControllerColors.count > number {
-                    return windowController.consoleBControllerColors[number]!
+                    return windowController.consoleBControllerColors[number] ?? NSColor.black
                 }
                 
             } else if windowController.displayedView == 2 {
@@ -775,9 +799,9 @@ class LeftViewController: NSViewController {
                     if controllerItem.ctl == number && controllerItem.console == console {
                         if controllerItem.enable {
                             if console == 0 && windowController.consoleAControllerColors.count > number {
-                                return windowController.consoleAControllerColors[number]!
+                                return windowController.consoleAControllerColors[number] ?? NSColor.black
                             } else if self.consoleBActivated && console == 1 && windowController.consoleBControllerColors.count > number {
-                                return windowController.consoleBControllerColors[number]!
+                                return windowController.consoleBControllerColors[number] ?? NSColor.black
                             }
                         }
                         break

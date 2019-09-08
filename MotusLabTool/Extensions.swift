@@ -77,6 +77,22 @@ extension Float {
         return counterString
     }
     
+    /// Convert Float value to time formated value (minutes and seconds
+    ///
+    /// - Parameter value : The time in milliseconds
+    /// - Returns : The time in format 00:00
+    func floatToTimeSeconds() -> String {
+        guard !self.isNaN && !self.isInfinite && self >= 0 else {
+            return "00:00"
+        }
+        let seconds:Int = Int(floor(self).truncatingRemainder(dividingBy: 60))
+        let minutes:Int = Int(floor(self)/60)
+        
+        let counterString:String = NSString(format: "%02d:%02d", minutes,seconds) as String
+        
+        return counterString
+    }
+    
     /// Convert linear values (0 to 1) to decibel values (-160 to 0)
     var decibel: Float {
         var result = 20.0 * log10(abs(self))

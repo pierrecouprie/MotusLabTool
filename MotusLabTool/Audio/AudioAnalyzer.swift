@@ -28,6 +28,7 @@ let kWaveformPrecision: Int = 700
 class AudioAnalyzer: NSObject {
     
     var url: URL!
+    var duration: Float = 0
     
     init(_ url: URL) {
         super.init()
@@ -59,6 +60,7 @@ class AudioAnalyzer: NSObject {
         }
         
         let asset:AVAsset = AVAsset.init(url: url)
+        self.duration = Float(asset.duration.value) / Float(asset.duration.timescale)
         let sampleRate = fileASBD.mSampleRate
         let channelCount = fileASBD.mChannelsPerFrame
         
