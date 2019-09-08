@@ -40,7 +40,7 @@ class AcousmoniumPropertyViewController: NSViewController {
     }
     
     @IBAction func removePreset(_ sender: Any) {
-        
+        self.windowController.deleteAcousmoniumFile(self.windowController.selectedAcousmoniumFile)
     }
     
     //MARK: - Properties

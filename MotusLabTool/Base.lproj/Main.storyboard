@@ -1965,7 +1965,11 @@ Gw
                                             <string key="NSValueTransformerName">NSIsNotNil</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="0wY-OB-6Bh" name="value" keyPath="self.windowController.selectedAcousmoniumFile.showImage" id="PNt-SR-Oy6"/>
+                                    <binding destination="0wY-OB-6Bh" name="value" keyPath="self.windowController.selectedAcousmoniumFile.showImage" id="zgD-Mx-G4B">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oec-7E-g1O">
@@ -2055,6 +2059,14 @@ Gw
                                 </buttonCell>
                                 <connections>
                                     <action selector="importImage:" target="0wY-OB-6Bh" id="YaY-Jd-KhD"/>
+                                    <binding destination="0wY-OB-6Bh" name="enabled2" keyPath="self.windowController.selectedAcousmoniumFile.showImage" previousBinding="C6Y-zY-VFs" id="8qB-rF-2um">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                        </dictionary>
+                                    </binding>
                                     <binding destination="0wY-OB-6Bh" name="enabled" keyPath="self.windowController.selectedAcousmoniumFile" id="C6Y-zY-VFs">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSIsNotNil</string>
@@ -2228,7 +2240,7 @@ Gw
                 </arrayController>
                 <arrayController objectClassName="AcousmoLoudspeaker" id="hU9-dZ-F33" userLabel="Loudspeakers">
                     <connections>
-                        <binding destination="0wY-OB-6Bh" name="contentArray" keyPath="self.windowController.selectedAcousmoniumFile.acousmoLoudspeakers" id="Oje-uP-0mH"/>
+                        <binding destination="0wY-OB-6Bh" name="contentArray" keyPath="self.windowController.selectedAcousmoniumFile.acousmoniumLoudspeakers" id="9PA-Z5-F6x"/>
                     </connections>
                 </arrayController>
                 <userDefaultsController id="dkK-iN-SPS"/>

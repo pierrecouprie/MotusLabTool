@@ -30,13 +30,13 @@ class MotusLabFile: NSObject, NSCoding {
     
     dynamic var toSave: Int = 0
     
-    override var description: String {
+    /*override var description: String {
         var output = "MotusLabFile name: " + self.name + ", version: " + self.version + ", creationDate: \(String(describing: self.creationDate)), modificationDate: \(String(describing: self.modificationDate))"
         for session in self.sessions {
             output += "\r   " + session.description
         }
         return output
-    }
+    }*/
     
     struct PropertyKey {
         static let nameKey = "name"
@@ -113,13 +113,13 @@ class Session: NSObject, NSCoding {
     var markerCount: Int = 0
     dynamic var isRecording = false
     
-    override var description: String {
+    /*override var description: String {
         var output = "Session id: " + self.id + "title: " + self.title + " information: " + self.information + " duration: \(self.duration) audioFormat: " + self.audioFormat
         for marker in self.markers {
             output += "\r      " + marker.description
         }
         return output
-    }
+    }*/
     
     weak var motusLabFile: MotusLabFile!
     
@@ -197,9 +197,9 @@ class Marker: NSObject, NSCoding, NSCopying {
     dynamic var title: String = ""
     dynamic var date: Float = 0
     
-    override var description: String {
+    /*override var description: String {
         return "Marker title: " + self.title + " date: \(self.date)"
-    }
+    }*/
     
     struct PropertyKey {
         static let titleKey = "title"

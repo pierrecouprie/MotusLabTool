@@ -29,8 +29,10 @@ class RecordCameraViewController: NSViewController {
     var name: String!
     @objc dynamic var cameraDevice: String! {
         didSet {
-            if let videoRecorder = self.leftViewController.videoRecorder, let name = self.name {
-                videoRecorder.initializeVideoCamera(name, deviceId: self.cameraDevice, previewView: self.preview)
+            if let cameraDevice = self.cameraDevice, let videoRecorder = self.leftViewController.videoRecorder, let name = self.name {
+                videoRecorder.initializeVideoCamera(name, deviceId: cameraDevice, previewView: self.preview)
+            } else if let videoRecorder = self.leftViewController.videoRecorder {
+                videoRecorder.removeInputConnection(oldValue)
             }
         }
     }

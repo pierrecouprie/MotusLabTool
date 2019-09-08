@@ -29,9 +29,9 @@ class MIDIControllerEvent: NSObject, NSCoding {
     var value: Int = 0
     var feedback: String = ""
     
-    override var description: String {
+    /*override var description: String {
         return "MIDIControllerEvent date: \(self.date) console: \(self.console) channel: \(self.channel) number: \(self.number) value: \(self.value)"
-    }
+    }*/
     
     struct PropertyKey {
         static let dateKey = "date"

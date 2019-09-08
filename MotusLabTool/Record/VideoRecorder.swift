@@ -117,6 +117,8 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                     break
                 }
             }
+            
+            self.cameras[deviceId] = nil
         }
     }
     

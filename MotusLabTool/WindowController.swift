@@ -220,6 +220,8 @@ class WindowController: NSWindowController {
             
             let preferences = UserDefaults.standard
             
+            var consoleAIndex: Int = 1
+            var consoleBIndex: Int = 1
             for n in 1..<129 {
                 
                 if consoleAParameters.filterControllers[n] {
@@ -227,15 +229,16 @@ class WindowController: NSWindowController {
                     case 0: // Consoles
                         self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
                     case 1: // Groups of 8
-                        if n < 9 {
+                        if consoleAIndex < 9 {
                             self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
-                        } else if n < 17 {
+                        } else if consoleAIndex < 17 {
                             self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color2)?.color
-                        } else if n < 25 {
+                        } else if consoleAIndex < 25 {
                             self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color3)?.color
                         } else {
                             self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color4)?.color
                         }
+                        consoleAIndex += 1
                     default:
                         break
                     }
@@ -246,15 +249,16 @@ class WindowController: NSWindowController {
                     case 0: // Consoles
                         self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
                     case 1: // Groups of 8
-                        if n < 9 {
+                        if consoleBIndex < 9 {
                             self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
-                        } else if n < 17 {
+                        } else if consoleBIndex < 17 {
                             self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color6)?.color
-                        } else if n < 25 {
+                        } else if consoleBIndex < 25 {
                             self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color7)?.color
                         } else {
                             self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color8)?.color
                         }
+                        consoleBIndex += 1
                     default:
                         break
                     }
@@ -469,6 +473,25 @@ class WindowController: NSWindowController {
         self.setValue(acousmoniumFiles, forKey: "acousmoniumFiles")
         self.setValue(newAcousmoniumFile, forKey: "selectedAcousmoniumFile")
         self.saveAcousmoniumFile(newAcousmoniumFile)
+    }
+    
+    func deleteAcousmoniumFile(_ acousmoniumFile: AcousmoniumFile) {
+        var acousmoniumFiles = self.acousmoniumFiles
+        for (index,acousmonium) in acousmoniumFiles.enumerated() {
+            if acousmonium == acousmoniumFile {
+                let fileUrl = self.appSupportFolder.appendingPathComponent(FilePath.acousmoniums).appendingPathComponent(acousmoniumFile.id).appendingPathExtension(FileExtension.acousmonium)
+                do {
+                    try FileManager.default.removeItem(at: fileUrl)
+                } catch let error as NSError {
+                    Swift.print("WindowController: deleteAcousmoniumFile() Error deleting acousmonium to url \(fileUrl), context: " + error.localizedDescription)
+                }
+                
+                acousmoniumFiles.remove(at: index)
+                break
+            }
+        }
+        self.setValue(acousmoniumFiles, forKey: "acousmoniumFiles")
+        self.setValue(nil, forKey: "selectedAcousmoniumFile")
     }
     
     /// Save parameters of selected acousmonium

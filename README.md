@@ -11,7 +11,7 @@ MotusLabTool is a software developed to record acousmatic music interpretation. 
 ## Research team
 
 * Development and research: Pierre Couprie ([Institute for research in Musicology](http://www.iremus.cnrs.fr/))
-* Research: Nathanaëlle Raboisson ([Motus Music Company](https://motus.fr/))
+* Research: Nathanaëlle Raboisson ([Motus Music Company](https://motus.fr/) and [Institute for research in Musicology](http://www.iremus.cnrs.fr/))
 * Consulting: Olivier Lamarche ([Motus Music Company](https://motus.fr/))
 
 ## Acousmatic music interpretation
@@ -46,7 +46,7 @@ Then I will rewrite the software code in Swift. You are able to open project cre
 
 ## Download
 
-Download binary [here](https://github.com/pierrecouprie/MotusLabTool)
+Download binary [here](https://github.com/pierrecouprie/MotusLabTool/releases)
 
 ## License
 

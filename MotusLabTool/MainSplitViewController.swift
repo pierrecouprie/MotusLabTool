@@ -32,7 +32,7 @@ class MainSplitViewController: NSSplitViewController {
         
         // Fix acousmonium view (at right) item size properties
         self.splitViewItems[1].minimumThickness = 200
-        self.splitViewItems[1].maximumThickness = 600
+        self.splitViewItems[1].maximumThickness = 900
         self.splitViewItems[1].isCollapsed = true
         
     }

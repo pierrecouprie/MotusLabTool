@@ -20,11 +20,15 @@
 
 import Cocoa
 
+let kAcousmoniumLabelSize: CGFloat = 12
+
 /// The main view
 ///
-/// AcousmoniumView -subview-> AcousmoniumContainer -subview-> AcousmoniumLoudspeakerView
-///                                     |
-///                            CALayer.contents = background image of acousmonium
+/// AcousmoniumView
+///       |-subview-> AcousmoniumContainer -> CALayer.contents = background image of acousmonium
+///       |-subview-> AcousmoniumLoudspeakerView (one for each loudspeaker)
+///                              |-subview-> AcousmoniumShapeView -> round shape
+///                              |-subview-> AcousmoniumTextView -> title of loudspeaker
 ///
 class AcousmoniumView: NSView {
     
@@ -89,6 +93,11 @@ class AcousmoniumContainer: NSView {
             self.updateLoudspeakerOpacity()
         }
     }
+    var labelVisibility: Bool = false {
+           didSet {
+               self.updateLoudspeakerLabelVisibility()
+           }
+       }
     var acousmoSize: Float = 0.25 {
         didSet {
             self.updateLoudspeakerSize()
@@ -149,6 +158,10 @@ class AcousmoniumContainer: NSView {
         let opacity = UserDefaults.standard.float(forKey: PreferenceKey.acousmoOpacity)
         if self.acousmoOpacity != opacity {
             self.acousmoOpacity = opacity
+        }
+        let labelVisibility = UserDefaults.standard.bool(forKey: PreferenceKey.acousmoShowTitles)
+        if self.labelVisibility != labelVisibility {
+            self.labelVisibility = labelVisibility
         }
         let size = UserDefaults.standard.float(forKey: PreferenceKey.acousmoSize)
         if self.acousmoSize != size {
@@ -217,6 +230,8 @@ class AcousmoniumContainer: NSView {
         let defaultFrame = CGRect(x: self.bounds.midX, y: self.bounds.midY, width: self.bounds.size.width * CGFloat(self.acousmoSize), height: self.bounds.size.height * CGFloat(self.acousmoSize))
         let acousmoniumLoudspeakerView = AcousmoniumLoudspeakerView(frame: defaultFrame, acousmoniumLoudspeaker: acousmoniumLoudspeaker, windowController: self.windowController)
         self.addSubview(acousmoniumLoudspeakerView)
+        acousmoniumLoudspeakerView.updateAlpha()
+        acousmoniumLoudspeakerView.updateLabelVisibility()
         acousmoniumLoudspeakerView.updateFrame()
         acousmoniumLoudspeakerView.updateObserver()
     }
@@ -227,6 +242,12 @@ class AcousmoniumContainer: NSView {
         }
     }
     
+    func updateLoudspeakerLabelVisibility() {
+        for subview in self.subviews {
+            (subview as! AcousmoniumLoudspeakerView).updateLabelVisibility()
+        }
+    }
+    
     func updateLoudspeakerSize() {
         for subview in self.subviews {
             (subview as! AcousmoniumLoudspeakerView).updateFrame()
@@ -234,8 +255,14 @@ class AcousmoniumContainer: NSView {
     }
     
     override func mouseDown(with event: NSEvent) {
-        let mouse = self.convert(event.locationInWindow, from: nil)
         self.selectedLoudspeaker.loudspeaker = nil
+        
+        if !self.windowController.editAcousmonium {
+            return
+        }
+        
+        let mouse = self.convert(event.locationInWindow, from: nil)
+        
         for subview in self.subviews {
             if NSPointInRect(mouse, subview.frame) {
                 let position = CGPoint(x: mouse.x - subview.frame.origin.x, y: mouse.y - subview.frame.origin.y)
@@ -268,9 +295,12 @@ class AcousmoniumLoudspeakerView: NSView {
     weak var acousmoniumLoudspeaker: AcousmoniumLoudspeaker!
     var value: Int = 0 {
         didSet {
-            self.updateFrame()
+            self.updateSize(self.value)
         }
     }
+    
+    var acousmoniumShapeView: AcousmoniumShapeView!
+    var acousmoniumTextView: AcousmoniumTextView!
     
     var mouseClic = CGPoint(x: -1, y: -1)
     
@@ -283,8 +313,13 @@ class AcousmoniumLoudspeakerView: NSView {
         super.init(frame: frameRect)
         self.acousmoniumLoudspeaker = acousmoniumLoudspeaker
         self.windowController = windowController
-        self.wantsLayer = true
-        self.updateAlpha()
+        
+        //Create subviews
+        self.acousmoniumShapeView  = AcousmoniumShapeView(frame: frameRect, acousmoniumLoudspeaker: acousmoniumLoudspeaker, windowController: windowController)
+        self.addSubview(self.acousmoniumShapeView)
+        self.acousmoniumTextView  = AcousmoniumTextView(frame: frameRect, acousmoniumLoudspeaker: acousmoniumLoudspeaker)
+        self.addSubview(self.acousmoniumTextView)
+        self.acousmoniumTextView.addInViewConstraints(superView: self)
         
         //Observers
         let consolePath = \AcousmoniumLoudspeaker.console
@@ -300,6 +335,7 @@ class AcousmoniumLoudspeakerView: NSView {
         let editPath = \WindowController.editAcousmonium
         self.editObservation = self.windowController.observe(editPath) { [unowned self] object, change in
             self.updateFrame()
+            self.updateSize(self.value)
         }
     }
     
@@ -335,26 +371,21 @@ class AcousmoniumLoudspeakerView: NSView {
     
     func updateAlpha() {
         if let superview = self.superview, let acousmoniumContainer = superview as? AcousmoniumContainer {
-            if self.windowController.editAcousmonium {
-                self.alphaValue = CGFloat(acousmoniumContainer.acousmoOpacity)
-            } else {
-                if self.value == 0 {
-                    self.alphaValue = 0
-                } else {
-                    if self.alphaValue != CGFloat(acousmoniumContainer.acousmoOpacity) {
-                        self.alphaValue = CGFloat(acousmoniumContainer.acousmoOpacity)
-                    }
-                }
+            if self.acousmoniumShapeView.alphaValue != CGFloat(acousmoniumContainer.acousmoOpacity) {
+                self.acousmoniumShapeView.alphaValue = CGFloat(acousmoniumContainer.acousmoOpacity)
             }
+        }
+    }
+    
+    func updateLabelVisibility() {
+        if let superview = self.superview, let acousmoniumContainer = superview as? AcousmoniumContainer {
+            self.acousmoniumTextView.isHidden = !acousmoniumContainer.labelVisibility
         }
     }
     
     func updateFrame() {
         if let superview = self.superview, let acousmoniumContainer = superview as? AcousmoniumContainer {
-            var refSize = superview.frame.size.width * CGFloat(acousmoniumContainer.acousmoSize)
-            if !self.windowController.editAcousmonium {
-                refSize = superview.frame.size.width * CGFloat(acousmoniumContainer.acousmoSize * (Float(value) / 128))
-            }
+            let refSize = superview.frame.size.width * CGFloat(acousmoniumContainer.acousmoSize)
             var x = superview.frame.size.width * CGFloat(self.acousmoniumLoudspeaker.x)
             var y = superview.frame.size.height * CGFloat(self.acousmoniumLoudspeaker.y)
             x -= (refSize / 2)
@@ -362,14 +393,53 @@ class AcousmoniumLoudspeakerView: NSView {
             let frame = CGRect(x: x, y: y, width: refSize, height: refSize)
             self.frame = frame
         }
-        self.updateAlpha()
+        self.updateSize(self.value)
+    }
+    
+    func updateSize(_ value: Int) {
+        if let acousmoniumShapeView = self.acousmoniumShapeView {
+            acousmoniumShapeView.updateSize(value)
+        }
+    }
+    
+}
+
+class AcousmoniumShapeView: NSView {
+    
+    weak var windowController: WindowController!
+    weak var acousmoniumLoudspeaker: AcousmoniumLoudspeaker!
+    
+    init(frame frameRect: NSRect, acousmoniumLoudspeaker: AcousmoniumLoudspeaker, windowController: WindowController) {
+        super.init(frame: frameRect)
+        self.wantsLayer = true
+        self.windowController = windowController
+        self.acousmoniumLoudspeaker = acousmoniumLoudspeaker
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func updateSize(_ value: Int) {
+        if let superview = self.superview, let acousmoniumLoudspeakerView = superview as? AcousmoniumLoudspeakerView {
+            var size: CGFloat = CGFloat(Float(value) / 128)
+            if self.windowController.editAcousmonium {
+                size = 1
+            }
+            var sizedFrame = acousmoniumLoudspeakerView.frame
+            sizedFrame.size.width *= size
+            sizedFrame.size.height *= size
+            sizedFrame.origin.x = (acousmoniumLoudspeakerView.frame.width  - sizedFrame.size.width) / 2
+            sizedFrame.origin.y = (acousmoniumLoudspeakerView.frame.height  - sizedFrame.size.height) / 2
+            self.frame = sizedFrame
+        }
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        if let context = NSGraphicsContext.current?.cgContext, let superview = self.superview, let acousmoniumContainer = superview as? AcousmoniumContainer, let windowController = self.windowController {
+        if let context = NSGraphicsContext.current?.cgContext, let superview = self.superview, let acousmoniumLoudspeakerView = superview as? AcousmoniumLoudspeakerView, let acousmoniumContainer = acousmoniumLoudspeakerView.superview as? AcousmoniumContainer, let windowController = self.windowController {
             
             context.saveGState()
-            var loudspeakerColor = self.windowController.leftViewController.controllerColor(from: self.acousmoniumLoudspeaker.input, console: self.acousmoniumLoudspeaker.console)
+            var loudspeakerColor = windowController.leftViewController.controllerColor(from: self.acousmoniumLoudspeaker.input, console: self.acousmoniumLoudspeaker.console)
             if windowController.editAcousmonium {
                 if let fistIndex = acousmoniumContainer.acousmoniumFile.selectedLoudspeakerIndex.first {
                     let loudspeaker = acousmoniumContainer.subviews[fistIndex]
@@ -382,6 +452,60 @@ class AcousmoniumLoudspeakerView: NSView {
             context.addEllipse(in: self.bounds)
             context.drawPath(using: .fill)
             context.restoreGState()
+        }
+    }
+}
+
+class AcousmoniumTextView: NSView {
+    
+    weak var windowController: WindowController!
+    weak var acousmoniumLoudspeaker: AcousmoniumLoudspeaker!
+    
+    var titleObservation: NSKeyValueObservation?
+    
+    init(frame frameRect: NSRect, acousmoniumLoudspeaker: AcousmoniumLoudspeaker) {
+        super.init(frame: frameRect)
+        self.wantsLayer = true
+        self.acousmoniumLoudspeaker = acousmoniumLoudspeaker
+        
+        let titlePath = \AcousmoniumLoudspeaker.title
+        self.titleObservation = self.acousmoniumLoudspeaker.observe(titlePath) { [unowned self] object, change in
+            self.setNeedsDisplay(self.bounds)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    override func draw(_ dirtyRect: NSRect) {
+        if let context = NSGraphicsContext.current?.cgContext, let acousmoniumLoudspeaker = self.acousmoniumLoudspeaker {
+            
+            guard acousmoniumLoudspeaker.title != nil else {
+                return
+            }
+            
+            context.saveGState()
+            
+            let font = NSFont.systemFont(ofSize: kAcousmoniumLabelSize)
+            
+            let textStyle = NSMutableParagraphStyle()
+            textStyle.alignment = .center
+            
+            let textFontAttributes = [
+                NSAttributedString.Key.font: font,
+                NSAttributedString.Key.foregroundColor: NSColor.red,
+                NSAttributedString.Key.paragraphStyle: textStyle
+                ] as [NSAttributedString.Key : Any]
+            
+            var textRect = self.bounds
+            let textTextHeight: CGFloat = acousmoniumLoudspeaker.title.boundingRect(with: NSSize(width: textRect.width, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: textFontAttributes).height
+            textRect = NSRect(x: textRect.minX, y: textRect.minY + (frame.size.height - textTextHeight) / 2, width: textRect.width, height: textTextHeight)
+            self.bounds.clip()
+            acousmoniumLoudspeaker.title.draw(in: textRect.offsetBy(dx: 0, dy: 0.5), withAttributes: textFontAttributes)
+            
+            context.restoreGState()
+            
         }
     }
     
