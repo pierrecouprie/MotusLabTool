@@ -42,7 +42,7 @@ class PlaylistViewController: NSViewController {
         selectFilesPanel.canChooseDirectories = false
         selectFilesPanel.canCreateDirectories = false
         selectFilesPanel.canChooseFiles = true
-        selectFilesPanel.allowedFileTypes = ["aif","aiff","wav","mp3"]
+        selectFilesPanel.allowedFileTypes = ["aif","aiff","wav","mp3","m4a"]
         
         selectFilesPanel.begin { (result) -> Void in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {

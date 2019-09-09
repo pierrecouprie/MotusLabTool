@@ -26,11 +26,18 @@ class Window: NSWindow {
     override func keyDown(with event: NSEvent) {
         
         if let windowController = self.windowController {
-            
-            if (windowController as! WindowController).displayedView == 2 {
                 
-                // Space bar
-                if event.keyCode == 49 {
+            // Space bar
+            if event.keyCode == 49 {
+                if (windowController as! WindowController).displayedView == 1 { //Record interface
+                    if (windowController as! WindowController).toolbarRecord == .off {
+                        (windowController as! WindowController).toolbarRecord = .on
+                        (windowController as! WindowController).leftViewController.startRecording()
+                    } else {
+                        (windowController as! WindowController).toolbarRecord = .off
+                        (windowController as! WindowController).leftViewController.stopRecording()
+                    }
+                } else if (windowController as! WindowController).displayedView == 2 { //Play interface
                     if (windowController as! WindowController).toolbarPlay == .off {
                         (windowController as! WindowController).toolbarPlay = .on
                         (windowController as! WindowController).leftViewController.startPlaying()
@@ -38,16 +45,18 @@ class Window: NSWindow {
                         (windowController as! WindowController).toolbarPlay = .off
                         (windowController as! WindowController).leftViewController.pausePlaying()
                     }
-                    
+                }
                 // <- (left arrow)
-                } else if event.keyCode == 123 {
+            } else if event.keyCode == 123 {
+                if (windowController as! WindowController).displayedView == 2 {
                     (windowController as! WindowController).leftViewController.prev()
-                    
-                // -> (right arrow)
-                } else if event.keyCode == 124 {
-                    (windowController as! WindowController).leftViewController.next()
                 }
                 
+                // -> (right arrow)
+            } else if event.keyCode == 124 {
+                if (windowController as! WindowController).displayedView == 2 {
+                    (windowController as! WindowController).leftViewController.next()
+                }
             }
             
         }

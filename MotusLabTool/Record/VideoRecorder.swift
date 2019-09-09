@@ -131,6 +131,9 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     func initializeVideoCamera(_ name: String, deviceId: String, previewView: NSView) {
         
         if let device = AVCaptureDevice(uniqueID: deviceId) {
+            
+            Swift.print(device)
+            
             do {
                 let avCaptureInput = try AVCaptureDeviceInput(device: device)
                 

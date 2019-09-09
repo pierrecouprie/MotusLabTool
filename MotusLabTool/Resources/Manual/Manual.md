@@ -1,0 +1,162 @@
+#  MotusLabTool Manual
+
+## Configure audio
+
+The input and output audio corresponds to the computer's system preference settings.
+
+Before opening MotusLabTool :
+
+1. Open the system preferences.
+2. Select `Sound`.
+3. Select audio input and output.
+
+Then launch the software.
+
+## Configure the MIDI
+
+Use the toolbar button ![MIDI Toolbar Button](images/mainTBMidi.pdf). The window displays all MIDI settings:
+
+![MIDI Settings](images/midiSettings.png)
+
+`Value correction`: Displays the corrected fader values for the selected mix table.
+
+`Console B`: Activate or not the second mix console.
+
+`Input`: Select the MIDI input device for each mix console.
+
+`Output`: Select the MIDI output device for each mix console.
+
+`Channel`: Select the MIDI channel for each mix console (`All` is the default value).
+
+`Mapping`: Configure the MIDI mapping (see below).
+
+### Configure the MIDI Mapping
+
+Fill in the MIDI controller numbers you want to record for each console.
+
+You can fill them in 3 ways:
+
+1. A list of numbers separated by a space. Eg. `1 3 3 5 5 7 9`.
+2. A range of numbers with the first and last one with a dash. Eg. `1-10` means controllers from 1 to 10.
+3. A combination of the first two ways. Eg. `1-10 15 18-21`.
+
+You can also use the learning techniques:
+
+1. By pressing the `Learn All` button: Move all controllers to be recorded.
+2. By pressing the `Learn` button: Move a single controller to record it.
+
+Some consoles will not work with the `Learn All` button, they will record more controllers than desired.
+
+## Configure the playlist
+
+When recording, you can record the audio from the computer input or play back an audio file. The playlist is used to organize the files to be played back during recording.
+
+> Audio files must be located in the user's Music folder. Other files cannot be added to the playlist.
+
+Use the toolbar button ![Playlist Toolbar Button](images/mainTBPlaylist.pdf) to open the playlist:
+
+![Playlist](images/playlist.png)
+
+`Use playlist`: Activate the playlist. Uncheck to record audio from input of computer. When this function is enabled, the toolbar icon turns red (![Playlist Toolbar Button](images/mainTBPlaylist2.pdf))
+
+`+`: Add one or more files to the playlist.
+
+> MotusLabTool only accepts WAV, AIFF, MP3, and M4A formats.
+
+`-`: Remove one file from the playlist.
+
+Select the file you want to use during recording.
+
+## Record
+
+### Create a new project
+
+Use menu `File` > `New` to create a new project:
+
+![Playlist](images/newProject.png)
+
+### Add cameras
+
+Select a camera from the drop-down menu instead of No value. You can add more cameras (up to 4) with the button ![Add Camera Toolbar Button](images/mainTBAddCamera.pdf) in the toolbar.
+
+> Video is recording in H264, 960 x 540 pixels.
+
+### Record a performance
+
+Use the toolbar button ![Playlist Toolbar Button](images/mainTBRecord.pdf) to start and stop recording. You also can use the space bar. Each recording produce a session in the same project.
+
+During the recording, you can edit `Title` and `Information` and `Add markers` (see below) for each session.
+
+### Record with waveform and big counter
+
+Use the toolbar button ![Playlist Toolbar Button](images/mainTBBigCounter.pdf) to display the waveform and the big counter.
+
+The waveform is only displayed if you select the playlist function.
+
+![Big Counter](images/bigCounter.png)
+
+### Add markers
+
+During the recording use Markers `Add` button, fill the `Title` and select `Save` to add a marker.
+
+## Play
+
+### Open a project
+
+Use menu `File` > `Open` to open a project. Use ![Playlist Toolbar Button](images/mainTBPlay.pdf) and ![Playlist Toolbar Button](images/mainTBStop.pdf) to command the playback.
+
+## Acousmonium
+
+Use the toolbar button ![Playlist Toolbar Button](images/mainTBAcousmonium.pdf) to display the acousmonium panel at right.
+
+Acousmonium map can be used in play and record mode.
+
+### Create a new acousmonium
+
+Use the button ![Playlist Toolbar Button](images/NSActionTemplate.png) to open the property window:
+
+![Acousmonium Properties](images/acousmoniumProperties.png)
+
+`+`: Create a new acousmonium preset. 
+
+`-`: Delete the selected acousmonium preset.
+
+`Background image`: Use a background image (eg. the map of the acousmonium).
+
+`Import image`: Select an image.
+
+> MotusLabTool only accepts JPG and PNG formats.
+
+`Edit graphic position`: Check to edit the loudspeaker positions.
+
+`Opacity`: Change opacity of loudspeakers.
+
+`Size`: Change size of loudspeakers.
+
+`Titles`: Show or hide name of loudspeakers.
+
+`+`: Add a loudspeaker.
+
+`+`: Delete the selected loudspeaker.
+
+When you add a loudspeaker, it is displayed on the interface of the main window as a circle. If you have activated `Edit graphic position`, you can move the circle with the mouse:
+
+![Edit Acousmonium](images/editAcousmonium.png)
+
+The list contains 3 values:
+
+1. The name of the loudspeaker.
+2. The console.
+3. The MIDI controller number.
+
+You can use multiple loudspeakers with the same MIDI controller number.
+
+In order to ensure that the representation works properly during playback or recording, the MIDI controller numbers and console indications must be the same as those selected in the MIDI properties (see `Configure the MIDI` section).
+
+# FAQ
+
+## Sometimes camera does not work
+
+1. Check that the power supply to the USB port is sufficient.
+2. Disconnect and reconnect the camera.
+3. Restart the software and try again to add the camera.

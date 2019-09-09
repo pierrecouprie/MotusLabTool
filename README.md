@@ -1,8 +1,6 @@
 #  MotusLabTool
 
-Current version is 2.0.2
-
-[![Build Status](https://travis-ci.org/shadowsocks/ShadowsocksX-NG.svg?branch=develop)](https://travis-ci.org/shadowsocks/ShadowsocksX-NG)
+> Current version is 2.0.2
 
 Next Generation of [MotusLab Recorder](https://github.com/pierrecouprie/MotusLabRecorder), [MotusLab Reader](https://github.com/pierrecouprie/MotusLabReader), and [MotusLab Live](https://github.com/pierrecouprie/MotusLabLive)
 
@@ -48,8 +46,12 @@ Then I will rewrite the software code in Swift. You are able to open project cre
 
 Download binary [here](https://github.com/pierrecouprie/MotusLabTool/releases)
 
+## Manual
+
+[Quickstart](https://github.com/pierrecouprie/MotusLabTool/blob/master/MotusLabTool/Resources/Manual/Manual.md)
+
 ## License
 
-MotusLabTool is released under the GNU General Public License. See LICENSE for details.
+MotusLabTool is released under the GNU General Public License. See [LICENSE](https://github.com/pierrecouprie/MotusLabTool/blob/master/LICENSE.md) for details.
 
 

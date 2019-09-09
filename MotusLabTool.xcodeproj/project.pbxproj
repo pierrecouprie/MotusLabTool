@@ -58,6 +58,24 @@
 		8ABBBF7A23195A0900FA04A9 /* MIDITools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF7923195A0900FA04A9 /* MIDITools.swift */; };
 		8ABBBF7D23196D2600FA04A9 /* TimeValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF7C23196D2600FA04A9 /* TimeValueTransformer.swift */; };
 		8ABBBF7F23196D3E00FA04A9 /* MarkerCountValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */; };
+		8AD44C852326BB3A00DE08AB /* mainTBRecord.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C722326BB3900DE08AB /* mainTBRecord.pdf */; };
+		8AD44C862326BB3A00DE08AB /* mainTBStop.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C732326BB3900DE08AB /* mainTBStop.pdf */; };
+		8AD44C872326BB3A00DE08AB /* NSActionTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C742326BB3900DE08AB /* NSActionTemplate.png */; };
+		8AD44C882326BB3A00DE08AB /* acousmoniumProperties.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C752326BB3900DE08AB /* acousmoniumProperties.png */; };
+		8AD44C892326BB3A00DE08AB /* editAcousmonium.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C762326BB3900DE08AB /* editAcousmonium.png */; };
+		8AD44C8A2326BB3A00DE08AB /* midiSettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C772326BB3900DE08AB /* midiSettings.png */; };
+		8AD44C8B2326BB3A00DE08AB /* mainTBPlaylist2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C782326BB3900DE08AB /* mainTBPlaylist2.pdf */; };
+		8AD44C8C2326BB3A00DE08AB /* mainTBPlay.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C792326BB3900DE08AB /* mainTBPlay.pdf */; };
+		8AD44C8D2326BB3A00DE08AB /* newProject.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C7A2326BB3900DE08AB /* newProject.png */; };
+		8AD44C8E2326BB3A00DE08AB /* mainTBAddCamera.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C7B2326BB3900DE08AB /* mainTBAddCamera.pdf */; };
+		8AD44C8F2326BB3A00DE08AB /* mainTBMidiPlay.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C7C2326BB3900DE08AB /* mainTBMidiPlay.pdf */; };
+		8AD44C902326BB3A00DE08AB /* mainTBAcousmonium.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C7D2326BB3900DE08AB /* mainTBAcousmonium.pdf */; };
+		8AD44C912326BB3A00DE08AB /* mainTBControllers.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C7E2326BB3A00DE08AB /* mainTBControllers.pdf */; };
+		8AD44C922326BB3A00DE08AB /* mainTBBigCounter.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C7F2326BB3A00DE08AB /* mainTBBigCounter.pdf */; };
+		8AD44C932326BB3A00DE08AB /* playlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C802326BB3A00DE08AB /* playlist.png */; };
+		8AD44C942326BB3A00DE08AB /* mainTBMidi.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C812326BB3A00DE08AB /* mainTBMidi.pdf */; };
+		8AD44C962326BB3A00DE08AB /* mainTBPlaylist.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C832326BB3A00DE08AB /* mainTBPlaylist.pdf */; };
+		8AD44C972326BB3A00DE08AB /* bigCounter.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C842326BB3A00DE08AB /* bigCounter.png */; };
 		8AE191732315045C006CD958 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE191722315045C006CD958 /* AppDelegate.swift */; };
 		8AE191772315045D006CD958 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191762315045D006CD958 /* Assets.xcassets */; };
 		8AE1917A2315045D006CD958 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191782315045D006CD958 /* Main.storyboard */; };
@@ -73,7 +91,7 @@
 		8A156EBE2316531700064A8A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8A189FB3231A561D00EA2B8D /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		8A2BB9AF232397A900FB6106 /* PlaylistImageValueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistImageValueController.swift; sourceTree = "<group>"; };
-		8A2BB9B22323A93E00FB6106 /* QuickStart.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = QuickStart.md; sourceTree = "<group>"; };
+		8A2BB9B22323A93E00FB6106 /* Manual.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Manual.md; sourceTree = "<group>"; };
 		8A2BB9B42323A97300FB6106 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A2BB9B52323A9A200FB6106 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTimeValueTransformer.swift; sourceTree = "<group>"; };
@@ -118,6 +136,24 @@
 		8ABBBF7923195A0900FA04A9 /* MIDITools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITools.swift; sourceTree = "<group>"; };
 		8ABBBF7C23196D2600FA04A9 /* TimeValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeValueTransformer.swift; sourceTree = "<group>"; };
 		8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerCountValueTransformer.swift; sourceTree = "<group>"; };
+		8AD44C722326BB3900DE08AB /* mainTBRecord.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBRecord.pdf; sourceTree = "<group>"; };
+		8AD44C732326BB3900DE08AB /* mainTBStop.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBStop.pdf; sourceTree = "<group>"; };
+		8AD44C742326BB3900DE08AB /* NSActionTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NSActionTemplate.png; sourceTree = "<group>"; };
+		8AD44C752326BB3900DE08AB /* acousmoniumProperties.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = acousmoniumProperties.png; sourceTree = "<group>"; };
+		8AD44C762326BB3900DE08AB /* editAcousmonium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editAcousmonium.png; sourceTree = "<group>"; };
+		8AD44C772326BB3900DE08AB /* midiSettings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = midiSettings.png; sourceTree = "<group>"; };
+		8AD44C782326BB3900DE08AB /* mainTBPlaylist2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBPlaylist2.pdf; sourceTree = "<group>"; };
+		8AD44C792326BB3900DE08AB /* mainTBPlay.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBPlay.pdf; sourceTree = "<group>"; };
+		8AD44C7A2326BB3900DE08AB /* newProject.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newProject.png; sourceTree = "<group>"; };
+		8AD44C7B2326BB3900DE08AB /* mainTBAddCamera.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBAddCamera.pdf; sourceTree = "<group>"; };
+		8AD44C7C2326BB3900DE08AB /* mainTBMidiPlay.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBMidiPlay.pdf; sourceTree = "<group>"; };
+		8AD44C7D2326BB3900DE08AB /* mainTBAcousmonium.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBAcousmonium.pdf; sourceTree = "<group>"; };
+		8AD44C7E2326BB3A00DE08AB /* mainTBControllers.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBControllers.pdf; sourceTree = "<group>"; };
+		8AD44C7F2326BB3A00DE08AB /* mainTBBigCounter.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBBigCounter.pdf; sourceTree = "<group>"; };
+		8AD44C802326BB3A00DE08AB /* playlist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playlist.png; sourceTree = "<group>"; };
+		8AD44C812326BB3A00DE08AB /* mainTBMidi.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBMidi.pdf; sourceTree = "<group>"; };
+		8AD44C832326BB3A00DE08AB /* mainTBPlaylist.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBPlaylist.pdf; sourceTree = "<group>"; };
+		8AD44C842326BB3A00DE08AB /* bigCounter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigCounter.png; sourceTree = "<group>"; };
 		8AE1916F2315045C006CD958 /* MotusLabTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotusLabTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE191722315045C006CD958 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AE191762315045D006CD958 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -159,7 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				8A2BB9B32323A94B00FB6106 /* Images */,
-				8A2BB9B22323A93E00FB6106 /* QuickStart.md */,
+				8A2BB9B22323A93E00FB6106 /* Manual.md */,
 			);
 			path = Manual;
 			sourceTree = "<group>";
@@ -167,6 +203,24 @@
 		8A2BB9B32323A94B00FB6106 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8AD44C752326BB3900DE08AB /* acousmoniumProperties.png */,
+				8AD44C842326BB3A00DE08AB /* bigCounter.png */,
+				8AD44C762326BB3900DE08AB /* editAcousmonium.png */,
+				8AD44C7D2326BB3900DE08AB /* mainTBAcousmonium.pdf */,
+				8AD44C7B2326BB3900DE08AB /* mainTBAddCamera.pdf */,
+				8AD44C7F2326BB3A00DE08AB /* mainTBBigCounter.pdf */,
+				8AD44C7E2326BB3A00DE08AB /* mainTBControllers.pdf */,
+				8AD44C812326BB3A00DE08AB /* mainTBMidi.pdf */,
+				8AD44C7C2326BB3900DE08AB /* mainTBMidiPlay.pdf */,
+				8AD44C792326BB3900DE08AB /* mainTBPlay.pdf */,
+				8AD44C832326BB3A00DE08AB /* mainTBPlaylist.pdf */,
+				8AD44C782326BB3900DE08AB /* mainTBPlaylist2.pdf */,
+				8AD44C722326BB3900DE08AB /* mainTBRecord.pdf */,
+				8AD44C732326BB3900DE08AB /* mainTBStop.pdf */,
+				8AD44C772326BB3900DE08AB /* midiSettings.png */,
+				8AD44C7A2326BB3900DE08AB /* newProject.png */,
+				8AD44C742326BB3900DE08AB /* NSActionTemplate.png */,
+				8AD44C802326BB3A00DE08AB /* playlist.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -389,13 +443,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD44C892326BB3A00DE08AB /* editAcousmonium.png in Resources */,
 				8ABBBF712319521C00FA04A9 /* Preferences.storyboard in Resources */,
+				8AD44C8D2326BB3A00DE08AB /* newProject.png in Resources */,
 				8AA8467C231AC12D00005A4D /* Credits.rtf in Resources */,
+				8AD44C872326BB3A00DE08AB /* NSActionTemplate.png in Resources */,
+				8AD44C942326BB3A00DE08AB /* mainTBMidi.pdf in Resources */,
+				8AD44C862326BB3A00DE08AB /* mainTBStop.pdf in Resources */,
+				8AD44C972326BB3A00DE08AB /* bigCounter.png in Resources */,
+				8AD44C852326BB3A00DE08AB /* mainTBRecord.pdf in Resources */,
+				8AD44C8C2326BB3A00DE08AB /* mainTBPlay.pdf in Resources */,
 				8AE191772315045D006CD958 /* Assets.xcassets in Resources */,
+				8AD44C932326BB3A00DE08AB /* playlist.png in Resources */,
+				8AD44C8E2326BB3A00DE08AB /* mainTBAddCamera.pdf in Resources */,
 				8AA8467B231AC12D00005A4D /* acousmoFileType.icns in Resources */,
+				8AD44C902326BB3A00DE08AB /* mainTBAcousmonium.pdf in Resources */,
+				8AD44C8B2326BB3A00DE08AB /* mainTBPlaylist2.pdf in Resources */,
 				8A6BEF4A231B98EE00D5A84B /* RecordCamera.xib in Resources */,
+				8AD44C962326BB3A00DE08AB /* mainTBPlaylist.pdf in Resources */,
 				8AA8467A231AC12D00005A4D /* fileType.icns in Resources */,
+				8AD44C912326BB3A00DE08AB /* mainTBControllers.pdf in Resources */,
+				8AD44C8F2326BB3A00DE08AB /* mainTBMidiPlay.pdf in Resources */,
 				8AE1917A2315045D006CD958 /* Main.storyboard in Resources */,
+				8AD44C922326BB3A00DE08AB /* mainTBBigCounter.pdf in Resources */,
+				8AD44C882326BB3A00DE08AB /* acousmoniumProperties.png in Resources */,
+				8AD44C8A2326BB3A00DE08AB /* midiSettings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,7 +683,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -635,7 +707,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
