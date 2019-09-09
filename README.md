@@ -48,7 +48,7 @@ Download binary [here](https://github.com/pierrecouprie/MotusLabTool/releases)
 
 ## Manual
 
-[Quickstart](https://github.com/pierrecouprie/MotusLabTool/blob/master/MotusLabTool/Resources/Manual/Manual.md)
+[Manual](https://github.com/pierrecouprie/MotusLabTool/blob/master/MotusLabTool/Resources/Manual/Manual.md)
 
 ## License
 
