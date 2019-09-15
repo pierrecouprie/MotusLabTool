@@ -203,6 +203,15 @@ class WindowController: NSWindowController {
         preferences[PreferenceKey.acousmoSize] = 0.25
         preferences[PreferenceKey.acousmoShowTitles] = false
         
+        preferences[PreferenceKey.statisticsShow] = false
+        preferences[PreferenceKey.statisticsMin] = true
+        preferences[PreferenceKey.statisticsMax] = true
+        preferences[PreferenceKey.statisticsAMean] = true
+        preferences[PreferenceKey.statisticsQMean] = false
+        preferences[PreferenceKey.statisticsVariance] = false
+        preferences[PreferenceKey.statisticsFrequency] = false
+        preferences[PreferenceKey.statisticsDuration] = false
+        
         preferences[PreferenceKey.valueCorrection] = 0 //0: None, 1: Yamaha02R96
         preferences[PreferenceKey.usePlaylist] = false
         
@@ -541,29 +550,47 @@ class WindowController: NSWindowController {
     
     /// Add new file(s) in playlist
     /// - Parameter urls: One or several URLs in an Array
-    func addPlaylistFiles(_ urls: [URL]) {
+    func addPlaylistFiles(_ urls: [URL], playlistViewController: PlaylistViewController) {
         var playlistFiles = self.playlistFiles
-        for url in urls {
-            let id = UUID().uuidString
-            let folderURL = url.deletingPathExtension().deletingLastPathComponent()
-            let name = url.fileName
-            let audioAnalyzer = AudioAnalyzer(url)
-            if let waveform = audioAnalyzer.computeChannelsData() {
-                let playlistFile = PlaylistFile(url: url, folderURL: folderURL, id: id, name: name, duration: audioAnalyzer.duration)
-                let waveformData:Data = NSKeyedArchiver.archivedData(withRootObject: waveform)
-                let waveformURL = self.playlistFilesFolderPathUrl.appendingPathComponent(id).appendingPathExtension(FileExtension.waveform)
-                do {
-                    try waveformData.write(to: waveformURL)
-                    playlistFiles.append(playlistFile)
-                } catch let error as NSError {
-                    Swift.print("WindowController: savePlaylist() Error saving data to url \(String(describing: fileUrl)), context: " + error.localizedDescription)
+        playlistViewController.setValue(true, forKey: "showImportingLabel")
+        
+        let queue = DispatchQueue(label: "com.pierrecouprie.motusLabTool.importFile", qos: .utility, attributes: .concurrent)
+        queue.async {
+            
+            DispatchQueue.concurrentPerform(iterations: urls.count) {
+                index in
+                
+                let url = urls[index]
+                
+                //for url in urls {
+                let id = UUID().uuidString
+                let folderURL = url.deletingPathExtension().deletingLastPathComponent()
+                let name = url.fileName
+                let audioAnalyzer = AudioAnalyzer(url)
+                if let waveform = audioAnalyzer.computeChannelsData() {
+                    let playlistFile = PlaylistFile(url: url, folderURL: folderURL, id: id, name: name, duration: audioAnalyzer.duration)
+                    let waveformData:Data = NSKeyedArchiver.archivedData(withRootObject: waveform)
+                    let waveformURL = self.playlistFilesFolderPathUrl.appendingPathComponent(id).appendingPathExtension(FileExtension.waveform)
+                    do {
+                        try waveformData.write(to: waveformURL)
+                        playlistFiles.append(playlistFile)
+                    } catch let error as NSError {
+                        DispatchQueue.main.async {
+                            Swift.print("WindowController: savePlaylist() Error saving data to url \(String(describing: self.fileUrl)), context: " + error.localizedDescription)
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        Swift.print("WindowController: addPlaylistFiles() Error computing waveform from file \(url)")
+                    }
                 }
-            } else {
-                Swift.print("WindowController: addPlaylistFiles() Error computing waveform from file \(url)")
+            }
+            DispatchQueue.main.async {
+                self.setValue(playlistFiles, forKey: "playlistFiles")
+                self.savePlaylist()
+                playlistViewController.setValue(false, forKey: "showImportingLabel")
             }
         }
-        self.setValue(playlistFiles, forKey: "playlistFiles")
-        self.savePlaylist()
     }
     
     /// Delete selected playlist item
@@ -654,6 +681,12 @@ class WindowController: NSWindowController {
                     return false
                 }
             }
+            
+            if action == #selector(self.exportAcousmonium) {
+                if self.selectedAcousmoniumFile == nil {
+                    return false
+                }
+            }
         }
         
         return true
@@ -670,6 +703,56 @@ class WindowController: NSWindowController {
                     export.export()
                     
                 }
+            }
+        }
+    }
+    
+    @IBAction func exportAcousmonium(_ sender: Any) {
+        let exportPanel = NSSavePanel()
+        exportPanel.canCreateDirectories = true
+        exportPanel.allowedFileTypes = [FileExtension.acousmonium]
+        exportPanel.begin { (result: NSApplication.ModalResponse) -> Void in
+            if result == .OK {
+                if let url = exportPanel.url, let selectedAcousmoniumFile = self.selectedAcousmoniumFile {
+                    
+                    let acousmoniumData:Data = NSKeyedArchiver.archivedData(withRootObject: selectedAcousmoniumFile)
+                    do {
+                        try acousmoniumData.write(to: url)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: exportAcousmonium() Error saving acousmonium to url \(url), context: " + error.localizedDescription)
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    @IBAction func importAcousmonium(_ sender: Any) {
+        let selectAcousmoniumPanel:NSOpenPanel = NSOpenPanel()
+        selectAcousmoniumPanel.allowsMultipleSelection = true
+        selectAcousmoniumPanel.canChooseDirectories = false
+        selectAcousmoniumPanel.canCreateDirectories = false
+        selectAcousmoniumPanel.canChooseFiles = true
+        selectAcousmoniumPanel.allowedFileTypes = [FileExtension.acousmonium]
+        
+        selectAcousmoniumPanel.begin { (result) -> Void in
+            if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
+                
+                var acousmoniumFiles = self.acousmoniumFiles
+                
+                for url in selectAcousmoniumPanel.urls {
+                    do {
+                        let data = try Data(contentsOf: url)
+                        let acousmoniumFile = NSKeyedUnarchiver.unarchiveObject(with: data) as! AcousmoniumFile
+                        acousmoniumFiles.append(acousmoniumFile)
+                        self.saveAcousmoniumFile(acousmoniumFile)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: importAcousmonium() Error importing acousmonium from url \(url), context: " + error.localizedDescription)
+                    }
+                }
+                
+                self.setValue(acousmoniumFiles, forKey: "acousmoniumFiles")
+                
             }
         }
     }

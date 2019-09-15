@@ -65,10 +65,10 @@ class Export: NSObject {
             let audioExtension = session.audioFormat
             let audioURL = self.fileURL.appendingPathComponent(FilePath.audio).appendingPathComponent(session.id).appendingPathExtension(audioExtension)
             
-            let cameraAURL = self.fileURL.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + "-A").appendingPathExtension(FileExtension.mp4)
-            let cameraBURL = self.fileURL.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + "-B").appendingPathExtension(FileExtension.mp4)
-            let cameraCURL = self.fileURL.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + "-C").appendingPathExtension(FileExtension.mp4)
-            let cameraDURL = self.fileURL.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + "-D").appendingPathExtension(FileExtension.mp4)
+            let cameraAURL = self.fileURL.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.A).appendingPathExtension(FileExtension.mp4)
+            let cameraBURL = self.fileURL.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.B).appendingPathExtension(FileExtension.mp4)
+            let cameraCURL = self.fileURL.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.C).appendingPathExtension(FileExtension.mp4)
+            let cameraDURL = self.fileURL.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.D).appendingPathExtension(FileExtension.mp4)
             
             if fileManager.fileExists(atPath: audioURL.path) {
                 do {
@@ -80,33 +80,33 @@ class Export: NSObject {
             
             if fileManager.fileExists(atPath: cameraAURL.path) {
                 do {
-                    try fileManager.copyItem(at: cameraAURL, to: self.url.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + "-A").appendingPathExtension(FileExtension.mp4))
+                    try fileManager.copyItem(at: cameraAURL, to: self.url.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.A).appendingPathExtension(FileExtension.mp4))
                 } catch let error as NSError {
-                    Swift.print("Export: copyFiles() Error copying file from \(cameraAURL) to \(self.url.appendingPathComponent(session.id + "-A").appendingPathExtension(FileExtension.mp4)), context: " + error.localizedDescription)
+                    Swift.print("Export: copyFiles() Error copying file from \(cameraAURL) to \(self.url.appendingPathComponent(session.id + FilePath.A).appendingPathExtension(FileExtension.mp4)), context: " + error.localizedDescription)
                 }
             }
             
             if fileManager.fileExists(atPath: cameraBURL.path) {
                 do {
-                    try fileManager.copyItem(at: cameraBURL, to: self.url.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + "-B").appendingPathExtension(FileExtension.mp4))
+                    try fileManager.copyItem(at: cameraBURL, to: self.url.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.B).appendingPathExtension(FileExtension.mp4))
                 } catch let error as NSError {
-                    Swift.print("Export: copyFiles() Error copying file from \(cameraBURL) to \(self.url.appendingPathComponent(session.id + "-B").appendingPathExtension(FileExtension.mp4)), context: " + error.localizedDescription)
+                    Swift.print("Export: copyFiles() Error copying file from \(cameraBURL) to \(self.url.appendingPathComponent(session.id + FilePath.B).appendingPathExtension(FileExtension.mp4)), context: " + error.localizedDescription)
                 }
             }
             
             if fileManager.fileExists(atPath: cameraCURL.path) {
                 do {
-                    try fileManager.copyItem(at: cameraCURL, to: self.url.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + "-C").appendingPathExtension(FileExtension.mp4))
+                    try fileManager.copyItem(at: cameraCURL, to: self.url.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.C).appendingPathExtension(FileExtension.mp4))
                 } catch let error as NSError {
-                    Swift.print("Export: copyFiles() Error copying file from \(cameraCURL) to \(self.url.appendingPathComponent(session.id + "-C").appendingPathExtension(FileExtension.mp4)), context: " + error.localizedDescription)
+                    Swift.print("Export: copyFiles() Error copying file from \(cameraCURL) to \(self.url.appendingPathComponent(session.id + FilePath.C).appendingPathExtension(FileExtension.mp4)), context: " + error.localizedDescription)
                 }
             }
             
             if fileManager.fileExists(atPath: cameraDURL.path) {
                 do {
-                    try fileManager.copyItem(at: cameraDURL, to: self.url.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + "-D").appendingPathExtension(FileExtension.mp4))
+                    try fileManager.copyItem(at: cameraDURL, to: self.url.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.D).appendingPathExtension(FileExtension.mp4))
                 } catch let error as NSError {
-                    Swift.print("Export: copyFiles() Error copying file from \(cameraDURL) to \(self.url.appendingPathComponent(session.id + "-D").appendingPathExtension(FileExtension.mp4)), context: " + error.localizedDescription)
+                    Swift.print("Export: copyFiles() Error copying file from \(cameraDURL) to \(self.url.appendingPathComponent(session.id + FilePath.D).appendingPathExtension(FileExtension.mp4)), context: " + error.localizedDescription)
                 }
             }
             
@@ -141,7 +141,7 @@ class Export: NSObject {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss:SSS"
         file_metadata[MotusLabFile.PropertyKey.creationDateKey] = dateFormater.string(from: self.motusLabFile.creationDate)
-        data["file_metadata"] = file_metadata
+        data[JSONKey.file_metadata] = file_metadata
         
         //Add sessions
         var sessions = [[String:Any]]()
@@ -178,7 +178,7 @@ class Export: NSObject {
                     newEvent[MIDIControllerEvent.PropertyKey.dateKey] = event.date
                     events.append(newEvent)
                 }
-                newSession["MIDI_events"] = events
+                newSession[JSONKey.midi_event] = events
             }
             
             sessions.append(newSession)

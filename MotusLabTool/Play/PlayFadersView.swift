@@ -31,6 +31,8 @@ class PlayFadersView: NSView {
     var consoleALastValues: [Int]!
     var consoleBLastValues: [Int]!
     
+    var playFaderStatistics: PlayFaderStatistics!
+    
     var consoleALastMidiMessageObservation: NSKeyValueObservation?
     var consoleBLastMidiMessageObservation: NSKeyValueObservation?
     
@@ -47,12 +49,20 @@ class PlayFadersView: NSView {
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
         
         self.userDefaultsDidChange(Notification(name: UserDefaults.didChangeNotification))
+        
+        self.midiValueCorrection = self.preferences.integer(forKey: PreferenceKey.valueCorrection)
     }
     
     func addObservers(windowController: WindowController) {
         self.windowController = windowController
         
         Swift.print("PlayFadersView > addObservers()")
+        
+        //Add statistcs view
+        self.playFaderStatistics = PlayFaderStatistics(frame: self.bounds, leftViewController: self.windowController.leftViewController)
+        self.addSubview(self.playFaderStatistics)
+        self.playFaderStatistics.isHidden = !UserDefaults.standard.bool(forKey: PreferenceKey.statisticsShow)
+        self.playFaderStatistics.addInViewConstraints(superView: self)
         
         // Add observer to detect last MIDI message in each console
         let consoleALastMidiMessagePath = \LeftViewController.consoleALastMidiMessage
@@ -78,6 +88,11 @@ class PlayFadersView: NSView {
     @objc func userDefaultsDidChange(_ notification: Notification) {
         self.midiValueCorrection = self.preferences.integer(forKey: PreferenceKey.valueCorrection)
         self.setNeedsDisplay(self.bounds)
+        
+        if let playFaderStatistics = self.playFaderStatistics {
+            playFaderStatistics.isHidden = !UserDefaults.standard.bool(forKey: PreferenceKey.statisticsShow)
+            playFaderStatistics.setNeedsDisplay(self.playFaderStatistics.bounds)
+        }
     }
     
     override func draw(_ dirtyRect: NSRect) {

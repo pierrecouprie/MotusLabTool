@@ -30,6 +30,8 @@ class PlaylistViewController: NSViewController {
         }
     }
     
+    @objc dynamic var showImportingLabel: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +48,7 @@ class PlaylistViewController: NSViewController {
         
         selectFilesPanel.begin { (result) -> Void in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
-                self.windowController.addPlaylistFiles(selectFilesPanel.urls)
+                self.windowController.addPlaylistFiles(selectFilesPanel.urls, playlistViewController: self)
             }
         }
     }

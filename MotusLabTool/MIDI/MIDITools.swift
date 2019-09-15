@@ -158,29 +158,17 @@ class MIDIParameters: NSObject {
         DispatchQueue.main.async {
             self.setValue(NSButton.StateValue.off, forKey: "learn")
             self.filterControllers[event.number] = true
-            let stringList = self.cleanMidiControlList()
+            let stringList = self.cleanMidiControlList(self.filterControllers)
             self.setValue(stringList, forKey: "filter")
         }
     }
     
-    /*
-     For tests:
-     "1 2" -> "1 2"
-     "1 2 3" -> "1-3"
-     "1 2 3 5" -> "1-3 5"
-     "1 3 4 5" -> "1 3-5"
-     "1 2 3 5 6 7" -> "1-3 5-7"
-     "1 2 3 5 7 8 9" -> "1-3 5 7-9"
-     "1 3 4 5 7 9 10 11 12 14" -> "1 3-5 7 9-12 14"
-     "1 3 4 5 7-9 13 14 14 15 16 17 17" -> "1 3-5 7-9 13-17"
-     "1 3 4 5 7-12 13 14 14 15 16 17 17" -> "1 3-5 7-17"
-     */
-    func cleanMidiControlList() -> String {
+    func cleanMidiControlList(_ controllers: [Bool]) -> String {
         
         //Get a list of only activated controllers
         var intItems = [Int]()
-        for n in 1..<self.filterControllers.count {
-            let item = self.filterControllers[n]
+        for n in 1..<controllers.count {
+            let item = controllers[n]
             if item {
                 intItems.append(n)
             }

@@ -16,6 +16,9 @@
 		8A156EBF2316531700064A8A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBE2316531700064A8A /* WindowController.swift */; };
 		8A189FB4231A561D00EA2B8D /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A189FB3231A561D00EA2B8D /* Window.swift */; };
 		8A2BB9B0232397A900FB6106 /* PlaylistImageValueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2BB9AF232397A900FB6106 /* PlaylistImageValueController.swift */; };
+		8A394A4E232E86970012A5C1 /* statistics.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A394A4D232E86970012A5C1 /* statistics.png */; };
+		8A394A50232E86A10012A5C1 /* mainTBStatistics.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8A394A4F232E86A10012A5C1 /* mainTBStatistics.pdf */; };
+		8A394A59232E8D9F0012A5C1 /* MotusLabToolUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A394A58232E8D9F0012A5C1 /* MotusLabToolUnitTests.swift */; };
 		8A41E9012325299B00613745 /* SimpleTimeValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */; };
 		8A41E90323252A4200613745 /* RecordWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E90223252A4200613745 /* RecordWaveformView.swift */; };
 		8A41E905232542C700613745 /* PlaylistFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E904232542C700613745 /* PlaylistFile.swift */; };
@@ -58,6 +61,8 @@
 		8ABBBF7A23195A0900FA04A9 /* MIDITools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF7923195A0900FA04A9 /* MIDITools.swift */; };
 		8ABBBF7D23196D2600FA04A9 /* TimeValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF7C23196D2600FA04A9 /* TimeValueTransformer.swift */; };
 		8ABBBF7F23196D3E00FA04A9 /* MarkerCountValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */; };
+		8AC98A36232C170E0004FA35 /* PlayFaderStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC98A35232C170E0004FA35 /* PlayFaderStatistics.swift */; };
+		8AC98A38232C18150004FA35 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC98A37232C18150004FA35 /* Statistics.swift */; };
 		8AD44C852326BB3A00DE08AB /* mainTBRecord.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C722326BB3900DE08AB /* mainTBRecord.pdf */; };
 		8AD44C862326BB3A00DE08AB /* mainTBStop.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C732326BB3900DE08AB /* mainTBStop.pdf */; };
 		8AD44C872326BB3A00DE08AB /* NSActionTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C742326BB3900DE08AB /* NSActionTemplate.png */; };
@@ -81,6 +86,16 @@
 		8AE1917A2315045D006CD958 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191782315045D006CD958 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8A394A5B232E8D9F0012A5C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AE191672315045C006CD958 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AE1916E2315045C006CD958;
+			remoteInfo = MotusLabTool;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		8A0AE003231D48DA0024FACF /* AcousmoniumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumViewController.swift; sourceTree = "<group>"; };
 		8A0AE005231D48EC0024FACF /* AcousmoniumPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumPropertyViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +109,11 @@
 		8A2BB9B22323A93E00FB6106 /* Manual.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Manual.md; sourceTree = "<group>"; };
 		8A2BB9B42323A97300FB6106 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A2BB9B52323A9A200FB6106 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		8A394A4D232E86970012A5C1 /* statistics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statistics.png; sourceTree = "<group>"; };
+		8A394A4F232E86A10012A5C1 /* mainTBStatistics.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBStatistics.pdf; sourceTree = "<group>"; };
+		8A394A56232E8D9F0012A5C1 /* MotusLabToolUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MotusLabToolUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A394A58232E8D9F0012A5C1 /* MotusLabToolUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotusLabToolUnitTests.swift; sourceTree = "<group>"; };
+		8A394A5A232E8D9F0012A5C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTimeValueTransformer.swift; sourceTree = "<group>"; };
 		8A41E90223252A4200613745 /* RecordWaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordWaveformView.swift; sourceTree = "<group>"; };
 		8A41E904232542C700613745 /* PlaylistFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFile.swift; sourceTree = "<group>"; };
@@ -136,6 +156,8 @@
 		8ABBBF7923195A0900FA04A9 /* MIDITools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDITools.swift; sourceTree = "<group>"; };
 		8ABBBF7C23196D2600FA04A9 /* TimeValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeValueTransformer.swift; sourceTree = "<group>"; };
 		8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerCountValueTransformer.swift; sourceTree = "<group>"; };
+		8AC98A35232C170E0004FA35 /* PlayFaderStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayFaderStatistics.swift; sourceTree = "<group>"; };
+		8AC98A37232C18150004FA35 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		8AD44C722326BB3900DE08AB /* mainTBRecord.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBRecord.pdf; sourceTree = "<group>"; };
 		8AD44C732326BB3900DE08AB /* mainTBStop.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = mainTBStop.pdf; sourceTree = "<group>"; };
 		8AD44C742326BB3900DE08AB /* NSActionTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NSActionTemplate.png; sourceTree = "<group>"; };
@@ -163,6 +185,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8A394A53232E8D9F0012A5C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE1916C2315045C006CD958 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -217,12 +246,23 @@
 				8AD44C782326BB3900DE08AB /* mainTBPlaylist2.pdf */,
 				8AD44C722326BB3900DE08AB /* mainTBRecord.pdf */,
 				8AD44C732326BB3900DE08AB /* mainTBStop.pdf */,
+				8A394A4F232E86A10012A5C1 /* mainTBStatistics.pdf */,
 				8AD44C772326BB3900DE08AB /* midiSettings.png */,
 				8AD44C7A2326BB3900DE08AB /* newProject.png */,
 				8AD44C742326BB3900DE08AB /* NSActionTemplate.png */,
 				8AD44C802326BB3A00DE08AB /* playlist.png */,
+				8A394A4D232E86970012A5C1 /* statistics.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		8A394A57232E8D9F0012A5C1 /* MotusLabToolUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				8A394A58232E8D9F0012A5C1 /* MotusLabToolUnitTests.swift */,
+				8A394A5A232E8D9F0012A5C1 /* Info.plist */,
+			);
+			path = MotusLabToolUnitTests;
 			sourceTree = "<group>";
 		};
 		8A6BEF51231B9DD500D5A84B /* Video */ = {
@@ -244,6 +284,8 @@
 				8A6BEF5F231BB66400D5A84B /* PlayTimeRulerView.swift */,
 				8A6BEF67231BCEAC00D5A84B /* PlayCameraView.swift */,
 				8A0AE00B231D879B0024FACF /* PlayFadersView.swift */,
+				8AC98A35232C170E0004FA35 /* PlayFaderStatistics.swift */,
+				8AC98A37232C18150004FA35 /* Statistics.swift */,
 			);
 			path = Play;
 			sourceTree = "<group>";
@@ -332,6 +374,7 @@
 				8AE191712315045C006CD958 /* MotusLabTool */,
 				8A2BB9B42323A97300FB6106 /* README.md */,
 				8A2BB9B52323A9A200FB6106 /* LICENSE.md */,
+				8A394A57232E8D9F0012A5C1 /* MotusLabToolUnitTests */,
 				8AE191702315045C006CD958 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -340,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				8AE1916F2315045C006CD958 /* MotusLabTool.app */,
+				8A394A56232E8D9F0012A5C1 /* MotusLabToolUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -380,6 +424,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8A394A55232E8D9F0012A5C1 /* MotusLabToolUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A394A5D232E8D9F0012A5C1 /* Build configuration list for PBXNativeTarget "MotusLabToolUnitTests" */;
+			buildPhases = (
+				8A394A52232E8D9F0012A5C1 /* Sources */,
+				8A394A53232E8D9F0012A5C1 /* Frameworks */,
+				8A394A54232E8D9F0012A5C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8A394A5C232E8D9F0012A5C1 /* PBXTargetDependency */,
+			);
+			name = MotusLabToolUnitTests;
+			productName = MotusLabToolUnitTests;
+			productReference = 8A394A56232E8D9F0012A5C1 /* MotusLabToolUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8AE1916E2315045C006CD958 /* MotusLabTool */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8AE1917F2315045D006CD958 /* Build configuration list for PBXNativeTarget "MotusLabTool" */;
@@ -403,10 +465,14 @@
 		8AE191672315045C006CD958 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1030;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Pierre Couprie";
 				TargetAttributes = {
+					8A394A55232E8D9F0012A5C1 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 8AE1916E2315045C006CD958;
+					};
 					8AE1916E2315045C006CD958 = {
 						CreatedOnToolsVersion = 10.3;
 						SystemCapabilities = {
@@ -434,11 +500,19 @@
 			projectRoot = "";
 			targets = (
 				8AE1916E2315045C006CD958 /* MotusLabTool */,
+				8A394A55232E8D9F0012A5C1 /* MotusLabToolUnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8A394A54232E8D9F0012A5C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE1916D2315045C006CD958 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -451,6 +525,7 @@
 				8AD44C942326BB3A00DE08AB /* mainTBMidi.pdf in Resources */,
 				8AD44C862326BB3A00DE08AB /* mainTBStop.pdf in Resources */,
 				8AD44C972326BB3A00DE08AB /* bigCounter.png in Resources */,
+				8A394A50232E86A10012A5C1 /* mainTBStatistics.pdf in Resources */,
 				8AD44C852326BB3A00DE08AB /* mainTBRecord.pdf in Resources */,
 				8AD44C8C2326BB3A00DE08AB /* mainTBPlay.pdf in Resources */,
 				8AE191772315045D006CD958 /* Assets.xcassets in Resources */,
@@ -467,6 +542,7 @@
 				8AE1917A2315045D006CD958 /* Main.storyboard in Resources */,
 				8AD44C922326BB3A00DE08AB /* mainTBBigCounter.pdf in Resources */,
 				8AD44C882326BB3A00DE08AB /* acousmoniumProperties.png in Resources */,
+				8A394A4E232E86970012A5C1 /* statistics.png in Resources */,
 				8AD44C8A2326BB3A00DE08AB /* midiSettings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,10 +550,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8A394A52232E8D9F0012A5C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A394A59232E8D9F0012A5C1 /* MotusLabToolUnitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE1916B2315045C006CD958 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AC98A38232C18150004FA35 /* Statistics.swift in Sources */,
 				8ABBBF6323190B6F00FA04A9 /* MainSplitViewController.swift in Sources */,
 				8A0AE006231D48EC0024FACF /* AcousmoniumPropertyViewController.swift in Sources */,
 				8A0AE00F231D8A7A0024FACF /* PlaylistViewController.swift in Sources */,
@@ -485,6 +570,7 @@
 				8A694A7023257F54001BD253 /* Export.swift in Sources */,
 				8A7DA568231657620059B5C9 /* Extensions.swift in Sources */,
 				8A6BEF5C231BB60300D5A84B /* PlayMarkersView.swift in Sources */,
+				8AC98A36232C170E0004FA35 /* PlayFaderStatistics.swift in Sources */,
 				8A6BEF60231BB66400D5A84B /* PlayTimeRulerView.swift in Sources */,
 				8ABBBF752319583600FA04A9 /* MIDIControllerEvent.swift in Sources */,
 				8ABBBF6723190C0400FA04A9 /* NSButtonCellCounter.swift in Sources */,
@@ -530,6 +616,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8A394A5C232E8D9F0012A5C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8AE1916E2315045C006CD958 /* MotusLabTool */;
+			targetProxy = 8A394A5B232E8D9F0012A5C1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		8A6BEF48231B98EE00D5A84B /* RecordCamera.xib */ = {
 			isa = PBXVariantGroup;
@@ -558,6 +652,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8A394A5E232E8D9F0012A5C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
+				INFOPLIST_FILE = MotusLabToolUnitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabToolUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MotusLabTool.app/Contents/MacOS/MotusLabTool";
+			};
+			name = Debug;
+		};
+		8A394A5F232E8D9F0012A5C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
+				INFOPLIST_FILE = MotusLabToolUnitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabToolUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MotusLabTool.app/Contents/MacOS/MotusLabTool";
+			};
+			name = Release;
+		};
 		8AE1917D2315045D006CD958 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -683,7 +819,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -707,7 +843,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -726,6 +862,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8A394A5D232E8D9F0012A5C1 /* Build configuration list for PBXNativeTarget "MotusLabToolUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A394A5E232E8D9F0012A5C1 /* Debug */,
+				8A394A5F232E8D9F0012A5C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8AE1916A2315045C006CD958 /* Build configuration list for PBXProject "MotusLabTool" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

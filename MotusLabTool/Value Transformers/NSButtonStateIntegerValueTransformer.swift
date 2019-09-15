@@ -8,7 +8,6 @@
 
 import Cocoa
 
-/// Used in Playlist toolbar button
 @objc(NSButtonStateIntegerValueTransformer) class NSButtonStateIntegerValueTransformer: ValueTransformer {
     
     override class func transformedValueClass() -> AnyClass {

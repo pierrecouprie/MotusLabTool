@@ -2,7 +2,7 @@
 
 ## Configure audio
 
-The input and output audio corresponds to the computer's system preference settings.
+The input and output audio are the same as those of the computer's system preference settings.
 
 Before opening MotusLabTool :
 
@@ -89,7 +89,7 @@ During the recording, you can edit `Title` and `Information` and `Add markers` (
 
 ### Record with waveform and big counter
 
-Use the toolbar button ![Playlist Toolbar Button](images/mainTBBigCounter.pdf) to display the waveform and the big counter.
+Use the toolbar button ![Playlist Toolbar Button](images/mainTBBigCounter.pdf) to show the waveform and the big counter.
 
 The waveform is only displayed if you select the playlist function.
 
@@ -104,6 +104,17 @@ During the recording use Markers `Add` button, fill the `Title` and select `Save
 ### Open a project
 
 Use menu `File` > `Open` to open a project. Use ![Playlist Toolbar Button](images/mainTBPlay.pdf) and ![Playlist Toolbar Button](images/mainTBStop.pdf) to command the playback.
+
+### Show statistics
+
+Use the toolbar button ![Playlist Toolbar Button](images/mainTBstatistics.pdf) to show the statistics window:
+
+![Big Counter](images/statistics.png)
+
+- Check `Show statistics` to display statistic values in front of fader representation.
+- Then, check which statistic values you want to display on the graph.
+
+![Big Counter](images/statistics-02.png)
 
 ## Acousmonium
 
@@ -153,10 +164,33 @@ You can use multiple loudspeakers with the same MIDI controller number.
 
 In order to ensure that the representation works properly during playback or recording, the MIDI controller numbers and console indications must be the same as those selected in the MIDI properties (see `Configure the MIDI` section).
 
-# FAQ
+## Export recording
 
-## Sometimes camera does not work
+Use menu `File` > `Export recording` to export the project in JSON format.
+
+The exported project contains:
+
+- An `audio` folder with audio files.
+- A `movie` folder with movie files.
+- A JSON file `motusLabFile.json` which contains project information, sessions, and MIDI events.
+
+## Import and export acousmonium
+
+Use menu `File` > `Export Acousmonium` to export the selected acousmonium.
+
+Use menu `File` > `Import Acousmonium` to import an acousmonium file.
+
+> MotusLabTool only export and import acousmonium files in its format with `.acousmonium` extension.
+
+## FAQ
+
+### Sometimes camera does not work
 
 1. Check that the power supply to the USB port is sufficient.
 2. Disconnect and reconnect the camera.
 3. Restart the software and try again to add the camera.
+
+### Audio files are not recognized in the playlist
+
+1. Check that the audio files are in `Music` folder of your account. Other locations are not recognized.
+2. Check the format of your audio files: WAV, AIFF, MP3, and M4A are the only accepted formats.

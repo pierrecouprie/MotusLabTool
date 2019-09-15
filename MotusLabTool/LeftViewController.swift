@@ -502,6 +502,7 @@ class LeftViewController: NSViewController {
             self.windowController.midiControllerEvents = NSKeyedUnarchiver.unarchiveObject(with: data) as? [MIDIControllerEvent]
             if self.windowController.midiControllerEvents.count > 0 {
                 self.playTimelineView.playControllersView.convertEvents()
+                self.playFadersView.playFaderStatistics.computeStatistics(self.windowController.midiControllerEvents)
                 self.midiPlayer.loadSession()
                 self.loadMidiPlayMenu()
             }
@@ -539,10 +540,10 @@ class LeftViewController: NSViewController {
     func loadCameras() {
         
         let sessionId = self.currentSession.id!
-        let urlVideoA = self.windowController.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + "-A").appendingPathExtension("mp4")
-        let urlVideoB = self.windowController.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + "-B").appendingPathExtension("mp4")
-        let urlVideoC = self.windowController.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + "-C").appendingPathExtension("mp4")
-        let urlVideoD = self.windowController.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + "-D").appendingPathExtension("mp4")
+        let urlVideoA = self.windowController.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + FilePath.A).appendingPathExtension(FileExtension.mp4)
+        let urlVideoB = self.windowController.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + FilePath.B).appendingPathExtension(FileExtension.mp4)
+        let urlVideoC = self.windowController.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + FilePath.C).appendingPathExtension(FileExtension.mp4)
+        let urlVideoD = self.windowController.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + FilePath.D).appendingPathExtension(FileExtension.mp4)
         
         self.playCameraSplitView.subviews.removeAll()
         self.playCameraSplitView.arrangesAllSubviews = true

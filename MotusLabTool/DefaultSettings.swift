@@ -41,6 +41,10 @@ struct FilePath {
     static let acousmoniums = "acousmoniums"
     static let playlist = "playlist"
     static let waveforms = "waveforms"
+    static let A = "-A"
+    static let B = "-B"
+    static let C = "-C"
+    static let D = "-D"
 }
 
 /// Preference keys
@@ -80,6 +84,16 @@ struct PreferenceKey {
     static let acousmoOpacity = "acousmoOpacity"
     static let acousmoSize = "acousmoSize"
     static let acousmoShowTitles = "acousmoShowTitles"
+    
+    //Statistics
+    static let statisticsShow = "statisticsShow"
+    static let statisticsMin = "statisticsMin"
+    static let statisticsMax = "statisticsMax"
+    static let statisticsAMean = "statisticsAMean"
+    static let statisticsQMean = "statisticsQMean"
+    static let statisticsVariance = "statisticsVariance"
+    static let statisticsFrequency = "statisticsFrequency"
+    static let statisticsDuration = "statisticsDuration"
     
     // Other
     static let valueCorrection = "valueCorrection"
@@ -151,4 +165,7 @@ func MIDIValueCorrection(_ value: Int, type: Int) -> Int {
     return value
 }
 
-
+struct JSONKey {
+    static let file_metadata = "file_metadata"
+    static let midi_event = "MIDI_events"
+}

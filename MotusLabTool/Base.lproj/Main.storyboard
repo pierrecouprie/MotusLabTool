@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14865.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -75,9 +75,21 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="e6q-Gs-dz9"/>
-                                        <menuItem title="Export" keyEquivalent="e" id="br4-Ay-waq">
+                                        <menuItem title="Export Recording" keyEquivalent="e" id="br4-Ay-waq">
                                             <connections>
                                                 <action selector="export:" target="Ady-hI-5gd" id="lgp-wJ-dVF"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Export Acousmonium" id="lqd-IG-Efj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="exportAcousmonium:" target="Ady-hI-5gd" id="icz-rV-g9Q"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Import Acousmonium" id="Z2g-Oz-GFx">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="importAcousmonium:" target="Ady-hI-5gd" id="ksV-7m-CVA"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -418,6 +430,25 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="DD0B54D5-8F29-4758-9ED2-824ABAFD0E90" label="Statistics" paletteLabel="Statistics" image="mainTBStatistics" id="Nbl-bt-To1">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="38" height="24"/>
+                                    <size key="maxSize" width="38" height="24"/>
+                                    <button key="view" verticalHuggingPriority="750" id="G7e-x6-lNu">
+                                        <rect key="frame" x="9" y="14" width="38" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="mainTBStatistics" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4nB-rM-wEo">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="8Mf-Nf-QXW"/>
+                                        </connections>
+                                    </button>
+                                    <connections>
+                                        <segue destination="SS9-cU-unt" kind="sheet" id="fMF-x0-0g7"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="AFf-Dy-gZ8"/>
@@ -432,6 +463,7 @@
                                 <toolbarItem reference="MHs-4O-EOl"/>
                                 <toolbarItem reference="cB0-jD-IEA"/>
                                 <toolbarItem reference="ISp-Nj-HsT"/>
+                                <toolbarItem reference="Nbl-bt-To1"/>
                                 <toolbarItem reference="MHs-4O-EOl"/>
                                 <toolbarItem reference="X1d-1Q-877"/>
                                 <toolbarItem reference="EQd-Wf-hNz"/>
@@ -450,7 +482,7 @@
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController id="Tbc-UN-OlU"/>
             </objects>
-            <point key="canvasLocation" x="97" y="137"/>
+            <point key="canvasLocation" x="72" y="137"/>
         </scene>
         <!--Midi Settings View Controller-->
         <scene sceneID="wLy-aQ-28X">
@@ -1029,6 +1061,34 @@
                                     </binding>
                                 </connections>
                             </button>
+                            <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="9cq-yz-rHT">
+                                <rect key="frame" x="20" y="23" width="16" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <binding destination="WDW-ie-XCX" name="hidden" keyPath="self.showImportingLabel" id="Xxt-Dq-Mtb">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="WDW-ie-XCX" name="animate" keyPath="self.showImportingLabel" id="vqF-52-YcT"/>
+                                </connections>
+                            </progressIndicator>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GVA-7b-JVe">
+                                <rect key="frame" x="42" y="23" width="262" height="16"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Importing in progress" id="eLX-54-gGB">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="WDW-ie-XCX" name="hidden" keyPath="self.showImportingLabel" id="OZj-AC-xAc">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
                         </subviews>
                     </view>
                 </viewController>
@@ -1040,7 +1100,158 @@
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="1163" y="413"/>
+            <point key="canvasLocation" x="1163" y="412.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="7XQ-LV-lWL">
+            <objects>
+                <viewController id="SS9-cU-unt" sceneMemberID="viewController">
+                    <view key="view" id="7ZX-Tq-8AO">
+                        <rect key="frame" x="0.0" y="0.0" width="218" height="213"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5WE-pJ-wzW">
+                                <rect key="frame" x="17" y="176" width="183" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Show statistics" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Mv0-6P-iX0">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="rKH-h6-duM" name="value" keyPath="values.statisticsShow" id="ZqC-PL-KUp">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yic-FZ-9Jd">
+                                <rect key="frame" x="17" y="147" width="183" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Minimal value" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="eaf-Qr-JPv">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="rKH-h6-duM" name="value" keyPath="values.statisticsMin" id="bmL-YX-lCG">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o2i-PG-Fgw">
+                                <rect key="frame" x="17" y="129" width="183" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Maximal value" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="k3q-RI-Qx1">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="rKH-h6-duM" name="value" keyPath="values.statisticsMax" id="mAa-N1-g28">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ijn-aM-QUa">
+                                <rect key="frame" x="17" y="111" width="183" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Arithmetic mean" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="xAD-Qz-GqU">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="rKH-h6-duM" name="value" keyPath="values.statisticsAMean" id="jgg-cF-5B0">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I6e-6i-IfA">
+                                <rect key="frame" x="17" y="93" width="183" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Quadratic mean" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="4tN-qN-zFd">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="rKH-h6-duM" name="value" keyPath="values.statisticsQMean" id="ntT-kn-jzU">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4H-83-aud">
+                                <rect key="frame" x="17" y="75" width="183" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Variance" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ocv-Q8-VKE">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="rKH-h6-duM" name="value" keyPath="values.statisticsVariance" id="qEy-O9-Q4f">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OjY-ao-ulM">
+                                <rect key="frame" x="17" y="57" width="183" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Frequency" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="S1n-FR-dAc">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="rKH-h6-duM" name="value" keyPath="values.statisticsFrequency" id="ehL-XC-KB0">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wHO-IS-766">
+                                <rect key="frame" x="17" y="39" width="183" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Duration" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="N8v-HZ-5HW">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="rKH-h6-duM" name="value" keyPath="values.statisticsDuration" id="IEB-Kv-tRi">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
+                            <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ijF-W1-p8M">
+                                <rect key="frame" x="20" y="168" width="178" height="5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </box>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LuH-yy-DUy">
+                                <rect key="frame" x="137" y="13" width="67" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7jH-IW-njs">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="dismissController:" target="SS9-cU-unt" id="3fS-DX-A03"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="rKL-HE-1Io" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController id="rKH-h6-duM"/>
+            </objects>
+            <point key="canvasLocation" x="-283" y="719"/>
         </scene>
         <!--Main Split View Controller-->
         <scene sceneID="uHZ-1c-AmP">
@@ -1563,7 +1774,7 @@
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Jf-ft-DZf">
                                                     <rect key="frame" x="20" y="567" width="786" height="14"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="14" id="TWB-9f-CAZ"/>
+                                                        <constraint firstAttribute="height" constant="14" id="pt5-OM-f5r"/>
                                                     </constraints>
                                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Label" id="dmN-Xh-QPu">
                                                         <font key="font" metaFont="smallSystem"/>
@@ -1580,12 +1791,12 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="3Jf-ft-DZf" firstAttribute="top" secondItem="pXQ-OS-a5r" secondAttribute="top" constant="19" id="IP3-gS-9xC"/>
                                                 <constraint firstAttribute="bottom" secondItem="EKW-xN-fcR" secondAttribute="bottom" id="N7F-fi-Xkl"/>
-                                                <constraint firstAttribute="trailing" secondItem="3Jf-ft-DZf" secondAttribute="trailing" constant="20" id="OoP-w8-Qhk"/>
                                                 <constraint firstItem="EKW-xN-fcR" firstAttribute="top" secondItem="pXQ-OS-a5r" secondAttribute="top" constant="45" id="VuO-AZ-UhQ"/>
-                                                <constraint firstItem="3Jf-ft-DZf" firstAttribute="leading" secondItem="pXQ-OS-a5r" secondAttribute="leading" constant="22" id="XL8-XE-OdX"/>
+                                                <constraint firstItem="3Jf-ft-DZf" firstAttribute="leading" secondItem="pXQ-OS-a5r" secondAttribute="leading" constant="22" id="WKo-ek-3lS"/>
                                                 <constraint firstAttribute="trailing" secondItem="EKW-xN-fcR" secondAttribute="trailing" id="XXE-AC-E25"/>
+                                                <constraint firstItem="3Jf-ft-DZf" firstAttribute="top" secondItem="pXQ-OS-a5r" secondAttribute="top" constant="19" id="eUC-1z-d9z"/>
+                                                <constraint firstAttribute="trailing" secondItem="3Jf-ft-DZf" secondAttribute="trailing" constant="20" id="qeE-HI-1NI"/>
                                                 <constraint firstItem="EKW-xN-fcR" firstAttribute="leading" secondItem="pXQ-OS-a5r" secondAttribute="leading" id="sFd-20-vhJ"/>
                                             </constraints>
                                         </view>
@@ -2386,6 +2597,7 @@ Gw
         <image name="mainTBPlaylist" width="19" height="19"/>
         <image name="mainTBRecord" width="19" height="19"/>
         <image name="mainTBRecord2" width="19" height="19"/>
+        <image name="mainTBStatistics" width="19" height="19"/>
         <image name="mainTBStop" width="19" height="19"/>
     </resources>
 </document>
