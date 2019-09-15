@@ -14,7 +14,7 @@ Then launch the software.
 
 ## Configure the MIDI
 
-Use the toolbar button ![MIDI Toolbar Button](Images/mainTBMidi.pdf). The window displays all MIDI settings:
+Use the toolbar button ![MIDI Toolbar Button](Images/mainTBMidi.png). The window displays all MIDI settings:
 
 ![MIDI Settings](Images/midiSettings.png)
 
@@ -53,11 +53,11 @@ When recording, you can record the audio from the computer input or play back an
 
 > Audio files must be located in the user's Music folder. Other files cannot be added to the playlist.
 
-Use the toolbar button ![Playlist Toolbar Button](Images/mainTBPlaylist.pdf) to open the playlist:
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBPlaylist.png) to open the playlist:
 
 ![Playlist](Images/playlist.png)
 
-`Use playlist`: Activate the playlist. Uncheck to record audio from input of computer. When this function is enabled, the toolbar icon turns red (![Playlist Toolbar Button](Images/mainTBPlaylist2.pdf))
+`Use playlist`: Activate the playlist. Uncheck to record audio from input of computer. When this function is enabled, the toolbar icon turns red (![Playlist Toolbar Button](Images/mainTBPlaylist2.png))
 
 `+`: Add one or more files to the playlist.
 
@@ -77,19 +77,19 @@ Use menu `File` > `New` to create a new project:
 
 ### Add cameras
 
-Select a camera from the drop-down menu instead of No value. You can add more cameras (up to 4) with the button ![Add Camera Toolbar Button](Images/mainTBAddCamera.pdf) in the toolbar.
+Select a camera from the drop-down menu instead of No value. You can add more cameras (up to 4) with the button ![Add Camera Toolbar Button](Images/mainTBAddCamera.png) in the toolbar.
 
 > Video is recording in H264, 960 x 540 pixels.
 
 ### Record a performance
 
-Use the toolbar button ![Playlist Toolbar Button](Images/mainTBRecord.pdf) to start and stop recording. You also can use the space bar. Each recording produce a session in the same project.
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBRecord.png) to start and stop recording. You also can use the space bar. Each recording produce a session in the same project.
 
 During the recording, you can edit `Title` and `Information` and `Add markers` (see below) for each session.
 
 ### Record with waveform and big counter
 
-Use the toolbar button ![Playlist Toolbar Button](Images/mainTBBigCounter.pdf) to show the waveform and the big counter.
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBBigCounter.png) to show the waveform and the big counter.
 
 The waveform is only displayed if you select the playlist function.
 
@@ -103,11 +103,11 @@ During the recording use Markers `Add` button, fill the `Title` and select `Save
 
 ### Open a project
 
-Use menu `File` > `Open` to open a project. Use ![Playlist Toolbar Button](Images/mainTBPlay.pdf) and ![Playlist Toolbar Button](Images/mainTBStop.pdf) to command the playback.
+Use menu `File` > `Open` to open a project. Use ![Playlist Toolbar Button](Images/mainTBPlay.png) and ![Playlist Toolbar Button](Images/mainTBStop.png) to command the playback.
 
 ### Show statistics
 
-Use the toolbar button ![Playlist Toolbar Button](Images/mainTBstatistics.pdf) to show the statistics window:
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBstatistics.png) to show the statistics window:
 
 ![Big Counter](Images/statistics.png)
 
@@ -118,7 +118,7 @@ Use the toolbar button ![Playlist Toolbar Button](Images/mainTBstatistics.pdf) t
 
 ## Acousmonium
 
-Use the toolbar button ![Playlist Toolbar Button](Images/mainTBAcousmonium.pdf) to display the acousmonium panel at right.
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBAcousmonium.png) to display the acousmonium panel at right.
 
 Acousmonium map can be used in play and record mode.
 
