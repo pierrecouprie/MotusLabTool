@@ -14,9 +14,9 @@ Then launch the software.
 
 ## Configure the MIDI
 
-Use the toolbar button ![MIDI Toolbar Button](images/mainTBMidi.pdf). The window displays all MIDI settings:
+Use the toolbar button ![MIDI Toolbar Button](Images/mainTBMidi.pdf). The window displays all MIDI settings:
 
-![MIDI Settings](images/midiSettings.png)
+![MIDI Settings](Images/midiSettings.png)
 
 `Value correction`: Displays the corrected fader values for the selected mix table.
 
@@ -53,11 +53,11 @@ When recording, you can record the audio from the computer input or play back an
 
 > Audio files must be located in the user's Music folder. Other files cannot be added to the playlist.
 
-Use the toolbar button ![Playlist Toolbar Button](images/mainTBPlaylist.pdf) to open the playlist:
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBPlaylist.pdf) to open the playlist:
 
-![Playlist](images/playlist.png)
+![Playlist](Images/playlist.png)
 
-`Use playlist`: Activate the playlist. Uncheck to record audio from input of computer. When this function is enabled, the toolbar icon turns red (![Playlist Toolbar Button](images/mainTBPlaylist2.pdf))
+`Use playlist`: Activate the playlist. Uncheck to record audio from input of computer. When this function is enabled, the toolbar icon turns red (![Playlist Toolbar Button](Images/mainTBPlaylist2.pdf))
 
 `+`: Add one or more files to the playlist.
 
@@ -73,27 +73,27 @@ Select the file you want to use during recording.
 
 Use menu `File` > `New` to create a new project:
 
-![Playlist](images/newProject.png)
+![Playlist](Images/newProject.png)
 
 ### Add cameras
 
-Select a camera from the drop-down menu instead of No value. You can add more cameras (up to 4) with the button ![Add Camera Toolbar Button](images/mainTBAddCamera.pdf) in the toolbar.
+Select a camera from the drop-down menu instead of No value. You can add more cameras (up to 4) with the button ![Add Camera Toolbar Button](Images/mainTBAddCamera.pdf) in the toolbar.
 
 > Video is recording in H264, 960 x 540 pixels.
 
 ### Record a performance
 
-Use the toolbar button ![Playlist Toolbar Button](images/mainTBRecord.pdf) to start and stop recording. You also can use the space bar. Each recording produce a session in the same project.
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBRecord.pdf) to start and stop recording. You also can use the space bar. Each recording produce a session in the same project.
 
 During the recording, you can edit `Title` and `Information` and `Add markers` (see below) for each session.
 
 ### Record with waveform and big counter
 
-Use the toolbar button ![Playlist Toolbar Button](images/mainTBBigCounter.pdf) to show the waveform and the big counter.
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBBigCounter.pdf) to show the waveform and the big counter.
 
 The waveform is only displayed if you select the playlist function.
 
-![Big Counter](images/bigCounter.png)
+![Big Counter](Images/bigCounter.png)
 
 ### Add markers
 
@@ -103,30 +103,30 @@ During the recording use Markers `Add` button, fill the `Title` and select `Save
 
 ### Open a project
 
-Use menu `File` > `Open` to open a project. Use ![Playlist Toolbar Button](images/mainTBPlay.pdf) and ![Playlist Toolbar Button](images/mainTBStop.pdf) to command the playback.
+Use menu `File` > `Open` to open a project. Use ![Playlist Toolbar Button](Images/mainTBPlay.pdf) and ![Playlist Toolbar Button](Images/mainTBStop.pdf) to command the playback.
 
 ### Show statistics
 
-Use the toolbar button ![Playlist Toolbar Button](images/mainTBstatistics.pdf) to show the statistics window:
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBstatistics.pdf) to show the statistics window:
 
-![Big Counter](images/statistics.png)
+![Big Counter](Images/statistics.png)
 
 - Check `Show statistics` to display statistic values in front of fader representation.
 - Then, check which statistic values you want to display on the graph.
 
-![Big Counter](images/statistics-02.png)
+![Big Counter](Images/statistics-02.png)
 
 ## Acousmonium
 
-Use the toolbar button ![Playlist Toolbar Button](images/mainTBAcousmonium.pdf) to display the acousmonium panel at right.
+Use the toolbar button ![Playlist Toolbar Button](Images/mainTBAcousmonium.pdf) to display the acousmonium panel at right.
 
 Acousmonium map can be used in play and record mode.
 
 ### Create a new acousmonium
 
-Use the button ![Playlist Toolbar Button](images/NSActionTemplate.png) to open the property window:
+Use the button ![Playlist Toolbar Button](Images/NSActionTemplate.png) to open the property window:
 
-![Acousmonium Properties](images/acousmoniumProperties.png)
+![Acousmonium Properties](Images/acousmoniumProperties.png)
 
 `+`: Create a new acousmonium preset. 
 
@@ -152,7 +152,7 @@ Use the button ![Playlist Toolbar Button](images/NSActionTemplate.png) to open t
 
 When you add a loudspeaker, it is displayed on the interface of the main window as a circle. If you have activated `Edit graphic position`, you can move the circle with the mouse:
 
-![Edit Acousmonium](images/editAcousmonium.png)
+![Edit Acousmonium](Images/editAcousmonium.png)
 
 The list contains 3 values:
 
