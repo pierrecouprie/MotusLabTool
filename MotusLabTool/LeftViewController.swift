@@ -527,6 +527,8 @@ class LeftViewController: NSViewController {
         if self.windowController.currentMode == Mode.recording {
             self.stopRecording()
             self.windowController.setValue(NSButton.StateValue.off, forKey: "toolbarRecord")
+        } else if self.windowController.currentMode == Mode.playing {
+            self.goToTime(0)
         }
         
         self.windowController.currentMode = Mode.none
@@ -901,8 +903,9 @@ class LeftViewController: NSViewController {
         self.windowController.setValue(position, forKey: "timePosition")
         
         for camera in self.playCameraAVPlayers {
-            let timeScale = camera.currentTime().timescale
-            let timePosition = CMTime(seconds: Double(position), preferredTimescale: timeScale)
+            var timeScale = camera.currentTime().timescale
+            timeScale = timeScale < 1000 ? 1000 : timeScale
+            let timePosition = CMTime(seconds: Double(position + 0.2), preferredTimescale: timeScale)
             camera.seek(to: timePosition, toleranceBefore: .zero, toleranceAfter: .zero)
         }
         
