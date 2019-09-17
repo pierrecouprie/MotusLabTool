@@ -1774,7 +1774,8 @@
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Jf-ft-DZf">
                                                     <rect key="frame" x="20" y="567" width="786" height="14"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="14" id="pt5-OM-f5r"/>
+                                                        <constraint firstAttribute="width" constant="782" id="Gvc-x2-9ga"/>
+                                                        <constraint firstAttribute="height" constant="14" id="Ubd-0R-qgx"/>
                                                     </constraints>
                                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Label" id="dmN-Xh-QPu">
                                                         <font key="font" metaFont="smallSystem"/>
@@ -1793,11 +1794,10 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="EKW-xN-fcR" secondAttribute="bottom" id="N7F-fi-Xkl"/>
                                                 <constraint firstItem="EKW-xN-fcR" firstAttribute="top" secondItem="pXQ-OS-a5r" secondAttribute="top" constant="45" id="VuO-AZ-UhQ"/>
-                                                <constraint firstItem="3Jf-ft-DZf" firstAttribute="leading" secondItem="pXQ-OS-a5r" secondAttribute="leading" constant="22" id="WKo-ek-3lS"/>
                                                 <constraint firstAttribute="trailing" secondItem="EKW-xN-fcR" secondAttribute="trailing" id="XXE-AC-E25"/>
-                                                <constraint firstItem="3Jf-ft-DZf" firstAttribute="top" secondItem="pXQ-OS-a5r" secondAttribute="top" constant="19" id="eUC-1z-d9z"/>
-                                                <constraint firstAttribute="trailing" secondItem="3Jf-ft-DZf" secondAttribute="trailing" constant="20" id="qeE-HI-1NI"/>
                                                 <constraint firstItem="EKW-xN-fcR" firstAttribute="leading" secondItem="pXQ-OS-a5r" secondAttribute="leading" id="sFd-20-vhJ"/>
+                                                <constraint firstItem="3Jf-ft-DZf" firstAttribute="top" secondItem="pXQ-OS-a5r" secondAttribute="top" constant="19" id="w78-pH-wt1"/>
+                                                <constraint firstItem="3Jf-ft-DZf" firstAttribute="leading" secondItem="pXQ-OS-a5r" secondAttribute="leading" constant="22" id="xLW-7e-4W9"/>
                                             </constraints>
                                         </view>
                                     </tabViewItem>

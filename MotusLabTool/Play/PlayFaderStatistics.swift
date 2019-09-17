@@ -119,6 +119,9 @@ class PlayFaderStatistics: NSView {
             for (index,fader) in consoleAParameters.filterControllers.enumerated() {
                 if fader {
                     var value = CGFloat(consoleAValues[index])
+                    if value.isNaN {
+                        continue
+                    }
                     if valueCorrection {
                         value = CGFloat(MIDIValueCorrection(Int(value), type: self.midiValueCorrection))
                     }
@@ -140,6 +143,9 @@ class PlayFaderStatistics: NSView {
             for (index,fader) in consoleBParameters.filterControllers.enumerated() {
                 if fader {
                     var value = CGFloat(consoleBValues[index])
+                    if value.isNaN {
+                        continue
+                    }
                     if valueCorrection {
                         value = CGFloat(MIDIValueCorrection(Int(value), type: self.midiValueCorrection))
                     }

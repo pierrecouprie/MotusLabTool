@@ -196,6 +196,7 @@ class PlayControllersView: NSView {
             var x: CGFloat = 0
             var y: CGFloat = frame.origin.y
             var prevX: CGFloat = -1
+            var prevY: CGFloat = 0
             var maxSlice: CGFloat = 0
             for position in controllers[controller]! {
                 
@@ -203,6 +204,12 @@ class PlayControllersView: NSView {
                 y = CGFloat(MIDIValueCorrection(position.value, type: self.midiValueCorrection)) / 128
                 
                 if x >= prevX + 1 {
+                    
+                    if x > prevX +  1 {
+                        let cgPoint = CGPoint(x: x, y:  prevY)
+                        points.append(cgPoint)
+                    }
+                    
                     if y < maxSlice {
                         y = maxSlice
                     }
@@ -211,6 +218,7 @@ class PlayControllersView: NSView {
                     let cgPoint = CGPoint(x: x, y:  y)
                     points.append(cgPoint)
                     prevX = x
+                    prevY = y
                     maxSlice = 0
                 } else {
                     if y > maxSlice {

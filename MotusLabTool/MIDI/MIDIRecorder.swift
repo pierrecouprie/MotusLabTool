@@ -73,6 +73,7 @@ class MIDIRecorder: NSObject {
         
         self.leftViewController = leftViewController
         self.consoleParameters = consoleParameters
+        //self.initializeFaderValues()
         
         let notifyBlock: MIDINotifyBlock = self.midiNotifyBlock
         var status = MIDIClientCreateWithBlock("com.motuslabrecorder.MIDIClient" as CFString, &self.midiClient, notifyBlock)
@@ -89,6 +90,15 @@ class MIDIRecorder: NSObject {
         self.initializeSourceConnection(index: 0, disconnect: false)
     }
     
+    /*func initializeFaderValues() {
+        for n in 1..<129 {
+            if self.consoleParameters.filterControllers[n] {
+                let newEvent = MIDIControllerEvent(date: 0, console: self.consoleParameters.console, channel: self.consoleParameters.channel, number: n, value: 0)
+                self.waitingMIDIControllerEvents.append(newEvent)
+            }
+        }
+        
+    }*/
     
     /// Change input device
     /// - Parameter index: The index of the new device
