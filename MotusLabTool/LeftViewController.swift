@@ -477,6 +477,8 @@ class LeftViewController: NSViewController {
                     
                 }
                 
+                Swift.print("Load waveform")
+                
                 self.playTimelineView.playWaveformView.waveform = self.sessionWaveform[sessionId]
                 self.loadMidiControllers()
                 self.loadAudioFile()
@@ -489,12 +491,14 @@ class LeftViewController: NSViewController {
     
     /// Initialize the audio file in audio player
     func loadAudioFile() {
+        Swift.print("LeftViewController > loadAudioFile()")
         let audioFileURL = self.windowController.fileUrl.appendingPathComponent(FilePath.audio).appendingPathComponent(self.currentSession.id!).appendingPathExtension(self.currentSession.audioFormat)
         self.audioPlayer.createAudioPlayer(audioFileURL)
     }
     
     /// Open midi controller events file and load them
     func loadMidiControllers() {
+        Swift.print("LeftViewController > loadMidiControllers()")
         let sessionId = self.currentSession.id!
         let url = self.windowController.fileUrl.appendingPathComponent(FilePath.midi).appendingPathComponent(sessionId).appendingPathExtension(FileExtension.event)
         do {
@@ -528,7 +532,7 @@ class LeftViewController: NSViewController {
             self.stopRecording()
             self.windowController.setValue(NSButton.StateValue.off, forKey: "toolbarRecord")
         } else if self.windowController.currentMode == Mode.playing {
-            self.goToTime(0)
+            self.stopPlaying()
         }
         
         self.windowController.currentMode = Mode.none
@@ -540,6 +544,8 @@ class LeftViewController: NSViewController {
     
     /// Open video files and load them in AVPlayers
     func loadCameras() {
+        
+        Swift.print("LeftViewController > loadCameras()")
         
         let sessionId = self.currentSession.id!
         let urlVideoA = self.windowController.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + FilePath.A).appendingPathExtension(FileExtension.mp4)
@@ -903,10 +909,9 @@ class LeftViewController: NSViewController {
         self.windowController.setValue(position, forKey: "timePosition")
         
         for camera in self.playCameraAVPlayers {
-            var timeScale = camera.currentTime().timescale
-            timeScale = timeScale < 1000 ? 1000 : timeScale
+            let timeScale: CMTimeScale = 1000
             let timePosition = CMTime(seconds: Double(position + 0.2), preferredTimescale: timeScale)
-            camera.seek(to: timePosition, toleranceBefore: .zero, toleranceAfter: .zero)
+            camera.seek(to: timePosition)
         }
         
         self.updateLevelsWithoutPlaying()

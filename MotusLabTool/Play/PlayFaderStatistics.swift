@@ -63,7 +63,7 @@ class PlayFaderStatistics: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        if let consoleAParameters = leftViewController.windowController.consoleAParameters, let consoleBParameters = leftViewController.windowController.consoleBParameters, let statistics = self.statistics  {
+        if let consoleAParameters = leftViewController.windowController.consoleAParameters, let consoleBParameters = leftViewController.windowController.consoleBParameters, let statistics = self.statistics, let _ = statistics.consoleAmin  {
             var controllerCount = consoleAParameters.controllerCount
             if consoleBParameters.enable {
                 controllerCount += consoleBParameters.controllerCount

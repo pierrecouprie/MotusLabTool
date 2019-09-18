@@ -21,7 +21,7 @@
 import Foundation
 import CoreMIDI
 
-let kMIDIPrecision: Int = 100
+let kMIDIPrecision: Int = 10
 
 class MIDIPlayer: NSObject {
     
@@ -133,6 +133,7 @@ class MIDIPlayer: NSObject {
     func loadSession() {
         
         Swift.print("MIDIPlayer > loadSession()")
+        Swift.print("MIDIPlayer > midiControllerEvents.count = \(self.leftViewController.windowController.midiControllerEvents.count)")
         
         //Swift.print("\(self.playViewController.midiControllerEvents.count) MIDI events")
         

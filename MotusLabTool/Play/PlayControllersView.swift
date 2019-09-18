@@ -196,7 +196,7 @@ class PlayControllersView: NSView {
             var x: CGFloat = 0
             var y: CGFloat = frame.origin.y
             var prevX: CGFloat = -1
-            var prevY: CGFloat = 0
+            var prevY: CGFloat = y
             var maxSlice: CGFloat = 0
             for position in controllers[controller]! {
                 
@@ -234,11 +234,7 @@ class PlayControllersView: NSView {
             cgLastPoint = CGPoint(x: frame.maxX, y: frame.origin.y)
             points.append(cgLastPoint)
             
-            y = CGFloat(controllers[controller]!.first!.value) / 128
-            y *= frame.size.height
-            y += frame.origin.y
-            x = frame.minX
-            var cgFirstPoint = CGPoint(x: x, y: y)
+            var cgFirstPoint = CGPoint(x: x, y: frame.origin.y)
             points.insert(cgFirstPoint, at: 0)
             cgFirstPoint = CGPoint(x: x, y: frame.origin.y)
             points.insert(cgFirstPoint, at: 0)

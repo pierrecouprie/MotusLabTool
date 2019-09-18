@@ -51,6 +51,8 @@ class Statistics: NSObject {
     
     func compute() {
         
+        Swift.print("Statistics > compute()")
+        
         guard self.midiControllerEvents != nil && self.midiControllerEvents.count > 0 else {
             return
         }
