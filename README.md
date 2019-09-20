@@ -1,6 +1,6 @@
 #  MotusLabTool
 
-> Current version is 2.0.2
+> Current version is 2.0.4
 
 Next Generation of [MotusLab Recorder](https://github.com/pierrecouprie/MotusLabRecorder), [MotusLab Reader](https://github.com/pierrecouprie/MotusLabReader), and [MotusLab Live](https://github.com/pierrecouprie/MotusLabLive)
 
