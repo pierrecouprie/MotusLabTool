@@ -33,7 +33,7 @@ class RecordWaveformView: NSView {
         self.layer?.backgroundColor = NSColor(named: "paneBackground")!.cgColor
         
         // Create subviews
-        self.playWaveformView = PlayWaveformView(frame: self.bounds)
+        self.playWaveformView = PlayWaveformView(frame: self.bounds, color: 1)
         self.addSubview(self.playWaveformView)
         self.playTimeRulerView = PlayTimeRulerView(frame: self.bounds)
         self.addSubview(self.playTimeRulerView)

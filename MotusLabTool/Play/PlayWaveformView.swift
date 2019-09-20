@@ -22,14 +22,16 @@ import Cocoa
 
 class PlayWaveformView: NSView {
     
+    var color: Int = 0
     var waveform: [[Float]]! {
         didSet {
             self.setNeedsDisplay(self.bounds)
         }
     }
     
-    override init(frame frameRect: NSRect) {
+    init(frame frameRect: NSRect, color: Int = 0) {
         super.init(frame: frameRect)
+        self.color = color
         
         self.wantsLayer = true
     }
@@ -74,8 +76,13 @@ class PlayWaveformView: NSView {
         
         let path: CGMutablePath = CGMutablePath()
         
-        context.setFillColor(NSColor(named: "waveformColor")!.cgColor)
-        context.setStrokeColor(NSColor(named: "waveformColor")!.cgColor)
+        if self.color == 0 {
+            context.setFillColor(NSColor(named: "waveformColor")!.cgColor)
+            context.setStrokeColor(NSColor(named: "waveformColor")!.cgColor)
+        } else {
+            context.setFillColor(NSColor(named: "waveformColor2")!.cgColor)
+            context.setStrokeColor(NSColor(named: "waveformColor2")!.cgColor)
+        }
         context.setLineWidth(1.0)
         context.setLineJoin(CGLineJoin.round)
         
