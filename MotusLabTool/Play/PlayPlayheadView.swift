@@ -75,15 +75,68 @@ class PlayPlayheadView: NSView {
     }
     
     func updateTimePosition() {
-        if let leftViewController = self.leftViewController, let currentSession = leftViewController.currentSession {
+        
+        if let leftViewController = self.leftViewController {
+            
+            if leftViewController.windowController.displayedView == 1 && self.playlistPlayhead && UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
+                
+                if leftViewController.windowController.currentMode == Mode.recording {
+                    
+                    if let currentSession = leftViewController.currentSession {
+                        let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(currentSession.duration)
+                        let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
+                        self.playheadView.frame = frame
+                    }
+                    
+                } else if leftViewController.windowController.currentMode == Mode.playlist || leftViewController.windowController.currentMode == Mode.none {
+                    
+                    let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(self.leftViewController.recordAudioPlayer.audioPlayer.duration)
+                    let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
+                    self.playheadView.frame = frame
+                    
+                }
+                
+            } else if leftViewController.windowController.displayedView == 2 {
+                
+                if let currentSession = leftViewController.currentSession {
+                    let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(currentSession.duration)
+                    let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
+                    self.playheadView.frame = frame
+                }
+                
+            }
+            
+        } else {
+
+            self.playheadView.frame = CGRect(x: 0, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
+            
+        }
+        
+        /*if let leftViewController = self.leftViewController, let currentSession = leftViewController.currentSession {
             if leftViewController.windowController.displayedView == 2 || (leftViewController.windowController.displayedView == 1 && self.playlistPlayhead && UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist)) {
                 let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(currentSession.duration)
                 let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
                 self.playheadView.frame = frame
+            }*/
+        
+        /*if let leftViewController = self.leftViewController, let currentSession = leftViewController.currentSession {
+            Swift.print("1 update \(self.leftViewController.windowController.timePosition)")
+            if leftViewController.windowController.displayedView == 2 {
+                let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(currentSession.duration)
+                let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
+                self.playheadView.frame = frame
+            }
+        } else if let leftViewController = self.leftViewController {
+            Swift.print("2 update \(self.leftViewController.windowController.timePosition)")
+            if leftViewController.windowController.displayedView == 1 && self.playlistPlayhead && UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
+                let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(self.leftViewController.recordAudioPlayer.audioPlayer.duration)
+                let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
+                self.playheadView.frame = frame
             }
         } else {
+            Swift.print("3 update")
             self.playheadView.frame = CGRect(x: 0, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
-        }
+        }*/
     }
     
     func updateColor() {

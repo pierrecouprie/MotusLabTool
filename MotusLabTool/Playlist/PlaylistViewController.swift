@@ -38,6 +38,11 @@ class PlaylistViewController: NSViewController {
         self.setValue(self.windowController.playlistSelectedFileIndex, forKey: "playlistSelectedFileIndex")
     }
     
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        self.windowController.enableCommands()
+    }
+    
     @IBAction func addFiles(_ sender: Any) {
         let selectFilesPanel:NSOpenPanel = NSOpenPanel()
         selectFilesPanel.allowsMultipleSelection = true

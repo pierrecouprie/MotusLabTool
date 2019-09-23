@@ -91,4 +91,17 @@ class RecordWaveformView: NSView {
         }
     }
     
+    override func mouseDown(with event: NSEvent) {
+        let mouse = self.convert(event.locationInWindow, from: nil)
+        if let playlistFileIndex = self.windowController.playlistSelectedFileIndex, let firstIndex = playlistFileIndex.first {
+            let selectedPlaylistFile = self.windowController.playlistFiles[firstIndex]
+            let timePosition = (Float(mouse.x) * selectedPlaylistFile.duration) / Float(self.bounds.size.width)
+            if self.leftViewController.windowController.currentMode == Mode.playlist {
+                self.leftViewController.recordAudioPlayer.audioPlayer.currentTime = Double(timePosition)
+            } else {
+                self.leftViewController.windowController.timePosition = timePosition
+            }
+        }
+    }
+    
 }

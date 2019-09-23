@@ -59,7 +59,8 @@ class WindowController: NSWindowController {
     // Interface
     @objc dynamic var displayedView: Int = 0 {
         didSet {
-            switch displayedView {
+            self.enableCommands()
+            /*switch displayedView {
             case 0: // Session
                 self.setValue(false, forKey: "enableRecordToolbarButtons")
                 self.setValue(false, forKey: "enablePlayToolbarButtons")
@@ -71,9 +72,10 @@ class WindowController: NSWindowController {
                 self.setValue(true, forKey: "enablePlayToolbarButtons")
             default:
                 break
-            }
+            }*/
         }
     }
+    
     @objc dynamic var enableModeToolbarButton = false
     @objc dynamic var enableRecordToolbarButtons = false
     @objc dynamic var enablePlayToolbarButtons = false
@@ -153,6 +155,7 @@ class WindowController: NSWindowController {
             }
             self.updateControllerColors()
         }
+        self.enableCommands()
     }
     
     /// Open sheet windows
@@ -163,6 +166,28 @@ class WindowController: NSWindowController {
             midiSettingsViewController.windowController = self
         } else if let playlistViewController = segue.destinationController as? PlaylistViewController {
             playlistViewController.windowController = self
+        }
+    }
+    
+    func enableCommands() {
+        switch self.displayedView {
+        case 0: // Session
+            self.setValue(false, forKey: "enableRecordToolbarButtons")
+            self.setValue(false, forKey: "enablePlayToolbarButtons")
+        case 1: // Record
+            Swift.print(UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist))
+            if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
+                self.setValue(true, forKey: "enableRecordToolbarButtons")
+                self.setValue(true, forKey: "enablePlayToolbarButtons")
+            } else {
+                self.setValue(true, forKey: "enableRecordToolbarButtons")
+                self.setValue(false, forKey: "enablePlayToolbarButtons")
+            }
+        case 2: // Play
+            self.setValue(false, forKey: "enableRecordToolbarButtons")
+            self.setValue(true, forKey: "enablePlayToolbarButtons")
+        default:
+            break
         }
     }
     
@@ -638,14 +663,26 @@ class WindowController: NSWindowController {
     
     @IBAction func play(_ sender: Any) {
         if (sender as! NSButton).state == .on {
-            self.leftViewController.startPlaying()
+            if self.displayedView == 2 {
+                self.leftViewController.startPlaying()
+            } else {
+                self.leftViewController.startPlayingPlaylist()
+            }
         } else {
-            self.leftViewController.pausePlaying()
+            if self.displayedView == 2 {
+                self.leftViewController.pausePlaying()
+            } else {
+                self.leftViewController.pausePlayingPlaylist()
+            }
         }
     }
     
     @IBAction func stop(_ sender: Any) {
-        self.leftViewController.stopPlaying()
+        if self.displayedView == 2 {
+            self.leftViewController.stopPlaying()
+        } else {
+            self.leftViewController.stopPlayingPlaylist()
+        }
     }
     
     @IBAction func addCamera(_ sender: Any) {

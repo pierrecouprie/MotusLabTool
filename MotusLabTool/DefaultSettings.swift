@@ -131,6 +131,7 @@ struct Mode {
     static let none = "none"
     static let recording = "recording"
     static let playing = "playing"
+    static let playlist = "playlist"
 }
 
 /// Correction of MIDI value for Yamaha 02r96

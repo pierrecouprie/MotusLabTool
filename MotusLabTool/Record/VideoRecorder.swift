@@ -291,7 +291,9 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         self.videoQueue.async {
             for camera in self.cameras.enumerated() {
                 let properties = camera.element.value
-                properties.assetWritter?.finishWriting { }
+                if properties.assetWritter?.status == .writing {
+                    properties.assetWritter?.finishWriting { }
+                }
             }
         }
     }

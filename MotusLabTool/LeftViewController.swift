@@ -282,6 +282,7 @@ class LeftViewController: NSViewController {
                         let fileUrl = playlistFile.url!
                         self.recordAudioPlayer = AudioPlayer(self)
                         self.recordAudioPlayer.createAudioPlayer(fileUrl)
+                        self.recordAudioPlayer.audioPlayer.currentTime = Double(self.windowController.timePosition)
                         self.currentSession.duration = playlistFile.duration
                         self.currentSession.audioFile = fileUrl
                         self.usePlaylist = true
@@ -370,11 +371,91 @@ class LeftViewController: NSViewController {
         let lastIndex = self.windowController.motusLabFile.sessions.count
         self.selectedSessionIndex = IndexSet(integer: lastIndex - 1)
         
+        //Go to time position = 0
+        self.windowController.timePosition = 0
+        
+    }
+    
+    func startPlayingPlaylist() {
+        if let windowController = self.windowController {
+            
+            Swift.print("LeftViewController > startPlayingPlaylist()")
+            
+            guard windowController.fileUrl != nil && self.preferences.bool(forKey: PreferenceKey.usePlaylist) else {
+                Swift.print("LeftViewController: startRecording Error fileURL is nil")
+                return
+            }
+            
+            //use playlist = initialize audio player
+            self.usePlaylist = false
+            if let playlistSelectedFile = windowController.playlistSelectedFileIndex {
+                if self.preferences.bool(forKey: PreferenceKey.usePlaylist) && playlistSelectedFile.count > 0 && self.windowController.playlistFiles.count > 0 {
+                    if let first = playlistSelectedFile.first {
+                        let playlistFile = windowController.playlistFiles[first]
+                        let fileUrl = playlistFile.url!
+                        self.recordAudioPlayer = AudioPlayer(self)
+                        self.recordAudioPlayer.createAudioPlayer(fileUrl)
+                        self.recordAudioPlayer.audioPlayer.currentTime = Double(self.windowController.timePosition)
+                        self.usePlaylist = true
+                    }
+                }
+            }
+            
+            //Switch to playlist mode
+            windowController.currentMode = Mode.playlist
+            
+            //Start counter timer
+            self.timer = Timer(timeInterval: 0.01, target: self, selector: #selector(self.updateCounter), userInfo: nil, repeats: true)
+            RunLoop.current.add(self.timer, forMode: .common)
+            
+            //Start playback
+            self.recordAudioPlayer.startPlaying()
+        }
+    }
+    
+    func pausePlayingPlaylist() {
+        
+        Swift.print("LeftViewController > pausePlayingPlaylist()")
+        
+        guard self.windowController.currentMode == Mode.playlist else {
+            return
+        }
+        
+        self.recordAudioPlayer.pausePlaying()
+        
+        //Stop timer
+        if self.timer != nil {
+            self.timer.invalidate()
+            self.timer = nil
+        }
+        
+        self.windowController.currentMode = Mode.none
+    }
+    
+    func stopPlayingPlaylist() {
+        
+        Swift.print("LeftViewController > stopPlayingPlaylist()")
+        
+        //Stop timer
+        if self.timer != nil {
+            self.timer.invalidate()
+            self.timer = nil
+        }
+        
+        //End of recording mode
+        self.windowController.currentMode = Mode.none
+        
+        //End of playing
+        self.recordAudioPlayer.stopPlaying()
+        
+        //Go to time position = 0
+        self.windowController.timePosition = 0
+        
     }
     
     @objc func updateCounter() {
         if let windowController = self.windowController {
-            if windowController.currentMode == Mode.recording {
+            if windowController.currentMode == Mode.recording || windowController.currentMode == Mode.playlist {
                 
                 if self.usePlaylist {
                     

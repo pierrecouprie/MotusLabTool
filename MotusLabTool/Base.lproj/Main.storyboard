@@ -545,9 +545,9 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <binding destination="QzB-Zb-Cfu" name="content" keyPath="arrangedObjects" id="3Py-H4-4Yw"/>
-                                    <binding destination="QzB-Zb-Cfu" name="contentValues" keyPath="arrangedObjects.name" previousBinding="3Py-H4-4Yw" id="BCK-j8-USH"/>
-                                    <binding destination="a1P-Oa-AzQ" name="selectedIndex" keyPath="self.windowController.leftViewController.consoleAInputDevice" previousBinding="BCK-j8-USH" id="HF5-aX-T1d">
+                                    <binding destination="QzB-Zb-Cfu" name="content" keyPath="arrangedObjects" id="f7c-Ez-LWx"/>
+                                    <binding destination="QzB-Zb-Cfu" name="contentValues" keyPath="arrangedObjects.name" previousBinding="f7c-Ez-LWx" id="dcs-Up-XnR"/>
+                                    <binding destination="a1P-Oa-AzQ" name="selectedIndex" keyPath="self.windowController.leftViewController.consoleAInputDevice" previousBinding="dcs-Up-XnR" id="Run-9v-mCv">
                                         <dictionary key="options">
                                             <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                         </dictionary>
@@ -632,9 +632,9 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <binding destination="JOO-eg-td7" name="content" keyPath="arrangedObjects" id="bYp-c5-ipy"/>
-                                    <binding destination="JOO-eg-td7" name="contentValues" keyPath="arrangedObjects.name" previousBinding="bYp-c5-ipy" id="LEo-Fs-n0G"/>
-                                    <binding destination="a1P-Oa-AzQ" name="selectedIndex" keyPath="self.windowController.leftViewController.consoleAOutputDevice" previousBinding="LEo-Fs-n0G" id="Zvq-AZ-83M">
+                                    <binding destination="JOO-eg-td7" name="content" keyPath="arrangedObjects" id="H9p-yA-ex8"/>
+                                    <binding destination="JOO-eg-td7" name="contentValues" keyPath="arrangedObjects.name" previousBinding="H9p-yA-ex8" id="A9O-68-vg8"/>
+                                    <binding destination="a1P-Oa-AzQ" name="selectedIndex" keyPath="self.windowController.leftViewController.consoleAOutputDevice" previousBinding="A9O-68-vg8" id="4Xk-4J-ZJH">
                                         <dictionary key="options">
                                             <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                         </dictionary>
