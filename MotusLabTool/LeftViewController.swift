@@ -120,6 +120,7 @@ class LeftViewController: NSViewController {
             let bigCounterPath = \WindowController.showBigCounter
             self.bigCounterObservation = self.windowController.observe(bigCounterPath) { [unowned self] object, change in
                 self.recordWaveformView.loadPlaylistFile()
+                self.initializePlaylistPlayer()
             }
             
             //Add observer to detect preferences properties
@@ -248,6 +249,22 @@ class LeftViewController: NSViewController {
     
     //MARK: - Recording > Commands
     
+    func initializePlaylistPlayer() {
+        if let windowController = self.windowController, let playlistSelectedFile = windowController.playlistSelectedFileIndex {
+            if playlistSelectedFile.count > 0 && self.windowController.playlistFiles.count > 0 {
+                if let first = playlistSelectedFile.first {
+                    let playlistFile = windowController.playlistFiles[first]
+                    let fileUrl = playlistFile.url!
+                    if self.recordAudioPlayer == nil {
+                        self.recordAudioPlayer = AudioPlayer(self)
+                    }
+                    self.recordAudioPlayer.createAudioPlayer(fileUrl)
+                    self.recordAudioPlayer.audioPlayer.currentTime = Double(self.windowController.timePosition)
+                }
+            }
+        }
+    }
+    
     func startRecording() {
         
         if let windowController = self.windowController {
@@ -280,8 +297,11 @@ class LeftViewController: NSViewController {
                     if let first = playlistSelectedFile.first {
                         let playlistFile = windowController.playlistFiles[first]
                         let fileUrl = playlistFile.url!
-                        self.recordAudioPlayer = AudioPlayer(self)
-                        self.recordAudioPlayer.createAudioPlayer(fileUrl)
+#warning("En double par rapport à la func précédente...")
+                        if self.recordAudioPlayer == nil {
+                            self.recordAudioPlayer = AudioPlayer(self)
+                            self.recordAudioPlayer.createAudioPlayer(fileUrl)
+                        }
                         self.recordAudioPlayer.audioPlayer.currentTime = Double(self.windowController.timePosition)
                         self.currentSession.duration = playlistFile.duration
                         self.currentSession.audioFile = fileUrl
@@ -373,6 +393,11 @@ class LeftViewController: NSViewController {
         
         //Go to time position = 0
         self.windowController.timePosition = 0
+        if self.usePlaylist {
+            if let recordAudioPlayer = self.recordAudioPlayer, let audioPlayer = recordAudioPlayer.audioPlayer {
+                audioPlayer.currentTime = 0
+            }
+        }
         
     }
     

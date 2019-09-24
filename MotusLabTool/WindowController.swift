@@ -53,7 +53,13 @@ class WindowController: NSWindowController {
     // Playlist audio files
     var playlistFilesFolderPathUrl: URL!
     @objc dynamic var playlistFiles = [PlaylistFile]()
-    @objc dynamic var playlistSelectedFileIndex: IndexSet!
+    @objc dynamic var playlistSelectedFileIndex: IndexSet! {
+        didSet {
+            if let leftViewController = self.leftViewController {
+                leftViewController.initializePlaylistPlayer()
+            }
+        }
+    }
     @objc dynamic var showBigCounter: Bool = false
     
     // Interface
@@ -79,6 +85,7 @@ class WindowController: NSWindowController {
     @objc dynamic var enableModeToolbarButton = false
     @objc dynamic var enableRecordToolbarButtons = false
     @objc dynamic var enablePlayToolbarButtons = false
+    @objc dynamic var enablePlayStopToolbarButtons = false
     @objc dynamic var showAcousmonium: NSButton.StateValue = .off
     @objc dynamic var toolbarRecord: NSButton.StateValue = .off
     @objc dynamic var toolbarPlay: NSButton.StateValue = .off
@@ -174,18 +181,25 @@ class WindowController: NSWindowController {
         case 0: // Session
             self.setValue(false, forKey: "enableRecordToolbarButtons")
             self.setValue(false, forKey: "enablePlayToolbarButtons")
+            self.setValue(false, forKey: "enablePlayStopToolbarButtons")
         case 1: // Record
-            Swift.print(UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist))
             if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
                 self.setValue(true, forKey: "enableRecordToolbarButtons")
                 self.setValue(true, forKey: "enablePlayToolbarButtons")
+                if self.currentMode == Mode.none {
+                    self.setValue(true, forKey: "enablePlayStopToolbarButtons")
+                } else {
+                    self.setValue(false, forKey: "enablePlayStopToolbarButtons")
+                }
             } else {
                 self.setValue(true, forKey: "enableRecordToolbarButtons")
                 self.setValue(false, forKey: "enablePlayToolbarButtons")
+                self.setValue(false, forKey: "enablePlayStopToolbarButtons")
             }
         case 2: // Play
             self.setValue(false, forKey: "enableRecordToolbarButtons")
             self.setValue(true, forKey: "enablePlayToolbarButtons")
+            self.setValue(true, forKey: "enablePlayStopToolbarButtons")
         default:
             break
         }
@@ -659,6 +673,7 @@ class WindowController: NSWindowController {
         } else {
             self.leftViewController.stopRecording()
         }
+        self.enableCommands()
     }
     
     @IBAction func play(_ sender: Any) {
@@ -681,7 +696,7 @@ class WindowController: NSWindowController {
         if self.displayedView == 2 {
             self.leftViewController.stopPlaying()
         } else {
-            self.leftViewController.stopPlayingPlaylist()
+           self.leftViewController.stopPlayingPlaylist()
         }
     }
     

@@ -260,7 +260,7 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="play:" target="B8D-0N-5wS" id="uZS-4B-mZ5"/>
-                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="gQM-EC-6Io"/>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayStopToolbarButtons" id="6xH-gB-1g3"/>
                                             <binding destination="B8D-0N-5wS" name="value" keyPath="self.toolbarPlay" id="kC7-TY-32G">
                                                 <dictionary key="options">
                                                     <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
@@ -282,7 +282,7 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="stop:" target="B8D-0N-5wS" id="kwh-67-WgB"/>
-                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="8lp-jg-lbm"/>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayStopToolbarButtons" id="jDY-co-V01"/>
                                         </connections>
                                     </button>
                                 </toolbarItem>

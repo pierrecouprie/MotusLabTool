@@ -30,13 +30,22 @@ class Window: NSWindow {
             // Space bar
             if event.keyCode == 49 {
                 if (windowController as! WindowController).displayedView == 1 { //Record interface
-                    if (windowController as! WindowController).toolbarRecord == .off {
+                    if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
+                        if (windowController as! WindowController).toolbarPlay == .off {
+                            (windowController as! WindowController).toolbarPlay = .on
+                            (windowController as! WindowController).leftViewController.startPlayingPlaylist()
+                        } else {
+                            (windowController as! WindowController).toolbarPlay = .off
+                            (windowController as! WindowController).leftViewController.pausePlayingPlaylist()
+                        }
+                    }
+                    /*if (windowController as! WindowController).toolbarRecord == .off {
                         (windowController as! WindowController).toolbarRecord = .on
                         (windowController as! WindowController).leftViewController.startRecording()
                     } else {
                         (windowController as! WindowController).toolbarRecord = .off
                         (windowController as! WindowController).leftViewController.stopRecording()
-                    }
+                    }*/
                 } else if (windowController as! WindowController).displayedView == 2 { //Play interface
                     if (windowController as! WindowController).toolbarPlay == .off {
                         (windowController as! WindowController).toolbarPlay = .on

@@ -89,11 +89,11 @@ class PlayPlayheadView: NSView {
                     }
                     
                 } else if leftViewController.windowController.currentMode == Mode.playlist || leftViewController.windowController.currentMode == Mode.none {
-                    
-                    let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(self.leftViewController.recordAudioPlayer.audioPlayer.duration)
-                    let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
-                    self.playheadView.frame = frame
-                    
+                    if let recordAudioPlayer = leftViewController.recordAudioPlayer, let audioPlayer = recordAudioPlayer.audioPlayer {
+                        let x = (CGFloat(leftViewController.windowController.timePosition) * self.bounds.size.width) / CGFloat(audioPlayer.duration)
+                        let frame = CGRect(x: x, y: 0, width: kPlayheadWidth, height: self.bounds.size.height)
+                        self.playheadView.frame = frame
+                    }
                 }
                 
             } else if leftViewController.windowController.displayedView == 2 {
