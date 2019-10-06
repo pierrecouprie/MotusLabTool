@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14865.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -53,6 +53,11 @@
                                 <bool key="NSInsertsNullPlaceholder" value="YES"/>
                             </dictionary>
                         </binding>
+                        <binding destination="-2" name="enabled" keyPath="self.leftViewController.windowController.currentMode" id="E9d-Rw-mSl">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">RecordingValueTransformer</string>
+                            </dictionary>
+                        </binding>
                         <binding destination="-2" name="selectedObject" keyPath="self.cameraDevice" previousBinding="xIc-i2-Pgk" id="ML4-T1-aP4">
                             <dictionary key="options">
                                 <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
@@ -72,6 +77,11 @@
                     </buttonCell>
                     <connections>
                         <action selector="removeCamera:" target="-2" id="gf9-8B-Dkl"/>
+                        <binding destination="-2" name="enabled" keyPath="self.leftViewController.windowController.currentMode" id="Fh6-xE-xAc">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">RecordingValueTransformer</string>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </button>
             </subviews>

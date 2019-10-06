@@ -22,7 +22,7 @@ import Cocoa
 
 class RecordCameraViewController: NSViewController {
     
-    weak var leftViewController: LeftViewController!
+    @objc dynamic weak var leftViewController: LeftViewController!
     
     @objc dynamic var videoDevices: [VideoDevice]!
     

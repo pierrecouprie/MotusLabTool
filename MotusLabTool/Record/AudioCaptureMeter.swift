@@ -25,10 +25,15 @@ class AudioCaptureMeter: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate 
     
     var session: AVCaptureSession!
     
-    var meterLevels: (left: Float, right: Float) = (-100,-100) //From -100 to +6 dB
+    //var meterLevels: (left: Float, right: Float) = (-100,-100) //From -100 to +6 dB
+    
+    var meterLevels: [Float]!
     
     override init() {
         super.init()
+        
+        let meterCount = UserDefaults.standard.integer(forKey: PreferenceKey.channelNumber)
+        self.meterLevels = [Float](repeating: -100, count: meterCount)
         
         // Open session
         self.session = AVCaptureSession()
@@ -50,14 +55,19 @@ class AudioCaptureMeter: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate 
         } else {
              Swift.print("AudioCaptureMeter: init() Error get default device")
         }
+        
     }
     
     // Capture frame of audio input
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         if connection.audioChannels.count > 1 {
-            let channel1: AVCaptureAudioChannel = connection.audioChannels[0]
+            for index in 0..<self.meterLevels.count {
+                let channel: AVCaptureAudioChannel = connection.audioChannels[index]
+                self.meterLevels[index] = channel.averagePowerLevel
+            }
+            /*let channel1: AVCaptureAudioChannel = connection.audioChannels[0]
             let channel2: AVCaptureAudioChannel = connection.audioChannels[1]
-            meterLevels = (channel1.averagePowerLevel, channel2.averagePowerLevel)
+            meterLevels = (channel1.averagePowerLevel, channel2.averagePowerLevel)*/
         }
         
     }

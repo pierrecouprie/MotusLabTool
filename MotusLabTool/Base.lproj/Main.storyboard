@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -80,6 +80,13 @@
                                                 <action selector="export:" target="Ady-hI-5gd" id="lgp-wJ-dVF"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Export Selected Session" id="awx-SP-8MT">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="exportSelectedSession:" target="Ady-hI-5gd" id="dbK-an-lnS"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="7GH-tf-hQ4"/>
                                         <menuItem title="Export Acousmonium" id="lqd-IG-Efj">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -134,6 +141,13 @@
                                         <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
                                             <connections>
                                                 <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="zZV-tg-llR"/>
+                                        <menuItem title="Delete Selected Session" id="G5t-Zv-U1P">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="deleteCurrentSession:" target="Ady-hI-5gd" id="N7Q-6A-MeO"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -297,6 +311,13 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.currentMode" id="wJ8-Zf-wOV">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">RecordingValueTransformer</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </button>
                                     <connections>
                                         <segue destination="a1P-Oa-AzQ" kind="sheet" id="eJE-Ka-kw1"/>
@@ -315,6 +336,15 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="addCamera:" target="B8D-0N-5wS" id="RTe-IY-mZs"/>
+                                            <binding destination="B8D-0N-5wS" name="enabled2" keyPath="self.currentMode" previousBinding="fYI-pl-ZWy" id="dvd-Sh-1Er">
+                                                <dictionary key="options">
+                                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                                    <string key="NSValueTransformerName">RecordingValueTransformer</string>
+                                                </dictionary>
+                                            </binding>
                                             <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enableRecordToolbarButtons" id="fYI-pl-ZWy"/>
                                         </connections>
                                     </button>
@@ -332,7 +362,7 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="showControllers:" target="B8D-0N-5wS" id="8rW-D1-d4f"/>
-                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="gic-Jx-Ar5"/>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="PjX-dV-NLd"/>
                                         </connections>
                                     </button>
                                 </toolbarItem>
@@ -349,7 +379,7 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="showMidiPlayMenu:" target="B8D-0N-5wS" id="tgB-GL-g6F"/>
-                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="yFs-4W-SVp"/>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="Tlb-Ai-Wh0"/>
                                         </connections>
                                     </button>
                                 </toolbarItem>
@@ -366,6 +396,11 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="showMidiPlayMenu:" target="B8D-0N-5wS" id="aVd-bY-roM"/>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.currentMode" id="AIj-0Z-yhI">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">RecordingValueTransformer</string>
+                                                </dictionary>
+                                            </binding>
                                             <binding destination="Tbc-UN-OlU" name="image" keyPath="values.usePlaylist" id="pIQ-Rv-gIU">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">PlaylistImageValueController</string>
@@ -387,6 +422,15 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
+                                            <binding destination="B8D-0N-5wS" name="enabled2" keyPath="self.currentMode" previousBinding="ceq-te-eZs" id="U6w-hH-YN5">
+                                                <dictionary key="options">
+                                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                                    <string key="NSValueTransformerName">RecordingValueTransformer</string>
+                                                </dictionary>
+                                            </binding>
                                             <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enableRecordToolbarButtons" id="ceq-te-eZs"/>
                                             <binding destination="B8D-0N-5wS" name="value" keyPath="self.showBigCounter" id="1dn-8o-9vO">
                                                 <dictionary key="options">
@@ -442,12 +486,33 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="8Mf-Nf-QXW"/>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.enablePlayToolbarButtons" id="nCa-xM-avv"/>
                                         </connections>
                                     </button>
                                     <connections>
                                         <segue destination="SS9-cU-unt" kind="sheet" id="fMF-x0-0g7"/>
                                     </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="8A083810-DB05-430D-9B9E-74765B602590" label="Black Window" paletteLabel="Black Window" image="mainTBBlackWindow" id="zSD-cx-jh9">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="38" height="24"/>
+                                    <size key="maxSize" width="38" height="24"/>
+                                    <button key="view" verticalHuggingPriority="750" id="mJX-DJ-RKS">
+                                        <rect key="frame" x="22" y="14" width="38" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="mainTBBlackWindow" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Tis-Nb-bzT">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showBlackWindow:" target="B8D-0N-5wS" id="Rfs-yT-8l8"/>
+                                            <binding destination="B8D-0N-5wS" name="enabled" keyPath="self.motusLabFile" id="2fS-M0-hBO">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSIsNotNil</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
@@ -458,13 +523,13 @@
                                 <toolbarItem reference="SlX-Ot-2GR"/>
                                 <toolbarItem reference="EKb-Sd-SXl"/>
                                 <toolbarItem reference="wY7-Yh-d64"/>
+                                <toolbarItem reference="zSD-cx-jh9"/>
                                 <toolbarItem reference="jdQ-TF-3hq"/>
-                                <toolbarItem reference="ci5-eN-EPZ"/>
-                                <toolbarItem reference="MHs-4O-EOl"/>
                                 <toolbarItem reference="cB0-jD-IEA"/>
                                 <toolbarItem reference="ISp-Nj-HsT"/>
                                 <toolbarItem reference="Nbl-bt-To1"/>
                                 <toolbarItem reference="MHs-4O-EOl"/>
+                                <toolbarItem reference="ci5-eN-EPZ"/>
                                 <toolbarItem reference="X1d-1Q-877"/>
                                 <toolbarItem reference="EQd-Wf-hNz"/>
                             </defaultToolbarItems>
@@ -545,9 +610,9 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <binding destination="QzB-Zb-Cfu" name="content" keyPath="arrangedObjects" id="f7c-Ez-LWx"/>
-                                    <binding destination="QzB-Zb-Cfu" name="contentValues" keyPath="arrangedObjects.name" previousBinding="f7c-Ez-LWx" id="dcs-Up-XnR"/>
-                                    <binding destination="a1P-Oa-AzQ" name="selectedIndex" keyPath="self.windowController.leftViewController.consoleAInputDevice" previousBinding="dcs-Up-XnR" id="Run-9v-mCv">
+                                    <binding destination="QzB-Zb-Cfu" name="content" keyPath="arrangedObjects" id="2PO-Tr-dtw"/>
+                                    <binding destination="QzB-Zb-Cfu" name="contentValues" keyPath="arrangedObjects.name" previousBinding="2PO-Tr-dtw" id="Con-aS-5Wt"/>
+                                    <binding destination="a1P-Oa-AzQ" name="selectedIndex" keyPath="self.windowController.leftViewController.consoleAInputDevice" previousBinding="Con-aS-5Wt" id="s3h-Oj-fWa">
                                         <dictionary key="options">
                                             <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                         </dictionary>
@@ -1375,9 +1440,11 @@
                                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
-                                                                                            <binding destination="2VZ-oX-9Xf" name="value" keyPath="objectValue.title" id="3rO-0b-EaX">
+                                                                                            <binding destination="2VZ-oX-9Xf" name="value" keyPath="objectValue.title" id="tOE-WG-z0D">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                                                                    <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                                                                 </dictionary>
                                                                                             </binding>
                                                                                         </connections>
@@ -1436,9 +1503,11 @@
                                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                         </textFieldCell>
                                                                                         <connections>
-                                                                                            <binding destination="2VZ-oX-9Xf" name="value" keyPath="objectValue.information" id="O27-4F-xn9">
+                                                                                            <binding destination="2VZ-oX-9Xf" name="value" keyPath="objectValue.information" id="Cx3-xs-jps">
                                                                                                 <dictionary key="options">
                                                                                                     <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                                                                    <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                                                                 </dictionary>
                                                                                             </binding>
                                                                                         </connections>
@@ -1537,8 +1606,9 @@
                                                                 <string key="NSValueTransformerName">NSIsNotNil</string>
                                                             </dictionary>
                                                         </binding>
-                                                        <binding destination="lGi-zZ-3LO" name="value" keyPath="self.currentSession.title" id="RtX-g7-eCT">
+                                                        <binding destination="lGi-zZ-3LO" name="value" keyPath="self.currentSession.title" id="Hh7-PX-Qbd">
                                                             <dictionary key="options">
+                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                             </dictionary>
                                                         </binding>
@@ -1560,8 +1630,9 @@
                                                                 <string key="NSValueTransformerName">NSIsNotNil</string>
                                                             </dictionary>
                                                         </binding>
-                                                        <binding destination="lGi-zZ-3LO" name="value" keyPath="self.currentSession.information" id="vPE-DK-w35">
+                                                        <binding destination="lGi-zZ-3LO" name="value" keyPath="self.currentSession.information" id="WN8-20-spC">
                                                             <dictionary key="options">
+                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                                             </dictionary>
                                                         </binding>
@@ -2606,6 +2677,7 @@ Gw
         <image name="mainTBAcousmonium" width="19" height="19"/>
         <image name="mainTBAddCamera" width="19" height="19"/>
         <image name="mainTBBigCounter" width="19" height="19"/>
+        <image name="mainTBBlackWindow" width="19" height="19"/>
         <image name="mainTBControllers" width="19" height="19"/>
         <image name="mainTBMidi" width="19" height="19"/>
         <image name="mainTBMidiPlay" width="19" height="19"/>

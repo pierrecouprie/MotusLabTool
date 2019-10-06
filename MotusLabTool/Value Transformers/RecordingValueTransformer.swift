@@ -1,8 +1,8 @@
 //
-//  NSButtonStateIntegerValueTransformer.swift
+//  RecordingValueTransformer.swift
 //  MotusLabTool
 //
-//  Created by Pierre Couprie on 08/09/2019.
+//  Created by Pierre Couprie on 28/09/2019.
 //  Copyright © 2019 Pierre Couprie. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -18,9 +18,9 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import Cocoa
+import Foundation
 
-@objc(NSButtonStateIntegerValueTransformer) class NSButtonStateIntegerValueTransformer: ValueTransformer {
+@objc(RecordingValueTransformer) class RecordingValueTransformer: ValueTransformer {
     
     override class func transformedValueClass() -> AnyClass {
         return NSNumber.self
@@ -31,13 +31,13 @@ import Cocoa
     }
     
     override func transformedValue(_ value: Any?) -> Any? {
-        if let state = value as? NSButton.StateValue {
-            if state == .on {
-                return 1
+        if let state = value as? String {
+            if state == Mode.recording {
+                return false
             }
         }
         
-        return 0
+        return true
     }
     
 }

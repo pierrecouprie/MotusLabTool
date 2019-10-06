@@ -1,8 +1,8 @@
 //
-//  NSButtonStateIntegerValueTransformer.swift
+//  BlackView.swift
 //  MotusLabTool
 //
-//  Created by Pierre Couprie on 08/09/2019.
+//  Created by Pierre Couprie on 27/09/2019.
 //  Copyright © 2019 Pierre Couprie. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -20,24 +20,16 @@
 
 import Cocoa
 
-@objc(NSButtonStateIntegerValueTransformer) class NSButtonStateIntegerValueTransformer: ValueTransformer {
+class BlackView: NSView {
     
-    override class func transformedValueClass() -> AnyClass {
-        return NSNumber.self
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        self.wantsLayer = true
+        self.layer?.backgroundColor = NSColor.black.cgColor
     }
     
-    override class func allowsReverseTransformation() -> Bool {
-        return false
-    }
-    
-    override func transformedValue(_ value: Any?) -> Any? {
-        if let state = value as? NSButton.StateValue {
-            if state == .on {
-                return 1
-            }
-        }
-        
-        return 0
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
 }

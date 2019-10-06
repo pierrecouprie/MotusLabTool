@@ -178,7 +178,7 @@ class PlayTimeRulerView: NSView {
     }
     
     func drawText(_ context: CGContext, x: CGFloat, y: CGFloat, string: String, color: NSColor) {
-        let aFont = NSFont.systemFont(ofSize: 11)
+        let aFont = NSFont.systemFont(ofSize: kHRulerSize - 6)
         let attributs = [NSAttributedString.Key.font: aFont, NSAttributedString.Key.foregroundColor: color]
         context.setTextDrawingMode(CGTextDrawingMode.fill)
         let text = CFAttributedStringCreate(nil, string as CFString?, attributs as CFDictionary)
@@ -190,7 +190,7 @@ class PlayTimeRulerView: NSView {
     /// Compute string size
     func stringSize(_ string: String) -> CGSize {
         
-        let font = NSFont.systemFont(ofSize: 11)
+        let font = NSFont.systemFont(ofSize: kHRulerSize - 6)
         let textAttributes = [NSAttributedString.Key.font: font]
         let rect = string.boundingRect(with: NSSize(width: CGFloat.infinity, height: CGFloat.infinity),
                                        options: .usesLineFragmentOrigin,

@@ -21,7 +21,7 @@
 import Foundation
 
 @objcMembers
-class MotusLabFile: NSObject, NSCoding {
+class MotusLabFile: NSObject, NSCoding, NSCopying {
     var name: String!
     var version: String!
     var creationDate: Date!
@@ -76,6 +76,15 @@ class MotusLabFile: NSObject, NSCoding {
         aCoder.encode(self.sessions, forKey: PropertyKey.sessionsKey)
     }
     
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = MotusLabFile(name: self.name)
+        copy.version = self.version
+        copy.creationDate = self.creationDate
+        copy.modificationDate = self.modificationDate
+        copy.sessions = self.sessions.map( { $0.copy() as! Session } )
+        return copy
+    }
+    
     func createSession() -> Session {
         let newSession = Session(title: "Untitled", number: self.sessions.count, motusLabFile: self)
         var sessions = self.sessions!
@@ -92,7 +101,7 @@ class MotusLabFile: NSObject, NSCoding {
 }
 
 @objcMembers
-class Session: NSObject, NSCoding {
+class Session: NSObject, NSCoding, NSCopying {
     var id: String!
     dynamic var title: String! {
         didSet {
@@ -188,6 +197,20 @@ class Session: NSObject, NSCoding {
         self.setValue(self.markers.count, forKey: PropertyKey.markerCountKey)
         self.motusLabFile.save()
         Swift.print("Session > addMarker > " + marker.description)
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Session(title: self.title, number: 0, motusLabFile: self.motusLabFile)
+        copy.id = self.id
+        copy.information = self.information
+        copy.duration = self.duration
+        copy.audioFile = self.audioFile
+        copy.audioFormat = self.audioFormat
+        copy.consoleAControllers = self.consoleAControllers
+        copy.consoleBControllers = self.consoleBControllers
+        copy.markers = self.markers.map( { $0.copy() as! Marker  } )
+        copy.markerCount = self.markerCount
+        return copy
     }
 }
 

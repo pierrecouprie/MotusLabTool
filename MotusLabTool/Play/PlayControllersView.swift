@@ -120,7 +120,6 @@ class PlayControllersView: NSView {
         }
         
         self.controllers = output
-        self.setNeedsDisplay(self.bounds)
         
     }
     
@@ -194,6 +193,7 @@ class PlayControllersView: NSView {
             
             var points = [CGPoint]()
             var x: CGFloat = 0
+            var firstX: CGFloat = -1
             var y: CGFloat = frame.origin.y
             var prevX: CGFloat = -1
             var prevY: CGFloat = y
@@ -202,6 +202,10 @@ class PlayControllersView: NSView {
                 
                 x = (CGFloat(position.date) * self.bounds.width) / CGFloat(currentSession.duration)
                 y = CGFloat(MIDIValueCorrection(position.value, type: self.midiValueCorrection)) / 128
+                
+                if firstX == -1 {
+                    firstX = x
+                }
                 
                 if x >= prevX + 1 {
                     
@@ -234,9 +238,9 @@ class PlayControllersView: NSView {
             cgLastPoint = CGPoint(x: frame.maxX, y: frame.origin.y)
             points.append(cgLastPoint)
             
-            var cgFirstPoint = CGPoint(x: x, y: frame.origin.y)
+            var cgFirstPoint = CGPoint(x: firstX, y: frame.origin.y)
             points.insert(cgFirstPoint, at: 0)
-            cgFirstPoint = CGPoint(x: x, y: frame.origin.y)
+            cgFirstPoint = CGPoint(x: frame.minX, y: frame.origin.y)
             points.insert(cgFirstPoint, at: 0)
             
             let closingPath: CGMutablePath = CGMutablePath()

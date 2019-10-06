@@ -25,7 +25,9 @@ class PlayWaveformView: NSView {
     var color: Int = 0
     var waveform: [[Float]]! {
         didSet {
-            self.setNeedsDisplay(self.bounds)
+            //DispatchQueue.main.async {
+                self.setNeedsDisplay(self.bounds)
+            //}
         }
     }
     
@@ -49,8 +51,8 @@ class PlayWaveformView: NSView {
             
             //Draw each channel
             var yTranslation: CGFloat = height
-            for channelWaveform in waveform {
-                
+            for index in stride(from: waveform.count - 1, through: 0, by: -1) {
+                let channelWaveform = waveform[index]
                 var drawingPath: CGMutablePath = CGMutablePath()
                 let curvePath = self.CurvePath(frame: self.bounds, channelWaveform: channelWaveform)
                 drawingPath = curvePath as! CGMutablePath

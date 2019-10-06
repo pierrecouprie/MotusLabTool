@@ -26,6 +26,7 @@ struct FileExtension {
     static let event = "event"
     static let data = "data"
     static let json = "json"
+    static let txt = "txt"
     static let mp4 = "mp4"
     static let acousmonium = "acousmonium"
     static let waveform = "waveform"
@@ -58,6 +59,9 @@ struct PreferenceKey {
     static let consoleBMapping = "consoleBMapping"
     static let consoleBActivate = "consoleBActivate"
     static let switchPlayMode = "switchPlayMode"
+    static let bitDepth = "bitDepth"
+    static let sampleRate = "sampleRate"
+    static let channelNumber = "channelNumber"
     
     // Colors
     static let colorMode = "colorMode"

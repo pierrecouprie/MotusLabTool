@@ -336,6 +336,7 @@ class AcousmoniumLoudspeakerView: NSView {
         self.editObservation = self.windowController.observe(editPath) { [unowned self] object, change in
             self.updateFrame()
             self.updateSize(self.value)
+            //self.acousmoniumShapeView.setNeedsDisplay(self.acousmoniumShapeView.bounds)
         }
     }
     
@@ -438,6 +439,7 @@ class AcousmoniumShapeView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         if let context = NSGraphicsContext.current?.cgContext, let superview = self.superview, let acousmoniumLoudspeakerView = superview as? AcousmoniumLoudspeakerView, let acousmoniumContainer = acousmoniumLoudspeakerView.superview as? AcousmoniumContainer, let windowController = self.windowController {
             
+            //Draw circle
             context.saveGState()
             var loudspeakerColor = windowController.leftViewController.controllerColor(from: self.acousmoniumLoudspeaker.input, console: self.acousmoniumLoudspeaker.console)
             if windowController.editAcousmonium {
@@ -452,6 +454,21 @@ class AcousmoniumShapeView: NSView {
             context.addEllipse(in: self.bounds)
             context.drawPath(using: .fill)
             context.restoreGState()
+            
+            //Draw cross
+            if windowController.editAcousmonium {
+                let factor = self.bounds.size.width * 0.45
+                let smallBounds = self.bounds.insetBy(dx: factor, dy: factor)
+                context.saveGState()
+                context.setStrokeColor(NSColor.black.cgColor)
+                context.setLineWidth(1)
+                context.move(to: CGPoint(x: smallBounds.minX, y: smallBounds.minY))
+                context.addLine(to: CGPoint(x: smallBounds.maxX, y: smallBounds.maxY))
+                context.move(to: CGPoint(x: smallBounds.maxX, y: smallBounds.minY))
+                context.addLine(to: CGPoint(x: smallBounds.minX, y: smallBounds.maxY))
+                context.drawPath(using: .stroke)
+                context.restoreGState()
+            }
         }
     }
 }

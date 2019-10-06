@@ -12,6 +12,7 @@
 		8A0AE00A231D54540024FACF /* AcousmoniumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE009231D54540024FACF /* AcousmoniumView.swift */; };
 		8A0AE00C231D879B0024FACF /* PlayFadersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE00B231D879B0024FACF /* PlayFadersView.swift */; };
 		8A0AE00F231D8A7A0024FACF /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AE00E231D8A7A0024FACF /* PlaylistViewController.swift */; };
+		8A112400233E4F8100AA346D /* BlackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1123FF233E4F8100AA346D /* BlackView.swift */; };
 		8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBC2316529E00064A8A /* DefaultSettings.swift */; };
 		8A156EBF2316531700064A8A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBE2316531700064A8A /* WindowController.swift */; };
 		8A189FB4231A561D00EA2B8D /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A189FB3231A561D00EA2B8D /* Window.swift */; };
@@ -33,6 +34,9 @@
 		8A41E9012325299B00613745 /* SimpleTimeValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */; };
 		8A41E90323252A4200613745 /* RecordWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E90223252A4200613745 /* RecordWaveformView.swift */; };
 		8A41E905232542C700613745 /* PlaylistFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E904232542C700613745 /* PlaylistFile.swift */; };
+		8A5A3C7423488972006E9D50 /* mainTBBlackWindow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A5A3C7323488971006E9D50 /* mainTBBlackWindow.png */; };
+		8A5A3C76234895CF006E9D50 /* preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A5A3C75234895CF006E9D50 /* preferences.png */; };
+		8A5A3C7823489A9F006E9D50 /* interface.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A5A3C7723489A9F006E9D50 /* interface.png */; };
 		8A694A6E23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A694A6D23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift */; };
 		8A694A7023257F54001BD253 /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A694A6F23257F54001BD253 /* Export.swift */; };
 		8A6BEF45231B959700D5A84B /* VuMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF44231B959700D5A84B /* VuMeter.swift */; };
@@ -53,6 +57,9 @@
 		8A6BEF66231BC47E00D5A84B /* AudioAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF65231BC47E00D5A84B /* AudioAnalyzer.swift */; };
 		8A6BEF68231BCEAC00D5A84B /* PlayCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF67231BCEAC00D5A84B /* PlayCameraView.swift */; };
 		8A7DA568231657620059B5C9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7DA567231657620059B5C9 /* Extensions.swift */; };
+		8A935E7B233FAF570081EE0B /* RecordingValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A935E7A233FAF570081EE0B /* RecordingValueTransformer.swift */; };
+		8A9CEE7923473F4700798F49 /* WaitingWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9CEE7723473F4700798F49 /* WaitingWindow.xib */; };
+		8A9CEE7B23473FBC00798F49 /* WaitingWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CEE7A23473FBC00798F49 /* WaitingWindowController.swift */; };
 		8AA84675231A698E00005A4D /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA84674231A698E00005A4D /* AudioRecorder.swift */; };
 		8AA8467A231AC12D00005A4D /* fileType.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8AA84677231AC12D00005A4D /* fileType.icns */; };
 		8AA8467B231AC12D00005A4D /* acousmoFileType.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8AA84678231AC12D00005A4D /* acousmoFileType.icns */; };
@@ -102,6 +109,7 @@
 		8A0AE009231D54540024FACF /* AcousmoniumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcousmoniumView.swift; sourceTree = "<group>"; };
 		8A0AE00B231D879B0024FACF /* PlayFadersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayFadersView.swift; sourceTree = "<group>"; };
 		8A0AE00E231D8A7A0024FACF /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
+		8A1123FF233E4F8100AA346D /* BlackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackView.swift; sourceTree = "<group>"; };
 		8A156EBC2316529E00064A8A /* DefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
 		8A156EBE2316531700064A8A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8A189FB3231A561D00EA2B8D /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
@@ -128,6 +136,9 @@
 		8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTimeValueTransformer.swift; sourceTree = "<group>"; };
 		8A41E90223252A4200613745 /* RecordWaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordWaveformView.swift; sourceTree = "<group>"; };
 		8A41E904232542C700613745 /* PlaylistFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFile.swift; sourceTree = "<group>"; };
+		8A5A3C7323488971006E9D50 /* mainTBBlackWindow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainTBBlackWindow.png; sourceTree = "<group>"; };
+		8A5A3C75234895CF006E9D50 /* preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preferences.png; sourceTree = "<group>"; };
+		8A5A3C7723489A9F006E9D50 /* interface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = interface.png; sourceTree = "<group>"; };
 		8A694A6D23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSButtonStateIntegerValueTransformer.swift; sourceTree = "<group>"; };
 		8A694A6F23257F54001BD253 /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
 		8A6BEF44231B959700D5A84B /* VuMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VuMeter.swift; sourceTree = "<group>"; };
@@ -148,6 +159,9 @@
 		8A6BEF65231BC47E00D5A84B /* AudioAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAnalyzer.swift; sourceTree = "<group>"; };
 		8A6BEF67231BCEAC00D5A84B /* PlayCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCameraView.swift; sourceTree = "<group>"; };
 		8A7DA567231657620059B5C9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8A935E7A233FAF570081EE0B /* RecordingValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingValueTransformer.swift; sourceTree = "<group>"; };
+		8A9CEE7823473F4700798F49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WaitingWindow.xib; sourceTree = "<group>"; };
+		8A9CEE7A23473FBC00798F49 /* WaitingWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingWindowController.swift; sourceTree = "<group>"; };
 		8AA84674231A698E00005A4D /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		8AA84677231AC12D00005A4D /* fileType.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = fileType.icns; sourceTree = "<group>"; };
 		8AA84678231AC12D00005A4D /* acousmoFileType.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = acousmoFileType.icns; sourceTree = "<group>"; };
@@ -247,11 +261,14 @@
 				8A394A72232EA0590012A5C1 /* mainTBRecord.png */,
 				8A394A74232EA0CB0012A5C1 /* mainTBPlay.png */,
 				8A394A75232EA0CB0012A5C1 /* mainTBStop.png */,
+				8A5A3C7323488971006E9D50 /* mainTBBlackWindow.png */,
 				8AD44C772326BB3900DE08AB /* midiSettings.png */,
 				8AD44C7A2326BB3900DE08AB /* newProject.png */,
 				8AD44C742326BB3900DE08AB /* NSActionTemplate.png */,
 				8AD44C802326BB3A00DE08AB /* playlist.png */,
 				8A394A4D232E86970012A5C1 /* statistics.png */,
+				8A5A3C75234895CF006E9D50 /* preferences.png */,
+				8A5A3C7723489A9F006E9D50 /* interface.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -321,6 +338,8 @@
 				8ABBBF6423190BF200FA04A9 /* NSButtonCounter.swift */,
 				8ABBBF6623190C0400FA04A9 /* NSButtonCellCounter.swift */,
 				8A6BEF44231B959700D5A84B /* VuMeter.swift */,
+				8A1123FF233E4F8100AA346D /* BlackView.swift */,
+				8A9CEE7A23473FBC00798F49 /* WaitingWindowController.swift */,
 			);
 			path = Various;
 			sourceTree = "<group>";
@@ -364,6 +383,7 @@
 				8ABBBF7E23196D3E00FA04A9 /* MarkerCountValueTransformer.swift */,
 				8A2BB9AF232397A900FB6106 /* PlaylistImageValueController.swift */,
 				8A694A6D23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift */,
+				8A935E7A233FAF570081EE0B /* RecordingValueTransformer.swift */,
 			);
 			path = "Value Transformers";
 			sourceTree = "<group>";
@@ -414,6 +434,7 @@
 				8AE191782315045D006CD958 /* Main.storyboard */,
 				8ABBBF6F2319521C00FA04A9 /* Preferences.storyboard */,
 				8A6BEF48231B98EE00D5A84B /* RecordCamera.xib */,
+				8A9CEE7723473F4700798F49 /* WaitingWindow.xib */,
 				8AE1917B2315045D006CD958 /* Info.plist */,
 				8AE1917C2315045D006CD958 /* MotusLabTool.entitlements */,
 				8AA84676231AC0FF00005A4D /* Resources */,
@@ -526,15 +547,18 @@
 				8AD44C972326BB3A00DE08AB /* bigCounter.png in Resources */,
 				8AE191772315045D006CD958 /* Assets.xcassets in Resources */,
 				8AD44C932326BB3A00DE08AB /* playlist.png in Resources */,
+				8A9CEE7923473F4700798F49 /* WaitingWindow.xib in Resources */,
 				8AA8467B231AC12D00005A4D /* acousmoFileType.icns in Resources */,
 				8A394A68232E9F710012A5C1 /* mainTBAcousmonium.png in Resources */,
 				8A394A6C232E9F710012A5C1 /* mainTBPlaylist.png in Resources */,
+				8A5A3C7423488972006E9D50 /* mainTBBlackWindow.png in Resources */,
 				8A6BEF4A231B98EE00D5A84B /* RecordCamera.xib in Resources */,
 				8A394A69232E9F710012A5C1 /* mainTBMidi.png in Resources */,
 				8A394A6F232E9F710012A5C1 /* mainTBAddCamera.png in Resources */,
 				8AA8467A231AC12D00005A4D /* fileType.icns in Resources */,
 				8A394A6D232E9F710012A5C1 /* mainTBStatistics.png in Resources */,
 				8A394A6B232E9F710012A5C1 /* mainTBControllers.png in Resources */,
+				8A5A3C76234895CF006E9D50 /* preferences.png in Resources */,
 				8A394A71232E9FE70012A5C1 /* mainTBPlaylist2.png in Resources */,
 				8AE1917A2315045D006CD958 /* Main.storyboard in Resources */,
 				8A394A6E232E9F710012A5C1 /* mainTBBigCounter.png in Resources */,
@@ -543,6 +567,7 @@
 				8A394A77232EA0CB0012A5C1 /* mainTBStop.png in Resources */,
 				8AD44C8A2326BB3A00DE08AB /* midiSettings.png in Resources */,
 				8A394A6A232E9F710012A5C1 /* mainTBMidiPlay.png in Resources */,
+				8A5A3C7823489A9F006E9D50 /* interface.png in Resources */,
 				8A394A73232EA05A0012A5C1 /* mainTBRecord.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,6 +591,7 @@
 				8ABBBF6323190B6F00FA04A9 /* MainSplitViewController.swift in Sources */,
 				8A0AE006231D48EC0024FACF /* AcousmoniumPropertyViewController.swift in Sources */,
 				8A0AE00F231D8A7A0024FACF /* PlaylistViewController.swift in Sources */,
+				8A112400233E4F8100AA346D /* BlackView.swift in Sources */,
 				8A41E905232542C700613745 /* PlaylistFile.swift in Sources */,
 				8A694A7023257F54001BD253 /* Export.swift in Sources */,
 				8A7DA568231657620059B5C9 /* Extensions.swift in Sources */,
@@ -588,6 +614,7 @@
 				8AE191732315045C006CD958 /* AppDelegate.swift in Sources */,
 				8AA84680231AC5AD00005A4D /* MIDIControllersView.swift in Sources */,
 				8A0AE00A231D54540024FACF /* AcousmoniumView.swift in Sources */,
+				8A9CEE7B23473FBC00798F49 /* WaitingWindowController.swift in Sources */,
 				8ABBBF7D23196D2600FA04A9 /* TimeValueTransformer.swift in Sources */,
 				8A6BEF5A231BB5E500D5A84B /* PlayControllersView.swift in Sources */,
 				8ABBBF7F23196D3E00FA04A9 /* MarkerCountValueTransformer.swift in Sources */,
@@ -599,6 +626,7 @@
 				8A0AE00C231D879B0024FACF /* PlayFadersView.swift in Sources */,
 				8A6BEF56231BB58300D5A84B /* PlayTimelineView.swift in Sources */,
 				8A6BEF47231B961F00D5A84B /* AudioCaptureMeter.swift in Sources */,
+				8A935E7B233FAF570081EE0B /* RecordingValueTransformer.swift in Sources */,
 				8ABBBF69231912BF00FA04A9 /* LeftViewController.swift in Sources */,
 				8A6BEF53231B9DE200D5A84B /* PreviewCameraView.swift in Sources */,
 				8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */,
@@ -631,6 +659,14 @@
 				8A6BEF49231B98EE00D5A84B /* Base */,
 			);
 			name = RecordCamera.xib;
+			sourceTree = "<group>";
+		};
+		8A9CEE7723473F4700798F49 /* WaitingWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A9CEE7823473F4700798F49 /* Base */,
+			);
+			name = WaitingWindow.xib;
 			sourceTree = "<group>";
 		};
 		8ABBBF6F2319521C00FA04A9 /* Preferences.storyboard */ = {
@@ -819,7 +855,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -828,9 +864,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 2.0.5;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -843,7 +880,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -852,9 +889,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 2.0.5;
+				MARKETING_VERSION = 2.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

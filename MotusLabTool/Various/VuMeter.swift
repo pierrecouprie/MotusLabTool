@@ -22,7 +22,7 @@ import Cocoa
 
 class VuMeter: NSView {
     
-    var channels: Int = 2
+    var channels: Int = 0
     let min: Float = 0
     let max: Float = 100
     let warning: Float = 98 // Orange limit
@@ -40,9 +40,6 @@ class VuMeter: NSView {
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
         self.wantsLayer = true
-        
-        self.updateChannels()
-        self.updateLevels()
     }
     
     func updateChannels() {
@@ -59,6 +56,19 @@ class VuMeter: NSView {
     }
     
     func updateLevels() {
+        
+        //Update channel numbers if it changes
+        if self.channels != self.levels.count {
+            self.channels = self.levels.count
+            self.levels = [Float](repeating: 0, count: self.channels)
+            self.updateChannels()
+        }
+        
+        guard self.subviews.count > 0 else {
+            return
+        }
+        
+        //Display amplitude values
         for (index,level) in self.levels.enumerated() {
             let height = (CGFloat(level) * self.bounds.size.height) / (CGFloat(max) - CGFloat(min))
             var frame = self.subviews[index].frame

@@ -55,22 +55,30 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
         //Initialize audio recorder
         
         if self.audioFormat == AudioFormat.aac {
+            
             settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
                         AVSampleRateKey: 44100,
                         AVNumberOfChannelsKey: 2,
                         AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
             fileUrl = self.url.appendingPathComponent(sessionId!).appendingPathExtension(AudioFormat.aac)
             self.leftViewController.currentSession.audioFormat = AudioFormat.aac
+            
         } else if self.audioFormat == AudioFormat.pcm {
+            
+            let sampleRate = UserDefaults.standard.double(forKey: PreferenceKey.sampleRate)
+            let bitDepth = UserDefaults.standard.integer(forKey: PreferenceKey.bitDepth)
+            let channelNumber = UserDefaults.standard.integer(forKey: PreferenceKey.channelNumber)
+            
             settings = [AVFormatIDKey: kAudioFormatLinearPCM,
-                        AVSampleRateKey: 44100.0,
-                        AVNumberOfChannelsKey: 2,
-                        AVLinearPCMBitDepthKey: 16,
+                        AVSampleRateKey: sampleRate,
+                        AVNumberOfChannelsKey: channelNumber,
+                        AVLinearPCMBitDepthKey: bitDepth,
                         AVLinearPCMIsNonInterleaved: false,
                         AVLinearPCMIsBigEndianKey: false,
                         AVLinearPCMIsFloatKey: false]
             fileUrl = self.url.appendingPathComponent(sessionId!).appendingPathExtension(AudioFormat.pcm)
             self.leftViewController.currentSession.audioFormat = AudioFormat.pcm
+            
         }
         
         do {

@@ -43,14 +43,14 @@ class PlayMarkersView: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        if let context = NSGraphicsContext.current?.cgContext, let leftViewController = self.leftViewController, let color = preferences.data(forKey: PreferenceKey.playMarkerColor)?.color {
+        if let context = NSGraphicsContext.current?.cgContext, let leftViewController = self.leftViewController, let currentSession = leftViewController.currentSession,  let color = preferences.data(forKey: PreferenceKey.playMarkerColor)?.color {
             
             context.saveGState()
             context.setStrokeColor(color.cgColor)
             
-            for marker in leftViewController.currentSession.markers {
+            for marker in currentSession.markers {
                 
-                let x = (CGFloat(marker.date) * self.bounds.size.width) / CGFloat(self.leftViewController.currentSession.duration)
+                let x = (CGFloat(marker.date) * self.bounds.size.width) / CGFloat(currentSession.duration)
                 context.move(to: CGPoint(x: x, y: 0))
                 context.addLine(to: CGPoint(x: x, y: self.bounds.size.height))
                 

@@ -38,12 +38,17 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         return 0
     }
     
-    var meterValue: (left: Float, right: Float) {
+    var meterValue: [Float] {
         if let audioPlayer = self.audioPlayer {
             audioPlayer.updateMeters()
-            return (audioPlayer.averagePower(forChannel: 0), audioPlayer.averagePower(forChannel: 1))
+            let numberOfChannels = audioPlayer.numberOfChannels
+            var levels = [Float]()
+            for index in 0..<numberOfChannels {
+                levels.append(audioPlayer.averagePower(forChannel: index))
+            }
+            return levels
         }
-        return (-160,-160)
+        return [-160,-160]
     }
     
     init(_ leftViewController: LeftViewController) {

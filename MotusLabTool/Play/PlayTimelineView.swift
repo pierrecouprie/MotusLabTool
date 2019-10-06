@@ -20,7 +20,7 @@
 
 import Cocoa
 
-let kHRulerSize: CGFloat = 15
+let kHRulerSize: CGFloat = 20
 
 class PlayTimelineView: NSView {
     

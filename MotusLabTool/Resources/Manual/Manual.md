@@ -9,8 +9,11 @@ Before opening MotusLabTool :
 1. Open the system preferences.
 2. Select `Sound`.
 3. Select audio input and output.
+4. Launch the software.
+5. Use menu `MotusLabTool` > `Preferences` to edit settings of audio recording.
 
-Then launch the software.
+> MotusLabTool can record and play in multitracks up to 8 channels.<br />
+> See `Preferences` to select the channel number.
 
 ## Configure the MIDI
 
@@ -61,7 +64,8 @@ Use the toolbar button ![Playlist Toolbar Button](Images/mainTBPlaylist.png) to 
 
 `+`: Add one or more files to the playlist.
 
-> MotusLabTool only accepts WAV, AIFF, MP3, and M4A formats.
+> MotusLabTool only accepts WAV, AIFF, MP3, and M4A formats. <br />
+> If it is a PCM format (WAV or AIFF), MotusLabTool accepts multitrack files up to 8 channels.
 
 `-`: Remove one file from the playlist.
 
@@ -73,7 +77,7 @@ Select the file you want to use during recording.
 
 Use menu `File` > `New` to create a new project:
 
-![Playlist](Images/newProject.png)
+![New document](Images/newProject.png)
 
 ### Add cameras
 
@@ -83,48 +87,60 @@ Select a camera from the drop-down menu instead of No value. You can add more ca
 
 ### Record a performance
 
-Use the toolbar button ![Playlist Toolbar Button](Images/mainTBRecord.png) to start and stop recording. You also can use the space bar. Each recording produce a session in the same project.
+Use the toolbar button ![Record Toolbar Button](Images/mainTBRecord.png) to start and stop recording. You also can use the space bar. Each recording produce a session in the same project.
 
 During the recording, you can edit `Title` and `Information` and `Add markers` (see below) for each session.
 
 ### Record with waveform and big counter
 
-Use the toolbar button ![Playlist Toolbar Button](Images/mainTBBigCounter.png) to show the waveform and the big counter.
+Use the toolbar button ![Big Counter Toolbar Button](Images/mainTBBigCounter.png) to show the waveform and the big counter.
 
 The waveform is only displayed if you select the playlist function.
 
 ![Big Counter](Images/bigCounter.png)
 
+Click in the waveform to select a specific starting position for the recording.
+
 ### Add markers
 
 During the recording use Markers `Add` button, fill the `Title` and select `Save` to add a marker.
+
+### Playback in record mode
+
+When you are in record mode and if a playlist file is selected, you can use ![Play Toolbar Button](Images/mainTBPlay.png) and ![Stop Toolbar Button](Images/mainTBStop.png) to play playlist file without recording. Use click in the waveform if ![Big Counter Toolbar Button](Images/mainTBBigCounter.png) is activated to naviguate in the audio file.
 
 ## Play
 
 ### Open a project
 
-Use menu `File` > `Open` to open a project. Use ![Playlist Toolbar Button](Images/mainTBPlay.png) and ![Playlist Toolbar Button](Images/mainTBStop.png) to command the playback.
+Use menu `File` > `Open` to open a project. Use ![Play Toolbar Button](Images/mainTBPlay.png) and ![Stop Toolbar Button](Images/mainTBStop.png) to command the playback.
+
+### Select a session
+
+Use toolbar button `Sessions` to select a session. Then select toolbar button `Play` to load the session.
+
+In `Sessions` interface, you can edit `title` and `information` of each sessions.
 
 ### Show statistics
 
-Use the toolbar button ![Playlist Toolbar Button](Images/mainTBstatistics.png) to show the statistics window:
+Use the toolbar button ![Statistics Toolbar Button](Images/mainTBstatistics.png) to show the statistics window:
 
-![Big Counter](Images/statistics.png)
+![Statistic Window](Images/statistics.png)
 
 - Check `Show statistics` to display statistic values in front of fader representation.
 - Then, check which statistic values you want to display on the graph.
 
-![Big Counter](Images/statistics-02.png)
+![Statistic Drawing](Images/statistics-02.png)
 
 ## Acousmonium
 
-Use the toolbar button ![Playlist Toolbar Button](Images/mainTBAcousmonium.png) to display the acousmonium panel at right.
+Use the toolbar button ![Acousmonium Toolbar Button](Images/mainTBAcousmonium.png) to display the acousmonium panel at right.
 
 Acousmonium map can be used in play and record mode.
 
 ### Create a new acousmonium
 
-Use the button ![Playlist Toolbar Button](Images/NSActionTemplate.png) to open the property window:
+Use the button ![Add](Images/NSActionTemplate.png) to open the property window:
 
 ![Acousmonium Properties](Images/acousmoniumProperties.png)
 
@@ -164,15 +180,28 @@ You can use multiple loudspeakers with the same MIDI controller number.
 
 In order to ensure that the representation works properly during playback or recording, the MIDI controller numbers and console indications must be the same as those selected in the MIDI properties (see `Configure the MIDI` section).
 
+## Various
+
+### Black window
+
+Use the button ![Black Window Toolbar Button](Images/mainTBBlackWindow.png) to mask interface in record or play mode.
+
 ## Export recording
 
-Use menu `File` > `Export recording` to export the project in JSON format.
+Use menu `File` > `Export Recording` to export the project in JSON format.
 
 The exported project contains:
 
 - An `audio` folder with audio files.
 - A `movie` folder with movie files.
 - A JSON file `motusLabFile.json` which contains project information, sessions, and MIDI events.
+
+## Export a session
+
+To create a copy of the project which only contain a session:
+- Select `Sessions` toolbar button.
+- Select a session.
+- Use menu `File` > `Export Selected Session`.
 
 ## Import and export acousmonium
 
@@ -181,6 +210,14 @@ Use menu `File` > `Export Acousmonium` to export the selected acousmonium.
 Use menu `File` > `Import Acousmonium` to import an acousmonium file.
 
 > MotusLabTool only export and import acousmonium files in its format with `.acousmonium` extension.
+
+## Preferences
+
+Use menu `MotusLaTool` > `Preferences` to open preference window:
+
+![Preferences](Images/preferences.png)
+
+`Audio recording` settings are only available for PCM format (WAV). Multitracks recording (more than 2 channels) needs an external sound card.
 
 ## FAQ
 
@@ -194,3 +231,10 @@ Use menu `File` > `Import Acousmonium` to import an acousmonium file.
 
 1. Check that the audio files are in `Music` folder of your account. Other locations are not recognized.
 2. Check the format of your audio files: WAV, AIFF, MP3, and M4A are the only accepted formats.
+
+### Video is not synchronized with controller's positions
+
+1. Stop playback.
+2. Change the time position and start playback.
+
+Videos can be slightly shifted, this is normal.

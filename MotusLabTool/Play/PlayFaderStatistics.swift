@@ -59,7 +59,6 @@ class PlayFaderStatistics: NSView {
     func computeStatistics(_ midiControllerEvents: [MIDIControllerEvent]) {
         self.statistics = Statistics(midiControllerEvents, duration: self.leftViewController.currentSession.duration)
         self.statistics.compute()
-        self.setNeedsDisplay(self.bounds)
     }
     
     override func draw(_ dirtyRect: NSRect) {

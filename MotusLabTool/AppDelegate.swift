@@ -49,6 +49,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let nsbuttonStateIntegerValueTransformerName = NSValueTransformerName.init("NSButtonStateIntegerValueTransformer")
         ValueTransformer.setValueTransformer(nsbuttonStateIntegerValueTransformer, forName: nsbuttonStateIntegerValueTransformerName)
         
+        let recordingValueTransformer = RecordingValueTransformer()
+        let recordingValueTransformerName = NSValueTransformerName.init("RecordingValueTransformer")
+        ValueTransformer.setValueTransformer(recordingValueTransformer, forName: recordingValueTransformerName)
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

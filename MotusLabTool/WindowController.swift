@@ -23,9 +23,14 @@ import Cocoa
 class WindowController: NSWindowController {
     
     var appSupportFolder: URL!
-    @objc dynamic var motusLabFile: MotusLabFile!
+    @objc dynamic var motusLabFile: MotusLabFile! {
+        didSet {
+            self.enableModeSegmentedControl()
+        }
+    }
     var fileUrl: URL!
     var midiControllerEvents: [MIDIControllerEvent]!
+    var waitingWindowController: WaitingWindowController!
     
     // MIDI Controllers
     @objc dynamic var consoleAParameters: MIDIParameters!
@@ -66,51 +71,20 @@ class WindowController: NSWindowController {
     @objc dynamic var displayedView: Int = 0 {
         didSet {
             self.enableCommands()
-            /*switch displayedView {
-            case 0: // Session
-                self.setValue(false, forKey: "enableRecordToolbarButtons")
-                self.setValue(false, forKey: "enablePlayToolbarButtons")
-            case 1: // Record
-                self.setValue(true, forKey: "enableRecordToolbarButtons")
-                self.setValue(false, forKey: "enablePlayToolbarButtons")
-            case 2: // Play
-                self.setValue(false, forKey: "enableRecordToolbarButtons")
-                self.setValue(true, forKey: "enablePlayToolbarButtons")
-            default:
-                break
-            }*/
         }
     }
     
     @objc dynamic var enableModeToolbarButton = false
-    @objc dynamic var enableRecordToolbarButtons = false
-    @objc dynamic var enablePlayToolbarButtons = false
-    @objc dynamic var enablePlayStopToolbarButtons = false
+    @objc dynamic var enableRecordToolbarButtons = false //Add camera, record, Big counter
+    @objc dynamic var enablePlayToolbarButtons = false //Controllers, midi playing, statistics
+    @objc dynamic var enablePlayStopToolbarButtons = false //Play, stop
     @objc dynamic var showAcousmonium: NSButton.StateValue = .off
     @objc dynamic var toolbarRecord: NSButton.StateValue = .off
     @objc dynamic var toolbarPlay: NSButton.StateValue = .off
     @IBOutlet weak var modeSegmentedControl: NSSegmentedControl!
-    var currentMode: String = Mode.none {
+    @objc dynamic var currentMode: String = Mode.none {
         didSet {
-            switch currentMode {
-            case Mode.none :
-                self.modeSegmentedControl.setEnabled(true, forSegment: 0)
-                self.modeSegmentedControl.setEnabled(true, forSegment: 1)
-                self.modeSegmentedControl.setEnabled(true, forSegment: 2)
-                if self.toolbarPlay == .on {
-                    self.setValue(NSButton.StateValue.off, forKey: "toolbarPlay")
-                }
-            case Mode.recording :
-                self.modeSegmentedControl.setEnabled(true, forSegment: 0)
-                self.modeSegmentedControl.setEnabled(true, forSegment: 1)
-                self.modeSegmentedControl.setEnabled(false, forSegment: 2)
-            case Mode.playing :
-                self.modeSegmentedControl.setEnabled(true, forSegment: 0)
-                self.modeSegmentedControl.setEnabled(false, forSegment: 1)
-                self.modeSegmentedControl.setEnabled(true, forSegment: 2)
-            default:
-                break
-            }
+            self.enableModeSegmentedControl()
         }
     }
     
@@ -185,7 +159,6 @@ class WindowController: NSWindowController {
         case 1: // Record
             if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
                 self.setValue(true, forKey: "enableRecordToolbarButtons")
-                self.setValue(true, forKey: "enablePlayToolbarButtons")
                 if self.currentMode == Mode.none {
                     self.setValue(true, forKey: "enablePlayStopToolbarButtons")
                 } else {
@@ -193,13 +166,39 @@ class WindowController: NSWindowController {
                 }
             } else {
                 self.setValue(true, forKey: "enableRecordToolbarButtons")
-                self.setValue(false, forKey: "enablePlayToolbarButtons")
                 self.setValue(false, forKey: "enablePlayStopToolbarButtons")
             }
+            self.setValue(false, forKey: "enablePlayToolbarButtons")
         case 2: // Play
             self.setValue(false, forKey: "enableRecordToolbarButtons")
             self.setValue(true, forKey: "enablePlayToolbarButtons")
             self.setValue(true, forKey: "enablePlayStopToolbarButtons")
+        default:
+            break
+        }
+    }
+    
+    func enableModeSegmentedControl() {
+        switch self.currentMode {
+        case Mode.none :
+            self.modeSegmentedControl.setEnabled(true, forSegment: 0)
+            self.modeSegmentedControl.setEnabled(true, forSegment: 1)
+            if self.motusLabFile != nil && self.motusLabFile.sessions.count > 0 {
+                self.modeSegmentedControl.setEnabled(true, forSegment: 2)
+            } else {
+                self.modeSegmentedControl.setEnabled(false, forSegment: 2)
+            }
+            if self.toolbarPlay == .on {
+                self.setValue(NSButton.StateValue.off, forKey: "toolbarPlay")
+            }
+        case Mode.recording :
+            self.modeSegmentedControl.setEnabled(true, forSegment: 0)
+            self.modeSegmentedControl.setEnabled(true, forSegment: 1)
+            self.modeSegmentedControl.setEnabled(false, forSegment: 2)
+        case Mode.playing :
+            self.modeSegmentedControl.setEnabled(true, forSegment: 0)
+            self.modeSegmentedControl.setEnabled(false, forSegment: 1)
+            self.modeSegmentedControl.setEnabled(true, forSegment: 2)
         default:
             break
         }
@@ -219,6 +218,9 @@ class WindowController: NSWindowController {
         preferences[PreferenceKey.consoleBMapping] = "1-25"
         preferences[PreferenceKey.consoleBActivate] = false
         preferences[PreferenceKey.switchPlayMode] = false
+        preferences[PreferenceKey.bitDepth] = 16
+        preferences[PreferenceKey.sampleRate] = 44100
+        preferences[PreferenceKey.channelNumber] = 2
         
         preferences[PreferenceKey.playTimelineWaveform] = true
         preferences[PreferenceKey.playTimelineControllers] = true
@@ -368,17 +370,19 @@ class WindowController: NSWindowController {
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 if let url = selectFilePanel.urls.first {
                     do {
-                        // Load motusLab file
+                        //Load motusLab file
                         let data = try Data(contentsOf: url.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data))
                         self.fileUrl = url
                         self.motusLabFile = NSKeyedUnarchiver.unarchiveObject(with: data) as? MotusLabFile
                         
-                        // Select first session
+                        //Activate toolbar mode button
+                        self.setValue(true, forKey: "enableModeToolbarButton")
+                        
+                        //Select first session
                         self.leftViewController.selectedSessionIndex = IndexSet(integer: 0)
                         
-                        // Switch to play tabView page
+                        //Switch to play tabView page
                         self.setValue(2, forKey: "displayedView")
-                        self.setValue(true, forKey: "enableModeToolbarButton")
                         
                     } catch let error as NSError {
                         Swift.print("WindowController: openDocument() Error openning url \(url), context: " + error.localizedDescription)
@@ -393,7 +397,7 @@ class WindowController: NSWindowController {
     func createDocument() {
         self.motusLabFile = MotusLabFile(name: self.fileUrl.fileName)
         self.midiControllerEvents = [MIDIControllerEvent]()
-        self.createBundle()
+        self.createBundle(at: self.fileUrl)
         self.saveFile()
         self.initializeMotusLabFileObserver()
     }
@@ -412,15 +416,15 @@ class WindowController: NSWindowController {
     ///   |- audio  (folder)
     ///   |- midi   (folder)
     ///   |- movie  (folder)
-    func createBundle() {
+    func createBundle(at url: URL) {
         
-        let audioUrl = self.fileUrl.appendingPathComponent(FilePath.audio)
-        let movieUrl = self.fileUrl.appendingPathComponent(FilePath.movie)
-        let midiUrl = self.fileUrl.appendingPathComponent(FilePath.midi)
+        let audioUrl = url.appendingPathComponent(FilePath.audio)
+        let movieUrl = url.appendingPathComponent(FilePath.movie)
+        let midiUrl = url.appendingPathComponent(FilePath.midi)
         
         let fileManager = FileManager.default
         do {
-            try fileManager.createDirectory(at: self.fileUrl, withIntermediateDirectories: false, attributes: nil)
+            try fileManager.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)
         } catch {
             Swift.print("WindowController: createBundle() Cannot copy bundle to url (" + self.fileUrl.path + ")!")
         }
@@ -665,6 +669,38 @@ class WindowController: NSWindowController {
         }
     }
     
+    //MARK: - Waiting window
+    
+    func openWaitingWindow(with information: String, maxValue: Double? = nil) {
+        if self.waitingWindowController == nil {
+            self.waitingWindowController = WaitingWindowController(windowNibName: "WaitingWindow")
+        }
+        self.window!.beginSheet(self.waitingWindowController.window!, completionHandler: nil)
+        if let max = maxValue {
+            self.waitingWindowController.progressIndicator.isIndeterminate = false
+            self.waitingWindowController.progressIndicator.maxValue = max
+        } else {
+            self.waitingWindowController.progressIndicator.isIndeterminate = true
+        }
+        self.waitingWindowController.progressIndicator.usesThreadedAnimation = true
+        self.waitingWindowController.progressIndicator.startAnimation(self)
+        self.waitingWindowController.information.stringValue = information
+    }
+    
+    func increaseWaitingWindowProgressIndicator() {
+        guard self.waitingWindowController != nil else {
+            return
+        }
+        self.waitingWindowController.progressIndicator.doubleValue += 1
+    }
+    
+    func closeWaitingWindow() {
+        guard self.waitingWindowController != nil && self.waitingWindowController.window!.isVisible else {
+            return
+        }
+        self.window!.endSheet(self.waitingWindowController.window!)
+    }
+    
     //MARK: - Toolbar
     
     @IBAction func record(_ sender: Any) {
@@ -700,6 +736,19 @@ class WindowController: NSWindowController {
         }
     }
     
+    @IBAction func showBlackWindow(_ sender: Any) {
+        let contentView = self.window?.contentView
+        if (sender as! NSButton).state == .on {
+            let blackWindow = BlackView(frame: contentView!.bounds)
+            contentView?.addSubview(blackWindow)
+            blackWindow.addInViewConstraints(superView: contentView!)
+        } else {
+            if contentView!.subviews.count > 0 {
+                contentView!.subviews.last!.removeFromSuperview()
+            }
+        }
+    }
+    
     @IBAction func addCamera(_ sender: Any) {
         self.leftViewController.addCamera()
     }
@@ -728,15 +777,35 @@ class WindowController: NSWindowController {
                 }
             }
             
-            if action == #selector(self.export) {
+            if action == #selector(self.export(_:)) {
                 if self.motusLabFile == nil {
                     return false
                 }
             }
             
-            if action == #selector(self.exportAcousmonium) {
+            if action == #selector(self.exportAcousmonium(_:)) {
                 if self.selectedAcousmoniumFile == nil {
                     return false
+                }
+            }
+            
+            if action == #selector(self.deleteCurrentSession(_:)) {
+                if self.motusLabFile == nil {
+                    return false
+                } else {
+                    if self.motusLabFile.sessions.count == 0 || self.displayedView != 0 {
+                        return false
+                    }
+                }
+            }
+            
+            if action == #selector(self.exportSelectedSession(_:)) {
+                if self.motusLabFile == nil {
+                    return false
+                } else {
+                    if self.motusLabFile.sessions.count == 0 || self.displayedView != 0 {
+                        return false
+                    }
                 }
             }
         }
@@ -750,9 +819,96 @@ class WindowController: NSWindowController {
         exportPanel.begin { (result: NSApplication.ModalResponse) -> Void in
             if result == .OK {
                 if let url = exportPanel.url {
-                    
+                    self.openWaitingWindow(with: "Exporting...")
                     let export = Export(url, fileURL: self.fileUrl, motusLabFile: self.motusLabFile)
-                    export.export()
+                    let queue = DispatchQueue(label: "com.pierrecouprie.motuslabTool.export", qos: .background, attributes: .concurrent)
+                    queue.async() {
+                        export.export()
+                        DispatchQueue.main.async {
+                            self.closeWaitingWindow()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @IBAction func exportSelectedSession(_ sender: Any) {
+        if let firstIndex = self.leftViewController.selectedSessionIndex.first {
+            let exportPanel = NSSavePanel()
+            exportPanel.canCreateDirectories = true
+            exportPanel.allowedFileTypes = [FileExtension.motuslab]
+            exportPanel.begin { (result: NSApplication.ModalResponse) -> Void in
+                if result == .OK {
+                    
+                    let fileManager = FileManager.default
+                    let session = self.motusLabFile.sessions[firstIndex]
+                    
+                    //Create bundle structure
+                    self.createBundle(at: exportPanel.url!)
+                    
+                    //Copy audio file
+                    var inputUrl = self.fileUrl.appendingPathComponent(FilePath.audio).appendingPathComponent(session.id).appendingPathExtension(session.audioFormat)
+                    var outputUrl = exportPanel.url!.appendingPathComponent(FilePath.audio).appendingPathComponent(session.id).appendingPathExtension(session.audioFormat)
+                    do {
+                        try fileManager.copyItem(at: inputUrl, to: outputUrl)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: exportSelectedSession() Error copying file in url \(inputUrl) ot url \(outputUrl), context: " + error.localizedDescription)
+                    }
+                    
+                    //Copy Video files
+                    inputUrl = self.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.A).appendingPathExtension(FileExtension.mp4)
+                    outputUrl = exportPanel.url!.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.A).appendingPathExtension(FileExtension.mp4)
+                    do {
+                        try fileManager.copyItem(at: inputUrl, to: outputUrl)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: exportSelectedSession() Error copying file in url \(inputUrl) ot url \(outputUrl), context: " + error.localizedDescription)
+                    }
+                    
+                    inputUrl = self.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.B).appendingPathExtension(FileExtension.mp4)
+                    outputUrl = exportPanel.url!.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.B).appendingPathExtension(FileExtension.mp4)
+                    do {
+                        try fileManager.copyItem(at: inputUrl, to: outputUrl)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: exportSelectedSession() Error copying file in url \(inputUrl) ot url \(outputUrl), context: " + error.localizedDescription)
+                    }
+                    
+                    inputUrl = self.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.C).appendingPathExtension(FileExtension.mp4)
+                    outputUrl = exportPanel.url!.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.C).appendingPathExtension(FileExtension.mp4)
+                    do {
+                        try fileManager.copyItem(at: inputUrl, to: outputUrl)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: exportSelectedSession() Error copying file in url \(inputUrl) ot url \(outputUrl), context: " + error.localizedDescription)
+                    }
+                    
+                    inputUrl = self.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.D).appendingPathExtension(FileExtension.mp4)
+                    outputUrl = exportPanel.url!.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.D).appendingPathExtension(FileExtension.mp4)
+                    do {
+                        try fileManager.copyItem(at: inputUrl, to: outputUrl)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: exportSelectedSession() Error copying file in url \(inputUrl) ot url \(outputUrl), context: " + error.localizedDescription)
+                    }
+                    
+                    //Copy event file
+                    inputUrl = self.fileUrl.appendingPathComponent(FilePath.midi).appendingPathComponent(session.id).appendingPathExtension(FileExtension.event)
+                    outputUrl = exportPanel.url!.appendingPathComponent(FilePath.midi).appendingPathComponent(session.id).appendingPathExtension(FileExtension.event)
+                    do {
+                        try fileManager.copyItem(at: inputUrl, to: outputUrl)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: exportSelectedSession() Error copying file in url \(inputUrl) ot url \(outputUrl), context: " + error.localizedDescription)
+                    }
+                    
+                    //Create data file
+                    let file = self.motusLabFile.copy() as! MotusLabFile
+                    file.sessions.removeAll()
+                    file.sessions.append(session.copy() as! Session)
+                    let data:Data = NSKeyedArchiver.archivedData(withRootObject: file)
+                    let dataUrl = exportPanel.url!.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data)
+                    do {
+                        try data.write(to: dataUrl)
+                    } catch let error as NSError {
+                        Swift.print("WindowController: exportSelectedSession() Error saving data to url \(dataUrl), context: " + error.localizedDescription)
+                    }
                     
                 }
             }
@@ -804,6 +960,83 @@ class WindowController: NSWindowController {
                 }
                 
                 self.setValue(acousmoniumFiles, forKey: "acousmoniumFiles")
+                
+            }
+        }
+    }
+    
+    @IBAction func deleteCurrentSession(_ sender: Any) {
+        let a = NSAlert()
+        a.messageText = "Delete current session"
+        a.informativeText = "Are you sure you want to delete the selected session? This action cannot be undone!"
+        a.addButton(withTitle: "Delete")
+        a.addButton(withTitle: "Cancel")
+        a.alertStyle = .warning
+        
+        let result = a.runModal()
+        if result == NSApplication.ModalResponse.alertFirstButtonReturn {
+            
+            if let firstIndex = self.leftViewController.selectedSessionIndex.first {
+                
+                let fileManager = FileManager.default
+                let session = self.motusLabFile.sessions[firstIndex]
+                
+                //Delete audio file
+                var url = self.fileUrl.appendingPathComponent(FilePath.audio).appendingPathComponent(session.id).appendingPathExtension(session.audioFormat)
+                do {
+                    try fileManager.removeItem(at: url)
+                } catch let error as NSError {
+                    Swift.print("WindowController: deleteCurrentSession() Error deleting file in url \(url), context: " + error.localizedDescription)
+                }
+                
+                //delete video files
+                url = self.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.A).appendingPathExtension(FileExtension.mp4)
+                do {
+                    try fileManager.removeItem(at: url)
+                } catch let error as NSError {
+                    Swift.print("WindowController: deleteCurrentSession() Error deleting file in url \(url), context: " + error.localizedDescription)
+                }
+                
+                url = self.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.B).appendingPathExtension(FileExtension.mp4)
+                do {
+                    try fileManager.removeItem(at: url)
+                } catch let error as NSError {
+                    Swift.print("WindowController: deleteCurrentSession() Error deleting file in url \(url), context: " + error.localizedDescription)
+                }
+                
+                url = self.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.C).appendingPathExtension(FileExtension.mp4)
+                do {
+                    try fileManager.removeItem(at: url)
+                } catch let error as NSError {
+                    Swift.print("WindowController: deleteCurrentSession() Error deleting file in url \(url), context: " + error.localizedDescription)
+                }
+                
+                url = self.fileUrl.appendingPathComponent(FilePath.movie).appendingPathComponent(session.id + FilePath.D).appendingPathExtension(FileExtension.mp4)
+                do {
+                    try fileManager.removeItem(at: url)
+                } catch let error as NSError {
+                    Swift.print("WindowController: deleteCurrentSession() Error deleting file in url \(url), context: " + error.localizedDescription)
+                }
+                
+                //Delete event file
+                url = self.fileUrl.appendingPathComponent(FilePath.midi).appendingPathComponent(session.id).appendingPathExtension(FileExtension.event)
+                do {
+                    try fileManager.removeItem(at: url)
+                } catch let error as NSError {
+                    Swift.print("WindowController: deleteCurrentSession() Error deleting file in url \(url), context: " + error.localizedDescription)
+                }
+                
+                //Remove item in motusLab file
+                var sessions = self.motusLabFile.sessions
+                sessions?.remove(at: firstIndex)
+                self.motusLabFile.setValue(sessions, forKey: MotusLabFile.PropertyKey.sessionsKey)
+                
+                //Unload session in playback
+                self.leftViewController.setValue(IndexSet(integer: 0), forKey: "selectedSessionIndex")
+                self.leftViewController.currentSession = nil
+                
+                //Update interface
+                self.enableModeSegmentedControl()
                 
             }
         }

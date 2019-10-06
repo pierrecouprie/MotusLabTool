@@ -1,8 +1,8 @@
 //
-//  NSButtonStateIntegerValueTransformer.swift
+//  WaitingWindowController.swift
 //  MotusLabTool
 //
-//  Created by Pierre Couprie on 08/09/2019.
+//  Created by Pierre Couprie on 04/10/2019.
 //  Copyright © 2019 Pierre Couprie. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -20,24 +20,10 @@
 
 import Cocoa
 
-@objc(NSButtonStateIntegerValueTransformer) class NSButtonStateIntegerValueTransformer: ValueTransformer {
+class WaitingWindowController: NSWindowController {
     
-    override class func transformedValueClass() -> AnyClass {
-        return NSNumber.self
-    }
-    
-    override class func allowsReverseTransformation() -> Bool {
-        return false
-    }
-    
-    override func transformedValue(_ value: Any?) -> Any? {
-        if let state = value as? NSButton.StateValue {
-            if state == .on {
-                return 1
-            }
-        }
-        
-        return 0
-    }
+    @IBOutlet weak var progressIndicator: NSProgressIndicator!
+    @IBOutlet weak var information: NSTextField!
     
 }
+
