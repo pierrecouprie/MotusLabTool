@@ -24,16 +24,9 @@ class AcousmoniumPropertyViewController: NSViewController {
     
     @objc dynamic weak var windowController: WindowController!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        Swift.print("AcousmoniumPropertyViewController > viewDidLoad")
-    }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
     
     @IBAction func addPreset(_ sender: Any) {
         self.windowController.createAcousmoniumFile("Untitled")

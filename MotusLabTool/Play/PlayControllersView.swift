@@ -202,6 +202,7 @@ class PlayControllersView: NSView {
                 
                 x = (CGFloat(position.date) * self.bounds.width) / CGFloat(currentSession.duration)
                 y = CGFloat(MIDIValueCorrection(position.value, type: self.midiValueCorrection)) / 128
+                var tempY = y
                 
                 if firstX == -1 {
                     firstX = x
@@ -210,7 +211,9 @@ class PlayControllersView: NSView {
                 if x >= prevX + 1 {
                     
                     if x > prevX +  1 {
-                        let cgPoint = CGPoint(x: x, y:  prevY)
+                        var cgPoint = CGPoint(x: prevX, y:  prevY)
+                        points.append(cgPoint)
+                        cgPoint = CGPoint(x: x, y:  prevY)
                         points.append(cgPoint)
                     }
                     
@@ -222,18 +225,25 @@ class PlayControllersView: NSView {
                     let cgPoint = CGPoint(x: x, y:  y)
                     points.append(cgPoint)
                     prevX = x
-                    prevY = y
                     maxSlice = 0
+                    
                 } else {
+                    
                     if y > maxSlice {
                         maxSlice = y
                     }
                     y *= frame.size.height
                     y += frame.origin.y
+                    
                 }
+                
+                tempY *= frame.size.height
+                tempY += frame.origin.y
+                prevY = tempY
             }
-            
-            var cgLastPoint = CGPoint(x: frame.maxX, y: y)
+            var cgLastPoint = CGPoint(x: x, y: prevY)
+            points.append(cgLastPoint)
+            cgLastPoint = CGPoint(x: frame.maxX, y: prevY)
             points.append(cgLastPoint)
             cgLastPoint = CGPoint(x: frame.maxX, y: frame.origin.y)
             points.append(cgLastPoint)

@@ -80,13 +80,11 @@ class LeftViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Swift.print("LeftViewController > viewDidLoad")
     }
     
     @IBOutlet weak var playFadersView: PlayFadersView!
     
     func initialization() {
-        Swift.print("LeftViewController > initialization()")
         
         if let window = self.view.window, let windowController = window.windowController {
             self.windowController = windowController as? WindowController
@@ -424,8 +422,6 @@ class LeftViewController: NSViewController {
     func startPlayingPlaylist() {
         if let windowController = self.windowController {
             
-            Swift.print("LeftViewController > startPlayingPlaylist()")
-            
             guard windowController.fileUrl != nil && self.preferences.bool(forKey: PreferenceKey.usePlaylist) else {
                 Swift.print("LeftViewController: startRecording Error fileURL is nil")
                 return
@@ -460,8 +456,6 @@ class LeftViewController: NSViewController {
     
     func pausePlayingPlaylist() {
         
-        Swift.print("LeftViewController > pausePlayingPlaylist()")
-        
         guard self.windowController.currentMode == Mode.playlist else {
             return
         }
@@ -475,11 +469,10 @@ class LeftViewController: NSViewController {
         }
         
         self.windowController.currentMode = Mode.none
+        
     }
     
     func stopPlayingPlaylist() {
-        
-        Swift.print("LeftViewController > stopPlayingPlaylist()")
         
         //Stop timer
         if self.timer != nil {
@@ -558,8 +551,6 @@ class LeftViewController: NSViewController {
     /// This function initialize all elements to play a session
     func loadSession() {
         
-        Swift.print("LeftViewController > loadSession")
-        
         guard self.playTimelineView != nil && self.windowController.motusLabFile.sessions.count > 0 else {
             return
         }
@@ -593,11 +584,7 @@ class LeftViewController: NSViewController {
             
             //Load files
             self.loadAudioFile(fileUrl)
-            //self.loadCameras(fileUrl)
             self.loadMidiControllers(fileUrl)
-            
-            /*self.windowController.closeWaitingWindow()
-            return*/
             
             //Compute
             let loadingGroup = DispatchGroup()
@@ -669,35 +656,24 @@ class LeftViewController: NSViewController {
     
     /// Initialize the audio file in audio player
     func loadAudioFile(_ url:  URL) {
-        Swift.print("LeftViewController > loadAudioFile()")
         let audioFileURL = url.appendingPathComponent(FilePath.audio).appendingPathComponent(self.currentSession.id!).appendingPathExtension(self.currentSession.audioFormat)
         self.audioPlayer.createAudioPlayer(audioFileURL)
     }
     
     /// Open midi controller events file and load them
     func loadMidiControllers(_ url:  URL) {
-        Swift.print("LeftViewController > loadMidiControllers()")
         let sessionId = self.currentSession.id!
         let eventFileUrl = url.appendingPathComponent(FilePath.midi).appendingPathComponent(sessionId).appendingPathExtension(FileExtension.event)
         do {
             let data = try Data(contentsOf: eventFileUrl)
             self.windowController.midiControllerEvents = NSKeyedUnarchiver.unarchiveObject(with: data) as? [MIDIControllerEvent]
-            /*if self.windowController.midiControllerEvents.count > 0 {
-                self.playTimelineView.playControllersView.convertEvents()
-                self.playFadersView.playFaderStatistics.computeStatistics(self.windowController.midiControllerEvents)
-                self.midiPlayer.loadSession()
-                DispatchQueue.main.async {
-                    self.loadMidiPlayMenu()
-                }
-            }*/
         } catch let error as NSError {
             Swift.print("LeftViewController: loadMidiControllers() Error openning url \(eventFileUrl), context: " + error.localizedDescription)
         }
     }
     
     func updateLevelsWithoutPlaying() {
-        if self.windowController.currentMode != Mode.playing {
-            let waveformValues = self.playTimelineView.playWaveformView.waveform!
+        if self.windowController.currentMode != Mode.playing, let playTimelineView = self.playTimelineView, let playWaveformView = playTimelineView.playWaveformView, let waveformValues = playWaveformView.waveform {
             let timePosition = Float(self.audioPlayer.timePosition)
             let indexWaveform = Int((timePosition * Float(waveformValues[0].count)) / self.currentSession.duration)
             var levels = [Float]()
@@ -727,8 +703,6 @@ class LeftViewController: NSViewController {
     
     /// Open video files and load them in AVPlayers
     func loadCameras(_ url: URL) {
-        
-        Swift.print("LeftViewController > loadCameras()")
         
         let sessionId = self.currentSession.id!
         let urlVideoA = url.appendingPathComponent(FilePath.movie).appendingPathComponent(sessionId + FilePath.A).appendingPathExtension(FileExtension.mp4)
@@ -1055,36 +1029,16 @@ class LeftViewController: NSViewController {
         self.cameraTimer = Timer(timeInterval: 10, target: self, selector: #selector(self.updateCameraPosition), userInfo: nil, repeats: true)
         RunLoop.current.add(self.cameraTimer, forMode: .common)
         
+        self.updateCameraPosition()
+        
         self.windowController.currentMode = Mode.playing
     }
     
-    func pausePlaying() {
+    func stopPlaying(pause: Bool = false) {
         
-        self.midiPlayer.stopPlaying()
-        self.audioPlayer.pausePlaying()
-        
-        for camera in self.playCameraAVPlayers {
-            camera.pause()
+        if !pause {
+            self.goToTime(0)
         }
-        
-        //Stop timer
-        if self.timer != nil {
-            self.timer.invalidate()
-            self.timer = nil
-        }
-        
-        //Stop camera timer
-        if self.cameraTimer != nil {
-            self.cameraTimer.invalidate()
-            self.cameraTimer = nil
-        }
-        
-        self.windowController.currentMode = Mode.none
-    }
-    
-    func stopPlaying() {
-        
-        self.goToTime(0)
         
         self.midiPlayer.stopPlaying()
         self.audioPlayer.stopPlaying()
@@ -1093,21 +1047,17 @@ class LeftViewController: NSViewController {
             camera.pause()
         }
         
-        //Stop timer
+        //Stop timers
         if self.timer != nil {
             self.timer.invalidate()
             self.timer = nil
-        }
-        
-        //Stop camera timer
-        if self.cameraTimer != nil {
             self.cameraTimer.invalidate()
             self.cameraTimer = nil
         }
         
         self.windowController.currentMode = Mode.none
         
-        if self.windowController.toolbarPlay == .on {
+        if !pause && self.windowController.toolbarPlay == .on {
             self.windowController.setValue(NSButton.StateValue.off, forKey: "toolbarPlay")
         }
     }
@@ -1162,7 +1112,7 @@ class LeftViewController: NSViewController {
             let timePosition = CMTime(seconds: Double(videoPosition), preferredTimescale: timeScale)
             camera.seek(to: timePosition, toleranceBefore: .zero, toleranceAfter: .zero)
             
-            Swift.print("LeftViewController: updateCameraPosition audioCurrentTime: \(audioCurrentTime) | videoPosition: \(videoPosition)")
+            //Swift.print("LeftViewController: updateCameraPosition audioCurrentTime: \(audioCurrentTime) | videoPosition: \(videoPosition)")
         }
     }
     

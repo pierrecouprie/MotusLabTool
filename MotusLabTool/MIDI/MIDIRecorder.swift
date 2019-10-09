@@ -121,7 +121,6 @@ class MIDIRecorder: NSObject {
         // Connect new input device
         for srcIndex in 0..<sourceCount {
             if index == 0 || index == srcIndex + 1 {
-                //Swift.print("connect = \(srcIndex)")
                 let midiEndPoint = MIDIGetSource(srcIndex)
                 let status = MIDIPortConnectSource(self.inputPort,
                                                    midiEndPoint,
@@ -136,7 +135,7 @@ class MIDIRecorder: NSObject {
     }
     
     func midiNotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
-        print("MIDIRecorder > midiNotifyBlock() Received a MIDINotification!")
+        NotificationCenter.default.post(name: .midiDidChange, object: nil)
     }
     
     /// Receive MIDI packet

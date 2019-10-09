@@ -105,7 +105,6 @@ class WindowController: NSWindowController {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-        Swift.print("WindowController > windowDidLoad (Preferences)")
         
         // Initializers
         self.loadPreferences()
@@ -262,7 +261,6 @@ class WindowController: NSWindowController {
     
     /// Update the color of controllers (saved in consoleAControllerColors and consoleBControllerColors)
     func updateControllerColors() {
-        //Swift.print("WindowController > updateControllerColors")
         
         if let consoleAParameters = self.consoleAParameters, let consoleBParameters = self.consoleBParameters {
             
@@ -604,8 +602,6 @@ class WindowController: NSWindowController {
                 index in
                 
                 let url = urls[index]
-                
-                //for url in urls {
                 let id = UUID().uuidString
                 let folderURL = url.deletingPathExtension().deletingLastPathComponent()
                 let name = url.fileName
@@ -628,11 +624,13 @@ class WindowController: NSWindowController {
                     }
                 }
             }
+            
             DispatchQueue.main.async {
                 self.setValue(playlistFiles, forKey: "playlistFiles")
                 self.savePlaylist()
                 playlistViewController.setValue(false, forKey: "showImportingLabel")
             }
+            
         }
     }
     
@@ -721,7 +719,7 @@ class WindowController: NSWindowController {
             }
         } else {
             if self.displayedView == 2 {
-                self.leftViewController.pausePlaying()
+                self.leftViewController.stopPlaying(pause: true)
             } else {
                 self.leftViewController.pausePlayingPlaylist()
             }

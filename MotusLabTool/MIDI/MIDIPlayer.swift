@@ -132,15 +132,6 @@ class MIDIPlayer: NSObject {
     /// the index of corresponding MIDI event
     func loadSession() {
         
-        Swift.print("MIDIPlayer > loadSession()")
-        Swift.print("MIDIPlayer > midiControllerEvents.count = \(self.leftViewController.windowController.midiControllerEvents.count)")
-        
-        //Swift.print("\(self.playViewController.midiControllerEvents.count) MIDI events")
-        
-        /*for (index, event) in self.leftViewController.windowController.midiControllerEvents.enumerated() {
-            Swift.print("\(index) | " + event.description)
-        }*/
-        
         self.timeTableLenght = Int(self.leftViewController.currentSession.duration) * kMIDIPrecision
         
         self.midiTimeTable = [Int](repeating: 0, count: self.timeTableLenght)
@@ -187,10 +178,6 @@ class MIDIPlayer: NSObject {
             
         }
         
-        /*for (index, value) in self.midiTimeTable.enumerated() {
-            Swift.print("\(index) value = \(value)")
-        }*/
-        
     }
     
     //MARK: - MIDI Player
@@ -202,15 +189,12 @@ class MIDIPlayer: NSObject {
         var indexi = Int(floorf(indexf))
         indexi = indexi > self.timeTableLenght - 1 ? self.timeTableLenght - 1 : indexi
         
-        //Swift.print("time = \(time) indexi = \(indexi), self.midiTimeTable[indexi] = \(self.midiTimeTable[indexi])")
-        
         return (indexi, self.midiTimeTable[indexi])
     }
     
     /// Send MIDI message to output device
     func sendMessage(_ console: Int, number: Int, value: Int) {
         let controller = self.controllerEnabled(number, console: console)
-        //Swift.print("MIDIPlayer > sendMessage console: \(console), number: \(number), value: \(value)")
         if console == 0 {
             if controller.enabled {
                 var channel = self.leftViewController.windowController.consoleAParameters.channel
@@ -263,14 +247,11 @@ class MIDIPlayer: NSObject {
         guard self.leftViewController.windowController.displayedView == 2 else {
             return
         }
-        //Swift.print("MIDIPlayer > goToTimePosition")
         let timePosition = self.leftViewController.windowController.timePosition
         let indexes = self.indexOfTime(timePosition)
-        //Swift.print("indexes = \(indexes) \(self.consoleAMidiControllerTable[indexes.timeTable].count)")
         if self.consoleAMidiControllerTable[indexes.timeTable].count > 1 {
             for n in 1..<self.consoleAMidiControllerTable[indexes.timeTable].count {
                 self.sendMessage(0, number: n, value: self.consoleAMidiControllerTable[indexes.timeTable][n])
-                //Swift.print("number: \(n), value: \(self.consoleAMidiControllerTable[indexes.timeTable][n])")
             }
         }
         if self.consoleBMidiControllerTable[indexes.timeTable].count > 1 {
@@ -286,7 +267,6 @@ class MIDIPlayer: NSObject {
         guard self.leftViewController.windowController.displayedView == 2 else {
             return
         }
-        //Swift.print("MIDIPlayer > updateTimePosition")
         
         // Compute current index of MIDI event which is just before timePosition
         let timePosition = self.leftViewController.windowController.timePosition
@@ -298,11 +278,9 @@ class MIDIPlayer: NSObject {
             var startIndex = self.currentEventIndex
             startIndex = startIndex < 0 ? 0 : startIndex
             let endIndex = index
-            //Swift.print("startIndex = \(startIndex), endIndex = \(endIndex)")
             if endIndex <= startIndex {
                 return
             }
-            //endIndex = endIndex <= startIndex ? startIndex + 1 : endIndex
             
             //Send array of MIDI messages
             //for n in startIndex..<endIndex {

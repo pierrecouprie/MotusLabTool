@@ -195,3 +195,7 @@ extension URL {
     }
     
 }
+
+extension Notification.Name {
+    static let midiDidChange = Notification.Name("midiDidChange")
+}

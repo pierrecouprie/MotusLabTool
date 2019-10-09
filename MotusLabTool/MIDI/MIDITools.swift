@@ -36,8 +36,6 @@ class MIDIDevice: NSObject {
 
 /// Initialize a list of input MIDI devices
 func MIDIInputDevices() -> [MIDIDevice] {
-    Swift.print("Initialize MIDIInputDevices")
-    
     let sourceCount = MIDIGetNumberOfSources()
     
     var inputDevices = [MIDIDevice]()
@@ -53,8 +51,6 @@ func MIDIInputDevices() -> [MIDIDevice] {
 
 /// Initialize a list of output MIDI devices
 func MIDIOutputDevices() -> [MIDIDevice] {
-    Swift.print("Initialize MIDIOutputDevices")
-    
     let sourceCount = MIDIGetNumberOfDestinations()
     
     var outputDevices = [MIDIDevice]()

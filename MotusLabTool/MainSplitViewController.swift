@@ -28,7 +28,6 @@ class MainSplitViewController: NSSplitViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Swift.print("MainSplitViewController > viewDidLoad")
         
         // Fix acousmonium view (at right) item size properties
         self.splitViewItems[1].minimumThickness = 200
@@ -39,7 +38,6 @@ class MainSplitViewController: NSSplitViewController {
     
     /// Initialization of each contained views
     func initialization() {
-        Swift.print("MainSplitViewController > initialization()")
         
         (self.splitViewItems[0].viewController as! LeftViewController).initialization()
         (self.splitViewItems[1].viewController as! AcousmoniumViewController).initialization()

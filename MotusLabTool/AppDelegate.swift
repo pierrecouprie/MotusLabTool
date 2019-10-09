@@ -26,7 +26,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var preferencesWindowController: NSWindowController!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        Swift.print("AppDelegate > applicationDidFinishLaunching")
         
         // Initialize value transformers
         let timeValueTransformer = TimeValueTransformer()

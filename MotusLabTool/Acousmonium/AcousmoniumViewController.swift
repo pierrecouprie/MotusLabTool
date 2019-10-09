@@ -25,17 +25,7 @@ class AcousmoniumViewController: NSViewController {
     @objc dynamic weak var windowController: WindowController!
     @IBOutlet weak var acousmoniumView: AcousmoniumView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        Swift.print("AcousmoniumViewController > viewDidLoad")
-        
-    }
-    
     func initialization() {
-        
-        Swift.print("AcousmoniumViewController > initialization()")
-        
         if let window = self.view.window, let windowController = window.windowController {
             self.windowController = windowController as? WindowController
             self.acousmoniumView.windowController = self.windowController

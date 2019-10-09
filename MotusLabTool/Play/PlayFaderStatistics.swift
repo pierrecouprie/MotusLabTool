@@ -31,7 +31,7 @@ class PlayFaderStatistics: NSView {
     init(frame frameRect: NSRect, leftViewController: LeftViewController) {
         super.init(frame: frameRect)
         self.wantsLayer = true
-        self.layer?.backgroundColor = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 0.75).cgColor
+        self.layer?.backgroundColor = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 0.6).cgColor
         
         self.leftViewController = leftViewController
         
@@ -92,13 +92,11 @@ class PlayFaderStatistics: NSView {
             
             if self.preferences.bool(forKey: PreferenceKey.statisticsFrequency) {
                 let maxValue = max(statistics.consoleAfrequency.max()!,statistics.consoleBfrequency.max()!)
-                Swift.print("statisticsFrequency \(maxValue)")
                 self.drawGraph(statistics.consoleAfrequency, consoleBValues: statistics.consoleBfrequency , maxValue: maxValue, faderWidth: faderWidth, color: NSColor.purple, valueCorrection: false)
             }
             
             if self.preferences.bool(forKey: PreferenceKey.statisticsDuration) {
                 let maxValue = max(statistics.consoleAdurations.max()!,statistics.consoleBdurations.max()!)
-                Swift.print("statisticsDuration \(maxValue)")
                 self.drawGraph(statistics.consoleAdurations, consoleBValues: statistics.consoleBdurations , maxValue: maxValue, faderWidth: faderWidth, color: NSColor.gray, valueCorrection: false)
             }
             
@@ -131,30 +129,32 @@ class PlayFaderStatistics: NSView {
                     
                     if firstPoint {
                         context.move(to: CGPoint(x: faderX, y: value))
+                        firstPoint = false
                     } else {
                         context.addLine(to: CGPoint(x: faderX, y: value))
                     }
-                    firstPoint = false
                     faderX += faderWidth
                 }
             }
             
-            for (index,fader) in consoleBParameters.filterControllers.enumerated() {
-                if fader {
-                    var value = CGFloat(consoleBValues[index])
-                    if value.isNaN {
-                        continue
+            if self.preferences.bool(forKey: PreferenceKey.consoleBActivate) {
+                for (index,fader) in consoleBParameters.filterControllers.enumerated() {
+                    if fader {
+                        var value = CGFloat(consoleBValues[index])
+                        if value.isNaN {
+                            continue
+                        }
+                        if valueCorrection {
+                            value = CGFloat(MIDIValueCorrection(Int(value), type: self.midiValueCorrection))
+                        }
+                        value = (value * self.bounds.size.height) / CGFloat(maxValue)
+                        
+                        value = value < 1 ? 1 : value
+                        value = value > self.bounds.size.height - 1 ? self.bounds.size.height - 1 : value
+                        
+                        context.addLine(to: CGPoint(x: faderX, y: value))
+                        faderX += faderWidth
                     }
-                    if valueCorrection {
-                        value = CGFloat(MIDIValueCorrection(Int(value), type: self.midiValueCorrection))
-                    }
-                    value = (value * self.bounds.size.height) / CGFloat(maxValue)
-                    
-                    value = value < 1 ? 1 : value
-                    value = value > self.bounds.size.height - 1 ? self.bounds.size.height - 1 : value
-                    
-                    context.addLine(to: CGPoint(x: faderX, y: value))
-                    faderX += faderWidth
                 }
             }
             

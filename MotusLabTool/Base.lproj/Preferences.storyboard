@@ -97,13 +97,13 @@
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqF-JI-iAp">
                                 <rect key="frame" x="161" y="458" width="141" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="44 100 kHz" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="44100" imageScaling="proportionallyDown" inset="2" selectedItem="PAq-Dg-QnP" id="vo5-R1-AEu">
+                                <popUpButtonCell key="cell" type="push" title="44.1 kHz" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="44100" imageScaling="proportionallyDown" inset="2" selectedItem="PAq-Dg-QnP" id="vo5-R1-AEu">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <menu key="menu" id="cZh-ut-9Bu">
                                         <items>
-                                            <menuItem title="44 100 kHz" state="on" tag="44100" id="PAq-Dg-QnP"/>
-                                            <menuItem title="48 000 kHz" tag="48000" id="UKf-oj-pdb"/>
+                                            <menuItem title="44.1 kHz" state="on" tag="44100" id="PAq-Dg-QnP"/>
+                                            <menuItem title="48 kHz" tag="48000" id="UKf-oj-pdb"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>

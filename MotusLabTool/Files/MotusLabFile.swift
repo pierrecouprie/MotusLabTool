@@ -91,7 +91,6 @@ class MotusLabFile: NSObject, NSCoding, NSCopying {
         sessions.append(newSession)
         self.setValue(sessions, forKey: PropertyKey.sessionsKey)
         self.save()
-        Swift.print("MotusLabFile > createSession > " + newSession.description)
         return newSession
     }
     
@@ -196,7 +195,6 @@ class Session: NSObject, NSCoding, NSCopying {
         self.markers.append(marker)
         self.setValue(self.markers.count, forKey: PropertyKey.markerCountKey)
         self.motusLabFile.save()
-        Swift.print("Session > addMarker > " + marker.description)
     }
     
     func copy(with zone: NSZone? = nil) -> Any {

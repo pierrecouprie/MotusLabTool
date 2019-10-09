@@ -56,8 +56,6 @@ class PlayFadersView: NSView {
     func addObservers(windowController: WindowController) {
         self.windowController = windowController
         
-        Swift.print("PlayFadersView > addObservers()")
-        
         //Add statistcs view
         self.playFaderStatistics = PlayFaderStatistics(frame: self.bounds, leftViewController: self.windowController.leftViewController)
         self.addSubview(self.playFaderStatistics)

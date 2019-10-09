@@ -52,7 +52,7 @@ class Window: NSWindow {
                         (windowController as! WindowController).leftViewController.startPlaying()
                     } else {
                         (windowController as! WindowController).toolbarPlay = .off
-                        (windowController as! WindowController).leftViewController.pausePlaying()
+                        (windowController as! WindowController).leftViewController.stopPlaying(pause: true)
                     }
                 }
                 // <- (left arrow)
