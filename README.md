@@ -1,6 +1,6 @@
 #  MotusLabTool
 
-> Current version is 2.0.8
+> Current version is 2.0.9
 
 ![Main interface](MotusLabTool/Resources/Manual/Images/interface.png)
 

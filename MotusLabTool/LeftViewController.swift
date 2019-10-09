@@ -635,6 +635,8 @@ class LeftViewController: NSViewController {
             
             loadingGroup.notify(queue: DispatchQueue.main) {
                 self.loadMidiPlayMenu()
+                self.playTimelineView.playTimeRulerView.duration = self.currentSession.duration
+                self.playTimelineView.playTimeRulerView.setNeedsDisplay(self.playTimelineView.playTimeRulerView.bounds)
                 self.playTimelineView.playWaveformView.waveform = self.sessionWaveform[sessionId]
                 self.playTimelineView.playControllersView.setNeedsDisplay(self.playTimelineView.playControllersView.bounds)
                 self.playFadersView.playFaderStatistics.setNeedsDisplay(self.playFadersView.playFaderStatistics.bounds)
