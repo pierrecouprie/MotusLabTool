@@ -58,6 +58,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     
+    /// Open file by double click or drag to icon
+    func application(_ sender: NSApplication, openFiles filenames: [String]) {
+        if let windowController = NSApplication.shared.mainWindow?.windowController {
+            var url = URL(fileURLWithPath: filenames.first!)
+            if url.pathExtension == FileExtension.motuslab {
+                (windowController as! WindowController).openMotusLabFile(url)
+            } else {
+                for filename in filenames {
+                    url = URL(fileURLWithPath: filename)
+                    if url.pathExtension == FileExtension.acousmonium {
+                        (windowController as! WindowController).importAcousmoniumFile(url)
+                    }
+                }
+            }
+        }
+    }
+    
     /// Open window of preferences
     @IBAction func showPreferences(_ sender: Any) {
         if self.preferencesWindowController == nil {

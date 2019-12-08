@@ -19,6 +19,8 @@
 			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<integer>1</integer>
+			<key>NSDocumentClass</key>
+			<string>MotusDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>

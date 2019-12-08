@@ -367,27 +367,32 @@ class WindowController: NSWindowController {
         selectFilePanel.begin { (result) -> Void in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 if let url = selectFilePanel.urls.first {
-                    do {
-                        //Load motusLab file
-                        let data = try Data(contentsOf: url.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data))
-                        self.fileUrl = url
-                        self.motusLabFile = NSKeyedUnarchiver.unarchiveObject(with: data) as? MotusLabFile
-                        
-                        //Activate toolbar mode button
-                        self.setValue(true, forKey: "enableModeToolbarButton")
-                        
-                        //Select first session
-                        self.leftViewController.selectedSessionIndex = IndexSet(integer: 0)
-                        
-                        //Switch to play tabView page
-                        self.setValue(2, forKey: "displayedView")
-                        
-                    } catch let error as NSError {
-                        Swift.print("WindowController: openDocument() Error openning url \(url), context: " + error.localizedDescription)
-                    }
-                    
+                    self.openMotusLabFile(url)
                 }
             }
+        }
+    }
+    
+    /// Load the opened file
+    /// This part is detached to previous func to respond to application() in App Delegate
+    func openMotusLabFile(_ url: URL) {
+        do {
+            //Load motusLab file
+            let data = try Data(contentsOf: url.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data))
+            self.fileUrl = url
+            self.motusLabFile = NSKeyedUnarchiver.unarchiveObject(with: data) as? MotusLabFile
+            
+            //Activate toolbar mode button
+            self.setValue(true, forKey: "enableModeToolbarButton")
+            
+            //Select first session
+            self.leftViewController.selectedSessionIndex = IndexSet(integer: 0)
+            
+            //Switch to play tabView page
+            self.setValue(2, forKey: "displayedView")
+            
+        } catch let error as NSError {
+            Swift.print("WindowController: openMotusLabFile() Error openning url \(url), context: " + error.localizedDescription)
         }
     }
     
@@ -933,6 +938,7 @@ class WindowController: NSWindowController {
         }
     }
     
+    /// Import an acousmonium file (.acousmonium)
     @IBAction func importAcousmonium(_ sender: Any) {
         let selectAcousmoniumPanel:NSOpenPanel = NSOpenPanel()
         selectAcousmoniumPanel.allowsMultipleSelection = true
@@ -943,23 +949,25 @@ class WindowController: NSWindowController {
         
         selectAcousmoniumPanel.begin { (result) -> Void in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
-                
-                var acousmoniumFiles = self.acousmoniumFiles
-                
                 for url in selectAcousmoniumPanel.urls {
-                    do {
-                        let data = try Data(contentsOf: url)
-                        let acousmoniumFile = NSKeyedUnarchiver.unarchiveObject(with: data) as! AcousmoniumFile
-                        acousmoniumFiles.append(acousmoniumFile)
-                        self.saveAcousmoniumFile(acousmoniumFile)
-                    } catch let error as NSError {
-                        Swift.print("WindowController: importAcousmonium() Error importing acousmonium from url \(url), context: " + error.localizedDescription)
-                    }
+                    self.importAcousmoniumFile(url)
                 }
-                
-                self.setValue(acousmoniumFiles, forKey: "acousmoniumFiles")
-                
             }
+        }
+    }
+    
+    /// Load the opened acousmonium file
+    /// This part is detached to previous func to respond to application() in App Delegate
+    func importAcousmoniumFile(_ url: URL) {
+        do {
+            var acousmFiles = self.acousmoniumFiles
+            let data = try Data(contentsOf: url)
+            let acousmoniumFile = NSKeyedUnarchiver.unarchiveObject(with: data) as! AcousmoniumFile
+            acousmFiles.append(acousmoniumFile)
+            self.saveAcousmoniumFile(acousmoniumFile)
+            self.setValue(acousmFiles, forKey: "acousmoniumFiles")
+        } catch let error as NSError {
+            Swift.print("WindowController: importAcousmoniumFile() Error importing acousmonium from url \(url), context: " + error.localizedDescription)
         }
     }
     
