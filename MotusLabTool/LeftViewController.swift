@@ -272,15 +272,18 @@ class LeftViewController: NSViewController {
     
     func initializePlaylistPlayer() {
         if let windowController = self.windowController, let playlistSelectedFile = windowController.playlistSelectedFileIndex {
-            if playlistSelectedFile.count > 0 && self.windowController.playlistFiles.count > 0 {
+            if playlistSelectedFile.count > 0 && windowController.playlistFiles.count > 0 {
                 if let first = playlistSelectedFile.first {
                     let playlistFile = windowController.playlistFiles[first]
-                    let playlistUrl = playlistFile.url!
-                    if self.recordAudioPlayer == nil {
-                        self.recordAudioPlayer = AudioPlayer(self)
+                    if let playlistUrl = playlistFile.url {
+                        if FileManager.default.fileExists(atPath: playlistUrl.path) {
+                            if self.recordAudioPlayer == nil {
+                                self.recordAudioPlayer = AudioPlayer(self)
+                            }
+                            self.recordAudioPlayer.createAudioPlayer(playlistUrl)
+                            self.recordAudioPlayer.audioPlayer.currentTime = Double(windowController.timePosition)
+                        }
                     }
-                    self.recordAudioPlayer.createAudioPlayer(playlistUrl)
-                    self.recordAudioPlayer.audioPlayer.currentTime = Double(self.windowController.timePosition)
                 }
             }
         }
