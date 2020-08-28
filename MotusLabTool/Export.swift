@@ -27,6 +27,8 @@ class Export: NSObject {
     weak var motusLabFile: MotusLabFile!
     var midiControllerEvents: [MIDIControllerEvent]!
     
+    var midiArrayValues = [String: String]() //[Sessions: [controllers[values]]]
+    
     init(_ url: URL, fileURL: URL, motusLabFile: MotusLabFile) {
         super.init()
         self.url = url
@@ -39,6 +41,7 @@ class Export: NSObject {
         self.createDirectories()
         self.copyFiles()
         self.createJSON()
+        self.createTXT()
     }
     
     func createDirectories() {
@@ -140,6 +143,20 @@ class Export: NSObject {
         }
     }
     
+    func createTXT() {
+        
+        var sessionIndex: Int = 1
+        for session in midiArrayValues {
+            let outputString = session.value
+            do {
+                try outputString.write(to: self.url.appendingPathComponent(String(sessionIndex) + "-" + session.key).appendingPathExtension("txt"), atomically: true, encoding: .utf8)
+            } catch let error as NSError {
+                Swift.print("Export: createTXT Unable to export to txt format, context: " + error.localizedDescription)
+            }
+            sessionIndex += 1
+        }
+    }
+    
     /// Convert motusLab and midiController files to a ready to JSON dictionary
     ///
     /// - Returns: Dictionary
@@ -166,6 +183,14 @@ class Export: NSObject {
             newSession[Session.PropertyKey.audioFormatKey] = session.audioFormat
             newSession[Session.PropertyKey.consoleAControllersKey] = self.convertConsoleController(session.consoleAControllers)
             newSession[Session.PropertyKey.consoleBControllersKey] = self.convertConsoleController(session.consoleBControllers)
+            newSession[Session.PropertyKey.consoleCControllersKey] = self.convertConsoleController(session.consoleCControllers)
+            
+            let nbrCtrlConsoleA = (newSession[Session.PropertyKey.consoleAControllersKey] as! [Int]).count
+            var currentCtrlValuesConcoleA = [Float](repeating: 0, count: nbrCtrlConsoleA)
+            let nbrCtrlConsoleB = (newSession[Session.PropertyKey.consoleBControllersKey] as! [Int]).count
+            var currentCtrlValuesConcoleB = [Float](repeating: 0, count: nbrCtrlConsoleB)
+            let nbrCtrlConsoleC = (newSession[Session.PropertyKey.consoleCControllersKey] as! [Int]).count
+            var currentCtrlValuesConcoleC = [Float](repeating: 0, count: nbrCtrlConsoleC)
             
             //Add markers
             var markers = [[String:Any]]()
@@ -178,10 +203,20 @@ class Export: NSObject {
             
             newSession[Session.PropertyKey.markersKey] = markers
             
+            //Export TXT
+            //var newMidiArrayValues = [[Float]](repeating: [Float](), count: (newSession[Session.PropertyKey.consoleAControllersKey] as! [Int]).count)
+            var ctrlString = ""
+            //var newMidiArrayValues = [session.title: newArray]
+            
             //Add MIDI events
             if let midiEvents = self.midiEvents(from: session.id) {
+                
+                let consoleB = midiEvents.filter( { $0.console  == 1 } )
+                let consoleC = midiEvents.filter( { $0.console  == 2 } )
+                
                 var events = [[String:Any]]()
                 for event in midiEvents {
+                    //JSON
                     var newEvent = [String:Any]()
                     newEvent[MIDIControllerEvent.PropertyKey.consoleKey] = event.console
                     newEvent[MIDIControllerEvent.PropertyKey.channelKey] = event.channel
@@ -189,11 +224,65 @@ class Export: NSObject {
                     newEvent[MIDIControllerEvent.PropertyKey.valueKey] = event.value
                     newEvent[MIDIControllerEvent.PropertyKey.dateKey] = event.date
                     events.append(newEvent)
+                    
+                    //TXT
+                    if event.console == 0 {
+                        if let index = (newSession[Session.PropertyKey.consoleAControllersKey] as! [Int]).firstIndex(of: event.number) {
+                            currentCtrlValuesConcoleA[index] = Float(event.value)
+                            ctrlString += "\r"
+                            ctrlString += String(event.date) + "\t"
+                            let currentCtrlValuesConcoleAString = currentCtrlValuesConcoleA.map( { String($0) } ).joined(separator: "\t")
+                            ctrlString += currentCtrlValuesConcoleAString
+                            
+                            if consoleB.count > 0 {
+                                let currentCtrlValuesConcoleBString = currentCtrlValuesConcoleB.map( { String($0) } ).joined(separator: "\t")
+                                ctrlString += "\t" + currentCtrlValuesConcoleBString
+                            }
+                            if consoleC.count > 0 {
+                                let currentCtrlValuesConcoleCString = currentCtrlValuesConcoleC.map( { String($0) } ).joined(separator: "\t")
+                                ctrlString += "\t" + currentCtrlValuesConcoleCString
+                            }
+                        }
+                    } else if event.console == 1 {
+                        if let index = (newSession[Session.PropertyKey.consoleBControllersKey] as! [Int]).firstIndex(of: event.number) {
+                            currentCtrlValuesConcoleB[index] = Float(event.value)
+                            ctrlString += "\r"
+                            ctrlString += String(event.date) + "\t"
+                            let currentCtrlValuesConcoleAString = currentCtrlValuesConcoleA.map( { String($0) } ).joined(separator: "\t")
+                            ctrlString += currentCtrlValuesConcoleAString
+                            
+                            let currentCtrlValuesConcoleBString = currentCtrlValuesConcoleB.map( { String($0) } ).joined(separator: "\t")
+                            ctrlString += "\t" + currentCtrlValuesConcoleBString
+                            
+                            if consoleC.count > 0 {
+                                let currentCtrlValuesConcoleCString = currentCtrlValuesConcoleC.map( { String($0) } ).joined(separator: "\t")
+                                ctrlString += "\t" + currentCtrlValuesConcoleCString
+                            }
+                        }
+                    } else if event.console == 2 {
+                        if let index = (newSession[Session.PropertyKey.consoleCControllersKey] as! [Int]).firstIndex(of: event.number) {
+                            currentCtrlValuesConcoleC[index] = Float(event.value)
+                            ctrlString += "\r"
+                            ctrlString += String(event.date) + "\t"
+                            let currentCtrlValuesConcoleAString = currentCtrlValuesConcoleA.map( { String($0) } ).joined(separator: "\t")
+                            ctrlString += currentCtrlValuesConcoleAString
+                            
+                            let currentCtrlValuesConcoleBString = currentCtrlValuesConcoleB.map( { String($0) } ).joined(separator: "\t")
+                            ctrlString += "\t" + currentCtrlValuesConcoleBString
+                            
+                            let currentCtrlValuesConcoleCString = currentCtrlValuesConcoleC.map( { String($0) } ).joined(separator: "\t")
+                            ctrlString += "\t" + currentCtrlValuesConcoleCString
+                        }
+                    }
+                    
+                    
                 }
                 newSession[JSONKey.midi_event] = events
             }
             
             sessions.append(newSession)
+            
+            midiArrayValues[session.title] = ctrlString
         }
         data[MotusLabFile.PropertyKey.sessionsKey] = sessions
         

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="MjR-Dy-P8R">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="MjR-Dy-P8R">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,14 +31,14 @@
             <objects>
                 <viewController id="q7r-CA-iN4" sceneMemberID="viewController">
                     <view key="view" id="c0K-KD-q27">
-                        <rect key="frame" x="0.0" y="0.0" width="384" height="547"/>
+                        <rect key="frame" x="0.0" y="0.0" width="386" height="723"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <userGuides>
                             <userLayoutGuide location="164" affinity="minX"/>
                         </userGuides>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxg-X4-z9i">
-                                <rect key="frame" x="20" y="513" width="321" height="14"/>
+                                <rect key="frame" x="20" y="689" width="321" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Audio Recording" id="aBj-8l-C8F">
                                     <font key="font" metaFont="smallSystemBold"/>
@@ -47,16 +47,16 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTH-eq-dnO">
-                                <rect key="frame" x="18" y="489" width="138" height="14"/>
+                                <rect key="frame" x="18" y="665" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Audio format" id="TeK-jK-Fye">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YKb-2p-8S4">
-                                <rect key="frame" x="20" y="378" width="348" height="14"/>
+                                <rect key="frame" x="20" y="454" width="348" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Colors" id="3j6-ut-rwJ">
                                     <font key="font" metaFont="smallSystemBold"/>
@@ -65,11 +65,11 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5k3-4o-71M">
-                                <rect key="frame" x="161" y="484" width="141" height="22"/>
+                                <rect key="frame" x="161" y="660" width="141" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="AAC" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ouK-zH-D1W" id="LEc-Fm-Kuh">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <menu key="menu" id="Vdy-Ru-Od5">
                                         <items>
                                             <menuItem title="AAC" state="on" id="ouK-zH-D1W"/>
@@ -86,20 +86,20 @@
                                 </connections>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IDs-4K-Au8">
-                                <rect key="frame" x="18" y="463" width="138" height="14"/>
+                                <rect key="frame" x="18" y="639" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Sampling rate" id="yqI-lP-a3X">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqF-JI-iAp">
-                                <rect key="frame" x="161" y="458" width="141" height="22"/>
+                                <rect key="frame" x="161" y="634" width="141" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="44.1 kHz" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="44100" imageScaling="proportionallyDown" inset="2" selectedItem="PAq-Dg-QnP" id="vo5-R1-AEu">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <menu key="menu" id="cZh-ut-9Bu">
                                         <items>
                                             <menuItem title="44.1 kHz" state="on" tag="44100" id="PAq-Dg-QnP"/>
@@ -117,20 +117,20 @@
                                 </connections>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Im-4C-2ly">
-                                <rect key="frame" x="18" y="437" width="138" height="14"/>
+                                <rect key="frame" x="18" y="613" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Sampling depth" id="BuH-I9-IL4">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7XB-hK-lRU">
-                                <rect key="frame" x="161" y="432" width="141" height="22"/>
+                                <rect key="frame" x="161" y="608" width="141" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="16" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="16" imageScaling="proportionallyDown" inset="2" selectedItem="o6L-aZ-gjH" id="MqI-bh-can">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <menu key="menu" id="cZb-1u-EBs">
                                         <items>
                                             <menuItem title="16" state="on" tag="16" id="o6L-aZ-gjH"/>
@@ -149,11 +149,11 @@
                                 </connections>
                             </popUpButton>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Vr-nL-Rex">
-                                <rect key="frame" x="161" y="406" width="141" height="22"/>
+                                <rect key="frame" x="161" y="582" width="141" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="2" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="2" imageScaling="proportionallyDown" inset="2" selectedItem="bEe-dO-LRM" id="Il1-9e-9HA">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <menu key="menu" id="Xeh-eD-rCC">
                                         <items>
                                             <menuItem title="2" state="on" tag="2" id="bEe-dO-LRM"/>
@@ -176,7 +176,7 @@
                                 </connections>
                             </popUpButton>
                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Ep3-4T-TT9">
-                                <rect key="frame" x="22" y="398" width="344" height="5"/>
+                                <rect key="frame" x="22" y="574" width="344" height="5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </box>
                             <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="3Od-ke-21r">
@@ -191,39 +191,147 @@
                                 <rect key="frame" x="22" y="62" width="344" height="5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </box>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odk-OJ-EsU">
-                                <rect key="frame" x="20" y="354" width="138" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Colors" id="aks-BW-xLh">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LiV-yR-x86">
-                                <rect key="frame" x="20" y="328" width="138" height="14"/>
+                                <rect key="frame" x="20" y="430" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Console A" id="ts1-uM-DnS">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qg5-RO-StU">
-                                <rect key="frame" x="161" y="349" width="206" height="22"/>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-ah-NWb">
+                                <rect key="frame" x="159" y="398" width="52" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Consoles" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="S9g-mX-yM4" id="RYH-1t-cM4">
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fKC-uC-11Y" id="aeF-rT-wV3">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <menu key="menu" id="sN1-jF-FJS">
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <menu key="menu" id="SdF-66-zxS">
                                         <items>
-                                            <menuItem title="Consoles" state="on" id="S9g-mX-yM4"/>
-                                            <menuItem title="Consoles and groups of 8 faders" tag="1" id="kas-5Y-2q8"/>
+                                            <menuItem title="1" state="on" id="fKC-uC-11Y">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="2" id="EJC-cZ-9S7"/>
+                                            <menuItem title="3" id="Neq-nW-gZU"/>
+                                            <menuItem title="4" id="cDs-it-K8e"/>
+                                            <menuItem title="5" id="h3T-Cs-hRj"/>
+                                            <menuItem title="6" id="zsG-MG-x7b"/>
+                                            <menuItem title="7" id="R9m-Ur-zH3"/>
+                                            <menuItem title="8" id="GaN-hx-gFs"/>
+                                            <menuItem title="9" id="6YZ-jH-I2i"/>
+                                            <menuItem title="10" id="xrm-rY-WU3"/>
+                                            <menuItem title="11" id="pCG-xE-Yuo"/>
+                                            <menuItem title="12" id="dZK-em-YGd"/>
+                                            <menuItem title="13" id="8Hk-xG-Jz9"/>
+                                            <menuItem title="14" id="PnP-cu-52A"/>
+                                            <menuItem title="15" id="7md-Py-O1h"/>
+                                            <menuItem title="16" id="yXu-dh-Knl"/>
+                                            <menuItem title="17" id="RZe-0f-h8V"/>
+                                            <menuItem title="18" id="RvH-3j-ZyX"/>
+                                            <menuItem title="19" id="8Bz-oR-gR1"/>
+                                            <menuItem title="20" id="VQ4-Q8-z4p"/>
+                                            <menuItem title="21" id="U2w-FA-nbh"/>
+                                            <menuItem title="22" id="1yy-dh-sog"/>
+                                            <menuItem title="23" id="YBg-dM-dnf"/>
+                                            <menuItem title="24" id="fIZ-Aa-rif"/>
+                                            <menuItem title="25" id="2OR-K5-pTS"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <binding destination="WUF-HR-GPy" name="selectedTag" keyPath="values.colorMode" id="fDf-eT-46f">
+                                    <binding destination="WUF-HR-GPy" name="selectedIndex" keyPath="values.color1Num" id="ngc-MQ-o9H">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zsj-EF-0jf">
+                                <rect key="frame" x="213" y="398" width="52" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="T0J-Ty-QMJ" id="hah-rQ-2xd">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <menu key="menu" id="5Vr-Hh-Ifd">
+                                        <items>
+                                            <menuItem title="1" state="on" id="T0J-Ty-QMJ">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="2" id="WME-Z3-PYw"/>
+                                            <menuItem title="3" id="gZJ-G4-FAD"/>
+                                            <menuItem title="4" id="PZp-8O-BfZ"/>
+                                            <menuItem title="5" id="LaO-Ng-v9K"/>
+                                            <menuItem title="6" id="BeH-ec-e0G"/>
+                                            <menuItem title="7" id="1Yl-gs-PzC"/>
+                                            <menuItem title="8" id="hcV-k2-rb1"/>
+                                            <menuItem title="9" id="8iz-1i-mcb"/>
+                                            <menuItem title="10" id="Gdo-go-8dS"/>
+                                            <menuItem title="11" id="w4I-5h-TDQ"/>
+                                            <menuItem title="12" id="HIS-Zn-m98"/>
+                                            <menuItem title="13" id="RE9-El-ZZr"/>
+                                            <menuItem title="14" id="cMJ-Pc-gJZ"/>
+                                            <menuItem title="15" id="BuF-9h-MIH"/>
+                                            <menuItem title="16" id="B23-5P-X9F"/>
+                                            <menuItem title="17" id="x9Z-Ld-beY"/>
+                                            <menuItem title="18" id="qea-GG-52U"/>
+                                            <menuItem title="19" id="nIs-cy-oAb"/>
+                                            <menuItem title="20" id="Izv-1i-JpC"/>
+                                            <menuItem title="21" id="cQG-KY-Tn5"/>
+                                            <menuItem title="22" id="fL5-Bb-6KU"/>
+                                            <menuItem title="23" id="rjJ-bU-6lk"/>
+                                            <menuItem title="24" id="tVo-2g-vfm"/>
+                                            <menuItem title="25" id="WUI-tk-rB1"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="selectedIndex" keyPath="values.color2Num" id="WuQ-nE-VAm">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N0T-Sd-TIp">
+                                <rect key="frame" x="265" y="398" width="52" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="H2E-S6-eAC" id="5ve-FX-rY9">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <menu key="menu" id="MZN-Ph-ULf">
+                                        <items>
+                                            <menuItem title="1" state="on" id="H2E-S6-eAC">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="2" id="LZk-rO-TMQ"/>
+                                            <menuItem title="3" id="3Eg-TP-6or"/>
+                                            <menuItem title="4" id="M9D-aM-CNd"/>
+                                            <menuItem title="5" id="t1R-wI-jd2"/>
+                                            <menuItem title="6" id="N8T-eX-TkX"/>
+                                            <menuItem title="7" id="3I8-7b-gRd"/>
+                                            <menuItem title="8" id="Dzu-ss-NqL"/>
+                                            <menuItem title="9" id="uf8-wX-Bfi"/>
+                                            <menuItem title="10" id="EeY-Ww-Wxq"/>
+                                            <menuItem title="11" id="eyE-KO-w25"/>
+                                            <menuItem title="12" id="4g7-fQ-H4c"/>
+                                            <menuItem title="13" id="Mck-DI-MZ6"/>
+                                            <menuItem title="14" id="sZ2-Vj-S0D"/>
+                                            <menuItem title="15" id="hc5-MP-h04"/>
+                                            <menuItem title="16" id="ECI-xp-tB1"/>
+                                            <menuItem title="17" id="KIJ-qw-xBC"/>
+                                            <menuItem title="18" id="Jui-XI-WsE"/>
+                                            <menuItem title="19" id="ROg-io-58j"/>
+                                            <menuItem title="20" id="12c-yc-aRl"/>
+                                            <menuItem title="21" id="bSP-YT-kEi"/>
+                                            <menuItem title="22" id="GCl-om-qKH"/>
+                                            <menuItem title="23" id="cvo-5u-TBI"/>
+                                            <menuItem title="24" id="HwE-dG-Lix"/>
+                                            <menuItem title="25" id="LF9-WA-kRJ"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="selectedIndex" keyPath="values.color3Num" id="d9Q-L3-Gwq">
                                         <dictionary key="options">
                                             <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                         </dictionary>
@@ -231,7 +339,7 @@
                                 </connections>
                             </popUpButton>
                             <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MFU-5z-Cfo">
-                                <rect key="frame" x="164" y="325" width="44" height="19"/>
+                                <rect key="frame" x="164" y="427" width="44" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -243,7 +351,7 @@
                                 </connections>
                             </colorWell>
                             <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K4q-Za-DP4">
-                                <rect key="frame" x="216" y="325" width="44" height="19"/>
+                                <rect key="frame" x="216" y="427" width="44" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -255,7 +363,7 @@
                                 </connections>
                             </colorWell>
                             <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jjl-qh-lnN">
-                                <rect key="frame" x="268" y="325" width="44" height="19"/>
+                                <rect key="frame" x="268" y="427" width="44" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -267,7 +375,7 @@
                                 </connections>
                             </colorWell>
                             <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x7a-zT-jTp">
-                                <rect key="frame" x="320" y="325" width="44" height="19"/>
+                                <rect key="frame" x="320" y="427" width="44" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -280,16 +388,16 @@
                                 </connections>
                             </colorWell>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F17-B1-Jbp">
-                                <rect key="frame" x="20" y="301" width="138" height="14"/>
+                                <rect key="frame" x="20" y="377" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Console B" id="fVG-uj-tBg">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D2V-U9-NoR">
-                                <rect key="frame" x="164" y="298" width="44" height="19"/>
+                                <rect key="frame" x="164" y="374" width="44" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -302,7 +410,7 @@
                                 </connections>
                             </colorWell>
                             <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4rX-2d-PKa">
-                                <rect key="frame" x="216" y="298" width="44" height="19"/>
+                                <rect key="frame" x="216" y="374" width="44" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -315,7 +423,7 @@
                                 </connections>
                             </colorWell>
                             <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NOr-ZP-r0k">
-                                <rect key="frame" x="268" y="298" width="44" height="19"/>
+                                <rect key="frame" x="268" y="374" width="44" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -328,11 +436,72 @@
                                 </connections>
                             </colorWell>
                             <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0E1-0T-AuE">
-                                <rect key="frame" x="320" y="298" width="44" height="19"/>
+                                <rect key="frame" x="320" y="374" width="44" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <binding destination="WUF-HR-GPy" name="value" keyPath="values.color8" id="P1B-n7-n0M">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                            <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </colorWell>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fSB-df-uP6">
+                                <rect key="frame" x="20" y="324" width="138" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Console C" id="GNO-Ma-FMT">
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ekh-fF-oDz">
+                                <rect key="frame" x="164" y="321" width="44" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="value" keyPath="values.color9" id="P3g-d7-BWg">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                            <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XPt-S2-8uU">
+                                <rect key="frame" x="216" y="321" width="44" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="value" keyPath="values.color10" id="hV7-c2-5LL">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                            <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xr9-bw-8tK">
+                                <rect key="frame" x="268" y="321" width="44" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="value" keyPath="values.color11" id="e1g-kF-SCA">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                            <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jvS-6J-NIe">
+                                <rect key="frame" x="320" y="321" width="44" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="value" keyPath="values.color12" id="UCa-7m-qli">
                                         <dictionary key="options">
                                             <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                             <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
@@ -345,7 +514,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Switch to play mode after recording" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="dme-qO-Rod">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="WUF-HR-GPy" name="value" keyPath="values.switchPlayMode" id="EIV-tn-YuK">
@@ -378,7 +547,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Waveform" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ykE-oF-etP">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="WUF-HR-GPy" name="value" keyPath="values.playTimelineWaveform" id="q9c-4k-Adm">
@@ -393,7 +562,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="MIDI controllers" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="hVs-u1-Lk6">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="WUF-HR-GPy" name="value" keyPath="values.playTimelineControllers" id="SQ9-A9-dYN">
@@ -408,7 +577,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Markers" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Fhc-lA-oUO">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="WUF-HR-GPy" name="value" keyPath="values.playTimelineMarkers" id="NuJ-vG-0jq">
@@ -423,7 +592,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Playhead" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="rep-bJ-NVV">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <binding destination="WUF-HR-GPy" name="value" keyPath="values.playTimelinePlayhead" id="GQh-of-hsx">
@@ -437,7 +606,7 @@
                                 <rect key="frame" x="20" y="188" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Display" id="Peb-Zz-Mrn">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -446,7 +615,7 @@
                                 <rect key="frame" x="20" y="103" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Color of playhead" id="KkS-W1-i3o">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -468,7 +637,7 @@
                                 <rect key="frame" x="20" y="76" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Color of markers" id="xJh-WI-NaE">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -511,27 +680,378 @@
                                 <rect key="frame" x="22" y="20" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Opacity" id="TI8-Xs-I4c">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="144-p7-wdi">
-                                <rect key="frame" x="18" y="411" width="138" height="14"/>
+                                <rect key="frame" x="18" y="587" width="138" height="14"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Channels" id="XVf-iJ-Mkz">
-                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MU1-9m-GIn">
+                                <rect key="frame" x="161" y="345" width="52" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Afl-TP-vEj" id="fHO-9d-4W0">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <menu key="menu" id="pgG-aJ-aNX">
+                                        <items>
+                                            <menuItem title="1" state="on" id="Afl-TP-vEj">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="2" id="3zj-5X-rSc"/>
+                                            <menuItem title="3" id="X0h-U7-FtU"/>
+                                            <menuItem title="4" id="LIJ-c5-PVs"/>
+                                            <menuItem title="5" id="dNI-Bz-XgL"/>
+                                            <menuItem title="6" id="YnU-Ph-WtP"/>
+                                            <menuItem title="7" id="5oQ-p6-4CR"/>
+                                            <menuItem title="8" id="gRs-Wt-xe0"/>
+                                            <menuItem title="9" id="CvA-pV-Enu"/>
+                                            <menuItem title="10" id="UvB-YX-5hR"/>
+                                            <menuItem title="11" id="0YW-VP-dgW"/>
+                                            <menuItem title="12" id="2gs-LY-y7U"/>
+                                            <menuItem title="13" id="e48-YQ-K8v"/>
+                                            <menuItem title="14" id="UHJ-8T-XI6"/>
+                                            <menuItem title="15" id="bEY-Xc-CtU"/>
+                                            <menuItem title="16" id="ZQS-rg-yd7"/>
+                                            <menuItem title="17" id="jbp-sJ-DKw"/>
+                                            <menuItem title="18" id="knZ-aW-sO5"/>
+                                            <menuItem title="19" id="5qS-RO-jMa"/>
+                                            <menuItem title="20" id="PCR-ZO-vYf"/>
+                                            <menuItem title="21" id="MTr-9D-HIe"/>
+                                            <menuItem title="22" id="KY8-uA-3YO"/>
+                                            <menuItem title="23" id="5gI-av-MIS"/>
+                                            <menuItem title="24" id="VHY-jD-2cs"/>
+                                            <menuItem title="25" id="QQ3-IE-Y9f"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="selectedIndex" keyPath="values.color5Num" id="7jy-V0-TtU">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ozT-ca-3fc">
+                                <rect key="frame" x="215" y="345" width="52" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="laP-dt-Od8" id="jza-AO-eLd">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <menu key="menu" id="60M-K3-dd0">
+                                        <items>
+                                            <menuItem title="1" state="on" id="laP-dt-Od8">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="2" id="GTb-eY-CZJ"/>
+                                            <menuItem title="3" id="iqo-cb-0Xa"/>
+                                            <menuItem title="4" id="keS-2s-9JY"/>
+                                            <menuItem title="5" id="Vvq-NP-1h3"/>
+                                            <menuItem title="6" id="aim-Ix-1ik"/>
+                                            <menuItem title="7" id="jj4-Yf-5wH"/>
+                                            <menuItem title="8" id="hwl-j0-b8u"/>
+                                            <menuItem title="9" id="3cg-ox-Zf8"/>
+                                            <menuItem title="10" id="7cB-cL-28Z"/>
+                                            <menuItem title="11" id="vrR-Pi-hy3"/>
+                                            <menuItem title="12" id="QCK-XQ-2up"/>
+                                            <menuItem title="13" id="bCg-Ty-SKi"/>
+                                            <menuItem title="14" id="5kO-Xo-MWs"/>
+                                            <menuItem title="15" id="7ax-4o-eLa"/>
+                                            <menuItem title="16" id="FUB-QZ-K2B"/>
+                                            <menuItem title="17" id="Lai-gd-j44"/>
+                                            <menuItem title="18" id="hpX-fX-opx"/>
+                                            <menuItem title="19" id="8sN-em-0c2"/>
+                                            <menuItem title="20" id="b4Z-US-GhF"/>
+                                            <menuItem title="21" id="gFi-Mk-hAE"/>
+                                            <menuItem title="22" id="ia8-E1-0wb"/>
+                                            <menuItem title="23" id="Rgp-do-j6j"/>
+                                            <menuItem title="24" id="WRO-ky-KWB"/>
+                                            <menuItem title="25" id="DgK-dh-PE5"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="selectedIndex" keyPath="values.color6Num" id="r14-yp-LXP">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e7h-CX-JwH">
+                                <rect key="frame" x="267" y="345" width="52" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="xym-q6-glF" id="NNw-Tc-xkK">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <menu key="menu" id="arn-7X-uqE">
+                                        <items>
+                                            <menuItem title="1" state="on" id="xym-q6-glF">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="2" id="MJ3-i6-myd"/>
+                                            <menuItem title="3" id="wzb-b2-2YP"/>
+                                            <menuItem title="4" id="Bby-d4-zY7"/>
+                                            <menuItem title="5" id="tZU-QJ-kaW"/>
+                                            <menuItem title="6" id="Ve5-BJ-jjF"/>
+                                            <menuItem title="7" id="T3f-6c-WmH"/>
+                                            <menuItem title="8" id="oK9-ys-BPG"/>
+                                            <menuItem title="9" id="Pdb-ev-8oK"/>
+                                            <menuItem title="10" id="KXy-D6-VDX"/>
+                                            <menuItem title="11" id="wGN-5T-cVH"/>
+                                            <menuItem title="12" id="g8l-Zf-WQ3"/>
+                                            <menuItem title="13" id="2bd-ES-jkF"/>
+                                            <menuItem title="14" id="Juj-Xg-elU"/>
+                                            <menuItem title="15" id="Qb8-Ch-CP5"/>
+                                            <menuItem title="16" id="83h-Hy-pf3"/>
+                                            <menuItem title="17" id="vV1-DW-1Ky"/>
+                                            <menuItem title="18" id="CJz-of-F34"/>
+                                            <menuItem title="19" id="h5X-mO-2Jg"/>
+                                            <menuItem title="20" id="Cdb-4i-yZ7"/>
+                                            <menuItem title="21" id="i2D-6T-ycz"/>
+                                            <menuItem title="22" id="Yj0-Fb-B6g"/>
+                                            <menuItem title="23" id="ddL-kO-Vg4"/>
+                                            <menuItem title="24" id="c7p-BT-pga"/>
+                                            <menuItem title="25" id="3UL-2Y-JWM"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="selectedIndex" keyPath="values.color7Num" id="JoB-4H-NI8">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bYR-EW-nrO">
+                                <rect key="frame" x="161" y="292" width="52" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="c9n-rJ-ucq" id="iMa-a0-qC5">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <menu key="menu" id="9Cu-7P-cb5">
+                                        <items>
+                                            <menuItem title="1" state="on" id="c9n-rJ-ucq">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="2" id="ZKa-E0-9vf"/>
+                                            <menuItem title="3" id="kDG-A8-Skq"/>
+                                            <menuItem title="4" id="z8M-ze-9vd"/>
+                                            <menuItem title="5" id="phI-ug-PRK"/>
+                                            <menuItem title="6" id="yFH-Wx-ztk"/>
+                                            <menuItem title="7" id="q1R-6V-cdy"/>
+                                            <menuItem title="8" id="k0l-Vd-PDd"/>
+                                            <menuItem title="9" id="oaF-55-wzu"/>
+                                            <menuItem title="10" id="vxc-OH-ug3"/>
+                                            <menuItem title="11" id="4Ve-4t-N1O"/>
+                                            <menuItem title="12" id="lC8-Fk-99z"/>
+                                            <menuItem title="13" id="aAz-pq-qKI"/>
+                                            <menuItem title="14" id="GUv-xl-xIb"/>
+                                            <menuItem title="15" id="nPi-oA-GtI"/>
+                                            <menuItem title="16" id="dYb-zu-9zD"/>
+                                            <menuItem title="17" id="n79-LZ-L0d"/>
+                                            <menuItem title="18" id="ViQ-hA-6pF"/>
+                                            <menuItem title="19" id="QBc-xN-2te"/>
+                                            <menuItem title="20" id="4mk-PF-ZOb"/>
+                                            <menuItem title="21" id="FG2-RX-E2P"/>
+                                            <menuItem title="22" id="gxs-tE-F85"/>
+                                            <menuItem title="23" id="Ne1-od-TrH"/>
+                                            <menuItem title="24" id="OBz-ia-RX7"/>
+                                            <menuItem title="25" id="sUj-P5-910"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="selectedIndex" keyPath="values.color9Num" id="Rsz-kc-g1e">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DCH-2L-va3">
+                                <rect key="frame" x="215" y="292" width="52" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="aKb-RL-H5K" id="pYy-NA-lYM">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <menu key="menu" id="fUi-us-m3w">
+                                        <items>
+                                            <menuItem title="1" state="on" id="aKb-RL-H5K">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="2" id="p6a-qe-gj9"/>
+                                            <menuItem title="3" id="wzz-fZ-QMQ"/>
+                                            <menuItem title="4" id="HEa-Uj-UUq"/>
+                                            <menuItem title="5" id="SgB-Zq-vHt"/>
+                                            <menuItem title="6" id="Nnu-eQ-l8O"/>
+                                            <menuItem title="7" id="0FG-kv-hsb"/>
+                                            <menuItem title="8" id="5dm-n2-bq4"/>
+                                            <menuItem title="9" id="1bL-pP-1T6"/>
+                                            <menuItem title="10" id="1p7-R0-Szf"/>
+                                            <menuItem title="11" id="dZP-ab-BqI"/>
+                                            <menuItem title="12" id="kgL-tA-KAE"/>
+                                            <menuItem title="13" id="gmZ-iw-dhW"/>
+                                            <menuItem title="14" id="Tt9-pL-hfl"/>
+                                            <menuItem title="15" id="Efc-ku-6R8"/>
+                                            <menuItem title="16" id="Tqc-oW-4g9"/>
+                                            <menuItem title="17" id="T06-B1-QYk"/>
+                                            <menuItem title="18" id="5KE-xb-vfa"/>
+                                            <menuItem title="19" id="g48-FB-3Q9"/>
+                                            <menuItem title="20" id="mrl-M7-GXK"/>
+                                            <menuItem title="21" id="Fit-rD-fK3"/>
+                                            <menuItem title="22" id="AcC-ON-yLc"/>
+                                            <menuItem title="23" id="AtA-Er-LhY"/>
+                                            <menuItem title="24" id="ujg-rE-C7K"/>
+                                            <menuItem title="25" id="8t3-2V-9kk"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="selectedIndex" keyPath="values.color10Num" id="CUC-Rm-11f">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5uB-jw-B6i">
+                                <rect key="frame" x="267" y="292" width="52" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="x37-Jy-FqG" id="O7p-RB-Mut">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <menu key="menu" id="8kX-Ik-cBu">
+                                        <items>
+                                            <menuItem title="1" state="on" id="x37-Jy-FqG">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="2" id="GWl-py-eJv"/>
+                                            <menuItem title="3" id="3ve-Yp-av1"/>
+                                            <menuItem title="4" id="hWK-uF-867"/>
+                                            <menuItem title="5" id="Sjd-R1-jqe"/>
+                                            <menuItem title="6" id="5d0-xt-A0Q"/>
+                                            <menuItem title="7" id="kex-4S-IjK"/>
+                                            <menuItem title="8" id="sQ4-F0-ekm"/>
+                                            <menuItem title="9" id="12Q-Jf-TA9"/>
+                                            <menuItem title="10" id="TX7-vw-zFp"/>
+                                            <menuItem title="11" id="UTT-6c-G6B"/>
+                                            <menuItem title="12" id="Qij-OC-1B5"/>
+                                            <menuItem title="13" id="nXU-GN-n41"/>
+                                            <menuItem title="14" id="R40-Wq-hC2"/>
+                                            <menuItem title="15" id="HZ6-6Z-0J9"/>
+                                            <menuItem title="16" id="BUe-1b-CXd"/>
+                                            <menuItem title="17" id="gE2-pX-o9H"/>
+                                            <menuItem title="18" id="Col-4o-IRa"/>
+                                            <menuItem title="19" id="gMd-th-2Yi"/>
+                                            <menuItem title="20" id="cj4-A0-AL4"/>
+                                            <menuItem title="21" id="Hsc-KG-oRH"/>
+                                            <menuItem title="22" id="O5d-wh-Y94"/>
+                                            <menuItem title="23" id="Vwg-zJ-giv"/>
+                                            <menuItem title="24" id="ym8-fe-8A9"/>
+                                            <menuItem title="25" id="Lt9-U3-iP5"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="selectedIndex" keyPath="values.color11Num" id="k4f-b8-iRI">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </popUpButton>
+                            <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="WeW-L3-Jrw">
+                                <rect key="frame" x="20" y="474" width="346" height="5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </box>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D4h-zz-tdB">
+                                <rect key="frame" x="20" y="554" width="348" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="Playback" id="cMx-8J-FKd">
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Wc-ub-KNq">
+                                <rect key="frame" x="18" y="510" width="138" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Movie predelay" id="dod-Fc-cud">
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lhL-s3-MJf">
+                                <rect key="frame" x="164" y="506" width="202" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="2" doubleValue="0.70000000000000007" tickMarkPosition="above" numberOfTickMarks="21" allowsTickMarkValuesOnly="YES" sliderType="linear" id="gBX-g4-4a3"/>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="value" keyPath="values.moviePredelay" id="UMa-eV-T1F">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sO2-WW-LMd">
+                                <rect key="frame" x="162" y="485" width="204" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="0.7 sec." id="asT-we-4Hb">
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="value" keyPath="values.moviePredelay" id="wF8-15-2ru">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                            <string key="NSValueTransformerName">SecondsValueTransformer</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s09-JX-VWZ">
+                                <rect key="frame" x="18" y="532" width="138" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="Movie sync mode" id="GtP-PP-6oB">
+                                    <font key="font" metaFont="message" size="11"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eVZ-Q4-dwc">
+                                <rect key="frame" x="161" y="529" width="202" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Automatic" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="lMm-gz-udS">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="message" size="11"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="WUF-HR-GPy" name="value" keyPath="values.movieSync" id="ZCT-XT-YNx">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                 </viewController>
                 <customObject id="Pm6-yo-VyT" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="WUF-HR-GPy"/>
             </objects>
-            <point key="canvasLocation" x="585" y="96.5"/>
+            <point key="canvasLocation" x="576" y="60.5"/>
         </scene>
     </scenes>
 </document>

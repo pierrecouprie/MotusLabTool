@@ -55,24 +55,44 @@ struct PreferenceKey {
     static let audioFormat = "audioFormat"
     static let consoleAColor = "consoleAColor"
     static let consoleBColor = "consoleBColor"
+    static let consoleCColor = "consoleCColor"
     static let consoleAMapping = "consoleAMapping"
     static let consoleBMapping = "consoleBMapping"
+    static let consoleCMapping = "consoleCMapping"
     static let consoleBActivate = "consoleBActivate"
+    static let consoleCActivate = "consoleCActivate"
     static let switchPlayMode = "switchPlayMode"
     static let bitDepth = "bitDepth"
     static let sampleRate = "sampleRate"
     static let channelNumber = "channelNumber"
     
+    //Playback
+    static let movieSync = "movieSync"
+    static let moviePredelay = "moviePredelay"
+    
     // Colors
     static let colorMode = "colorMode"
     static let color1 = "color1"
+    static let color1Num = "color1Num"
     static let color2 = "color2"
+    static let color2Num = "color2Num"
     static let color3 = "color3"
+    static let color3Num = "color3Num"
     static let color4 = "color4"
     static let color5 = "color5"
+    static let color5Num = "color5Num"
     static let color6 = "color6"
+    static let color6Num = "color6Num"
     static let color7 = "color7"
+    static let color7Num = "color7Num"
     static let color8 = "color8"
+    static let color9 = "color9"
+    static let color9Num = "color9Num"
+    static let color10 = "color10"
+    static let color10Num = "color10Num"
+    static let color11 = "color11"
+    static let color11Num = "color11Num"
+    static let color12 = "color12"
     
     // Player
     static let playTimelineWaveform = "playTimelineWaveform"
@@ -109,6 +129,9 @@ struct PreferenceKey {
 struct AudioFormat {
     static let aac = "m4a"
     static let pcm = "wav"
+    static let aif = "aif"
+    static let aiff = "aiff"
+    static let mp3 = "mp3"
     
     static func typeFrom(_ tag: Int) -> String {
         switch tag {

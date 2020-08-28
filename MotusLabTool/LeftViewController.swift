@@ -53,8 +53,10 @@ class LeftViewController: NSViewController {
     
     //MIDI
     var consoleBActivated: Bool = false
+    var consoleCActivated: Bool = false
     var consoleAMidiRecorder: MIDIRecorder!
     var consoleBMidiRecorder: MIDIRecorder!
+    var consoleCMidiRecorder: MIDIRecorder!
     @objc dynamic var consoleAInputDevice: Int = 0 {
         didSet {
             self.consoleAMidiRecorder.initializeSourceConnection(index: self.consoleAInputDevice)
@@ -65,11 +67,18 @@ class LeftViewController: NSViewController {
             self.consoleBMidiRecorder.initializeSourceConnection(index: self.consoleBInputDevice)
         }
     }
+    @objc dynamic var consoleCInputDevice: Int = 0 {
+        didSet {
+            self.consoleCMidiRecorder.initializeSourceConnection(index: self.consoleCInputDevice)
+        }
+    }
     var midiPlayer: MIDIPlayer!
     @objc dynamic var consoleAOutputDevice: Int = 0
     @objc dynamic var consoleBOutputDevice: Int = 0
+    @objc dynamic var consoleCOutputDevice: Int = 0
     @objc dynamic var consoleALastMidiMessage: ConsoleLastMidiMessage!
     @objc dynamic var consoleBLastMidiMessage: ConsoleLastMidiMessage!
+    @objc dynamic var consoleCLastMidiMessage: ConsoleLastMidiMessage!
     var controllersList = [ControllerItem]()
     
     var displayedViewObservation: NSKeyValueObservation?
@@ -99,8 +108,10 @@ class LeftViewController: NSViewController {
             //Initialize MIDI Recorders
             self.consoleAMidiRecorder = MIDIRecorder(leftViewController: self, consoleParameters: self.windowController.consoleAParameters)
             self.consoleBMidiRecorder = MIDIRecorder(leftViewController: self, consoleParameters: self.windowController.consoleBParameters)
+            self.consoleCMidiRecorder = MIDIRecorder(leftViewController: self, consoleParameters: self.windowController.consoleCParameters)
             self.recordMidiControllerView.consoleAParameters = self.windowController.consoleAParameters
             self.recordMidiControllerView.consoleBParameters = self.windowController.consoleBParameters
+            self.recordMidiControllerView.consoleCParameters = self.windowController.consoleCParameters
             
             //Initialize MIDI Faders
             self.playFadersView.addObservers(windowController: self.windowController)
@@ -127,6 +138,7 @@ class LeftViewController: NSViewController {
             //Add observer to detect preference propertu changes
             NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
             self.consoleBActivated = UserDefaults.standard.bool(forKey: PreferenceKey.consoleBActivate)
+            self.consoleCActivated = UserDefaults.standard.bool(forKey: PreferenceKey.consoleCActivate)
             
         }
     }
@@ -136,6 +148,7 @@ class LeftViewController: NSViewController {
         
         //User change activation of console B
         self.consoleBActivated = UserDefaults.standard.bool(forKey: PreferenceKey.consoleBActivate)
+        self.consoleCActivated = UserDefaults.standard.bool(forKey: PreferenceKey.consoleCActivate)
         if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
             if self.audioMeterTimer != nil {
                 self.audioMeterTimer.invalidate()
@@ -309,10 +322,12 @@ class LeftViewController: NSViewController {
             self.windowController.midiControllerEvents.removeAll()
             self.consoleAMidiRecorder.startRecording()
             self.consoleBMidiRecorder.startRecording()
+            self.consoleCMidiRecorder.startRecording()
             
             //Save configurations of controllers
             self.currentSession.consoleAControllers = windowController.consoleAParameters.filterControllers
             self.currentSession.consoleBControllers = windowController.consoleBParameters.filterControllers
+            self.currentSession.consoleCControllers = windowController.consoleCParameters.filterControllers
             
             //use playlist = initialize audio player
             self.usePlaylist = false
@@ -385,13 +400,11 @@ class LeftViewController: NSViewController {
         if self.usePlaylist {
             self.recordAudioPlayer.stopPlaying()
             let audioExt = self.currentSession.audioFile.pathExtension
+            self.currentSession.audioFormat = audioExt
             let destinationUrl =  self.windowController.fileUrl.appendingPathComponent(FilePath.audio).appendingPathComponent(self.currentSession.id).appendingPathExtension(audioExt)
             let fileManager = FileManager.default
             do {
                 try fileManager.copyItem(at: self.currentSession.audioFile, to: destinationUrl)
-                /*if let recordAudioPlayer = self.recordAudioPlayer, let duration = recordAudioPlayer.duration {
-                    self.currentSession.duration = Float(duration)
-                }*/
             } catch let error as NSError {
                 Swift.print("LeftViewController: stopRecording() Error copying url \(String(describing: self.currentSession.audioFile)) to url \(destinationUrl), context: " + error.localizedDescription)
             }
@@ -578,7 +591,7 @@ class LeftViewController: NSViewController {
             let fileUrl = self.windowController.fileUrl!
             self.currentPlaybackSession = self.currentSession
             self.playTimelineView.leftViewController = self
-            if self.midiPlayer  == nil {
+            if self.midiPlayer == nil {
                 self.midiPlayer = MIDIPlayer(self)
             }
             if self.audioPlayer == nil {
@@ -770,79 +783,112 @@ class LeftViewController: NSViewController {
         let tag = (sender as! NSMenuItem).tag
         let controllerCount = self.controllersList.count
         let controllerConsoleBIndex = self.controllersList.filter( { $0.console == 0 } ).count - 1
-            switch tag {
-            case -1:
-                for n in 0..<controllerCount {
-                    self.controllersList[n].show = true
-                }
-            case 0:
-                for n in 0..<controllerCount {
-                    if self.controllersList[n].console == 0 {
-                        self.controllersList[n].show = true
-                    } else {
-                        self.controllersList[n].show = false
-                    }
-                }
-            case 1:
-                for n in 0..<controllerCount {
-                    if self.controllersList[n].console == 1 {
-                        self.controllersList[n].show = true
-                    } else {
-                        self.controllersList[n].show = false
-                    }
-                }
-            case 2:
-                for n in 0..<controllerCount {
-                    if self.controllersList[n].console == 0 && n < 8 {
-                        self.controllersList[n].show = true
-                    } else {
-                        self.controllersList[n].show = false
-                    }
-                }
-            case 3:
-                for n in 0..<controllerCount {
-                    if self.controllersList[n].console == 0 && n > 7 && n < 16 {
-                        self.controllersList[n].show = true
-                    } else {
-                        self.controllersList[n].show = false
-                    }
-                }
-            case 4:
-                for n in 0..<controllerCount {
-                    if self.controllersList[n].console == 0 && n > 15 {
-                        self.controllersList[n].show = true
-                    } else {
-                        self.controllersList[n].show = false
-                    }
-                }
-            case 5:
-                for n in 0..<controllerCount {
-                    if self.controllersList[n].console == 1 && n - controllerConsoleBIndex < 8 {
-                        self.controllersList[n].show = true
-                    } else {
-                        self.controllersList[n].show = false
-                    }
-                }
-            case 6:
-                for n in 0..<controllerCount {
-                    if self.controllersList[n].console == 1 && n - controllerConsoleBIndex > 7 && n - controllerConsoleBIndex < 16 {
-                        self.controllersList[n].show = true
-                    } else {
-                        self.controllersList[n].show = false
-                    }
-                }
-            case 7:
-                for n in 0..<controllerCount {
-                    if self.controllersList[n].console == 1 && n - controllerConsoleBIndex > 15 {
-                        self.controllersList[n].show = true
-                    } else {
-                        self.controllersList[n].show = false
-                    }
-                }
-            default:
-                break
+        let controllerConsoleCIndex = self.controllersList.filter( { $0.console == 1 } ).count - 1
+        switch tag {
+        case -1:
+            for n in 0..<controllerCount {
+                self.controllersList[n].show = true
             }
-            self.playTimelineView.playControllersView.setNeedsDisplay(self.playTimelineView.playControllersView.bounds)
+        case 0:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 0 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 1:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 1 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 2:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 2 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 10:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 0 && n < 8 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 11:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 0 && n > 7 && n < 16 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 12:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 0 && n > 15 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 20:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 1 && n - controllerConsoleBIndex < 8 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 21:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 1 && n - controllerConsoleBIndex > 7 && n - controllerConsoleBIndex < 16 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 22:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 1 && n - controllerConsoleBIndex > 15 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 30:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 2 && n - controllerConsoleCIndex < 8 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 31:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 2 && n - controllerConsoleCIndex > 7 && n - controllerConsoleCIndex < 16 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        case 32:
+            for n in 0..<controllerCount {
+                if self.controllersList[n].console == 2 && n - controllerConsoleCIndex > 15 {
+                    self.controllersList[n].show = true
+                } else {
+                    self.controllersList[n].show = false
+                }
+            }
+        default:
+            break
+        }
+        self.playTimelineView.playControllersView.setNeedsDisplay(self.playTimelineView.playControllersView.bounds)
     }
     
     //MARK: Playing > Menu midiPlay
@@ -868,14 +914,22 @@ class LeftViewController: NSViewController {
                 self.midiPlayGroupSubMenu.submenu?.addItem(NSMenuItem.separator())
                 group = 1
             }
+            if controller.id == self.playTimelineView.playControllersView.consoleCStartId {
+                self.midiPlaySubMenu.submenu?.addItem(NSMenuItem.separator())
+                self.midiPlayGroupSubMenu.submenu?.addItem(NSMenuItem.separator())
+                group = 2
+            }
             var controllerNumber = controller.id + 1
             if controller.console == 1 {
                 controllerNumber -= self.playTimelineView.playControllersView.consoleBStartId
             }
+            if controller.console == 2 {
+                controllerNumber -= self.playTimelineView.playControllersView.consoleCStartId
+            }
             self.midiPlaySubMenu.submenu?.addItem(withTitle: String(controllerNumber), action: #selector(changeMidiPlayMenu), keyEquivalent: "")
             self.midiPlaySubMenu.submenu?.items.last!.tag = controller.id
             
-            if group == 1 {
+            if group == 1 || group == 2 {
                 self.midiPlayGroupSubMenu.submenu?.addItem(withTitle: String(controllerNumber), action: #selector(changeMidiPlayGroupMenu), keyEquivalent: "")
                 self.midiPlayGroupSubMenu.submenu?.items.last!.tag = controller.id
                 firstGroupItem = controllerNumber
@@ -991,6 +1045,8 @@ class LeftViewController: NSViewController {
                     return windowController.consoleAControllerColors[number] ?? NSColor.black
                 } else if self.consoleBActivated && console == 1 && windowController.consoleBControllerColors.count > number {
                     return windowController.consoleBControllerColors[number] ?? NSColor.black
+                } else if self.consoleCActivated && console == 2 && windowController.consoleCControllerColors.count > number {
+                    return windowController.consoleCControllerColors[number] ?? NSColor.black
                 }
                 
             } else if windowController.displayedView == 2 {
@@ -1002,6 +1058,8 @@ class LeftViewController: NSViewController {
                                 return windowController.consoleAControllerColors[number] ?? NSColor.black
                             } else if self.consoleBActivated && console == 1 && windowController.consoleBControllerColors.count > number {
                                 return windowController.consoleBControllerColors[number] ?? NSColor.black
+                            } else if self.consoleCActivated && console == 2 && windowController.consoleCControllerColors.count > number {
+                                return windowController.consoleCControllerColors[number] ?? NSColor.black
                             }
                         }
                         break
@@ -1056,6 +1114,10 @@ class LeftViewController: NSViewController {
         if self.timer != nil {
             self.timer.invalidate()
             self.timer = nil
+        }
+        
+        //Stop camera timer
+        if self.cameraTimer != nil {
             self.cameraTimer.invalidate()
             self.cameraTimer = nil
         }
@@ -1099,25 +1161,35 @@ class LeftViewController: NSViewController {
     
     
     /// Update time position of videos each 10 seconds to avoid the time shift.
+    ///
+    /// If preferences value of 'movieSync' is true, 2 strategies are used to syncrhonize videos to audio:
+    /// - If audio duration and movie duration is closed (+/- 0.75 seconds), synchronization is proportional
+    /// - Synchronization of movie depends to preferences value of 'moviePredelay' (default = -0.7 seconds)
+    ///
     @objc func updateCameraPosition() {
-        guard self.audioPlayer != nil else {
+        guard self.audioPlayer != nil && self.audioPlayer.audioPlayer != nil else {
             Swift.print("LeftViewController: updateCameraPosition Error audioPlayer is nil")
             return
         }
         let audioCurrentTime = Float(self.audioPlayer.audioPlayer.currentTime)
-        
+        let moviePredelay = self.preferences.float(forKey: PreferenceKey.moviePredelay)
+        var videoPosition = audioCurrentTime - moviePredelay
         let audioDuration = Float(self.audioPlayer.audioPlayer.duration)
         
         for camera in self.playCameraAVPlayers {
             
-            let videoDuration = Float(CMTimeGetSeconds(camera.currentItem!.asset.duration))
-            let videoPosition = ((audioCurrentTime * videoDuration) / audioDuration) - 0.7
+            if self.preferences.bool(forKey: PreferenceKey.movieSync) {
+                let videoDuration = Float(CMTimeGetSeconds(camera.currentItem!.asset.duration))
+                if videoDuration < audioDuration + 0.75 && videoDuration > audioDuration - 0.75 {
+                    videoPosition = ((audioCurrentTime * videoDuration) / audioDuration)
+                    //Swift.print("LeftViewController: updateCameraPosition MovieSync is using (videoDuration: \(videoDuration), audioDuration: \(audioDuration))!")
+                }
+            }
             
             let timeScale = camera.currentTime().timescale
             let timePosition = CMTime(seconds: Double(videoPosition), preferredTimescale: timeScale)
             camera.seek(to: timePosition, toleranceBefore: .zero, toleranceAfter: .zero)
             
-            //Swift.print("LeftViewController: updateCameraPosition audioCurrentTime: \(audioCurrentTime) | videoPosition: \(videoPosition)")
         }
     }
     

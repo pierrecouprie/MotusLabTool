@@ -37,14 +37,20 @@ class MIDIPlayer: NSObject {
     var consoleBOutputPort = MIDIPortRef()
     var consoleBDestinationEndpointRef = MIDIEndpointRef()
     
+    var consoleCMidiClient = MIDIClientRef()
+    var consoleCOutputPort = MIDIPortRef()
+    var consoleCDestinationEndpointRef = MIDIEndpointRef()
+    
     var timePositionObservation: NSKeyValueObservation?
     var consoleAOutputDeviceObservation: NSKeyValueObservation?
     var consoleBOutputDeviceObservation: NSKeyValueObservation?
+    var consoleCOutputDeviceObservation: NSKeyValueObservation?
     
     var timeTableLenght: Int = 1000
     var midiTimeTable: [Int]!
     var consoleAMidiControllerTable: [[Int]]!
     var consoleBMidiControllerTable: [[Int]]!
+    var consoleCMidiControllerTable: [[Int]]!
     
     var prevTimePosition: Float = 0
     var isPlaying = false
@@ -58,6 +64,7 @@ class MIDIPlayer: NSObject {
         // Initialize devices and outputs
         self.initializeConsoleA()
         self.initializeConsoleB()
+        self.initializeConsoleC()
         
         // Initialize observers
         let timePositionPath = \WindowController.timePosition
@@ -81,6 +88,10 @@ class MIDIPlayer: NSObject {
         let consoleBOutputDevicePath = \LeftViewController.consoleBOutputDevice
         self.consoleBOutputDeviceObservation = self.leftViewController.observe(consoleBOutputDevicePath) { [unowned self] object, change in
             self.initializeConsoleB()
+        }
+        let consoleCOutputDevicePath = \LeftViewController.consoleCOutputDevice
+        self.consoleCOutputDeviceObservation = self.leftViewController.observe(consoleCOutputDevicePath) { [unowned self] object, change in
+            self.initializeConsoleC()
         }
     }
     
@@ -109,13 +120,31 @@ class MIDIPlayer: NSObject {
         
         var status = MIDIClientCreateWithBlock("com.motuslabrecorder.MIDIClient" as CFString, &self.consoleBMidiClient, nil)
         if status != noErr {
-            Swift.print("MIDIPlayer: initializeConsoleA Error creating client : \(status)")
+            Swift.print("MIDIPlayer: initializeConsoleB Error creating client : \(status)")
         }
         
         let deviceIndex = self.leftViewController.consoleBOutputDevice
         self.consoleBDestinationEndpointRef = MIDIGetDestination(deviceIndex)
+        #warning("il y avait une erreur ici : consoleAMidiClient")
+        status = MIDIOutputPortCreate(self.consoleBMidiClient, "com.motuslabrecorder.MIDIClient" as CFString, &self.consoleBOutputPort)
+        if status != noErr {
+            Swift.print("MIDIPlayer: initializeConsoleB Error creating output port : \(status)")
+        }
         
-        status = MIDIOutputPortCreate(self.consoleAMidiClient, "com.motuslabrecorder.MIDIClient" as CFString, &self.consoleBOutputPort)
+    }
+    
+    /// Initialize output device of console C
+    func initializeConsoleC() {
+        
+        var status = MIDIClientCreateWithBlock("com.motuslabrecorder.MIDIClient" as CFString, &self.consoleCMidiClient, nil)
+        if status != noErr {
+            Swift.print("MIDIPlayer: initializeConsoleC Error creating client : \(status)")
+        }
+        
+        let deviceIndex = self.leftViewController.consoleCOutputDevice
+        self.consoleCDestinationEndpointRef = MIDIGetDestination(deviceIndex)
+        
+        status = MIDIOutputPortCreate(self.consoleCMidiClient, "com.motuslabrecorder.MIDIClient" as CFString, &self.consoleCOutputPort)
         if status != noErr {
             Swift.print("MIDIPlayer: initializeConsoleA Error creating output port : \(status)")
         }
@@ -137,6 +166,7 @@ class MIDIPlayer: NSObject {
         self.midiTimeTable = [Int](repeating: 0, count: self.timeTableLenght)
         self.consoleAMidiControllerTable = [[Int]](repeating: [], count: self.timeTableLenght)
         self.consoleBMidiControllerTable = [[Int]](repeating: [], count: self.timeTableLenght)
+        self.consoleCMidiControllerTable = [[Int]](repeating: [], count: self.timeTableLenght)
         
         let duration = self.leftViewController.currentSession.duration
         let timeStep = duration / Float(self.timeTableLenght)
@@ -144,20 +174,24 @@ class MIDIPlayer: NSObject {
         var eventIndex: Int = 0
         var consoleATotalControllers = [Int](repeating: 0, count: 129)
         var consoleBTotalControllers = [Int](repeating: 0, count: 129)
+        var consoleCTotalControllers = [Int](repeating: 0, count: 129)
         for n in 0..<self.midiTimeTable.count {
             let tableTimePosition = Float(n) * timeStep
             if n > 0 {
                 self.midiTimeTable[n] = self.midiTimeTable[n-1]
                 self.consoleAMidiControllerTable[n] = self.consoleAMidiControllerTable[n-1]
                 self.consoleBMidiControllerTable[n] = self.consoleBMidiControllerTable[n-1]
+                self.consoleCMidiControllerTable[n] = self.consoleCMidiControllerTable[n-1]
             }
             for m in eventIndex..<self.leftViewController.windowController.midiControllerEvents.count {
                 let event = self.leftViewController.windowController.midiControllerEvents[m]
                 let date = event.date
                 if event.console == 0 {
                     consoleATotalControllers[event.number] = event.value
-                } else {
+                } else if event.console == 1 {
                     consoleBTotalControllers[event.number] = event.value
+                } else {
+                    consoleCTotalControllers[event.number] = event.value
                 }
                 
                 if date <= tableTimePosition {
@@ -168,6 +202,7 @@ class MIDIPlayer: NSObject {
                     // Save last position of controller (to use with goToTimePosition)
                     self.consoleAMidiControllerTable[n] = consoleATotalControllers
                     self.consoleBMidiControllerTable[n] = consoleBTotalControllers
+                    self.consoleCMidiControllerTable[n] = consoleCTotalControllers
                     
                 } else {
                     eventIndex = m
@@ -196,26 +231,37 @@ class MIDIPlayer: NSObject {
     func sendMessage(_ console: Int, number: Int, value: Int) {
         let controller = self.controllerEnabled(number, console: console)
         if console == 0 {
-            if controller.enabled {
+            if controller.enabled && self.leftViewController.windowController.enableSendMIDI {
                 var channel = self.leftViewController.windowController.consoleAParameters.channel
                 channel = channel == 0 ? channel : channel - 1
-                var midiPacketList = createMidiPacketList(status: (0xB0 + channel), val1: number, val2: value)
+                var midiPacketList = self.createMidiPacketList(status: (0xB0 + channel), val1: number, val2: value)
                 MIDISend(self.consoleAOutputPort, self.consoleADestinationEndpointRef, &midiPacketList)
             }
             if controller.all {
                 let message = ConsoleLastMidiMessage(number: number, value: value)
                 self.leftViewController.setValue(message, forKey: "consoleALastMidiMessage")
             }
-        } else if self.preferences.bool(forKey: PreferenceKey.consoleBActivate) {
-            if controller.enabled {
+        } else if console == 1 && self.preferences.bool(forKey: PreferenceKey.consoleBActivate) {
+            if controller.enabled && self.leftViewController.windowController.enableSendMIDI {
                 var channel = self.leftViewController.windowController.consoleBParameters.channel
                 channel = channel == 0 ? channel : channel - 1
-                var midiPacketList = createMidiPacketList(status: (0xB0 + channel), val1: number, val2: value)
+                var midiPacketList = self.createMidiPacketList(status: (0xB0 + channel), val1: number, val2: value)
                 MIDISend(self.consoleBOutputPort, self.consoleBDestinationEndpointRef, &midiPacketList)
             }
             if controller.all {
                 let message = ConsoleLastMidiMessage(number: number, value: value)
                 self.leftViewController.setValue(message, forKey: "consoleBLastMidiMessage")
+            }
+        } else if console == 2 && self.preferences.bool(forKey: PreferenceKey.consoleCActivate) {
+            if controller.enabled && self.leftViewController.windowController.enableSendMIDI {
+                var channel = self.leftViewController.windowController.consoleCParameters.channel
+                channel = channel == 0 ? channel : channel - 1
+                var midiPacketList = self.createMidiPacketList(status: (0xB0 + channel), val1: number, val2: value)
+                MIDISend(self.consoleCOutputPort, self.consoleCDestinationEndpointRef, &midiPacketList)
+            }
+            if controller.all {
+                let message = ConsoleLastMidiMessage(number: number, value: value)
+                self.leftViewController.setValue(message, forKey: "consoleCLastMidiMessage")
             }
         }
     }
@@ -257,6 +303,11 @@ class MIDIPlayer: NSObject {
         if self.consoleBMidiControllerTable[indexes.timeTable].count > 1 {
             for n in 1..<self.consoleBMidiControllerTable[indexes.timeTable].count {
                 self.sendMessage(1, number: n, value: self.consoleBMidiControllerTable[indexes.timeTable][n])
+            }
+        }
+        if self.consoleCMidiControllerTable[indexes.timeTable].count > 1 {
+            for n in 1..<self.consoleCMidiControllerTable[indexes.timeTable].count {
+                self.sendMessage(2, number: n, value: self.consoleCMidiControllerTable[indexes.timeTable][n])
             }
         }
         self.currentEventIndex = indexes.index

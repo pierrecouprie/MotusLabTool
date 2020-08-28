@@ -363,6 +363,15 @@ class AcousmoniumLoudspeakerView: NSView {
                     }
                 }
             }
+        } else if self.acousmoniumLoudspeaker.console == 2 {
+            let consoleCLastMidiMessagePath = \LeftViewController.consoleCLastMidiMessage
+            self.valueObservation = self.windowController.leftViewController.observe(consoleCLastMidiMessagePath) { [unowned self] object, change in
+                if let message = self.windowController.leftViewController.consoleCLastMidiMessage {
+                    if message.number == self.acousmoniumLoudspeaker.input && self.value != message.value {
+                        self.value = message.value
+                    }
+                }
+            }
         }
     }
     

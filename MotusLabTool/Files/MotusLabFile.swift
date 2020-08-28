@@ -30,14 +30,6 @@ class MotusLabFile: NSObject, NSCoding, NSCopying {
     
     dynamic var toSave: Int = 0
     
-    /*override var description: String {
-        var output = "MotusLabFile name: " + self.name + ", version: " + self.version + ", creationDate: \(String(describing: self.creationDate)), modificationDate: \(String(describing: self.modificationDate))"
-        for session in self.sessions {
-            output += "\r   " + session.description
-        }
-        return output
-    }*/
-    
     struct PropertyKey {
         static let nameKey = "name"
         static let versionKey = "version"
@@ -117,6 +109,7 @@ class Session: NSObject, NSCoding, NSCopying {
     var audioFormat: String = AudioFormat.pcm
     var consoleAControllers = [Bool](repeating: true, count: 129)
     var consoleBControllers = [Bool](repeating: true, count: 129)
+    var consoleCControllers = [Bool](repeating: true, count: 129)
     var markers: [Marker]!
     var markerCount: Int = 0
     dynamic var isRecording = false
@@ -137,9 +130,11 @@ class Session: NSObject, NSCoding, NSCopying {
         static let informationKey = "information"
         static let durationKey = "duration"
         static let audioFileKey = "audioFile"
+        static let audioPathNamekey = "audioPathName"
         static let audioFormatKey = "audioFormat"
         static let consoleAControllersKey = "consoleAControllers"
         static let consoleBControllersKey = "consoleBControllers"
+        static let consoleCControllersKey = "consoleCControllers"
         static let markersKey = "markers"
         static let markerCountKey = "markerCount"
         static let motusLabFileKey = "motusLabFile"
@@ -151,6 +146,7 @@ class Session: NSObject, NSCoding, NSCopying {
         super.init()
     }
     
+    #warning("Number ?")
     convenience init(title: String, number: Int, motusLabFile: MotusLabFile) {
         self.init()
         self.title = title
@@ -169,9 +165,12 @@ class Session: NSObject, NSCoding, NSCopying {
         if let fileUrl = aDecoder.decodeObject(forKey: PropertyKey.audioFileKey) as? URL {
             self.audioFile = fileUrl
         }
-        self.audioFormat = aDecoder.decodeObject(forKey: PropertyKey.audioFormatKey) as! String
+        self.audioFormat = aDecoder.decodeObject(forKey: PropertyKey.audioFormatKey) as! String        
         self.consoleAControllers = aDecoder.decodeObject(forKey: PropertyKey.consoleAControllersKey) as! [Bool]
         self.consoleBControllers = aDecoder.decodeObject(forKey: PropertyKey.consoleBControllersKey) as! [Bool]
+        if aDecoder.containsValue(forKey: PropertyKey.consoleCControllersKey) {  //2.1.0
+            self.consoleCControllers = aDecoder.decodeObject(forKey: PropertyKey.consoleCControllersKey) as! [Bool]
+        }
         self.markers = aDecoder.decodeObject(forKey: PropertyKey.markersKey) as? [Marker]
         self.markerCount = aDecoder.decodeInteger(forKey: PropertyKey.markerCountKey)
         self.motusLabFile = aDecoder.decodeObject(forKey: PropertyKey.motusLabFileKey) as? MotusLabFile
@@ -186,6 +185,7 @@ class Session: NSObject, NSCoding, NSCopying {
         aCoder.encode(self.audioFormat, forKey: PropertyKey.audioFormatKey)
         aCoder.encode(self.consoleAControllers, forKey: PropertyKey.consoleAControllersKey)
         aCoder.encode(self.consoleBControllers, forKey: PropertyKey.consoleBControllersKey)
+        aCoder.encode(self.consoleCControllers, forKey: PropertyKey.consoleCControllersKey)
         aCoder.encode(self.markers, forKey: PropertyKey.markersKey)
         aCoder.encode(self.markerCount, forKey: PropertyKey.markerCountKey)
         aCoder.encode(self.motusLabFile, forKey: PropertyKey.motusLabFileKey)
@@ -206,6 +206,7 @@ class Session: NSObject, NSCoding, NSCopying {
         copy.audioFormat = self.audioFormat
         copy.consoleAControllers = self.consoleAControllers
         copy.consoleBControllers = self.consoleBControllers
+        copy.consoleCControllers = self.consoleCControllers
         copy.markers = self.markers.map( { $0.copy() as! Marker  } )
         copy.markerCount = self.markerCount
         return copy

@@ -52,6 +52,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let recordingValueTransformerName = NSValueTransformerName.init("RecordingValueTransformer")
         ValueTransformer.setValueTransformer(recordingValueTransformer, forName: recordingValueTransformerName)
         
+        let secondsValueTransformer = SecondsValueTransformer()
+        let secondsValueTransformerName = NSValueTransformerName.init("SecondsValueTransformer")
+        ValueTransformer.setValueTransformer(secondsValueTransformer, forName: secondsValueTransformerName)
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

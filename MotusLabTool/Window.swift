@@ -39,13 +39,6 @@ class Window: NSWindow {
                             (windowController as! WindowController).leftViewController.pausePlayingPlaylist()
                         }
                     }
-                    /*if (windowController as! WindowController).toolbarRecord == .off {
-                        (windowController as! WindowController).toolbarRecord = .on
-                        (windowController as! WindowController).leftViewController.startRecording()
-                    } else {
-                        (windowController as! WindowController).toolbarRecord = .off
-                        (windowController as! WindowController).leftViewController.stopRecording()
-                    }*/
                 } else if (windowController as! WindowController).displayedView == 2 { //Play interface
                     if (windowController as! WindowController).toolbarPlay == .off {
                         (windowController as! WindowController).toolbarPlay = .on

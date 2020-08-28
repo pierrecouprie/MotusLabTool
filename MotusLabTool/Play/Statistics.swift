@@ -27,21 +27,29 @@ class Statistics: NSObject {
     
     var consoleAControllerValues: [[Int]]!
     var consoleBControllerValues: [[Int]]!
+    var consoleCControllerValues: [[Int]]!
     
     var consoleAmin: [Float]!
     var consoleBmin: [Float]!
+    var consoleCmin: [Float]!
     var consoleAmax: [Float]!
     var consoleBmax: [Float]!
+    var consoleCmax: [Float]!
     var consoleAarithmeticMean: [Float]!
     var consoleBarithmeticMean: [Float]!
+    var consoleCarithmeticMean: [Float]!
     var consoleAquadraticMean: [Float]!
     var consoleBquadraticMean: [Float]!
+    var consoleCquadraticMean: [Float]!
     var consoleAvariance: [Float]!
     var consoleBvariance: [Float]!
+    var consoleCvariance: [Float]!
     var consoleAdurations: [Float]!
     var consoleBdurations: [Float]!
+    var consoleCdurations: [Float]!
     var consoleAfrequency: [Float]!
     var consoleBfrequency: [Float]!
+    var consoleCfrequency: [Float]!
     
     init(_ midiControllerEvents: [MIDIControllerEvent], duration: Float) {
         super.init()
@@ -58,30 +66,40 @@ class Statistics: NSObject {
         //Parse values
         self.consoleAControllerValues = [[Int]](repeating: [], count: 129)
         self.consoleBControllerValues = [[Int]](repeating: [], count: 129)
+        self.consoleCControllerValues = [[Int]](repeating: [], count: 129)
         
         for event in self.midiControllerEvents {
             if event.console == 0 {
                 self.consoleAControllerValues[event.number].append(event.value)
-            } else {
+            } else if event.console == 1 {
                 self.consoleBControllerValues[event.number].append(event.value)
+            } else {
+                self.consoleCControllerValues[event.number].append(event.value)
             }
         }
         
         //Compute
         self.consoleAmin = [Float](repeating: 0, count: 129)
         self.consoleBmin = [Float](repeating: 0, count: 129)
+        self.consoleCmin = [Float](repeating: 0, count: 129)
         self.consoleAmax = [Float](repeating: 0, count: 129)
         self.consoleBmax = [Float](repeating: 0, count: 129)
+        self.consoleCmax = [Float](repeating: 0, count: 129)
         self.consoleAarithmeticMean = [Float](repeating: 0, count: 129)
         self.consoleBarithmeticMean = [Float](repeating: 0, count: 129)
+        self.consoleCarithmeticMean = [Float](repeating: 0, count: 129)
         self.consoleAquadraticMean = [Float](repeating: 0, count: 129)
         self.consoleBquadraticMean = [Float](repeating: 0, count: 129)
+        self.consoleCquadraticMean = [Float](repeating: 0, count: 129)
         self.consoleAvariance = [Float](repeating: 0, count: 129)
         self.consoleBvariance = [Float](repeating: 0, count: 129)
+        self.consoleCvariance = [Float](repeating: 0, count: 129)
         self.consoleAdurations = [Float](repeating: 0, count: 129)
         self.consoleBdurations = [Float](repeating: 0, count: 129)
+        self.consoleCdurations = [Float](repeating: 0, count: 129)
         self.consoleAfrequency = [Float](repeating: 0, count: 129)
         self.consoleBfrequency = [Float](repeating: 0, count: 129)
+        self.consoleCfrequency = [Float](repeating: 0, count: 129)
         
         for n in 1..<129 {
             
@@ -91,6 +109,9 @@ class Statistics: NSObject {
             if let min = self.consoleBControllerValues[n].min() {
                 self.consoleBmin[n] = Float(min)
             }
+            if let min = self.consoleCControllerValues[n].min() {
+                self.consoleCmin[n] = Float(min)
+            }
             
             if let max = self.consoleAControllerValues[n].max() {
                 self.consoleAmax[n] = Float(max)
@@ -98,15 +119,21 @@ class Statistics: NSObject {
             if let max = self.consoleBControllerValues[n].max() {
                 self.consoleBmax[n] = Float(max)
             }
+            if let max = self.consoleCControllerValues[n].max() {
+                self.consoleCmax[n] = Float(max)
+            }
             
             self.consoleAarithmeticMean[n] = Float(self.consoleAControllerValues[n].reduce(0, +)) / Float(self.consoleAControllerValues[n].count)
             self.consoleBarithmeticMean[n] = Float(self.consoleBControllerValues[n].reduce(0, +)) / Float(self.consoleBControllerValues[n].count)
+            self.consoleCarithmeticMean[n] = Float(self.consoleCControllerValues[n].reduce(0, +)) / Float(self.consoleCControllerValues[n].count)
             
             self.consoleAquadraticMean[n] = sqrtf(self.consoleAControllerValues[n].reduce(Float(0), { $0 + powf(Float($1),2) } ) / Float(self.consoleAControllerValues[n].count))
             self.consoleBquadraticMean[n] = sqrtf(self.consoleBControllerValues[n].reduce(Float(0), { $0 + powf(Float($1),2) } ) / Float(self.consoleBControllerValues[n].count))
+            self.consoleCquadraticMean[n] = sqrtf(self.consoleCControllerValues[n].reduce(Float(0), { $0 + powf(Float($1),2) } ) / Float(self.consoleCControllerValues[n].count))
             
             self.consoleAvariance[n] = self.consoleAControllerValues[n].reduce(Float(0), { $0 + powf(Float($1) - self.consoleAarithmeticMean[n], 2) } ) / Float(self.consoleAControllerValues[n].count)
             self.consoleBvariance[n] = self.consoleBControllerValues[n].reduce(Float(0), { $0 + powf(Float($1) - self.consoleBarithmeticMean[n], 2) } ) / Float(self.consoleBControllerValues[n].count)
+            self.consoleCvariance[n] = self.consoleCControllerValues[n].reduce(Float(0), { $0 + powf(Float($1) - self.consoleCarithmeticMean[n], 2) } ) / Float(self.consoleCControllerValues[n].count)
             
             var events = self.midiControllerEvents.filter( { $0.number == n && $0.console == 0} )
             var tempDate = Float(0)
@@ -131,6 +158,18 @@ class Statistics: NSObject {
                 return duration
             })
             self.consoleBfrequency[n] = Float(events.count) / self.duration
+            
+            events = self.midiControllerEvents.filter( { $0.number == n && $0.console == 2} )
+            tempDate = Float(0)
+            self.consoleCdurations[n] = events.reduce(Float(0), { duration, event in
+                if event.value > 10 {
+                    let interval = event.date - tempDate
+                    tempDate = event.date
+                    return duration + interval
+                }
+                return duration
+            })
+            self.consoleCfrequency[n] = Float(events.count) / self.duration
             
         }
         

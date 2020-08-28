@@ -43,14 +43,6 @@ class AcousmoniumFile: NSObject, NSCoding {
     dynamic var selectedLoudspeakerIndex = IndexSet()
     dynamic var toSave: Int = 0
     
-    /*override var description: String {
-        var output = "AcousmoniumFile id: " + self.id + ", name: " + self.name + ", version: " + self.version + ", showImage: \(self.showImage)"
-        for loudspeaker in self.acousmoniumLoudspeakers {
-            output += "\r   " + loudspeaker.description
-        }
-        return output
-    }*/
-    
     struct PropertyKey {
         static let idKey = "id"
         static let nameKey = "name"
@@ -69,7 +61,6 @@ class AcousmoniumFile: NSObject, NSCoding {
         self.id = UUID().uuidString
         self.name = name
         self.version = String.motusLabToolVersion
-        
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -157,10 +148,6 @@ class AcousmoniumLoudspeaker: NSObject, NSCoding {
     }
     
     weak var acousmoniumFile: AcousmoniumFile!
-    
-    /*override var description: String {
-        return "AcousmoLoudspeaker title: " + self.title + ", x: \(String(describing: self.x)), y: \(String(describing: self.y)), input: \(String(describing: self.input)), console: \(String(describing: self.console)), color: \(String(describing: self.color))"
-    }*/
     
     struct PropertyKey {
         static let titleKey = "title"

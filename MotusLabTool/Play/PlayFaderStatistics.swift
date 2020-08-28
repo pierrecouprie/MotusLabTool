@@ -62,49 +62,52 @@ class PlayFaderStatistics: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        if let consoleAParameters = leftViewController.windowController.consoleAParameters, let consoleBParameters = leftViewController.windowController.consoleBParameters, let statistics = self.statistics, let _ = statistics.consoleAmin  {
+        if let consoleAParameters = leftViewController.windowController.consoleAParameters, let consoleBParameters = leftViewController.windowController.consoleBParameters, let consoleCParameters = leftViewController.windowController.consoleCParameters, let statistics = self.statistics, let _ = statistics.consoleAmin  {
             var controllerCount = consoleAParameters.controllerCount
             if consoleBParameters.enable {
                 controllerCount += consoleBParameters.controllerCount
             }
+            if consoleCParameters.enable {
+                controllerCount += consoleCParameters.controllerCount
+            }
             let faderWidth = self.bounds.size.width / CGFloat(controllerCount)
             
             if self.preferences.bool(forKey: PreferenceKey.statisticsMax) {
-                self.drawGraph(statistics.consoleAmax, consoleBValues: statistics.consoleBmax , maxValue: 128, faderWidth: faderWidth, color: NSColor.red)
+                self.drawGraph(statistics.consoleAmax, consoleBValues: statistics.consoleBmax, consoleCValues: statistics.consoleCmax , maxValue: 128, faderWidth: faderWidth, color: NSColor.red)
             }
             
             if self.preferences.bool(forKey: PreferenceKey.statisticsMin) {
-                self.drawGraph(statistics.consoleAmin, consoleBValues: statistics.consoleBmin , maxValue: 128, faderWidth: faderWidth, color: NSColor.blue)
+                self.drawGraph(statistics.consoleAmin, consoleBValues: statistics.consoleBmin, consoleCValues: statistics.consoleCmin, maxValue: 128, faderWidth: faderWidth, color: NSColor.blue)
             }
             
             if self.preferences.bool(forKey: PreferenceKey.statisticsAMean) {
-                self.drawGraph(statistics.consoleAarithmeticMean, consoleBValues: statistics.consoleBarithmeticMean , maxValue: 128, faderWidth: faderWidth, color: NSColor.orange)
+                self.drawGraph(statistics.consoleAarithmeticMean, consoleBValues: statistics.consoleBarithmeticMean, consoleCValues: statistics.consoleCarithmeticMean, maxValue: 128, faderWidth: faderWidth, color: NSColor.orange)
             }
             
             if self.preferences.bool(forKey: PreferenceKey.statisticsQMean) {
-                self.drawGraph(statistics.consoleAquadraticMean, consoleBValues: statistics.consoleBquadraticMean , maxValue: 128, faderWidth: faderWidth, color: NSColor.cyan)
+                self.drawGraph(statistics.consoleAquadraticMean, consoleBValues: statistics.consoleBquadraticMean, consoleCValues: statistics.consoleCquadraticMean, maxValue: 128, faderWidth: faderWidth, color: NSColor.cyan)
             }
             
             if self.preferences.bool(forKey: PreferenceKey.statisticsVariance) {
-                let maxValue = max(statistics.consoleAvariance.max()!,statistics.consoleBvariance.max()!)
-                self.drawGraph(statistics.consoleAvariance, consoleBValues: statistics.consoleBvariance , maxValue: maxValue, faderWidth: faderWidth, color: NSColor.magenta, valueCorrection: false)
+                let maxValue = max(statistics.consoleAvariance.max()!,statistics.consoleBvariance.max()!,statistics.consoleCvariance.max()!)
+                self.drawGraph(statistics.consoleAvariance, consoleBValues: statistics.consoleBvariance, consoleCValues: statistics.consoleCvariance, maxValue: maxValue, faderWidth: faderWidth, color: NSColor.magenta, valueCorrection: false)
             }
             
             if self.preferences.bool(forKey: PreferenceKey.statisticsFrequency) {
-                let maxValue = max(statistics.consoleAfrequency.max()!,statistics.consoleBfrequency.max()!)
-                self.drawGraph(statistics.consoleAfrequency, consoleBValues: statistics.consoleBfrequency , maxValue: maxValue, faderWidth: faderWidth, color: NSColor.purple, valueCorrection: false)
+                let maxValue = max(statistics.consoleAfrequency.max()!,statistics.consoleBfrequency.max()!,statistics.consoleCfrequency.max()!)
+                self.drawGraph(statistics.consoleAfrequency, consoleBValues: statistics.consoleBfrequency, consoleCValues: statistics.consoleCfrequency, maxValue: maxValue, faderWidth: faderWidth, color: NSColor.purple, valueCorrection: false)
             }
             
             if self.preferences.bool(forKey: PreferenceKey.statisticsDuration) {
                 let maxValue = max(statistics.consoleAdurations.max()!,statistics.consoleBdurations.max()!)
-                self.drawGraph(statistics.consoleAdurations, consoleBValues: statistics.consoleBdurations , maxValue: maxValue, faderWidth: faderWidth, color: NSColor.gray, valueCorrection: false)
+                self.drawGraph(statistics.consoleAdurations, consoleBValues: statistics.consoleBdurations, consoleCValues: statistics.consoleCdurations, maxValue: maxValue, faderWidth: faderWidth, color: NSColor.gray, valueCorrection: false)
             }
             
         }
     }
     
-    func drawGraph(_ consoleAValues: [Float], consoleBValues: [Float], maxValue: Float, faderWidth: CGFloat,  color: NSColor, valueCorrection: Bool = true) {
-        if let context = NSGraphicsContext.current?.cgContext, let leftViewController = self.leftViewController, let consoleAParameters = leftViewController.windowController.consoleAParameters, let consoleBParameters = leftViewController.windowController.consoleBParameters  {
+    func drawGraph(_ consoleAValues: [Float], consoleBValues: [Float], consoleCValues: [Float], maxValue: Float, faderWidth: CGFloat,  color: NSColor, valueCorrection: Bool = true) {
+        if let context = NSGraphicsContext.current?.cgContext, let leftViewController = self.leftViewController, let consoleAParameters = leftViewController.windowController.consoleAParameters, let consoleBParameters = leftViewController.windowController.consoleBParameters, let consoleCParameters = leftViewController.windowController.consoleCParameters  {
             
             context.saveGState()
             context.setStrokeColor(color.cgColor)
@@ -141,6 +144,27 @@ class PlayFaderStatistics: NSView {
                 for (index,fader) in consoleBParameters.filterControllers.enumerated() {
                     if fader {
                         var value = CGFloat(consoleBValues[index])
+                        if value.isNaN {
+                            continue
+                        }
+                        if valueCorrection {
+                            value = CGFloat(MIDIValueCorrection(Int(value), type: self.midiValueCorrection))
+                        }
+                        value = (value * self.bounds.size.height) / CGFloat(maxValue)
+                        
+                        value = value < 1 ? 1 : value
+                        value = value > self.bounds.size.height - 1 ? self.bounds.size.height - 1 : value
+                        
+                        context.addLine(to: CGPoint(x: faderX, y: value))
+                        faderX += faderWidth
+                    }
+                }
+            }
+            
+            if self.preferences.bool(forKey: PreferenceKey.consoleCActivate) {
+                for (index,fader) in consoleCParameters.filterControllers.enumerated() {
+                    if fader {
+                        var value = CGFloat(consoleCValues[index])
                         if value.isNaN {
                             continue
                         }

@@ -35,8 +35,10 @@ class WindowController: NSWindowController {
     // MIDI Controllers
     @objc dynamic var consoleAParameters: MIDIParameters!
     @objc dynamic var consoleBParameters: MIDIParameters!
+    @objc dynamic var consoleCParameters: MIDIParameters!
     var consoleAControllerColors = [Int: NSColor]()
     var consoleBControllerColors = [Int: NSColor]()
+    var consoleCControllerColors = [Int: NSColor]()
     
     //  Acousmoniums
     @objc dynamic var acousmoniumFiles = [AcousmoniumFile]()
@@ -73,6 +75,9 @@ class WindowController: NSWindowController {
             self.enableCommands()
         }
     }
+    
+    // MIDI
+    @objc dynamic var enableSendMIDI = false
     
     @objc dynamic var enableModeToolbarButton = false
     @objc dynamic var enableRecordToolbarButtons = false //Add camera, record, Big counter
@@ -116,6 +121,8 @@ class WindowController: NSWindowController {
         self.consoleAParameters.filter = UserDefaults.standard.string(forKey: PreferenceKey.consoleAMapping)!
         self.consoleBParameters = MIDIParameters(console: 1, windowController: self, enable: false)
         self.consoleBParameters.filter = UserDefaults.standard.string(forKey: PreferenceKey.consoleBMapping)!
+        self.consoleCParameters = MIDIParameters(console: 2, windowController: self, enable: false)
+        self.consoleCParameters.filter = UserDefaults.standard.string(forKey: PreferenceKey.consoleCMapping)!
         (self.contentViewController as! MainSplitViewController).initialization()
         
         // Add observer to detect changes in preference properties
@@ -128,10 +135,14 @@ class WindowController: NSWindowController {
     
     /// Preference properties changes
     @objc func userDefaultsDidChange(_ notification: Notification) {
-        if let consoleBParameters = self.consoleBParameters {
+        if let consoleBParameters = self.consoleBParameters, let consoleCParameters = self.consoleCParameters {
             let consoleBActivate = UserDefaults.standard.bool(forKey: PreferenceKey.consoleBActivate)
             if consoleBActivate != consoleBParameters.enable {
                 consoleBParameters.enable = consoleBActivate
+            }
+            let consoleCActivate = UserDefaults.standard.bool(forKey: PreferenceKey.consoleCActivate)
+            if consoleCActivate != consoleCParameters.enable {
+                consoleCParameters.enable = consoleCActivate
             }
             self.updateControllerColors()
         }
@@ -211,30 +222,49 @@ class WindowController: NSWindowController {
         var preferences = [String: Any]()
         
         preferences[PreferenceKey.audioFormat] = 1 //0: AAC, 1: WAV
-        preferences[PreferenceKey.consoleAColor] = NSColor.blue.data
-        preferences[PreferenceKey.consoleBColor] = NSColor(calibratedRed: 0, green: 0.6, blue: 0, alpha: 1).data
+        preferences[PreferenceKey.consoleAColor] = NSColor.blue.data //blue
+        preferences[PreferenceKey.consoleBColor] = NSColor(calibratedRed: 0, green: 0.6, blue: 0, alpha: 1).data //green
+        preferences[PreferenceKey.consoleCColor] = NSColor(calibratedRed: 1, green: 0.58, blue: 0.2, alpha: 1).data //orange
         preferences[PreferenceKey.consoleAMapping] = "1-25"
         preferences[PreferenceKey.consoleBMapping] = "1-25"
+        preferences[PreferenceKey.consoleCMapping] = "1-25"
         preferences[PreferenceKey.consoleBActivate] = false
+        preferences[PreferenceKey.consoleCActivate] = false
         preferences[PreferenceKey.switchPlayMode] = false
         preferences[PreferenceKey.bitDepth] = 16
         preferences[PreferenceKey.sampleRate] = 44100
         preferences[PreferenceKey.channelNumber] = 2
+        
+        preferences[PreferenceKey.movieSync] = true
+        preferences[PreferenceKey.moviePredelay] = 0.7
         
         preferences[PreferenceKey.playTimelineWaveform] = true
         preferences[PreferenceKey.playTimelineControllers] = true
         preferences[PreferenceKey.playTimelineMarkers] = true
         preferences[PreferenceKey.playTimelinePlayhead] = true
         preferences[PreferenceKey.playCTRLAlpha] = 0.8
-        preferences[PreferenceKey.colorMode] = 0
+        //preferences[PreferenceKey.colorMode] = 0
         preferences[PreferenceKey.color1] = NSColor(calibratedRed: 0, green: 0.58, blue: 1, alpha: 1).data //light blue
+        preferences[PreferenceKey.color1Num] = 7
         preferences[PreferenceKey.color2] = NSColor(calibratedRed: 1, green: 0.2, blue: 0, alpha: 1).data //red
+        preferences[PreferenceKey.color2Num] = 7
         preferences[PreferenceKey.color3] = NSColor(calibratedRed: 0.2, green: 0.8, blue: 0, alpha: 1).data //green
+        preferences[PreferenceKey.color3Num] = 7
         preferences[PreferenceKey.color4] = NSColor(calibratedRed: 0.8, green: 0.4, blue: 1, alpha: 1).data //mauve
         preferences[PreferenceKey.color5] = NSColor(calibratedRed: 1, green: 0.58, blue: 0.2, alpha: 1).data //orange
+        preferences[PreferenceKey.color5Num] = 7
         preferences[PreferenceKey.color6] = NSColor(calibratedRed: 0.6, green: 0, blue: 1, alpha: 1).data //purple
+        preferences[PreferenceKey.color6Num] = 7
         preferences[PreferenceKey.color7] = NSColor(calibratedRed: 0.6, green: 0.4, blue: 0, alpha: 1).data //brown
+        preferences[PreferenceKey.color7Num] = 7
         preferences[PreferenceKey.color8] = NSColor(calibratedRed: 0.4, green: 0.4, blue: 0.4, alpha: 1).data //grey
+        preferences[PreferenceKey.color9] = NSColor(calibratedRed: 0.99, green: 0.70, blue: 0.11, alpha: 1.0).data //cantaloupe
+        preferences[PreferenceKey.color9Num] = 7
+        preferences[PreferenceKey.color10] = NSColor(calibratedRed: 0.06, green: 0.42, blue: 0.03, alpha: 1.0).data //dark green
+        preferences[PreferenceKey.color10Num] = 7
+        preferences[PreferenceKey.color11] = NSColor(calibratedRed: 0.45, green: 0.55, blue: 0.05, alpha: 1.0).data //olive
+        preferences[PreferenceKey.color11Num] = 7
+        preferences[PreferenceKey.color12] = NSColor(calibratedRed: 0.34, green: 0.16, blue: 0.53, alpha: 1.0).data //dark purple
         preferences[PreferenceKey.playMarkerColor] = NSColor.black.data
         preferences[PreferenceKey.playPlayheadColor] = NSColor.red.data
         
@@ -262,18 +292,74 @@ class WindowController: NSWindowController {
     /// Update the color of controllers (saved in consoleAControllerColors and consoleBControllerColors)
     func updateControllerColors() {
         
-        if let consoleAParameters = self.consoleAParameters, let consoleBParameters = self.consoleBParameters {
+        if let consoleAParameters = self.consoleAParameters, let consoleBParameters = self.consoleBParameters, let consoleCParameters = self.consoleCParameters {
             
             self.consoleAControllerColors.removeAll()
             self.consoleBControllerColors.removeAll()
+            self.consoleCControllerColors.removeAll()
             
             let preferences = UserDefaults.standard
             
-            var consoleAIndex: Int = 1
+            /*var consoleAIndex: Int = 1
             var consoleBIndex: Int = 1
+            var consoleCIndex: Int = 1*/
             for n in 1..<129 {
                 
                 if consoleAParameters.filterControllers[n] {
+                    
+                    let num1 = preferences.integer(forKey: PreferenceKey.color1Num) + 1
+                    let num2 = preferences.integer(forKey: PreferenceKey.color2Num) + 1
+                    let num3 = preferences.integer(forKey: PreferenceKey.color3Num) + 1
+                    
+                    if n <= num1 {
+                        self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
+                    } else if n <= num1 + num2 {
+                        self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color2)?.color
+                    } else if n <= num1 + num2 + num3 {
+                        self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color3)?.color
+                    } else {
+                        self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color4)?.color
+                    }
+                    
+                }
+                
+                if consoleBParameters.filterControllers[n] {
+                    
+                    let num1 = preferences.integer(forKey: PreferenceKey.color5Num) + 1
+                    let num2 = preferences.integer(forKey: PreferenceKey.color6Num) + 1
+                    let num3 = preferences.integer(forKey: PreferenceKey.color7Num) + 1
+                    
+                    if n <= num1 {
+                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
+                    } else if n <= num1 + num2 {
+                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color6)?.color
+                    } else if n <= num1 + num2 + num3 {
+                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color7)?.color
+                    } else {
+                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color8)?.color
+                    }
+                    
+                }
+                
+                if consoleCParameters.filterControllers[n] {
+                    
+                    let num1 = preferences.integer(forKey: PreferenceKey.color9Num) + 1
+                    let num2 = preferences.integer(forKey: PreferenceKey.color10Num) + 1
+                    let num3 = preferences.integer(forKey: PreferenceKey.color11Num) + 1
+                    
+                    if n <= num1 {
+                        self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color9)?.color
+                    } else if n <= num1 + num2 {
+                        self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color10)?.color
+                    } else if n <= num1 + num2 + num3 {
+                        self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color11)?.color
+                    } else {
+                        self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color12)?.color
+                    }
+                    
+                }
+                
+                /*if consoleAParameters.filterControllers[n] {
                     switch preferences.integer(forKey: PreferenceKey.colorMode) {
                     case 0: // Consoles
                         self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
@@ -312,6 +398,27 @@ class WindowController: NSWindowController {
                         break
                     }
                 }
+                
+                if consoleCParameters.filterControllers[n] {
+                    switch preferences.integer(forKey: PreferenceKey.colorMode) {
+                    case 0: // Consoles
+                        self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color9)?.color
+                    case 1: // Groups of 8
+                        if consoleCIndex < 9 {
+                            self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color9)?.color
+                        } else if consoleCIndex < 17 {
+                            self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color10)?.color
+                        } else if consoleCIndex < 25 {
+                            self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color11)?.color
+                        } else {
+                            self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color12)?.color
+                        }
+                        consoleCIndex += 1
+                    default:
+                        break
+                    }
+                }*/
+                
             }
             
         }
@@ -583,7 +690,23 @@ class WindowController: NSWindowController {
         do {
             let playlistData = try Data(contentsOf: playlistFileURL)
             if let playlist = NSKeyedUnarchiver.unarchiveObject(with: playlistData) as? [PlaylistFile] {
+                
+                // Load playlist
                 self.playlistFiles = playlist
+                
+                // Delete references to files which are not available in disk
+                var changed = false
+                for n in stride(from: self.playlistFiles.count-1, through: 0, by: -1) {
+                    if !FileManager.default.fileExists(atPath: self.playlistFiles[n].url!.path) {
+                        self.playlistFiles.remove(at: n)
+                        changed =  true
+                    }
+                }
+                if changed {
+                    self.saveFile()
+                }
+                
+                //Select first item
                 if self.playlistFiles.count > 0 {
                     self.setValue(IndexSet(integer: 0), forKey: "playlistSelectedFileIndex")
                 }

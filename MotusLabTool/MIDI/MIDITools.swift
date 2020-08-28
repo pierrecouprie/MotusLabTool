@@ -97,8 +97,10 @@ class MIDIParameters: NSObject {
             self.updateControllers()
             if self.console == 0 {
                 self.preferences.set(self.filter, forKey: PreferenceKey.consoleAMapping)
-            } else {
+            } else if self.console == 1 {
                 self.preferences.set(self.filter, forKey: PreferenceKey.consoleBMapping)
+            } else if self.console == 2 {
+                self.preferences.set(self.filter, forKey: PreferenceKey.consoleCMapping)
             }
         }
     }

@@ -90,16 +90,6 @@ class MIDIRecorder: NSObject {
         self.initializeSourceConnection(index: 0, disconnect: false)
     }
     
-    /*func initializeFaderValues() {
-        for n in 1..<129 {
-            if self.consoleParameters.filterControllers[n] {
-                let newEvent = MIDIControllerEvent(date: 0, console: self.consoleParameters.console, channel: self.consoleParameters.channel, number: n, value: 0)
-                self.waitingMIDIControllerEvents.append(newEvent)
-            }
-        }
-        
-    }*/
-    
     /// Change input device
     /// - Parameter index: The index of the new device
     /// - Parameter disconnect: Disconnect or not the previous input device
@@ -186,9 +176,12 @@ class MIDIRecorder: NSObject {
                     if self.consoleParameters.console == 0 {
                         let message = ConsoleLastMidiMessage(number: number, value: value)
                         self.leftViewController.setValue(message, forKey: "consoleALastMidiMessage")
-                    } else {
+                    } else if self.consoleParameters.console == 1 {
                         let message = ConsoleLastMidiMessage(number: number, value: value)
                         self.leftViewController.setValue(message, forKey: "consoleBLastMidiMessage")
+                    } else {
+                        let message = ConsoleLastMidiMessage(number: number, value: value)
+                        self.leftViewController.setValue(message, forKey: "consoleCLastMidiMessage")
                     }
                 }
             }

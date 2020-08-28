@@ -29,11 +29,14 @@ class MidiSettingsViewController: NSViewController {
     
     var consoleAMidiMessageObservation: NSKeyValueObservation?
     var consoleBMidiMessageObservation: NSKeyValueObservation?
+    var consoleCMidiMessageObservation: NSKeyValueObservation?
     
     @IBOutlet weak var consoleALed: NSLevelIndicator!
     @IBOutlet weak var consoleAMessage: NSTextField!
     @IBOutlet weak var consoleBLed: NSLevelIndicator!
     @IBOutlet weak var consoleBMessage: NSTextField!
+    @IBOutlet weak var consoleCLed: NSLevelIndicator!
+    @IBOutlet weak var consoleCMessage: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +53,10 @@ class MidiSettingsViewController: NSViewController {
         self.consoleBMidiMessageObservation = self.windowController.consoleBParameters.observe(ledPath) { [unowned self] object, change in
             self.consoleBLed.doubleValue = self.windowController.consoleBParameters.led
             self.consoleBMessage.stringValue = self.windowController.consoleBParameters.message
+        }
+        self.consoleCMidiMessageObservation = self.windowController.consoleCParameters.observe(ledPath) { [unowned self] object, change in
+            self.consoleCLed.doubleValue = self.windowController.consoleCParameters.led
+            self.consoleCMessage.stringValue = self.windowController.consoleCParameters.message
         }
         
         //Initialize observer

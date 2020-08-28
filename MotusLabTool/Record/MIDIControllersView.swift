@@ -26,6 +26,7 @@ class MIDIControllersView: NSView {
     
     weak var consoleAParameters: MIDIParameters!
     weak var consoleBParameters: MIDIParameters!
+    weak var consoleCParameters: MIDIParameters!
     
     var midiValueCorrection: Int = 0
     
@@ -55,11 +56,14 @@ class MIDIControllersView: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        if let context = NSGraphicsContext.current?.cgContext, let consoleAParameters = self.consoleAParameters, let consoleBParameters = self.consoleBParameters {
+        if let context = NSGraphicsContext.current?.cgContext, let consoleAParameters = self.consoleAParameters, let consoleBParameters = self.consoleBParameters, let consoleCParameters = self.consoleCParameters {
             
             var controllerCount = consoleAParameters.controllerCount
             if self.consoleBParameters.enable {
                 controllerCount += consoleBParameters.controllerCount
+            }
+            if self.consoleCParameters.enable {
+                controllerCount += consoleCParameters.controllerCount
             }
             let faderWidth = self.bounds.size.width / CGFloat(controllerCount)
             var faderRect = CGRect(x: 0, y: 0, width: faderWidth, height: 0)
@@ -91,6 +95,24 @@ class MIDIControllersView: NSView {
                     if value > 0 {
                         context.saveGState()
                         let color = self.windowController.consoleBControllerColors[index]!
+                        context.setFillColor(color.cgColor)
+                        faderRect.origin.x = faderX
+                        faderRect.size.height = (value * self.bounds.size.height) / 127
+                        context.addRect(faderRect)
+                        context.drawPath(using: .fill)
+                        context.restoreGState()
+                    }
+                    faderX += faderWidth
+                }
+            }
+            
+            // Draw faders of console C
+            for (index,fader) in self.consoleCParameters.filterControllers.enumerated() {
+                let value = CGFloat(MIDIValueCorrection(self.consoleCParameters.controllerValues[index], type: self.midiValueCorrection))
+                if fader {
+                    if value > 0 {
+                        context.saveGState()
+                        let color = self.windowController.consoleCControllerColors[index]!
                         context.setFillColor(color.cgColor)
                         faderRect.origin.x = faderX
                         faderRect.size.height = (value * self.bounds.size.height) / 127

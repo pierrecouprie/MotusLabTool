@@ -30,11 +30,13 @@ class PlayFadersView: NSView {
     
     var consoleALastValues: [Int]!
     var consoleBLastValues: [Int]!
+    var consoleCLastValues: [Int]!
     
     var playFaderStatistics: PlayFaderStatistics!
     
     var consoleALastMidiMessageObservation: NSKeyValueObservation?
     var consoleBLastMidiMessageObservation: NSKeyValueObservation?
+    var consoleCLastMidiMessageObservation: NSKeyValueObservation?
     
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
@@ -44,6 +46,7 @@ class PlayFadersView: NSView {
         
         self.consoleALastValues = [Int](repeating: 0, count: 129)
         self.consoleBLastValues = [Int](repeating: 0, count: 129)
+        self.consoleCLastValues = [Int](repeating: 0, count: 129)
         
         //Add observer to detect preferences properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
@@ -72,8 +75,17 @@ class PlayFadersView: NSView {
         }
         let consoleBLastMidiMessagePath = \LeftViewController.consoleBLastMidiMessage
         self.consoleBLastMidiMessageObservation = self.windowController.leftViewController.observe(consoleBLastMidiMessagePath) { [unowned self] object, change in
+            //Swift.print("self.windowController.leftViewController.consoleBLastMidiMessage : \(self.windowController.leftViewController.consoleBLastMidiMessage )")
             if let message = self.windowController.leftViewController.consoleBLastMidiMessage {
                 self.consoleBLastValues[message.number] = message.value
+                //Swift.print("message.value: \(message.value)")
+                self.setNeedsDisplay(self.bounds)
+            }
+        }
+        let consoleCLastMidiMessagePath = \LeftViewController.consoleCLastMidiMessage
+        self.consoleCLastMidiMessageObservation = self.windowController.leftViewController.observe(consoleCLastMidiMessagePath) { [unowned self] object, change in
+            if let message = self.windowController.leftViewController.consoleCLastMidiMessage {
+                self.consoleCLastValues[message.number] = message.value
                 self.setNeedsDisplay(self.bounds)
             }
         }
@@ -94,11 +106,14 @@ class PlayFadersView: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        if let context = NSGraphicsContext.current?.cgContext, let windowController = self.windowController, let consoleAParameters = windowController.consoleAParameters, let consoleBParameters = windowController.consoleBParameters {
+        if let context = NSGraphicsContext.current?.cgContext, let windowController = self.windowController, let consoleAParameters = windowController.consoleAParameters, let consoleBParameters = windowController.consoleBParameters, let consoleCParameters = windowController.consoleCParameters {
             
             var controllerCount = consoleAParameters.controllerCount
             if consoleBParameters.enable {
                 controllerCount += consoleBParameters.controllerCount
+            }
+            if consoleCParameters.enable {
+                controllerCount += consoleCParameters.controllerCount
             }
             let faderWidth = self.bounds.size.width / CGFloat(controllerCount)
             var faderRect = CGRect(x: 0, y: 0, width: faderWidth, height: 0)
@@ -123,13 +138,36 @@ class PlayFadersView: NSView {
                 }
             }
             
+            //Swift.print(" consoleBParameters.filterControllers: \(consoleBParameters.filterControllers)")
+            
             // Draw faders of console B
             for (index,fader) in consoleBParameters.filterControllers.enumerated() {
                 let value = CGFloat(MIDIValueCorrection(self.consoleBLastValues[index], type: self.midiValueCorrection))
+                //Swift.print("value: \(value)")
                 if fader {
                     if value > 0 {
                         context.saveGState()
                         let color = windowController.leftViewController.controllerColor(from: index, console: 1)
+                        context.setFillColor(color.cgColor)
+                        faderRect.origin.x = faderX
+                        faderRect.size.height = (value * self.bounds.size.height) / 127
+                        context.addRect(faderRect)
+                        context.drawPath(using: .fill)
+                        context.restoreGState()
+                        
+                        //Swift.print("console B index: \(index), faderRect: \(faderRect)")
+                    }
+                    faderX += faderWidth
+                }
+            }
+            
+            // Draw faders of console C
+            for (index,fader) in consoleCParameters.filterControllers.enumerated() {
+                let value = CGFloat(MIDIValueCorrection(self.consoleCLastValues[index], type: self.midiValueCorrection))
+                if fader {
+                    if value > 0 {
+                        context.saveGState()
+                        let color = windowController.leftViewController.controllerColor(from: index, console: 2)
                         context.setFillColor(color.cgColor)
                         faderRect.origin.x = faderX
                         faderRect.size.height = (value * self.bounds.size.height) / 127

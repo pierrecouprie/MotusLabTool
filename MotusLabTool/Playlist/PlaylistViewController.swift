@@ -38,6 +38,11 @@ class PlaylistViewController: NSViewController {
         self.setValue(self.windowController.playlistSelectedFileIndex, forKey: "playlistSelectedFileIndex")
     }
     
+    // Prevent resizing sheet view
+    override func viewWillLayout() {
+        self.preferredContentSize = view.frame.size
+    }
+    
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.windowController.enableCommands()
