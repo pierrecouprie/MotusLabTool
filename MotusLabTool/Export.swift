@@ -145,15 +145,13 @@ class Export: NSObject {
     
     func createTXT() {
         
-        var sessionIndex: Int = 1
         for session in midiArrayValues {
             let outputString = session.value
             do {
-                try outputString.write(to: self.url.appendingPathComponent(String(sessionIndex) + "-" + session.key).appendingPathExtension("txt"), atomically: true, encoding: .utf8)
+                try outputString.write(to: self.url.appendingPathComponent(session.key).appendingPathExtension("txt"), atomically: true, encoding: .utf8)
             } catch let error as NSError {
                 Swift.print("Export: createTXT Unable to export to txt format, context: " + error.localizedDescription)
             }
-            sessionIndex += 1
         }
     }
     
@@ -275,14 +273,13 @@ class Export: NSObject {
                         }
                     }
                     
-                    
                 }
                 newSession[JSONKey.midi_event] = events
             }
             
             sessions.append(newSession)
             
-            midiArrayValues[session.title] = ctrlString
+            self.midiArrayValues[session.id] = ctrlString
         }
         data[MotusLabFile.PropertyKey.sessionsKey] = sessions
         

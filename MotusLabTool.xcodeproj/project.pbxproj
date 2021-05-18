@@ -89,6 +89,11 @@
 		8AD44C8D2326BB3A00DE08AB /* newProject.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C7A2326BB3900DE08AB /* newProject.png */; };
 		8AD44C932326BB3A00DE08AB /* playlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C802326BB3A00DE08AB /* playlist.png */; };
 		8AD44C972326BB3A00DE08AB /* bigCounter.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD44C842326BB3A00DE08AB /* bigCounter.png */; };
+		8ADECD7626502FAC00E2E348 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADECD7526502FAC00E2E348 /* PreferencesWindowController.swift */; };
+		8ADECD7826502FE100E2E348 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADECD7726502FE100E2E348 /* PreferencesViewController.swift */; };
+		8ADECD7A265030B700E2E348 /* PreferencesAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADECD79265030B700E2E348 /* PreferencesAudioViewController.swift */; };
+		8ADECD7C265031B700E2E348 /* PreferencesVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADECD7B265031B700E2E348 /* PreferencesVideoViewController.swift */; };
+		8ADECD7E265031CF00E2E348 /* PreferencesGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADECD7D265031CF00E2E348 /* PreferencesGeneralViewController.swift */; };
 		8AE191732315045C006CD958 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE191722315045C006CD958 /* AppDelegate.swift */; };
 		8AE191772315045D006CD958 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191762315045D006CD958 /* Assets.xcassets */; };
 		8AE1917A2315045D006CD958 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191782315045D006CD958 /* Main.storyboard */; };
@@ -192,6 +197,11 @@
 		8AD44C7A2326BB3900DE08AB /* newProject.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newProject.png; sourceTree = "<group>"; };
 		8AD44C802326BB3A00DE08AB /* playlist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playlist.png; sourceTree = "<group>"; };
 		8AD44C842326BB3A00DE08AB /* bigCounter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigCounter.png; sourceTree = "<group>"; };
+		8ADECD7526502FAC00E2E348 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		8ADECD7726502FE100E2E348 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		8ADECD79265030B700E2E348 /* PreferencesAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesAudioViewController.swift; sourceTree = "<group>"; };
+		8ADECD7B265031B700E2E348 /* PreferencesVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVideoViewController.swift; sourceTree = "<group>"; };
+		8ADECD7D265031CF00E2E348 /* PreferencesGeneralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesGeneralViewController.swift; sourceTree = "<group>"; };
 		8AE1916F2315045C006CD958 /* MotusLabTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotusLabTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE191722315045C006CD958 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AE191762315045D006CD958 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -391,6 +401,18 @@
 			path = "Value Transformers";
 			sourceTree = "<group>";
 		};
+		8ADECD7426502F8600E2E348 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				8ADECD7526502FAC00E2E348 /* PreferencesWindowController.swift */,
+				8ADECD7726502FE100E2E348 /* PreferencesViewController.swift */,
+				8ADECD79265030B700E2E348 /* PreferencesAudioViewController.swift */,
+				8ADECD7B265031B700E2E348 /* PreferencesVideoViewController.swift */,
+				8ADECD7D265031CF00E2E348 /* PreferencesGeneralViewController.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
 		8AE191662315045C006CD958 = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +445,7 @@
 				8A694A6F23257F54001BD253 /* Export.swift */,
 				8A156EBC2316529E00064A8A /* DefaultSettings.swift */,
 				8A7DA567231657620059B5C9 /* Extensions.swift */,
+				8ADECD7426502F8600E2E348 /* Preferences */,
 				8ABBBF78231958B500FA04A9 /* Files */,
 				8ABBBF7B23196D1200FA04A9 /* Value Transformers */,
 				8AA84682231AC5DD00005A4D /* Various */,
@@ -490,7 +513,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Pierre Couprie";
 				TargetAttributes = {
 					8A394A55232E8D9F0012A5C1 = {
@@ -595,11 +618,13 @@
 				8A0AE006231D48EC0024FACF /* AcousmoniumPropertyViewController.swift in Sources */,
 				8A0AE00F231D8A7A0024FACF /* PlaylistViewController.swift in Sources */,
 				8A112400233E4F8100AA346D /* BlackView.swift in Sources */,
+				8ADECD7C265031B700E2E348 /* PreferencesVideoViewController.swift in Sources */,
 				8A41E905232542C700613745 /* PlaylistFile.swift in Sources */,
 				8A694A7023257F54001BD253 /* Export.swift in Sources */,
 				8A7DA568231657620059B5C9 /* Extensions.swift in Sources */,
 				8A6BEF5C231BB60300D5A84B /* PlayMarkersView.swift in Sources */,
 				8AC98A36232C170E0004FA35 /* PlayFaderStatistics.swift in Sources */,
+				8ADECD7826502FE100E2E348 /* PreferencesViewController.swift in Sources */,
 				8A6BEF60231BB66400D5A84B /* PlayTimeRulerView.swift in Sources */,
 				8ABBBF752319583600FA04A9 /* MIDIControllerEvent.swift in Sources */,
 				8ABBBF6723190C0400FA04A9 /* NSButtonCellCounter.swift in Sources */,
@@ -627,17 +652,20 @@
 				8A6BEF66231BC47E00D5A84B /* AudioAnalyzer.swift in Sources */,
 				8A6BEF68231BCEAC00D5A84B /* PlayCameraView.swift in Sources */,
 				8AA84675231A698E00005A4D /* AudioRecorder.swift in Sources */,
+				8ADECD7E265031CF00E2E348 /* PreferencesGeneralViewController.swift in Sources */,
 				8A0AE00C231D879B0024FACF /* PlayFadersView.swift in Sources */,
 				8A6BEF56231BB58300D5A84B /* PlayTimelineView.swift in Sources */,
 				8A6BEF47231B961F00D5A84B /* AudioCaptureMeter.swift in Sources */,
 				8A935E7B233FAF570081EE0B /* RecordingValueTransformer.swift in Sources */,
 				8ABBBF69231912BF00FA04A9 /* LeftViewController.swift in Sources */,
+				8ADECD7626502FAC00E2E348 /* PreferencesWindowController.swift in Sources */,
 				8A6BEF53231B9DE200D5A84B /* PreviewCameraView.swift in Sources */,
 				8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */,
 				8A2BB9B0232397A900FB6106 /* PlaylistImageValueController.swift in Sources */,
 				8A6BEF62231BB8A200D5A84B /* AudioPlayer.swift in Sources */,
 				8A6BEF50231B9D9B00D5A84B /* RecordCameraView.swift in Sources */,
 				8ABBBF73231957AC00FA04A9 /* MotusLabFile.swift in Sources */,
+				8ADECD7A265030B700E2E348 /* PreferencesAudioViewController.swift in Sources */,
 				8A6BEF4E231B99FA00D5A84B /* VideoRecorder.swift in Sources */,
 				8ABBBF7A23195A0900FA04A9 /* MIDITools.swift in Sources */,
 				8A0AE004231D48DA0024FACF /* AcousmoniumViewController.swift in Sources */,
@@ -760,6 +788,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -822,6 +851,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -859,7 +889,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -868,7 +898,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -884,7 +914,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -893,7 +923,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

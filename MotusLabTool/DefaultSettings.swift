@@ -70,6 +70,10 @@ struct PreferenceKey {
     static let movieSync = "movieSync"
     static let moviePredelay = "moviePredelay"
     
+    //Record (new preferences in 2.2 version)
+    static let movieSize = "movieSize"
+    static let movieQuality = "movieQuality"
+    
     // Colors
     static let colorMode = "colorMode"
     static let color1 = "color1"

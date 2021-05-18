@@ -1,6 +1,6 @@
 #  MotusLabTool
 
-> Current version is 2.1
+> Current version is 2.2
 
 ![Main interface](MotusLabTool/Resources/Manual/Images/interface.png)
 
@@ -10,7 +10,7 @@ MotusLabTool is a software developed to record acousmatic music interpretation. 
 
 ## Research team
 
-* Development and research: Pierre Couprie ([Institute for research in Musicology](http://www.iremus.cnrs.fr/))
+* Development and research: Pierre Couprie ([Paris-Saclay University](https://www.universite-paris-saclay.fr/en) and [Center for Cultural History of Contemporary Societies](https://www.chcsc.uvsq.fr))
 * Research: Nathanaëlle Raboisson ([Motus Music Company](https://motus.fr/) and [Institute for research in Musicology](http://www.iremus.cnrs.fr/))
 * Consulting: Olivier Lamarche ([Motus Music Company](https://motus.fr/))
 
@@ -31,8 +31,6 @@ More [information](http://www.iremus.cnrs.fr/fr/programme-de-recherche/analyse-d
 ## Why a new implementation?
 
 Original implementation was developed in Max (Cycling74) and there were lots of limitations and issues with video recording of webcams and graphical representations.
-
-Then I will rewrite the software code in Swift. You are able to open project created with MotusLabTool in [iAnalyse 5](http://ianalyse5.pierrecouprie.fr).
 
 ## Requirements
 

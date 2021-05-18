@@ -32,6 +32,8 @@ class LeftViewController: NSViewController {
     var cameraTimer: Timer!
     var audioMeterTimer: Timer!
     
+    @objc dynamic var playlistTitleItem: String!
+    
     @objc dynamic var selectedSessionIndex = IndexSet(integer: 0)
     
     //AUDIO
@@ -289,6 +291,7 @@ class LeftViewController: NSViewController {
                 if let first = playlistSelectedFile.first {
                     let playlistFile = windowController.playlistFiles[first]
                     if let playlistUrl = playlistFile.url {
+                        self.setValue(playlistUrl.fileName, forKey: "playlistTitleItem")
                         if FileManager.default.fileExists(atPath: playlistUrl.path) {
                             if self.recordAudioPlayer == nil {
                                 self.recordAudioPlayer = AudioPlayer(self)

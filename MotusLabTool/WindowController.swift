@@ -84,7 +84,16 @@ class WindowController: NSWindowController {
     @objc dynamic var enablePlayToolbarButtons = false //Controllers, midi playing, statistics
     @objc dynamic var enablePlayStopToolbarButtons = false //Play, stop
     @objc dynamic var showAcousmonium: NSButton.StateValue = .off
-    @objc dynamic var toolbarRecord: NSButton.StateValue = .off
+    @objc dynamic var toolbarRecord: NSButton.StateValue = .off {
+        didSet {
+            if self.toolbarRecord == .on {
+                self.leftViewController.startRecording()
+            } else {
+                self.leftViewController.stopRecording()
+            }
+            self.enableCommands()
+        }
+    }
     @objc dynamic var toolbarPlay: NSButton.StateValue = .off
     @IBOutlet weak var modeSegmentedControl: NSSegmentedControl!
     @objc dynamic var currentMode: String = Mode.none {
@@ -237,6 +246,9 @@ class WindowController: NSWindowController {
         
         preferences[PreferenceKey.movieSync] = true
         preferences[PreferenceKey.moviePredelay] = 0.7
+        
+        preferences[PreferenceKey.movieSize] = 1 // 960 x 540
+        preferences[PreferenceKey.movieQuality] = 2 // High
         
         preferences[PreferenceKey.playTimelineWaveform] = true
         preferences[PreferenceKey.playTimelineControllers] = true
@@ -828,15 +840,6 @@ class WindowController: NSWindowController {
     }
     
     //MARK: - Toolbar
-    
-    @IBAction func record(_ sender: Any) {
-        if (sender as! NSButton).state == .on {
-            self.leftViewController.startRecording()
-        } else {
-            self.leftViewController.stopRecording()
-        }
-        self.enableCommands()
-    }
     
     @IBAction func play(_ sender: Any) {
         if (sender as! NSButton).state == .on {

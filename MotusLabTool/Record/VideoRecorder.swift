@@ -25,6 +25,7 @@ struct VideoSize {
     static let vga640x480 = "vga640x480"
     static let qHD960x540 = "qHD960x540"
     static let hd1280x720 = "hd1280x720"
+    static let hd1920x1080 = "hd1920x1080"
     
     static func presetFrom(tag: Int) -> String {
         switch tag {
@@ -32,10 +33,12 @@ struct VideoSize {
             return VideoSize.vga640x480
         case 1:
             return VideoSize.qHD960x540
+        case 2:
+            return VideoSize.hd1280x720
         default:
             break
         }
-        return VideoSize.hd1280x720
+        return VideoSize.hd1920x1080
     }
     
     static func sizeFromTag(tag: Int) -> (width: Float, height: Float) {
@@ -44,10 +47,12 @@ struct VideoSize {
             return (640,480)
         case 1:
             return (960,540)
+        case 2:
+            return (1280,720)
         default:
             break
         }
-        return (1280,720)
+        return (1920,1080)
     }
     
 }
@@ -86,16 +91,42 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     let captureSession = AVCaptureSession()
     let videoQueue = DispatchQueue(label: "com.motusLabRecorder.videoQueue")
     var presetTag: Int = 1
-    var videoSize = VideoSize.sizeFromTag(tag: 1)
+    var videoSize = VideoSize.sizeFromTag(tag: 3)
     
     var cameras = [String: (name: String, connection: AVCaptureConnection, captureInput: AVCaptureDeviceInput, captureOutput: AVCaptureConnection, assetWritter: AVAssetWriter?, assetWritterInput: AVAssetWriterInput?)]()
     
     init(leftViewController: LeftViewController) {
         super.init()
         self.leftViewController = leftViewController
+        self.videoConfiguration()
         
-        // Configure capture session
-        self.captureSession.sessionPreset = .high
+        NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
+    }
+    
+    @objc func userDefaultsDidChange(_ notification: Notification) {
+        self.videoConfiguration()
+    }
+    
+    /// Initialize or update video settings
+    func videoConfiguration() {
+        switch self.preferences.integer(forKey: PreferenceKey.movieQuality) {
+        case 0:
+            if self.captureSession.sessionPreset != .low {
+                self.captureSession.sessionPreset = .low
+            }
+        case 1:
+            if self.captureSession.sessionPreset != .medium {
+                self.captureSession.sessionPreset = .medium
+            }
+        case 2:
+            if self.captureSession.sessionPreset != .high {
+                self.captureSession.sessionPreset = .high
+            }
+        default:
+            break
+        }
+        
+        self.videoSize = VideoSize.sizeFromTag(tag: self.preferences.integer(forKey: PreferenceKey.movieSize))
     }
     
     /// Remove an input video device and its connexions

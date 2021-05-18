@@ -217,7 +217,15 @@ Use menu `MotusLaTool` > `Preferences` to open preference window:
 
 ![Preferences](Images/preferences.png)
 
+The preference window contains 3 tabs:
+
+* `General`
+* `Audio recording`
+* `Video recording`
+
 `Audio recording` settings are only available for PCM format (WAV). Multitracks recording (more than 2 channels) needs an external sound card.
+
+If you change `Video recording` settings, be careful about the performance of the cameras used. Larger image size and quality requires more CPU resources. Also, using more than 2 cameras may reduce the number of images per second in the recorded files.
 
 ## FAQ
 
