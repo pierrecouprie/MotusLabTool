@@ -57,6 +57,7 @@
 		8A6BEF66231BC47E00D5A84B /* AudioAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF65231BC47E00D5A84B /* AudioAnalyzer.swift */; };
 		8A6BEF68231BCEAC00D5A84B /* PlayCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BEF67231BCEAC00D5A84B /* PlayCameraView.swift */; };
 		8A7DA568231657620059B5C9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7DA567231657620059B5C9 /* Extensions.swift */; };
+		8A80CE5E26D669F500F877D6 /* SyncValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A80CE5D26D669F500F877D6 /* SyncValueTransformer.swift */; };
 		8A935E7B233FAF570081EE0B /* RecordingValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A935E7A233FAF570081EE0B /* RecordingValueTransformer.swift */; };
 		8A9CEE7923473F4700798F49 /* WaitingWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9CEE7723473F4700798F49 /* WaitingWindow.xib */; };
 		8A9CEE7B23473FBC00798F49 /* WaitingWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CEE7A23473FBC00798F49 /* WaitingWindowController.swift */; };
@@ -165,6 +166,7 @@
 		8A6BEF65231BC47E00D5A84B /* AudioAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAnalyzer.swift; sourceTree = "<group>"; };
 		8A6BEF67231BCEAC00D5A84B /* PlayCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCameraView.swift; sourceTree = "<group>"; };
 		8A7DA567231657620059B5C9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8A80CE5D26D669F500F877D6 /* SyncValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncValueTransformer.swift; sourceTree = "<group>"; };
 		8A935E7A233FAF570081EE0B /* RecordingValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingValueTransformer.swift; sourceTree = "<group>"; };
 		8A9CEE7823473F4700798F49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WaitingWindow.xib; sourceTree = "<group>"; };
 		8A9CEE7A23473FBC00798F49 /* WaitingWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingWindowController.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				8A694A6D23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift */,
 				8A935E7A233FAF570081EE0B /* RecordingValueTransformer.swift */,
 				8AA7156B24E95C9800DD1859 /* SecondsValueTransformer.swift */,
+				8A80CE5D26D669F500F877D6 /* SyncValueTransformer.swift */,
 			);
 			path = "Value Transformers";
 			sourceTree = "<group>";
@@ -512,7 +515,7 @@
 		8AE191672315045C006CD958 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Pierre Couprie";
 				TargetAttributes = {
@@ -637,6 +640,7 @@
 				8AA8467E231AC3CE00005A4D /* AddMarkerPopoverViewController.swift in Sources */,
 				8ABBBF6E231950BB00FA04A9 /* MidiSettingsViewController.swift in Sources */,
 				8AA84688231ACEE400005A4D /* MIDIRecorder.swift in Sources */,
+				8A80CE5E26D669F500F877D6 /* SyncValueTransformer.swift in Sources */,
 				8A41E9012325299B00613745 /* SimpleTimeValueTransformer.swift in Sources */,
 				8A694A6E23257227001BD253 /* NSButtonStateIntegerValueTransformer.swift in Sources */,
 				8AA7156C24E95C9800DD1859 /* SecondsValueTransformer.swift in Sources */,
@@ -889,7 +893,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -898,7 +902,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -914,7 +918,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MotusLabTool/Info.plist;
@@ -923,7 +927,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

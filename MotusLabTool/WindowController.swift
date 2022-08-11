@@ -244,7 +244,8 @@ class WindowController: NSWindowController {
         preferences[PreferenceKey.sampleRate] = 44100
         preferences[PreferenceKey.channelNumber] = 2
         
-        preferences[PreferenceKey.movieSync] = true
+        //preferences[PreferenceKey.movieSync] = true // Obsolete in 2.3
+        preferences[PreferenceKey.movieSync2] = 1 // 2.3
         preferences[PreferenceKey.moviePredelay] = 0.7
         
         preferences[PreferenceKey.movieSize] = 1 // 960 x 540

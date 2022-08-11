@@ -134,7 +134,7 @@ class MIDIRecorder: NSObject {
         for packet in packets.makeIterator() {
             let packetArray = packet.asArray
             
-            for n in stride(from: 0, to: packetArray.count - 1, by: 3) {
+            for n in stride(from: 0, to: packetArray.count - 2, by: 3) {
                 let end = n+2
                 let slice = packetArray[n...end]
                 let singlePacket = Array(slice)
@@ -152,7 +152,7 @@ class MIDIRecorder: NSObject {
     /// Parse MIDI packet
     func midiParser(_ packet: [UInt8]) {
         
-        guard self.consoleParameters.enable else {
+        guard self.consoleParameters.enable && packet.count > 2 else {
             return
         }
         

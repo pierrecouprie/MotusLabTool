@@ -66,11 +66,12 @@ struct PreferenceKey {
     static let sampleRate = "sampleRate"
     static let channelNumber = "channelNumber"
     
-    //Playback
-    static let movieSync = "movieSync"
+    // Playback
+    static let movieSync = "movieSync" // Obsolete in 2.3
+    static let movieSync2 = "movieSync2"
     static let moviePredelay = "moviePredelay"
     
-    //Record (new preferences in 2.2 version)
+    // Record (new preferences in 2.2 version)
     static let movieSize = "movieSize"
     static let movieQuality = "movieQuality"
     
@@ -113,7 +114,7 @@ struct PreferenceKey {
     static let acousmoSize = "acousmoSize"
     static let acousmoShowTitles = "acousmoShowTitles"
     
-    //Statistics
+    // Statistics
     static let statisticsShow = "statisticsShow"
     static let statisticsMin = "statisticsMin"
     static let statisticsMax = "statisticsMax"

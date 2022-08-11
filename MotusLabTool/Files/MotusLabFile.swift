@@ -78,7 +78,8 @@ class MotusLabFile: NSObject, NSCoding, NSCopying {
     }
     
     func createSession() -> Session {
-        let newSession = Session(title: "Untitled", number: self.sessions.count, motusLabFile: self)
+        //let newSession = Session(title: "Untitled", number: self.sessions.count, motusLabFile: self)
+        let newSession = Session(title: "Untitled", motusLabFile: self)
         var sessions = self.sessions!
         sessions.append(newSession)
         self.setValue(sessions, forKey: PropertyKey.sessionsKey)
@@ -147,7 +148,8 @@ class Session: NSObject, NSCoding, NSCopying {
     }
     
     #warning("Number ?")
-    convenience init(title: String, number: Int, motusLabFile: MotusLabFile) {
+    //convenience init(title: String, number: Int, motusLabFile: MotusLabFile) {
+    convenience init(title: String, motusLabFile: MotusLabFile) {
         self.init()
         self.title = title
         self.information = ""
@@ -198,7 +200,8 @@ class Session: NSObject, NSCoding, NSCopying {
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = Session(title: self.title, number: 0, motusLabFile: self.motusLabFile)
+        //let copy = Session(title: self.title, number: 0, motusLabFile: self.motusLabFile)
+        let copy = Session(title: self.title, motusLabFile: self.motusLabFile)
         copy.id = self.id
         copy.information = self.information
         copy.duration = self.duration

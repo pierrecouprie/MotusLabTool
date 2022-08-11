@@ -83,6 +83,7 @@ class LeftViewController: NSViewController {
     @objc dynamic var consoleCLastMidiMessage: ConsoleLastMidiMessage!
     var controllersList = [ControllerItem]()
     
+    //Observers
     var displayedViewObservation: NSKeyValueObservation?
     var bigCounterObservation: NSKeyValueObservation?
     
@@ -1165,7 +1166,7 @@ class LeftViewController: NSViewController {
     
     /// Update time position of videos each 10 seconds to avoid the time shift.
     ///
-    /// If preferences value of 'movieSync' is true, 2 strategies are used to syncrhonize videos to audio:
+    /// If preferences value of 'movieSync' is true, 2 strategies are used to synchronize videos to audio:
     /// - If audio duration and movie duration is closed (+/- 0.75 seconds), synchronization is proportional
     /// - Synchronization of movie depends to preferences value of 'moviePredelay' (default = -0.7 seconds)
     ///
@@ -1181,12 +1182,14 @@ class LeftViewController: NSViewController {
         
         for camera in self.playCameraAVPlayers {
             
-            if self.preferences.bool(forKey: PreferenceKey.movieSync) {
-                let videoDuration = Float(CMTimeGetSeconds(camera.currentItem!.asset.duration))
+            let videoDuration = Float(CMTimeGetSeconds(camera.currentItem!.asset.duration))
+            
+            if self.preferences.integer(forKey: PreferenceKey.movieSync2) == 1 { // Automatic
                 if videoDuration < audioDuration + 0.75 && videoDuration > audioDuration - 0.75 {
                     videoPosition = ((audioCurrentTime * videoDuration) / audioDuration)
-                    //Swift.print("LeftViewController: updateCameraPosition MovieSync is using (videoDuration: \(videoDuration), audioDuration: \(audioDuration))!")
                 }
+            } else if self.preferences.integer(forKey: PreferenceKey.movieSync2) == 2 { // Forced
+                videoPosition = ((audioCurrentTime * videoDuration) / audioDuration)
             }
             
             let timeScale = camera.currentTime().timescale

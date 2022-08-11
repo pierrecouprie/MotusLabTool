@@ -62,6 +62,7 @@ class AudioCaptureMeter: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate 
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         if connection.audioChannels.count > 1 {
             for index in 0..<self.meterLevels.count {
+                guard index < connection.audioChannels.count else { return }
                 let channel: AVCaptureAudioChannel = connection.audioChannels[index]
                 self.meterLevels[index] = channel.averagePowerLevel
             }

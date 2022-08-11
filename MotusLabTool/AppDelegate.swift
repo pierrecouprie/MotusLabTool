@@ -56,6 +56,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let secondsValueTransformerName = NSValueTransformerName.init("SecondsValueTransformer")
         ValueTransformer.setValueTransformer(secondsValueTransformer, forName: secondsValueTransformerName)
         
+        let syncValueTransformer = SyncValueTransformer()
+        let syncValueTransformerName = NSValueTransformerName.init("SyncValueTransformer")
+        ValueTransformer.setValueTransformer(syncValueTransformer, forName: syncValueTransformerName)
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

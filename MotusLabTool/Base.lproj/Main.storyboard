@@ -239,10 +239,8 @@
                                         </connections>
                                     </segmentedControl>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="5785F747-9E42-4524-B388-B43CE9752D93" label="Record" paletteLabel="Record" image="mainTBRecord" id="f0D-z3-SMZ">
+                                <toolbarItem implicitItemIdentifier="5785F747-9E42-4524-B388-B43CE9752D93" label="Record" paletteLabel="Record" image="mainTBRecord" sizingBehavior="auto" id="f0D-z3-SMZ">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="glb-nc-5Zg">
                                         <rect key="frame" x="4" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -260,10 +258,8 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="D259D965-3B61-44BA-A4A7-5CA4D876CC51" label="Play" paletteLabel="Play" image="mainTBPlay" id="P6b-GM-hGC">
+                                <toolbarItem implicitItemIdentifier="D259D965-3B61-44BA-A4A7-5CA4D876CC51" label="Play" paletteLabel="Play" image="mainTBPlay" sizingBehavior="auto" id="P6b-GM-hGC">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="Ncm-3m-ALh">
                                         <rect key="frame" x="0.0" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -282,10 +278,8 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="7BDDA44B-519E-4F04-8A23-99FBD0AA5159" label="Stop" paletteLabel="Stop" image="mainTBStop" id="zuj-Ac-4qO">
+                                <toolbarItem implicitItemIdentifier="7BDDA44B-519E-4F04-8A23-99FBD0AA5159" label="Stop" paletteLabel="Stop" image="mainTBStop" sizingBehavior="auto" id="zuj-Ac-4qO">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="6BN-fY-b8J">
                                         <rect key="frame" x="0.0" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -299,10 +293,8 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="11BC4DBA-6428-45AB-A486-2AAA163743C9" label="MIDI" paletteLabel="MIDI" image="mainTBMidi" id="X1d-1Q-877">
+                                <toolbarItem implicitItemIdentifier="11BC4DBA-6428-45AB-A486-2AAA163743C9" label="MIDI" paletteLabel="MIDI" image="mainTBMidi" sizingBehavior="auto" id="X1d-1Q-877">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="MsK-eP-dRD">
                                         <rect key="frame" x="0.0" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -322,10 +314,8 @@
                                         <segue destination="a1P-Oa-AzQ" kind="sheet" id="eJE-Ka-kw1"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="EF487D58-6E6E-4CD5-8B26-F66D892E514D" label="Add camera" paletteLabel="Add camera" image="mainTBAddCamera" id="ci5-eN-EPZ">
+                                <toolbarItem implicitItemIdentifier="EF487D58-6E6E-4CD5-8B26-F66D892E514D" label="Add camera" paletteLabel="Add camera" image="mainTBAddCamera" sizingBehavior="auto" id="ci5-eN-EPZ">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="LT8-VG-c0S">
                                         <rect key="frame" x="16" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -348,10 +338,8 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="38C2CC1E-42F6-4157-A659-C26534A41FDB" label="Controllers" paletteLabel="Controllers" image="mainTBControllers" id="cB0-jD-IEA">
+                                <toolbarItem implicitItemIdentifier="38C2CC1E-42F6-4157-A659-C26534A41FDB" label="Controllers" paletteLabel="Controllers" image="mainTBControllers" sizingBehavior="auto" id="cB0-jD-IEA">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="gTB-Fd-Axr">
                                         <rect key="frame" x="14" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -365,10 +353,8 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="B5514A6B-3801-477D-A128-5C47AB17361A" label="MIDI Playing" paletteLabel="MIDI Playing" image="mainTBMidiPlay" id="ISp-Nj-HsT">
+                                <toolbarItem implicitItemIdentifier="B5514A6B-3801-477D-A128-5C47AB17361A" label="MIDI Playing" paletteLabel="MIDI Playing" image="mainTBMidiPlay" sizingBehavior="auto" id="ISp-Nj-HsT">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="VXg-8P-t6N">
                                         <rect key="frame" x="17" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -382,10 +368,8 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="D8E3F747-4319-4784-8B3D-2DC78565C485" label="Playlist" paletteLabel="Playlist" image="mainTBPlaylist" id="EKb-Sd-SXl">
+                                <toolbarItem implicitItemIdentifier="D8E3F747-4319-4784-8B3D-2DC78565C485" label="Playlist" paletteLabel="Playlist" image="mainTBPlaylist" sizingBehavior="auto" id="EKb-Sd-SXl">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="SjE-vK-Lkz">
                                         <rect key="frame" x="4" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -409,10 +393,8 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="2AC7D32B-9D87-4688-8898-1DC8EB97A45C" label="Big Counter" paletteLabel="Big Counter" image="mainTBBigCounter" id="wY7-Yh-d64">
+                                <toolbarItem implicitItemIdentifier="2AC7D32B-9D87-4688-8898-1DC8EB97A45C" label="Big Counter" paletteLabel="Big Counter" image="mainTBBigCounter" sizingBehavior="auto" id="wY7-Yh-d64">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="EPK-3j-X0M">
                                         <rect key="frame" x="16" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -439,10 +421,8 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="0BE00CE1-CA90-42E0-9025-D18E14071482" label="Counter" paletteLabel="Counter" title="00:00.000" id="SlX-Ot-2GR">
+                                <toolbarItem implicitItemIdentifier="0BE00CE1-CA90-42E0-9025-D18E14071482" label="Counter" paletteLabel="Counter" title="00:00.000" sizingBehavior="auto" id="SlX-Ot-2GR">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="100" height="24"/>
-                                    <size key="maxSize" width="100" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="Y2m-YQ-RqR" customClass="NSButtonCounter" customModule="MotusLabTool" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="100" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -453,10 +433,8 @@
                                         <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="057040AD-0252-43CD-BB3A-A9799650068B" label="Acousmonium" paletteLabel="Acousmonium" image="mainTBAcousmonium" id="EQd-Wf-hNz">
+                                <toolbarItem implicitItemIdentifier="057040AD-0252-43CD-BB3A-A9799650068B" label="Acousmonium" paletteLabel="Acousmonium" image="mainTBAcousmonium" sizingBehavior="auto" id="EQd-Wf-hNz">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="mTO-1G-qYT">
                                         <rect key="frame" x="22" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -473,10 +451,8 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="DD0B54D5-8F29-4758-9ED2-824ABAFD0E90" label="Statistics" paletteLabel="Statistics" image="mainTBStatistics" id="Nbl-bt-To1">
+                                <toolbarItem implicitItemIdentifier="DD0B54D5-8F29-4758-9ED2-824ABAFD0E90" label="Statistics" paletteLabel="Statistics" image="mainTBStatistics" sizingBehavior="auto" id="Nbl-bt-To1">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="G7e-x6-lNu">
                                         <rect key="frame" x="9" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -492,10 +468,8 @@
                                         <segue destination="SS9-cU-unt" kind="sheet" id="fMF-x0-0g7"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="8A083810-DB05-430D-9B9E-74765B602590" label="Black Window" paletteLabel="Black Window" image="mainTBBlackWindow" id="zSD-cx-jh9">
+                                <toolbarItem implicitItemIdentifier="8A083810-DB05-430D-9B9E-74765B602590" label="Black Window" paletteLabel="Black Window" image="mainTBBlackWindow" sizingBehavior="auto" id="zSD-cx-jh9">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="38" height="24"/>
-                                    <size key="maxSize" width="38" height="24"/>
                                     <button key="view" verticalHuggingPriority="750" id="mJX-DJ-RKS">
                                         <rect key="frame" x="22" y="14" width="38" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

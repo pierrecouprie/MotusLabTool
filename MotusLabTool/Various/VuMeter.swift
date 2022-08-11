@@ -64,12 +64,11 @@ class VuMeter: NSView {
             self.updateChannels()
         }
         
-        guard self.subviews.count > 0 else {
-            return
-        }
+        guard self.subviews.count > 0 else { return }
         
         //Display amplitude values
         for (index,level) in self.levels.enumerated() {
+            guard self.subviews.count > index else { return }
             let height = (CGFloat(level) * self.bounds.size.height) / (CGFloat(max) - CGFloat(min))
             var frame = self.subviews[index].frame
             frame.size.height = height

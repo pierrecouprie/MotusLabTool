@@ -75,7 +75,7 @@ class AudioAnalyzer: NSObject {
         clientASBD.mBitsPerChannel = 32
         
         // Set the ASBD to be used
-        var clientSize = UInt32(MemoryLayout.size(ofValue: clientASBD))
+        let clientSize = UInt32(MemoryLayout.size(ofValue: clientASBD))
         err = ExtAudioFileSetProperty(af!, kExtAudioFileProperty_ClientDataFormat, clientSize, &clientASBD)
         if err != noErr {
             Swift.print("AudioAnalyzer: computeChannelsData -> Could not set Audio File Format!")
@@ -95,7 +95,7 @@ class AudioAnalyzer: NSObject {
         
         // Initialize a buffer and a place to put the final data
         let bufferFrames = 4096
-        var finalData = UnsafeMutablePointer<Float>.allocate(capacity: Int(numberOfFrames) * Int(channelCount) * MemoryLayout<Float>.size)
+        let finalData = UnsafeMutablePointer<Float>.allocate(capacity: Int(numberOfFrames) * Int(channelCount) * MemoryLayout<Float>.size)
         defer {
             finalData.deallocate()
         }

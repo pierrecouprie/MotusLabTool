@@ -33,6 +33,8 @@ class AcousmoniumPropertyViewController: NSViewController {
     }
     
     @IBAction func removePreset(_ sender: Any) {
+        guard self.windowController != nil && self.windowController.selectedAcousmoniumFile != nil else { return }
+        
         self.windowController.deleteAcousmoniumFile(self.windowController.selectedAcousmoniumFile)
     }
     
@@ -71,12 +73,12 @@ class AcousmoniumPropertyViewController: NSViewController {
     
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func removeLoudspeaker(_ sender: Any) {
+        guard self.windowController != nil && self.windowController.selectedAcousmoniumFile != nil else { return }
+        
         let index = self.tableView.selectedRow
-        if let selectedAcousmoniumFile = self.windowController.selectedAcousmoniumFile {
-            if index > -1 && index < selectedAcousmoniumFile.acousmoniumLoudspeakers.count {
-                let loudspeaker = selectedAcousmoniumFile.acousmoniumLoudspeakers[index]
-                selectedAcousmoniumFile.removeLoudspeaker(loudspeaker)
-            }
+        if index > -1 && index < self.windowController.selectedAcousmoniumFile.acousmoniumLoudspeakers.count {
+            let loudspeaker = self.windowController.selectedAcousmoniumFile.acousmoniumLoudspeakers[index]
+            self.windowController.selectedAcousmoniumFile.removeLoudspeaker(loudspeaker)
         }
     }
 }
