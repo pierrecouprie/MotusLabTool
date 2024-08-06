@@ -132,13 +132,18 @@ class LeftViewController: NSViewController {
                 }
             }
             
-            let bigCounterPath = \WindowController.showBigCounter
+            let bigCounterPath = \WindowController.isBigCounterOpen
             self.bigCounterObservation = self.windowController.observe(bigCounterPath) { [unowned self] object, change in
+                if self.currentSession.isRecording {
+                    self.stopRecording()
+                    self.windowController.isRecording = false
+                    self.windowController.updateRecordToolbarItem()
+                }
                 self.recordWaveformView.loadPlaylistFile()
                 self.initializePlaylistPlayer()
             }
             
-            //Add observer to detect preference propertu changes
+            //Add observer to detect preference property changes
             NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
             self.consoleBActivated = UserDefaults.standard.bool(forKey: PreferenceKey.consoleBActivate)
             self.consoleCActivated = UserDefaults.standard.bool(forKey: PreferenceKey.consoleCActivate)
@@ -298,6 +303,7 @@ class LeftViewController: NSViewController {
                                 self.recordAudioPlayer = AudioPlayer(self)
                             }
                             self.recordAudioPlayer.createAudioPlayer(playlistUrl)
+                            guard self.recordAudioPlayer.audioPlayer != nil else { return }
                             self.recordAudioPlayer.audioPlayer.currentTime = Double(windowController.timePosition)
                         }
                     }
@@ -443,7 +449,7 @@ class LeftViewController: NSViewController {
         if let windowController = self.windowController {
             
             guard windowController.fileUrl != nil && self.preferences.bool(forKey: PreferenceKey.usePlaylist) else {
-                Swift.print("LeftViewController: startRecording Error fileURL is nil")
+                Swift.print("LeftViewController: startPlayingPlaylist Error fileURL is nil")
                 return
             }
             
@@ -688,7 +694,7 @@ class LeftViewController: NSViewController {
         let eventFileUrl = url.appendingPathComponent(FilePath.midi).appendingPathComponent(sessionId).appendingPathExtension(FileExtension.event)
         do {
             let data = try Data(contentsOf: eventFileUrl)
-            self.windowController.midiControllerEvents = NSKeyedUnarchiver.unarchiveObject(with: data) as? [MIDIControllerEvent]
+            self.windowController.midiControllerEvents = try NSKeyedUnarchiver.unarchive(data: data, of: NSArray.self) as? [MIDIControllerEvent]
         } catch let error as NSError {
             Swift.print("LeftViewController: loadMidiControllers() Error openning url \(eventFileUrl), context: " + error.localizedDescription)
         }
@@ -711,7 +717,7 @@ class LeftViewController: NSViewController {
         //If using playlist during recording
         if self.windowController.currentMode == Mode.recording {
             self.stopRecording()
-            self.windowController.setValue(NSButton.StateValue.off, forKey: "toolbarRecord")
+            self.windowController.setValue(false, forKey: "isRecording")
         } else if self.windowController.currentMode == Mode.playing {
             self.stopPlaying()
         }
@@ -780,7 +786,7 @@ class LeftViewController: NSViewController {
     @IBOutlet var controllersMenu: NSMenu!
     @IBAction func showControllersMenu(_ sender: Any) {
         let event = NSApp.currentEvent!
-        NSMenu.popUpContextMenu(self.controllersMenu, with: event, for: sender as! NSButton)
+        NSMenu.popUpContextMenu(self.controllersMenu, with: event, for: self.view)
     }
     
     @IBAction func changeControllersMenu(_ sender: Any) {
@@ -900,7 +906,7 @@ class LeftViewController: NSViewController {
     @IBOutlet var midiPlayMenu: NSMenu!
     @IBAction func showMidiPlayMenu(_ sender: Any) {
         let event = NSApp.currentEvent!
-        NSMenu.popUpContextMenu(self.midiPlayMenu, with: event, for: sender as! NSButton)
+        NSMenu.popUpContextMenu(self.midiPlayMenu, with: event, for: self.view)
     }
     
     @IBOutlet weak var midiPlaySubMenu: NSMenuItem!
@@ -1081,6 +1087,8 @@ class LeftViewController: NSViewController {
     
     func startPlaying() {
         
+        guard self.midiPlayer != nil && self.audioPlayer != nil else { return }
+        
         self.midiPlayer.startPlaying()
         self.audioPlayer.startPlaying()
         
@@ -1102,6 +1110,8 @@ class LeftViewController: NSViewController {
     }
     
     func stopPlaying(pause: Bool = false) {
+        
+        guard self.midiPlayer != nil && self.audioPlayer != nil else { return }
         
         if !pause {
             self.goToTime(0)
@@ -1127,10 +1137,7 @@ class LeftViewController: NSViewController {
         }
         
         self.windowController.currentMode = Mode.none
-        
-        if !pause && self.windowController.toolbarPlay == .on {
-            self.windowController.setValue(NSButton.StateValue.off, forKey: "toolbarPlay")
-        }
+        self.windowController.updatePlayToolbarItem()
     }
     
     func next() {

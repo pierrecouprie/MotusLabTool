@@ -20,7 +20,7 @@
 
 import Cocoa
 
-class WindowController: NSWindowController {
+class WindowController: NSWindowController, NSToolbarItemValidation {
     
     var appSupportFolder: URL!
     @objc dynamic var motusLabFile: MotusLabFile! {
@@ -67,14 +67,10 @@ class WindowController: NSWindowController {
             }
         }
     }
-    @objc dynamic var showBigCounter: Bool = false
+    @objc dynamic var isBigCounterOpen: Bool = false
     
     // Interface
-    @objc dynamic var displayedView: Int = 0 {
-        didSet {
-            self.enableCommands()
-        }
-    }
+    @objc dynamic var displayedView: Int = 0
     
     // MIDI
     @objc dynamic var enableSendMIDI = false
@@ -83,18 +79,7 @@ class WindowController: NSWindowController {
     @objc dynamic var enableRecordToolbarButtons = false //Add camera, record, Big counter
     @objc dynamic var enablePlayToolbarButtons = false //Controllers, midi playing, statistics
     @objc dynamic var enablePlayStopToolbarButtons = false //Play, stop
-    @objc dynamic var showAcousmonium: NSButton.StateValue = .off
-    @objc dynamic var toolbarRecord: NSButton.StateValue = .off {
-        didSet {
-            if self.toolbarRecord == .on {
-                self.leftViewController.startRecording()
-            } else {
-                self.leftViewController.stopRecording()
-            }
-            self.enableCommands()
-        }
-    }
-    @objc dynamic var toolbarPlay: NSButton.StateValue = .off
+    @objc dynamic var isAcousmoniumOpen: Bool = false
     @IBOutlet weak var modeSegmentedControl: NSSegmentedControl!
     @objc dynamic var currentMode: String = Mode.none {
         didSet {
@@ -134,6 +119,8 @@ class WindowController: NSWindowController {
         self.consoleCParameters.filter = UserDefaults.standard.string(forKey: PreferenceKey.consoleCMapping)!
         (self.contentViewController as! MainSplitViewController).initialization()
         
+        self.updatePlaylistToolbar()
+        
         // Add observer to detect changes in preference properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
     }
@@ -155,7 +142,9 @@ class WindowController: NSWindowController {
             }
             self.updateControllerColors()
         }
-        self.enableCommands()
+        
+        self.updatePlaylistToolbar()
+        
     }
     
     /// Open sheet windows
@@ -169,34 +158,6 @@ class WindowController: NSWindowController {
         }
     }
     
-    func enableCommands() {
-        switch self.displayedView {
-        case 0: // Session
-            self.setValue(false, forKey: "enableRecordToolbarButtons")
-            self.setValue(false, forKey: "enablePlayToolbarButtons")
-            self.setValue(false, forKey: "enablePlayStopToolbarButtons")
-        case 1: // Record
-            if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
-                self.setValue(true, forKey: "enableRecordToolbarButtons")
-                if self.currentMode == Mode.none {
-                    self.setValue(true, forKey: "enablePlayStopToolbarButtons")
-                } else {
-                    self.setValue(false, forKey: "enablePlayStopToolbarButtons")
-                }
-            } else {
-                self.setValue(true, forKey: "enableRecordToolbarButtons")
-                self.setValue(false, forKey: "enablePlayStopToolbarButtons")
-            }
-            self.setValue(false, forKey: "enablePlayToolbarButtons")
-        case 2: // Play
-            self.setValue(false, forKey: "enableRecordToolbarButtons")
-            self.setValue(true, forKey: "enablePlayToolbarButtons")
-            self.setValue(true, forKey: "enablePlayStopToolbarButtons")
-        default:
-            break
-        }
-    }
-    
     func enableModeSegmentedControl() {
         switch self.currentMode {
         case Mode.none :
@@ -207,8 +168,8 @@ class WindowController: NSWindowController {
             } else {
                 self.modeSegmentedControl.setEnabled(false, forSegment: 2)
             }
-            if self.toolbarPlay == .on {
-                self.setValue(NSButton.StateValue.off, forKey: "toolbarPlay")
+            if self.isPlaying {
+                self.setValue(false, forKey: "isPlaying")
             }
         case Mode.recording :
             self.modeSegmentedControl.setEnabled(true, forSegment: 0)
@@ -244,7 +205,6 @@ class WindowController: NSWindowController {
         preferences[PreferenceKey.sampleRate] = 44100
         preferences[PreferenceKey.channelNumber] = 2
         
-        //preferences[PreferenceKey.movieSync] = true // Obsolete in 2.3
         preferences[PreferenceKey.movieSync2] = 1 // 2.3
         preferences[PreferenceKey.moviePredelay] = 0.7
         
@@ -256,7 +216,6 @@ class WindowController: NSWindowController {
         preferences[PreferenceKey.playTimelineMarkers] = true
         preferences[PreferenceKey.playTimelinePlayhead] = true
         preferences[PreferenceKey.playCTRLAlpha] = 0.8
-        //preferences[PreferenceKey.colorMode] = 0
         preferences[PreferenceKey.color1] = NSColor(calibratedRed: 0, green: 0.58, blue: 1, alpha: 1).data //light blue
         preferences[PreferenceKey.color1Num] = 7
         preferences[PreferenceKey.color2] = NSColor(calibratedRed: 1, green: 0.2, blue: 0, alpha: 1).data //red
@@ -313,9 +272,6 @@ class WindowController: NSWindowController {
             
             let preferences = UserDefaults.standard
             
-            /*var consoleAIndex: Int = 1
-            var consoleBIndex: Int = 1
-            var consoleCIndex: Int = 1*/
             for n in 1..<129 {
                 
                 if consoleAParameters.filterControllers[n] {
@@ -371,66 +327,6 @@ class WindowController: NSWindowController {
                     }
                     
                 }
-                
-                /*if consoleAParameters.filterControllers[n] {
-                    switch preferences.integer(forKey: PreferenceKey.colorMode) {
-                    case 0: // Consoles
-                        self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
-                    case 1: // Groups of 8
-                        if consoleAIndex < 9 {
-                            self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
-                        } else if consoleAIndex < 17 {
-                            self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color2)?.color
-                        } else if consoleAIndex < 25 {
-                            self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color3)?.color
-                        } else {
-                            self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color4)?.color
-                        }
-                        consoleAIndex += 1
-                    default:
-                        break
-                    }
-                }
-                
-                if consoleBParameters.filterControllers[n] {
-                    switch preferences.integer(forKey: PreferenceKey.colorMode) {
-                    case 0: // Consoles
-                        self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
-                    case 1: // Groups of 8
-                        if consoleBIndex < 9 {
-                            self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
-                        } else if consoleBIndex < 17 {
-                            self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color6)?.color
-                        } else if consoleBIndex < 25 {
-                            self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color7)?.color
-                        } else {
-                            self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color8)?.color
-                        }
-                        consoleBIndex += 1
-                    default:
-                        break
-                    }
-                }
-                
-                if consoleCParameters.filterControllers[n] {
-                    switch preferences.integer(forKey: PreferenceKey.colorMode) {
-                    case 0: // Consoles
-                        self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color9)?.color
-                    case 1: // Groups of 8
-                        if consoleCIndex < 9 {
-                            self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color9)?.color
-                        } else if consoleCIndex < 17 {
-                            self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color10)?.color
-                        } else if consoleCIndex < 25 {
-                            self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color11)?.color
-                        } else {
-                            self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color12)?.color
-                        }
-                        consoleCIndex += 1
-                    default:
-                        break
-                    }
-                }*/
                 
             }
             
@@ -500,7 +396,7 @@ class WindowController: NSWindowController {
             //Load motusLab file
             let data = try Data(contentsOf: url.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data))
             self.fileUrl = url
-            self.motusLabFile = NSKeyedUnarchiver.unarchiveObject(with: data) as? MotusLabFile
+            self.motusLabFile = try NSKeyedUnarchiver.unarchive(data: data, of: MotusLabFile.self)
             
             //Activate toolbar mode button
             self.setValue(true, forKey: "enableModeToolbarButton")
@@ -576,9 +472,10 @@ class WindowController: NSWindowController {
     func saveFile() {
         
         if let motusLabFile = self.motusLabFile {
-            let data:Data = NSKeyedArchiver.archivedData(withRootObject: motusLabFile)
             let dataUrl = self.fileUrl.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data)
             do {
+                let data:Data = try NSKeyedArchiver.archivedData(withRootObject: motusLabFile as Any,
+                                                                 requiringSecureCoding: false)
                 try data.write(to: dataUrl)
             } catch let error as NSError {
                 Swift.print("WindowController: save() Error saving data to url \(dataUrl), context: " + error.localizedDescription)
@@ -593,8 +490,9 @@ class WindowController: NSWindowController {
     func saveMidi() {
         if let lastSession = self.motusLabFile.sessions.last {
             let url = self.fileUrl.appendingPathComponent(FilePath.midi).appendingPathComponent(lastSession.id).appendingPathExtension(FileExtension.event)
-            let data:Data = NSKeyedArchiver.archivedData(withRootObject: self.midiControllerEvents as Any)
             do {
+                let data:Data = try NSKeyedArchiver.archivedData(withRootObject: self.midiControllerEvents as Any,
+                                                                 requiringSecureCoding: false)
                 try data.write(to: url)
             } catch let error as NSError {
                 Swift.print("WindowController: saveMidi() Error writing file: " + error.localizedDescription)
@@ -626,7 +524,7 @@ class WindowController: NSWindowController {
             for file in fileURLs {
                 do {
                     let acousmoniumData = try Data(contentsOf: file)
-                    if let acousmonium = NSKeyedUnarchiver.unarchiveObject(with: acousmoniumData) as? AcousmoniumFile {
+                    if let acousmonium = try NSKeyedUnarchiver.unarchive(data: acousmoniumData, of: AcousmoniumFile.self) {
                         self.acousmoniumFiles.append(acousmonium)
                     }
                 } catch let error as NSError {
@@ -673,9 +571,10 @@ class WindowController: NSWindowController {
     /// Save parameters of selected acousmonium
     /// - Parameter acousmoniumFile: The name of the acousmonium
     func saveAcousmoniumFile(_ acousmoniumFile: AcousmoniumFile) {
-        let acousmoniumData:Data = NSKeyedArchiver.archivedData(withRootObject: acousmoniumFile)
         let fileUrl = self.appSupportFolder.appendingPathComponent(FilePath.acousmoniums).appendingPathComponent(acousmoniumFile.id).appendingPathExtension(FileExtension.acousmonium)
         do {
+            let acousmoniumData:Data = try NSKeyedArchiver.archivedData(withRootObject: acousmoniumFile as Any,
+                                                                        requiringSecureCoding: false)
             try acousmoniumData.write(to: fileUrl)
         } catch let error as NSError {
             Swift.print("WindowController: saveAcousmoniumFile() Error saving data to url \(fileUrl), context: " + error.localizedDescription)
@@ -702,10 +601,10 @@ class WindowController: NSWindowController {
         let playlistFileURL = self.appSupportFolder.appendingPathComponent(FilePath.playlist).appendingPathExtension(FileExtension.data)
         do {
             let playlistData = try Data(contentsOf: playlistFileURL)
-            if let playlist = NSKeyedUnarchiver.unarchiveObject(with: playlistData) as? [PlaylistFile] {
-                
+            let playlist = try NSKeyedUnarchiver.unarchive(data: playlistData, of: NSArray.self)
+            
                 // Load playlist
-                self.playlistFiles = playlist
+                self.playlistFiles = playlist as! [PlaylistFile]
                 
                 // Delete references to files which are not available in disk
                 var changed = false
@@ -723,7 +622,7 @@ class WindowController: NSWindowController {
                 if self.playlistFiles.count > 0 {
                     self.setValue(IndexSet(integer: 0), forKey: "playlistSelectedFileIndex")
                 }
-            }
+            //}
         } catch let error as NSError {
             Swift.print("ViewController: loadPlaylistFiles() Error openning url \(playlistFileURL), context: " + error.localizedDescription)
         }
@@ -749,9 +648,10 @@ class WindowController: NSWindowController {
                 let audioAnalyzer = AudioAnalyzer(url)
                 if let waveform = audioAnalyzer.computeChannelsData() {
                     let playlistFile = PlaylistFile(url: url, folderURL: folderURL, id: id, name: name, duration: audioAnalyzer.duration)
-                    let waveformData:Data = NSKeyedArchiver.archivedData(withRootObject: waveform)
                     let waveformURL = self.playlistFilesFolderPathUrl.appendingPathComponent(id).appendingPathExtension(FileExtension.waveform)
                     do {
+                        let waveformData:Data = try NSKeyedArchiver.archivedData(withRootObject: waveform as Any,
+                                                                                 requiringSecureCoding: false)
                         try waveformData.write(to: waveformURL)
                         playlistFiles.append(playlistFile)
                     } catch let error as NSError {
@@ -799,9 +699,10 @@ class WindowController: NSWindowController {
     
     /// Save the playlist file (Library > Application Support > motusLab > playlist.data)
     func savePlaylist() {
-        let playlistData:Data = NSKeyedArchiver.archivedData(withRootObject: self.playlistFiles)
         let fileUrl = self.appSupportFolder.appendingPathComponent(FilePath.playlist).appendingPathExtension(FileExtension.data)
         do {
+            let playlistData:Data = try NSKeyedArchiver.archivedData(withRootObject: self.playlistFiles as Any,
+                                                                     requiringSecureCoding: false)
             try playlistData.write(to: fileUrl)
         } catch let error as NSError {
             Swift.print("WindowController: savePlaylist() Error saving data to url \(fileUrl), context: " + error.localizedDescription)
@@ -842,8 +743,94 @@ class WindowController: NSWindowController {
     
     //MARK: - Toolbar
     
+    // TODO: Switch statistics to manual popover to manage ToolbarItem activation (otherwise, activation is automatic)
+    func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
+        
+        if self.displayedView == 0 { // Session
+            if item.action == #selector(record(_:)) || item.action == #selector(play(_:)) || item.action == #selector(stop(_:)) {
+                return false
+            }
+            
+            if item.action == #selector(showBigCounter(_:)) || item.action == #selector(showBlackWindow(_:)) {
+                return false
+            }
+            
+            if item.action == #selector(showControllers(_:)) || item.action == #selector(showMidiPlayMenu(_:)) {
+                return false
+            }
+            
+            if item.action == #selector(addCamera(_:)) {
+                return false
+            }
+            
+        } else if self.displayedView == 1 { // Record
+            if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
+                if self.currentMode != Mode.none {
+                    if item.action == #selector(stop(_:)) {
+                        return false
+                    }
+                }
+            } else {
+                if item.action == #selector(stop(_:)) {
+                    return false
+                }
+                
+                if item.action == #selector(showBigCounter(_:)) {
+                    return false
+                }
+            }
+            
+            if item.action == #selector(play(_:)) {
+                return false
+            }
+            
+            if item.action == #selector(showControllers(_:)) || item.action == #selector(showMidiPlayMenu(_:)) {
+                return false
+            }
+            
+        } else if self.displayedView == 2 { // Play
+            if item.action == #selector(record(_:)) {
+                return false
+            }
+            
+            if item.action == #selector(showBigCounter(_:)) {
+                return false
+            }
+            
+            if item.action == #selector(addCamera(_:)) {
+                return false
+            }
+            
+        }
+        
+        return true
+    }
+    
+    @objc dynamic var isRecording: Bool = false
+    @IBOutlet weak var recordToolbarItem: NSToolbarItem!
+    @IBAction func record(_ sender: Any) {
+        self.isRecording = !self.isRecording
+        if self.isRecording {
+            self.leftViewController.startRecording()
+        } else {
+            self.leftViewController.stopRecording()
+        }
+        self.updateRecordToolbarItem()
+    }
+    func updateRecordToolbarItem() {
+        if self.isRecording {
+            let image = NSImage(systemSymbolName:"record.circle.fill", accessibilityDescription: "Record")
+            self.recordToolbarItem.image = image?.tint(color: NSColor.red)
+        } else {
+            self.recordToolbarItem.image = NSImage(systemSymbolName:"record.circle", accessibilityDescription: "Record")
+        }
+    }
+    
+    @objc dynamic var isPlaying: Bool = false
+    @IBOutlet weak var playToolbarItem: NSToolbarItem!
     @IBAction func play(_ sender: Any) {
-        if (sender as! NSButton).state == .on {
+        self.isPlaying = !self.isPlaying
+        if self.isPlaying {
             if self.displayedView == 2 {
                 self.leftViewController.startPlaying()
             } else {
@@ -856,6 +843,17 @@ class WindowController: NSWindowController {
                 self.leftViewController.pausePlayingPlaylist()
             }
         }
+        
+        self.updatePlayToolbarItem()
+        
+    }
+    
+    func updatePlayToolbarItem() {
+        if self.isPlaying {
+            self.playToolbarItem.image = NSImage(systemSymbolName:"pause.fill", accessibilityDescription: "Pause")
+        } else {
+            self.playToolbarItem.image = NSImage(systemSymbolName:"play.fill", accessibilityDescription: "Pause")
+        }
     }
     
     @IBAction func stop(_ sender: Any) {
@@ -866,16 +864,32 @@ class WindowController: NSWindowController {
         }
     }
     
+    @IBOutlet weak var playlistToolbarItem: NSToolbarItem!
+    func updatePlaylistToolbar() {
+        let image = NSImage(systemSymbolName:"rectangle.stack.badge.play", accessibilityDescription: "Playlist")
+        if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
+            self.playlistToolbarItem.image = image?.tint(color: NSColor.red)
+        } else {
+            self.playlistToolbarItem.image = image!
+        }
+    }
+    
+    var isBlackWindow: Bool = false
+    @IBOutlet weak var blackWindowToolbarItem: NSToolbarItem!
     @IBAction func showBlackWindow(_ sender: Any) {
         let contentView = self.window?.contentView
-        if (sender as! NSButton).state == .on {
+        let image = NSImage(systemSymbolName:"rectangle.inset.filled", accessibilityDescription: "Black Window")
+        self.isBlackWindow = !self.isBlackWindow
+        if self.isBlackWindow {
             let blackWindow = BlackView(frame: contentView!.bounds)
             contentView?.addSubview(blackWindow)
             blackWindow.addInViewConstraints(superView: contentView!)
+            self.blackWindowToolbarItem.image = image?.tint(color: NSColor.red)
         } else {
             if contentView!.subviews.count > 0 {
                 contentView!.subviews.last!.removeFromSuperview()
             }
+            self.blackWindowToolbarItem.image = image!
         }
     }
     
@@ -891,6 +905,22 @@ class WindowController: NSWindowController {
     /// Manage which controllers send MIDI message to external mix console (play mode)
     @IBAction func showMidiPlayMenu(_ sender: Any) {
         self.leftViewController.showMidiPlayMenu(sender)
+    }
+    
+    @IBAction func showAcousmonium(_ sender: Any) {
+        self.setValue(!self.isAcousmoniumOpen, forKey: "isAcousmoniumOpen")
+    }
+    
+    @IBOutlet weak var bigCounterToolbarItem: NSToolbarItem!
+    @IBAction func showBigCounter(_ sender: Any) {
+        self.setValue(!self.isBigCounterOpen, forKey: "isBigCounterOpen")
+        
+        let image = NSImage(systemSymbolName:"clock", accessibilityDescription: "Big Counter")
+        if self.isBigCounterOpen {
+            self.bigCounterToolbarItem.image = image?.tint(color: NSColor.red)
+        } else {
+            self.bigCounterToolbarItem.image = image!
+        }
     }
     
     //MARK: - Menus
@@ -1032,9 +1062,10 @@ class WindowController: NSWindowController {
                     let file = self.motusLabFile.copy() as! MotusLabFile
                     file.sessions.removeAll()
                     file.sessions.append(session.copy() as! Session)
-                    let data:Data = NSKeyedArchiver.archivedData(withRootObject: file)
                     let dataUrl = exportPanel.url!.appendingPathComponent(FilePath.motusLabFile).appendingPathExtension(FileExtension.data)
                     do {
+                        let data:Data = try NSKeyedArchiver.archivedData(withRootObject: file as Any,
+                                                                         requiringSecureCoding: false)
                         try data.write(to: dataUrl)
                     } catch let error as NSError {
                         Swift.print("WindowController: exportSelectedSession() Error saving data to url \(dataUrl), context: " + error.localizedDescription)
@@ -1053,8 +1084,9 @@ class WindowController: NSWindowController {
             if result == .OK {
                 if let url = exportPanel.url, let selectedAcousmoniumFile = self.selectedAcousmoniumFile {
                     
-                    let acousmoniumData:Data = NSKeyedArchiver.archivedData(withRootObject: selectedAcousmoniumFile)
                     do {
+                        let acousmoniumData:Data = try NSKeyedArchiver.archivedData(withRootObject: selectedAcousmoniumFile as Any,
+                                                                                    requiringSecureCoding: false)
                         try acousmoniumData.write(to: url)
                     } catch let error as NSError {
                         Swift.print("WindowController: exportAcousmonium() Error saving acousmonium to url \(url), context: " + error.localizedDescription)
@@ -1089,9 +1121,9 @@ class WindowController: NSWindowController {
         do {
             var acousmFiles = self.acousmoniumFiles
             let data = try Data(contentsOf: url)
-            let acousmoniumFile = NSKeyedUnarchiver.unarchiveObject(with: data) as! AcousmoniumFile
-            acousmFiles.append(acousmoniumFile)
-            self.saveAcousmoniumFile(acousmoniumFile)
+            let acousmoniumFile = try NSKeyedUnarchiver.unarchive(data: data, of: AcousmoniumFile.self)
+            acousmFiles.append(acousmoniumFile!)
+            self.saveAcousmoniumFile(acousmoniumFile!)
             self.setValue(acousmFiles, forKey: "acousmoniumFiles")
         } catch let error as NSError {
             Swift.print("WindowController: importAcousmoniumFile() Error importing acousmonium from url \(url), context: " + error.localizedDescription)

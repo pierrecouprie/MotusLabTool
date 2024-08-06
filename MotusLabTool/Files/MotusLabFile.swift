@@ -78,7 +78,6 @@ class MotusLabFile: NSObject, NSCoding, NSCopying {
     }
     
     func createSession() -> Session {
-        //let newSession = Session(title: "Untitled", number: self.sessions.count, motusLabFile: self)
         let newSession = Session(title: "Untitled", motusLabFile: self)
         var sessions = self.sessions!
         sessions.append(newSession)
@@ -115,14 +114,6 @@ class Session: NSObject, NSCoding, NSCopying {
     var markerCount: Int = 0
     dynamic var isRecording = false
     
-    /*override var description: String {
-        var output = "Session id: " + self.id + "title: " + self.title + " information: " + self.information + " duration: \(self.duration) audioFormat: " + self.audioFormat
-        for marker in self.markers {
-            output += "\r      " + marker.description
-        }
-        return output
-    }*/
-    
     weak var motusLabFile: MotusLabFile!
     
     struct PropertyKey {
@@ -147,8 +138,6 @@ class Session: NSObject, NSCoding, NSCopying {
         super.init()
     }
     
-    #warning("Number ?")
-    //convenience init(title: String, number: Int, motusLabFile: MotusLabFile) {
     convenience init(title: String, motusLabFile: MotusLabFile) {
         self.init()
         self.title = title
@@ -200,7 +189,6 @@ class Session: NSObject, NSCoding, NSCopying {
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        //let copy = Session(title: self.title, number: 0, motusLabFile: self.motusLabFile)
         let copy = Session(title: self.title, motusLabFile: self.motusLabFile)
         copy.id = self.id
         copy.information = self.information
@@ -221,10 +209,6 @@ class Marker: NSObject, NSCoding, NSCopying {
     
     dynamic var title: String = ""
     dynamic var date: Float = 0
-    
-    /*override var description: String {
-        return "Marker title: " + self.title + " date: \(self.date)"
-    }*/
     
     struct PropertyKey {
         static let titleKey = "title"

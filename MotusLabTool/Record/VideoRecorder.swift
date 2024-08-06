@@ -74,8 +74,16 @@ class VideoDevice : NSObject {
 /// - Returns: Array of devices
 func VideoCaptureDeviceList() -> [VideoDevice] {
     var videoDevices = [VideoDevice]()
-    let devices = AVCaptureDevice.devices()
-    for device in devices {
+    let deviceTypes: [AVCaptureDevice.DeviceType]!
+    
+    if #available(macOS 14.0, *) {
+        deviceTypes = [.builtInWideAngleCamera, .external, .continuityCamera]
+    } else {
+        deviceTypes = [.builtInWideAngleCamera]
+    }
+    
+    let devices = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: .video, position: .unspecified)
+    for device in devices.devices {
         if device.hasMediaType(AVMediaType.video) {
             let newDevice = VideoDevice(name: device.localizedName, id: device.uniqueID)
             videoDevices.append(newDevice)

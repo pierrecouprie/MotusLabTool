@@ -31,22 +31,22 @@ class Window: NSWindow {
             if event.keyCode == 49 {
                 if (windowController as! WindowController).displayedView == 1 { //Record interface
                     if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
-                        if (windowController as! WindowController).toolbarPlay == .off {
-                            (windowController as! WindowController).toolbarPlay = .on
-                            (windowController as! WindowController).leftViewController.startPlayingPlaylist()
-                        } else {
-                            (windowController as! WindowController).toolbarPlay = .off
+                        (windowController as! WindowController).isPlaying = !(windowController as! WindowController).isPlaying
+                        if (windowController as! WindowController).isPlaying {
                             (windowController as! WindowController).leftViewController.pausePlayingPlaylist()
+                        } else {
+                            (windowController as! WindowController).leftViewController.startPlayingPlaylist()
                         }
+                        (windowController as! WindowController).updatePlayToolbarItem()
                     }
                 } else if (windowController as! WindowController).displayedView == 2 { //Play interface
-                    if (windowController as! WindowController).toolbarPlay == .off {
-                        (windowController as! WindowController).toolbarPlay = .on
+                    (windowController as! WindowController).isPlaying = !(windowController as! WindowController).isPlaying
+                    if (windowController as! WindowController).isPlaying {
                         (windowController as! WindowController).leftViewController.startPlaying()
                     } else {
-                        (windowController as! WindowController).toolbarPlay = .off
                         (windowController as! WindowController).leftViewController.stopPlaying(pause: true)
                     }
+                    (windowController as! WindowController).updatePlayToolbarItem()
                 }
                 // <- (left arrow)
             } else if event.keyCode == 123 {

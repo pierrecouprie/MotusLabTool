@@ -75,10 +75,8 @@ class PlayFadersView: NSView {
         }
         let consoleBLastMidiMessagePath = \LeftViewController.consoleBLastMidiMessage
         self.consoleBLastMidiMessageObservation = self.windowController.leftViewController.observe(consoleBLastMidiMessagePath) { [unowned self] object, change in
-            //Swift.print("self.windowController.leftViewController.consoleBLastMidiMessage : \(self.windowController.leftViewController.consoleBLastMidiMessage )")
             if let message = self.windowController.leftViewController.consoleBLastMidiMessage {
                 self.consoleBLastValues[message.number] = message.value
-                //Swift.print("message.value: \(message.value)")
                 self.setNeedsDisplay(self.bounds)
             }
         }
@@ -97,11 +95,15 @@ class PlayFadersView: NSView {
     
     @objc func userDefaultsDidChange(_ notification: Notification) {
         self.midiValueCorrection = self.preferences.integer(forKey: PreferenceKey.valueCorrection)
-        self.setNeedsDisplay(self.bounds)
+        DispatchQueue.main.async {
+            self.setNeedsDisplay(self.bounds)
+        }
         
         if let playFaderStatistics = self.playFaderStatistics {
-            playFaderStatistics.isHidden = !UserDefaults.standard.bool(forKey: PreferenceKey.statisticsShow)
-            playFaderStatistics.setNeedsDisplay(self.playFaderStatistics.bounds)
+            DispatchQueue.main.async {
+                playFaderStatistics.isHidden = !UserDefaults.standard.bool(forKey: PreferenceKey.statisticsShow)
+                playFaderStatistics.setNeedsDisplay(self.playFaderStatistics.bounds)
+            }
         }
     }
     
@@ -138,8 +140,6 @@ class PlayFadersView: NSView {
                 }
             }
             
-            //Swift.print(" consoleBParameters.filterControllers: \(consoleBParameters.filterControllers)")
-            
             // Draw faders of console B
             for (index,fader) in consoleBParameters.filterControllers.enumerated() {
                 let value = CGFloat(MIDIValueCorrection(self.consoleBLastValues[index], type: self.midiValueCorrection))
@@ -154,8 +154,6 @@ class PlayFadersView: NSView {
                         context.addRect(faderRect)
                         context.drawPath(using: .fill)
                         context.restoreGState()
-                        
-                        //Swift.print("console B index: \(index), faderRect: \(faderRect)")
                     }
                     faderX += faderWidth
                 }

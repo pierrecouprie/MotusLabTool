@@ -73,7 +73,9 @@ class PlayControllersView: NSView {
         } else if self.preferences.integer(forKey: PreferenceKey.valueCorrection) != self.midiValueCorrection {
             self.midiValueCorrection = self.preferences.integer(forKey: PreferenceKey.valueCorrection)
         }
-        self.setNeedsDisplay(self.bounds)
+        DispatchQueue.main.async {
+            self.setNeedsDisplay(self.bounds)
+        }
     }
     
     /// Concert MIDI events to list of values for each controller numbers
@@ -89,12 +91,10 @@ class PlayControllersView: NSView {
                     output[n + start] = [(date: Float, value: Int)]()
                     let controllerItem = ControllerItem(id: 0, ctl: n, number: n + start, enable: true, console: console, show: true)
                     if console == 1 {
-                        //controllerItem.console = 1
                         if n == 1 {
                             self.consoleBStartId = self.leftViewController.controllersList.count
                         }
                     } else if console == 2 {
-                        //controllerItem.console = 2
                         if n == 2 {
                             self.consoleCStartId = self.leftViewController.controllersList.count
                         }
@@ -107,23 +107,6 @@ class PlayControllersView: NSView {
         }
         
         // Create indexes
-        /*self.consoleAMaxNumber = readControllers(self.leftViewController.currentSession.consoleAControllers)
-        //Swift.print("A  = \(self.leftViewController.controllersList)")
-        Swift.print("consoleAMaxNumber  = \(self.consoleAMaxNumber)")
-        if self.preferences.bool(forKey: PreferenceKey.consoleBActivate) {
-            let _ = readControllers(self.leftViewController.currentSession.consoleBControllers, start: self.consoleAMaxNumber, console: 1)
-        }
-        //Swift.print("B  = \(self.leftViewController.controllersList)")
-        Swift.print("consoleBMaxNumber  = \(self.consoleBMaxNumber)")
-        self.consoleBMaxNumber = readControllers(self.leftViewController.currentSession.consoleBControllers)
-        if self.preferences.bool(forKey: PreferenceKey.consoleCActivate) {
-            let _ = readControllers(self.leftViewController.currentSession.consoleCControllers, start: self.consoleBMaxNumber, console: 2)
-        }
-        Swift.print("C  = \(self.leftViewController.controllersList)")
-        #warning("utile ?")
-        self.consoleCMaxNumber = readControllers(self.leftViewController.currentSession.consoleCControllers)*/
-        
-        // Create indexes
         self.consoleAMaxNumber = readControllers(self.leftViewController.currentSession.consoleAControllers)
         self.consoleBMaxNumber = 0
         self.consoleCMaxNumber  = 0
@@ -133,7 +116,6 @@ class PlayControllersView: NSView {
         if self.preferences.bool(forKey: PreferenceKey.consoleCActivate) {
             self.consoleCMaxNumber = readControllers(self.leftViewController.currentSession.consoleCControllers, start: self.consoleBMaxNumber, console: 2)
         }
-        //Swift.print("total  = \(self.leftViewController.controllersList)")
         
         // Create id in controllersList {
         for n in 0..<self.leftViewController.controllersList.count{

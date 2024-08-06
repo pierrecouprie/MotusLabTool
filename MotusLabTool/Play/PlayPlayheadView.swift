@@ -115,7 +115,9 @@ class PlayPlayheadView: NSView {
     }
     
     func updateColor() {
-        self.playheadView.layer?.backgroundColor = UserDefaults.standard.data(forKey: PreferenceKey.playPlayheadColor)?.color.cgColor
+        DispatchQueue.main.async {
+            self.playheadView.layer?.backgroundColor = UserDefaults.standard.data(forKey: PreferenceKey.playPlayheadColor)?.color.cgColor
+        }
     }
     
 }

@@ -49,7 +49,9 @@ class PlayFaderStatistics: NSView {
     
     @objc func userDefaultsDidChange(_ notification: Notification) {
         self.midiValueCorrection = self.preferences.integer(forKey: PreferenceKey.valueCorrection)
-        self.setNeedsDisplay(self.bounds)
+        DispatchQueue.main.async {
+            self.setNeedsDisplay(self.bounds)
+        }
     }
     
     required init?(coder: NSCoder) {

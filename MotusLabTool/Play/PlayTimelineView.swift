@@ -89,13 +89,15 @@ class PlayTimelineView: NSView {
     }
     
     func updatePreferencesProperties() {
-        let preferences = UserDefaults.standard
-        self.playWaveformView.isHidden = !preferences.bool(forKey: PreferenceKey.playTimelineWaveform)
-        self.playControllersView.isHidden = !preferences.bool(forKey: PreferenceKey.playTimelineControllers)
-        self.playMarkersView.isHidden = !preferences.bool(forKey: PreferenceKey.playTimelineMarkers)
-        self.playMarkersView.setNeedsDisplay(self.playMarkersView.bounds)
-        self.playPlayheadView.isHidden = !preferences.bool(forKey: PreferenceKey.playTimelinePlayhead)
-        self.playPlayheadView.updateColor()
+        DispatchQueue.main.async {
+            let preferences = UserDefaults.standard
+            self.playWaveformView.isHidden = !preferences.bool(forKey: PreferenceKey.playTimelineWaveform)
+            self.playControllersView.isHidden = !preferences.bool(forKey: PreferenceKey.playTimelineControllers)
+            self.playMarkersView.isHidden = !preferences.bool(forKey: PreferenceKey.playTimelineMarkers)
+            self.playMarkersView.setNeedsDisplay(self.playMarkersView.bounds)
+            self.playPlayheadView.isHidden = !preferences.bool(forKey: PreferenceKey.playTimelinePlayhead)
+            self.playPlayheadView.updateColor()
+        }
     }
     
     override func mouseDown(with event: NSEvent) {

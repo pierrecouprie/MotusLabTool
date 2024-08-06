@@ -31,7 +31,9 @@ class VuMeter: NSView {
     // Array of channel values
     var levels: [Float] = [0,0] {
         didSet {
-            self.updateLevels()
+            DispatchQueue.main.async {
+                self.updateLevels()
+            }
         }
     }
     

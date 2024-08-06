@@ -73,7 +73,6 @@ class MIDIRecorder: NSObject {
         
         self.leftViewController = leftViewController
         self.consoleParameters = consoleParameters
-        //self.initializeFaderValues()
         
         let notifyBlock: MIDINotifyBlock = self.midiNotifyBlock
         var status = MIDIClientCreateWithBlock("com.motuslabrecorder.MIDIClient" as CFString, &self.midiClient, notifyBlock)
@@ -133,7 +132,7 @@ class MIDIRecorder: NSObject {
         let packets: MIDIPacketList = packetList.pointee
         for packet in packets.makeIterator() {
             let packetArray = packet.asArray
-            
+            Swift.print(packetArray)
             for n in stride(from: 0, to: packetArray.count - 2, by: 3) {
                 let end = n+2
                 let slice = packetArray[n...end]

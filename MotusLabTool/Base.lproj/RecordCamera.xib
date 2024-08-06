@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,10 +21,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="297" height="193"/>
                 </customView>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1KM-2L-hga">
-                    <rect key="frame" x="7" y="198" width="253" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="18" id="4V1-JO-mej"/>
-                    </constraints>
+                    <rect key="frame" x="6" y="197" width="255" height="24"/>
                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="74f-zp-UDf" id="Caf-NW-W06">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -37,6 +33,9 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="4V1-JO-mej"/>
+                    </constraints>
                     <connections>
                         <binding destination="KzD-ml-byB" name="content" keyPath="arrangedObjects" id="IhE-OR-EDQ">
                             <dictionary key="options">
@@ -53,28 +52,28 @@
                                 <bool key="NSInsertsNullPlaceholder" value="YES"/>
                             </dictionary>
                         </binding>
-                        <binding destination="-2" name="enabled" keyPath="self.leftViewController.windowController.currentMode" id="E9d-Rw-mSl">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">RecordingValueTransformer</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="selectedObject" keyPath="self.cameraDevice" previousBinding="xIc-i2-Pgk" id="ML4-T1-aP4">
                             <dictionary key="options">
                                 <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                             </dictionary>
                         </binding>
+                        <binding destination="-2" name="enabled" keyPath="self.leftViewController.windowController.currentMode" id="E9d-Rw-mSl">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">RecordingValueTransformer</string>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </popUpButton>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hQK-Qe-rdz">
-                    <rect key="frame" x="260" y="195" width="33" height="27"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="18" id="Hbi-My-JYl"/>
-                        <constraint firstAttribute="width" constant="23" id="oUZ-tz-XW5"/>
-                    </constraints>
+                    <rect key="frame" x="259" y="194" width="35" height="29"/>
                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LdN-md-AcI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="Hbi-My-JYl"/>
+                        <constraint firstAttribute="width" constant="23" id="oUZ-tz-XW5"/>
+                    </constraints>
                     <connections>
                         <action selector="removeCamera:" target="-2" id="gf9-8B-Dkl"/>
                         <binding destination="-2" name="enabled" keyPath="self.leftViewController.windowController.currentMode" id="Fh6-xE-xAc">
@@ -99,12 +98,13 @@
             <point key="canvasLocation" x="-401.5" y="-186"/>
         </customView>
         <arrayController objectClassName="VideoDevice" id="KzD-ml-byB" userLabel="Camera List">
+            <classReference key="objectClass" className="VideoDevice"/>
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="self.videoDevices" id="fwm-U2-Pbx"/>
             </connections>
         </arrayController>
     </objects>
     <resources>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="18" height="5"/>
     </resources>
 </document>

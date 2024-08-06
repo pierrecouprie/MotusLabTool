@@ -43,11 +43,6 @@ class PlaylistViewController: NSViewController {
         self.preferredContentSize = view.frame.size
     }
     
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
-        self.windowController.enableCommands()
-    }
-    
     @IBAction func addFiles(_ sender: Any) {
         let selectFilesPanel:NSOpenPanel = NSOpenPanel()
         selectFilesPanel.allowsMultipleSelection = true

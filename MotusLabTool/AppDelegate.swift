@@ -40,10 +40,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let markerCountValueTransformerName = NSValueTransformerName.init("MarkerCountValueTransformer")
         ValueTransformer.setValueTransformer(markerCountValueTransformer, forName: markerCountValueTransformerName)
         
-        let playlistImageValueController = PlaylistImageValueController()
-        let playlistImageValueControllerName = NSValueTransformerName.init("PlaylistImageValueController")
-        ValueTransformer.setValueTransformer(playlistImageValueController, forName: playlistImageValueControllerName)
-        
         let nsbuttonStateIntegerValueTransformer = NSButtonStateIntegerValueTransformer()
         let nsbuttonStateIntegerValueTransformerName = NSValueTransformerName.init("NSButtonStateIntegerValueTransformer")
         ValueTransformer.setValueTransformer(nsbuttonStateIntegerValueTransformer, forName: nsbuttonStateIntegerValueTransformerName)
@@ -60,11 +56,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let syncValueTransformerName = NSValueTransformerName.init("SyncValueTransformer")
         ValueTransformer.setValueTransformer(syncValueTransformer, forName: syncValueTransformerName)
         
+        let unarchiveColorFromDataValueTransformer = UnarchiveColorFromDataValueTransformer()
+        let unarchiveColorFromDataValueTransformerName = NSValueTransformerName.init("UnarchiveColorFromDataValueTransformer")
+        ValueTransformer.setValueTransformer(unarchiveColorFromDataValueTransformer, forName: unarchiveColorFromDataValueTransformerName)
+        
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
+    func applicationWillTerminate(_ aNotification: Notification) { }
     
     /// Open file by double click or drag to icon
     func application(_ sender: NSApplication, openFiles filenames: [String]) {

@@ -46,9 +46,9 @@ class MainSplitViewController: NSSplitViewController {
         // Add observer to show or hide (collapsed or not) acousmonium view in right
         if let window = self.view.window, let windowController = window.windowController {
             self.windowController = windowController as? WindowController
-            let showAcousmoniumPath = \WindowController.showAcousmonium
+            let showAcousmoniumPath = \WindowController.isAcousmoniumOpen
             self.showAcousmoniumObservation = self.windowController.observe(showAcousmoniumPath) { [unowned self] object, change in
-                self.splitViewItems[1].isCollapsed = self.windowController.showAcousmonium == .on ? false : true
+                self.splitViewItems[1].isCollapsed = !self.windowController.isAcousmoniumOpen
             }
         }
     }

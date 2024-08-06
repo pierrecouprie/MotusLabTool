@@ -125,7 +125,6 @@ class MIDIPlayer: NSObject {
         
         let deviceIndex = self.leftViewController.consoleBOutputDevice
         self.consoleBDestinationEndpointRef = MIDIGetDestination(deviceIndex)
-        #warning("il y avait une erreur ici : consoleAMidiClient")
         status = MIDIOutputPortCreate(self.consoleBMidiClient, "com.motuslabrecorder.MIDIClient" as CFString, &self.consoleBOutputPort)
         if status != noErr {
             Swift.print("MIDIPlayer: initializeConsoleB Error creating output port : \(status)")
@@ -334,7 +333,6 @@ class MIDIPlayer: NSObject {
             }
             
             //Send array of MIDI messages
-            //for n in startIndex..<endIndex {
             for n in stride(from: startIndex, through: endIndex, by: 1) {
                 self.sendMessage(self.leftViewController.windowController.midiControllerEvents[n].console,
                                  number: self.leftViewController.windowController.midiControllerEvents[n].number,

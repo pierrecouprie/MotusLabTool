@@ -111,10 +111,23 @@ extension NSColor {
     /// - returns: Data
     var data: Data {
         get {
-            return NSKeyedArchiver.archivedData(withRootObject: self)
+            let archivedData = try? NSKeyedArchiver.archivedData(withRootObject: self,
+                                                                 requiringSecureCoding: false)
+            return archivedData!
         }
     }
     
+}
+
+extension NSImage {
+    func tint(color: NSColor) -> NSImage {
+        NSImage(size: size, flipped: false) { rect in
+            color.set()
+            rect.fill()
+            self.draw(in: rect, from: NSRect(origin: .zero, size: self.size), operation: .destinationIn, fraction: 1.0)
+            return true
+        }
+    }
 }
 
 extension Data {
@@ -124,8 +137,8 @@ extension Data {
     /// returns: NSColor
     var color: NSColor {
         get {
-            if let data = NSKeyedUnarchiver.unarchiveObject(with: self), let dataColor = data as? NSColor {
-                return dataColor
+            if let data = try? NSKeyedUnarchiver.unarchive(data: self, of: NSColor.self) {
+                return data
             }
             return NSColor.gray
         }
@@ -200,4 +213,25 @@ extension URL {
 
 extension Notification.Name {
     static let midiDidChange = Notification.Name("midiDidChange")
+}
+
+enum NSKeyedUnarchiverError: Error {
+    case errorReadingData
+}
+
+extension NSKeyedUnarchiver {
+    
+    static func unarchive<T: NSObject & NSCoding>(data: Data, of type: T.Type) throws -> T? {
+        do {
+            let unarchiver = try NSKeyedUnarchiver(forReadingFrom: data)
+            unarchiver.requiresSecureCoding = false
+            let openedFile = unarchiver.decodeObject(of: T.self, forKey: NSKeyedArchiveRootObjectKey)
+            unarchiver.finishDecoding()
+            return openedFile
+        } catch {
+            throw NSKeyedUnarchiverError.errorReadingData
+        }
+        
+    }
+    
 }

@@ -52,7 +52,9 @@ class MIDIControllersView: NSView {
     
     @objc func userDefaultsDidChange(_ notification: Notification) {
         self.midiValueCorrection = self.preferences.integer(forKey: PreferenceKey.valueCorrection)
-        self.setNeedsDisplay(self.bounds)
+        DispatchQueue.main.async {
+            self.setNeedsDisplay(self.bounds)
+        }
     }
     
     override func draw(_ dirtyRect: NSRect) {

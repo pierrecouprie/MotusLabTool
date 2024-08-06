@@ -295,7 +295,8 @@ class Export: NSObject {
         let midiFileUrl = self.fileURL.appendingPathComponent(FilePath.midi).appendingPathComponent(sessionId).appendingPathExtension(FileExtension.event)
         do {
             let data = try Data(contentsOf: midiFileUrl)
-            return NSKeyedUnarchiver.unarchiveObject(with: data) as? [MIDIControllerEvent]
+            let unarchivedObject = try NSKeyedUnarchiver.unarchive(data: data, of: NSArray.self) as? [MIDIControllerEvent]
+            return unarchivedObject
         } catch let error as NSError {
             Swift.print("Export: midiEvents() Error openning url \(midiFileUrl), context: " + error.localizedDescription)
         }

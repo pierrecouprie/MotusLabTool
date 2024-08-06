@@ -92,8 +92,9 @@ class RecordWaveformView: NSView {
             
             do {
                 let data = try Data(contentsOf: waveformURL)
-                let waveformData = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[Float]]
-                self.playWaveformView.waveform = waveformData
+                let waveformData = try NSKeyedUnarchiver.unarchive(data: data,
+                                                                   of: NSArray.self) as? [[Float]]
+                self.playWaveformView.waveform = waveformData!
                 self.playTimeRulerView.duration = selectedPlaylistFile.duration
                 self.playTimeRulerView.setNeedsDisplay(self.playTimeRulerView.bounds)
             } catch let error as NSError {

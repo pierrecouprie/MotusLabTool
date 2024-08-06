@@ -25,7 +25,7 @@ class NSButtonCounter: NSButton {
     var counterValue: Float = 0 {
         didSet {
             (self.cell as! NSButtonCellCounter).counterValue = counterValue
-            self.setNeedsDisplay()
+            self.needsDisplay = true
         }
     }
     
