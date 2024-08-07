@@ -128,6 +128,9 @@ struct PreferenceKey {
     static let valueCorrection = "valueCorrection"
     static let usePlaylist = "usePlaylist"
     
+    // Remote
+    static let launchRemote = "launchRemote"
+    
 }
 
 /// Audio formats

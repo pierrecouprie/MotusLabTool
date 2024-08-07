@@ -25,8 +25,6 @@ class VuMeter: NSView {
     var channels: Int = 0
     let min: Float = 0
     let max: Float = 100
-    let warning: Float = 98 // Orange limit
-    let critical: Float = 99 // Red limit
     
     // Array of channel values
     var levels: [Float] = [0,0] {
@@ -81,9 +79,9 @@ class VuMeter: NSView {
     
     func updateColor(_ level: NSView, value: Float) {
         var color = NSColor.green
-        if value >= self.critical {
+        if value >= kVuMeterCritical {
             color = NSColor.red
-        } else if value >= self.warning {
+        } else if value >= kVuMeterWarning {
             color = NSColor.orange
         }
         level.layer?.backgroundColor = color.cgColor

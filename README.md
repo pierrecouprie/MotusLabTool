@@ -1,6 +1,6 @@
 #  MotusLabTool
 
-> Current version is 2.3.3
+> Current version is 2.5
 
 ![Main interface](MotusLabTool/Resources/Manual/Images/interface.png)
 
@@ -26,7 +26,7 @@ Different representations are available:
 * Time representation of the audio waveform, potentiometer graphs and markers
 * Representation of the opening of the loudspeakers on the installation plan in the concert hall.
 
-More [information](http://www.iremus.cnrs.fr/fr/programme-de-recherche/analyse-de-linterpretation-acousmatique).
+More [information](http://acousmatique.hypotheses.org).
 
 ## Why a new implementation?
 
@@ -36,11 +36,12 @@ Original implementation was developed in Max (Cycling74) and there were lots of 
 
 ### Running
 
-- macOS 10.13.6+
+- macOS 11+
+- iOS 13+ (MotusLabTool Remote)
 
 ### Building
 
-- Xcode 11.0+
+- Xcode 15.0+
 
 ## Download
 

@@ -32,7 +32,7 @@ class PreferencesWindowController: NSWindowController {
         self.window?.toolbar?.displayMode = .iconOnly
         
         // Initialize window properties
-        let size = CGSize(width: 386, height: 467)
+        let size = CGSize(width: 386, height: 524)
         let contentFrame = (self.window?.frameRect(forContentRect: NSMakeRect(0.0, 0.0, size.width, size.height)))!
         var frame = (self.window?.frame)!
         frame.origin.y = frame.origin.y + (frame.size.height - contentFrame.size.height)

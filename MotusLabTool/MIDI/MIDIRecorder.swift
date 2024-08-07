@@ -132,7 +132,6 @@ class MIDIRecorder: NSObject {
         let packets: MIDIPacketList = packetList.pointee
         for packet in packets.makeIterator() {
             let packetArray = packet.asArray
-            Swift.print(packetArray)
             for n in stride(from: 0, to: packetArray.count - 2, by: 3) {
                 let end = n+2
                 let slice = packetArray[n...end]
@@ -188,12 +187,10 @@ class MIDIRecorder: NSObject {
         
         if let event = newEvent {
             
-            // Display led and message
-            self.consoleParameters.midiControllerEvent = event
-            self.consoleParameters.controllerValues[event.number] = event.value
-            
-            //Switch on led and display message
+            // Display on led and message
             DispatchQueue.main.async {
+                self.consoleParameters.midiControllerEvent = event
+                self.consoleParameters.controllerValues[event.number] = event.value
                 self.leftViewController.updateControllerView()
                 self.consoleParameters.message = event.feedback
                 self.consoleParameters.setValue(1, forKey: "led")

@@ -171,7 +171,7 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         
         if let device = AVCaptureDevice(uniqueID: deviceId) {
             
-            Swift.print(device)
+           // Swift.print(device)
             
             do {
                 let avCaptureInput = try AVCaptureDeviceInput(device: device)

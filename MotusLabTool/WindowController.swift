@@ -20,7 +20,7 @@
 
 import Cocoa
 
-class WindowController: NSWindowController, NSToolbarItemValidation {
+class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteType {
     
     var appSupportFolder: URL!
     @objc dynamic var motusLabFile: MotusLabFile! {
@@ -70,7 +70,13 @@ class WindowController: NSWindowController, NSToolbarItemValidation {
     @objc dynamic var isBigCounterOpen: Bool = false
     
     // Interface
-    @objc dynamic var displayedView: Int = 0
+    @objc dynamic var displayedView: Int = 0 {
+        didSet {
+            if self.mcRemote.isWorking {
+                self.mcRemote.sendRemote(MCRemoteAction.displayMode, value: self.displayedView)
+            }
+        }
+    }
     
     // MIDI
     @objc dynamic var enableSendMIDI = false
@@ -86,6 +92,10 @@ class WindowController: NSWindowController, NSToolbarItemValidation {
             self.enableModeSegmentedControl()
         }
     }
+    
+    // Remote
+    var mcRemote: MCRemote!
+    var remoteTimer: Timer!
     
     @IBOutlet weak var counterButton: NSButtonCounter!
     @objc dynamic var timePosition: Float = 0 {
@@ -121,6 +131,9 @@ class WindowController: NSWindowController, NSToolbarItemValidation {
         
         self.updatePlaylistToolbar()
         
+        self.mcRemote = MCRemote(delegate: self)
+        self.updateHostingRemote()
+        
         // Add observer to detect changes in preference properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
     }
@@ -144,6 +157,8 @@ class WindowController: NSWindowController, NSToolbarItemValidation {
         }
         
         self.updatePlaylistToolbar()
+        
+        self.updateHostingRemote()
         
     }
     
@@ -256,6 +271,8 @@ class WindowController: NSWindowController, NSToolbarItemValidation {
         
         preferences[PreferenceKey.valueCorrection] = 0 //0: None, 1: Yamaha02R96
         preferences[PreferenceKey.usePlaylist] = false
+        
+        preferences[PreferenceKey.launchRemote] = false
         
         UserDefaults.standard.register(defaults: preferences)
         
@@ -812,8 +829,17 @@ class WindowController: NSWindowController, NSToolbarItemValidation {
         self.isRecording = !self.isRecording
         if self.isRecording {
             self.leftViewController.startRecording()
+            if self.mcRemote.isWorking {
+                self.mcRemote.sendRemote(MCRemoteAction.recordOn, value: true)
+            }
         } else {
             self.leftViewController.stopRecording()
+            if self.remoteTimer != nil {
+                self.remoteTimer.invalidate()
+            }
+            if self.mcRemote.isWorking {
+                self.mcRemote.sendRemote(MCRemoteAction.recordOff, value: true)
+            }
         }
         self.updateRecordToolbarItem()
     }
@@ -1215,6 +1241,47 @@ class WindowController: NSWindowController, NSToolbarItemValidation {
     /// Send action to leftViewController (MIDI send)
     @IBAction func changeMidiPlayGroupMenu(_ sender: NSMenuItem) {
         self.leftViewController.changeMidiPlayGroupMenu(sender)
+    }
+    
+    //MARK: - Remote
+    
+    func updateHostingRemote() {
+        let lauchRemote = UserDefaults.standard.bool(forKey: PreferenceKey.launchRemote)
+        if lauchRemote != self.mcRemote.isWorking {
+            if lauchRemote {
+                self.mcRemote.startHostRemote()
+            } else {
+                self.mcRemote.endHostRemote()
+            }
+        }
+    }
+    
+    func receiveData(_ dictionary: [String : Any]) {
+        for item in dictionary {
+            switch item.key {
+            case MCRemoteAction.recordOn:
+                if !self.isRecording {
+                    self.record(self)
+                    self.startRemoteTimer()
+                }
+            case MCRemoteAction.recordOff:
+                if self.isRecording {
+                    self.record(self)
+                }
+            default:
+                Swift.print("WindowController: ReceiveData() Unable to read incomming data!")
+            }
+        }
+    }
+    
+    func startRemoteTimer() {
+        self.remoteTimer = Timer(timeInterval: 0.1, target: self, selector: #selector(self.remoteTimerData), userInfo: nil, repeats: true)
+        RunLoop.current.add(self.remoteTimer, forMode: .common)
+    }
+    
+    @objc func remoteTimerData() {
+        self.mcRemote.sendRemote(MCRemoteAction.counter, value: self.timePosition)
+        self.mcRemote.sendRemote(MCRemoteAction.vuMeter, value: self.leftViewController.recordVuMeter.levels)
     }
     
 }

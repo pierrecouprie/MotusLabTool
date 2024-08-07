@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 74;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -98,6 +98,13 @@
 		8AE191772315045D006CD958 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191762315045D006CD958 /* Assets.xcassets */; };
 		8AE1917A2315045D006CD958 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AE191782315045D006CD958 /* Main.storyboard */; };
 		8AED2D142C625E380048F69E /* UnarchiveColorFromDataValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED2D132C625E380048F69E /* UnarchiveColorFromDataValueTransformer.swift */; };
+		8AED2D542C626FBF0048F69E /* MCRemoteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED2D532C626FBF0048F69E /* MCRemoteAction.swift */; };
+		8AED2D552C626FBF0048F69E /* MCRemoteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED2D532C626FBF0048F69E /* MCRemoteAction.swift */; };
+		8AED2D572C627B850048F69E /* SharedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED2D562C627B850048F69E /* SharedExtensions.swift */; };
+		8AED2D582C627B850048F69E /* SharedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED2D562C627B850048F69E /* SharedExtensions.swift */; };
+		8AED2D5B2C6282F90048F69E /* MCRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED2D5A2C6282F90048F69E /* MCRemote.swift */; };
+		8AED2D5D2C6283210048F69E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED2D5C2C6283210048F69E /* Constants.swift */; };
+		8AED2D5E2C6283210048F69E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED2D5C2C6283210048F69E /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +114,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8AE1916E2315045C006CD958;
 			remoteInfo = MotusLabTool;
+		};
+		8AED2D2F2C626AC70048F69E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AE191672315045C006CD958 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AED2D182C626AC60048F69E;
+			remoteInfo = "MotusLabTool-Remote";
+		};
+		8AED2D392C626AC70048F69E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AE191672315045C006CD958 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AED2D182C626AC60048F69E;
+			remoteInfo = "MotusLabTool-Remote";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -210,7 +231,43 @@
 		8AE1917B2315045D006CD958 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AE1917C2315045D006CD958 /* MotusLabTool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MotusLabTool.entitlements; sourceTree = "<group>"; };
 		8AED2D132C625E380048F69E /* UnarchiveColorFromDataValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnarchiveColorFromDataValueTransformer.swift; sourceTree = "<group>"; };
+		8AED2D192C626AC60048F69E /* MotusLabTool-Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MotusLabTool-Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AED2D2E2C626AC70048F69E /* MotusLabTool-RemoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MotusLabTool-RemoteTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AED2D382C626AC70048F69E /* MotusLabTool-RemoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MotusLabTool-RemoteUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AED2D532C626FBF0048F69E /* MCRemoteAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCRemoteAction.swift; sourceTree = "<group>"; };
+		8AED2D562C627B850048F69E /* SharedExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedExtensions.swift; sourceTree = "<group>"; };
+		8AED2D5A2C6282F90048F69E /* MCRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCRemote.swift; sourceTree = "<group>"; };
+		8AED2D5C2C6283210048F69E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8AED2D402C626AC70048F69E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				/Localized/LaunchScreen.storyboard,
+				/Localized/Main.storyboard,
+				Info.plist,
+			);
+			target = 8AED2D182C626AC60048F69E /* MotusLabTool-Remote */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		8AED2D442C626AC70048F69E /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 8AED2D172C626AC60048F69E /* Resources */;
+			membershipExceptions = (
+				Base.lproj/LaunchScreen.storyboard,
+				Base.lproj/Main.storyboard,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8AED2D1A2C626AC60048F69E /* MotusLabTool-Remote */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8AED2D402C626AC70048F69E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 8AED2D442C626AC70048F69E /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "MotusLabTool-Remote"; sourceTree = "<group>"; };
+		8AED2D312C626AC70048F69E /* MotusLabTool-RemoteTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "MotusLabTool-RemoteTests"; sourceTree = "<group>"; };
+		8AED2D3B2C626AC70048F69E /* MotusLabTool-RemoteUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "MotusLabTool-RemoteUITests"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8A394A53232E8D9F0012A5C1 /* Frameworks */ = {
@@ -221,6 +278,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8AE1916C2315045C006CD958 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AED2D162C626AC60048F69E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AED2D2B2C626AC70048F69E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AED2D352C626AC70048F69E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -423,6 +501,10 @@
 				8A2BB9B42323A97300FB6106 /* README.md */,
 				8A2BB9B52323A9A200FB6106 /* LICENSE.md */,
 				8A394A57232E8D9F0012A5C1 /* MotusLabToolUnitTests */,
+				8AED2D4F2C626F1E0048F69E /* Shared */,
+				8AED2D1A2C626AC60048F69E /* MotusLabTool-Remote */,
+				8AED2D312C626AC70048F69E /* MotusLabTool-RemoteTests */,
+				8AED2D3B2C626AC70048F69E /* MotusLabTool-RemoteUITests */,
 				8AE191702315045C006CD958 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -432,6 +514,9 @@
 			children = (
 				8AE1916F2315045C006CD958 /* MotusLabTool.app */,
 				8A394A56232E8D9F0012A5C1 /* MotusLabToolUnitTests.xctest */,
+				8AED2D192C626AC60048F69E /* MotusLabTool-Remote.app */,
+				8AED2D2E2C626AC70048F69E /* MotusLabTool-RemoteTests.xctest */,
+				8AED2D382C626AC70048F69E /* MotusLabTool-RemoteUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -459,6 +544,7 @@
 				8AA84684231AC5FA00005A4D /* Audio */,
 				8A6BEF51231B9DD500D5A84B /* Video */,
 				8AA84683231AC5ED00005A4D /* MIDI */,
+				8AED2D592C6282D80048F69E /* Remote */,
 				8AE191762315045D006CD958 /* Assets.xcassets */,
 				8AE191782315045D006CD958 /* Main.storyboard */,
 				8ABBBF6F2319521C00FA04A9 /* Preferences.storyboard */,
@@ -469,6 +555,24 @@
 				8AA84676231AC0FF00005A4D /* Resources */,
 			);
 			path = MotusLabTool;
+			sourceTree = "<group>";
+		};
+		8AED2D4F2C626F1E0048F69E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8AED2D5C2C6283210048F69E /* Constants.swift */,
+				8AED2D532C626FBF0048F69E /* MCRemoteAction.swift */,
+				8AED2D562C627B850048F69E /* SharedExtensions.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		8AED2D592C6282D80048F69E /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				8AED2D5A2C6282F90048F69E /* MCRemote.swift */,
+			);
+			path = Remote;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -509,6 +613,74 @@
 			productReference = 8AE1916F2315045C006CD958 /* MotusLabTool.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8AED2D182C626AC60048F69E /* MotusLabTool-Remote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AED2D412C626AC70048F69E /* Build configuration list for PBXNativeTarget "MotusLabTool-Remote" */;
+			buildPhases = (
+				8AED2D152C626AC60048F69E /* Sources */,
+				8AED2D162C626AC60048F69E /* Frameworks */,
+				8AED2D172C626AC60048F69E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8AED2D1A2C626AC60048F69E /* MotusLabTool-Remote */,
+			);
+			name = "MotusLabTool-Remote";
+			packageProductDependencies = (
+			);
+			productName = "MotusLabTool-Remote";
+			productReference = 8AED2D192C626AC60048F69E /* MotusLabTool-Remote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8AED2D2D2C626AC70048F69E /* MotusLabTool-RemoteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AED2D452C626AC70048F69E /* Build configuration list for PBXNativeTarget "MotusLabTool-RemoteTests" */;
+			buildPhases = (
+				8AED2D2A2C626AC70048F69E /* Sources */,
+				8AED2D2B2C626AC70048F69E /* Frameworks */,
+				8AED2D2C2C626AC70048F69E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AED2D302C626AC70048F69E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8AED2D312C626AC70048F69E /* MotusLabTool-RemoteTests */,
+			);
+			name = "MotusLabTool-RemoteTests";
+			packageProductDependencies = (
+			);
+			productName = "MotusLabTool-RemoteTests";
+			productReference = 8AED2D2E2C626AC70048F69E /* MotusLabTool-RemoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8AED2D372C626AC70048F69E /* MotusLabTool-RemoteUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AED2D482C626AC70048F69E /* Build configuration list for PBXNativeTarget "MotusLabTool-RemoteUITests" */;
+			buildPhases = (
+				8AED2D342C626AC70048F69E /* Sources */,
+				8AED2D352C626AC70048F69E /* Frameworks */,
+				8AED2D362C626AC70048F69E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AED2D3A2C626AC70048F69E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8AED2D3B2C626AC70048F69E /* MotusLabTool-RemoteUITests */,
+			);
+			name = "MotusLabTool-RemoteUITests";
+			packageProductDependencies = (
+			);
+			productName = "MotusLabTool-RemoteUITests";
+			productReference = 8AED2D382C626AC70048F69E /* MotusLabTool-RemoteUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -516,7 +688,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "Pierre Couprie";
 				TargetAttributes = {
@@ -535,10 +707,20 @@
 							};
 						};
 					};
+					8AED2D182C626AC60048F69E = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					8AED2D2D2C626AC70048F69E = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 8AED2D182C626AC60048F69E;
+					};
+					8AED2D372C626AC70048F69E = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 8AED2D182C626AC60048F69E;
+					};
 				};
 			};
 			buildConfigurationList = 8AE1916A2315045C006CD958 /* Build configuration list for PBXProject "MotusLabTool" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -546,12 +728,16 @@
 				Base,
 			);
 			mainGroup = 8AE191662315045C006CD958;
+			preferredProjectObjectVersion = 50;
 			productRefGroup = 8AE191702315045C006CD958 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				8AE1916E2315045C006CD958 /* MotusLabTool */,
 				8A394A55232E8D9F0012A5C1 /* MotusLabToolUnitTests */,
+				8AED2D182C626AC60048F69E /* MotusLabTool-Remote */,
+				8AED2D2D2C626AC70048F69E /* MotusLabTool-RemoteTests */,
+				8AED2D372C626AC70048F69E /* MotusLabTool-RemoteUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -602,6 +788,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8AED2D172C626AC60048F69E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AED2D2C2C626AC70048F69E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AED2D362C626AC70048F69E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -634,7 +841,9 @@
 				8ABBBF6723190C0400FA04A9 /* NSButtonCellCounter.swift in Sources */,
 				8A6BEF4C231B998300D5A84B /* RecordCameraViewController.swift in Sources */,
 				8A6BEF58231BB5C700D5A84B /* PlayWaveformView.swift in Sources */,
+				8AED2D5B2C6282F90048F69E /* MCRemote.swift in Sources */,
 				8A6BEF45231B959700D5A84B /* VuMeter.swift in Sources */,
+				8AED2D572C627B850048F69E /* SharedExtensions.swift in Sources */,
 				8ABBBF772319585F00FA04A9 /* AcousmoniumFile.swift in Sources */,
 				8A6BEF5E231BB61D00D5A84B /* PlayPlayheadView.swift in Sources */,
 				8A156EBF2316531700064A8A /* WindowController.swift in Sources */,
@@ -653,6 +862,7 @@
 				8A6BEF5A231BB5E500D5A84B /* PlayControllersView.swift in Sources */,
 				8ABBBF7F23196D3E00FA04A9 /* MarkerCountValueTransformer.swift in Sources */,
 				8A41E90323252A4200613745 /* RecordWaveformView.swift in Sources */,
+				8AED2D5D2C6283210048F69E /* Constants.swift in Sources */,
 				8A6BEF64231BBB2A00D5A84B /* MIDIPlayer.swift in Sources */,
 				8A6BEF66231BC47E00D5A84B /* AudioAnalyzer.swift in Sources */,
 				8A6BEF68231BCEAC00D5A84B /* PlayCameraView.swift in Sources */,
@@ -662,6 +872,7 @@
 				8A6BEF56231BB58300D5A84B /* PlayTimelineView.swift in Sources */,
 				8A6BEF47231B961F00D5A84B /* AudioCaptureMeter.swift in Sources */,
 				8A935E7B233FAF570081EE0B /* RecordingValueTransformer.swift in Sources */,
+				8AED2D542C626FBF0048F69E /* MCRemoteAction.swift in Sources */,
 				8ABBBF69231912BF00FA04A9 /* LeftViewController.swift in Sources */,
 				8ADECD7626502FAC00E2E348 /* PreferencesWindowController.swift in Sources */,
 				8A6BEF53231B9DE200D5A84B /* PreviewCameraView.swift in Sources */,
@@ -679,6 +890,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8AED2D152C626AC60048F69E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AED2D552C626FBF0048F69E /* MCRemoteAction.swift in Sources */,
+				8AED2D582C627B850048F69E /* SharedExtensions.swift in Sources */,
+				8AED2D5E2C6283210048F69E /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AED2D2A2C626AC70048F69E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AED2D342C626AC70048F69E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -686,6 +921,16 @@
 			isa = PBXTargetDependency;
 			target = 8AE1916E2315045C006CD958 /* MotusLabTool */;
 			targetProxy = 8A394A5B232E8D9F0012A5C1 /* PBXContainerItemProxy */;
+		};
+		8AED2D302C626AC70048F69E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8AED2D182C626AC60048F69E /* MotusLabTool-Remote */;
+			targetProxy = 8AED2D2F2C626AC70048F69E /* PBXContainerItemProxy */;
+		};
+		8AED2D3A2C626AC70048F69E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8AED2D182C626AC60048F69E /* MotusLabTool-Remote */;
+			targetProxy = 8AED2D392C626AC70048F69E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -903,7 +1148,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -914,7 +1159,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -931,7 +1176,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -942,11 +1187,175 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierrecouprie.MotusLabTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		8AED2D422C626AC70048F69E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MotusLabTool-Remote/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "MotusLabTool needs the Internet to connect to the server application.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pierrecouprie.MotusLabTool-Remote";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8AED2D432C626AC70048F69E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MotusLabTool-Remote/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "MotusLabTool needs the Internet to connect to the server application.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pierrecouprie.MotusLabTool-Remote";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8AED2D462C626AC70048F69E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pierrecouprie.MotusLabTool-RemoteTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MotusLabTool-Remote.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MotusLabTool-Remote";
+			};
+			name = Debug;
+		};
+		8AED2D472C626AC70048F69E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pierrecouprie.MotusLabTool-RemoteTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MotusLabTool-Remote.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MotusLabTool-Remote";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8AED2D492C626AC70048F69E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pierrecouprie.MotusLabTool-RemoteUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "MotusLabTool-Remote";
+			};
+			name = Debug;
+		};
+		8AED2D4A2C626AC70048F69E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DFX9ZZ4E5P;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pierrecouprie.MotusLabTool-RemoteUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "MotusLabTool-Remote";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -976,6 +1385,33 @@
 			buildConfigurations = (
 				8AE191802315045D006CD958 /* Debug */,
 				8AE191812315045D006CD958 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AED2D412C626AC70048F69E /* Build configuration list for PBXNativeTarget "MotusLabTool-Remote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AED2D422C626AC70048F69E /* Debug */,
+				8AED2D432C626AC70048F69E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AED2D452C626AC70048F69E /* Build configuration list for PBXNativeTarget "MotusLabTool-RemoteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AED2D462C626AC70048F69E /* Debug */,
+				8AED2D472C626AC70048F69E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AED2D482C626AC70048F69E /* Build configuration list for PBXNativeTarget "MotusLabTool-RemoteUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AED2D492C626AC70048F69E /* Debug */,
+				8AED2D4A2C626AC70048F69E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
