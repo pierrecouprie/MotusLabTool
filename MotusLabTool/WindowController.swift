@@ -72,9 +72,7 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
     // Interface
     @objc dynamic var displayedView: Int = 0 {
         didSet {
-            if self.mcRemote.isWorking {
-                self.mcRemote.sendRemote(MCRemoteAction.displayMode, value: self.displayedView)
-            }
+            self.updateHostingRecordButton()
         }
     }
     
@@ -401,6 +399,9 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 if let url = selectFilePanel.urls.first {
                     self.openMotusLabFile(url)
+                    
+                    // Enable reconrd button in client
+                    self.updateHostingRecordButton()
                 }
             }
         }
@@ -1245,6 +1246,7 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
     
     //MARK: - Remote
     
+    /// Update hosting when user change preferences
     func updateHostingRemote() {
         let lauchRemote = UserDefaults.standard.bool(forKey: PreferenceKey.launchRemote)
         if lauchRemote != self.mcRemote.isWorking {
@@ -1256,6 +1258,16 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
         }
     }
     
+    /// Update status of record button in client
+    func updateHostingRecordButton() {
+        if self.mcRemote.isWorking {
+            self.mcRemote.sendRemote(MCRemoteAction.displayMode, value: self.displayedView)
+        }
+    }
+    
+    
+    /// Receive command from client
+    /// - Parameter dictionary: Key (MCRemoteAction) and value(s)
     func receiveData(_ dictionary: [String : Any]) {
         for item in dictionary {
             switch item.key {
@@ -1274,11 +1286,13 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
         }
     }
     
+    /// Starting the timer to send counter value
     func startRemoteTimer() {
         self.remoteTimer = Timer(timeInterval: 0.1, target: self, selector: #selector(self.remoteTimerData), userInfo: nil, repeats: true)
         RunLoop.current.add(self.remoteTimer, forMode: .common)
     }
     
+    /// Send counter and vu meter values
     @objc func remoteTimerData() {
         self.mcRemote.sendRemote(MCRemoteAction.counter, value: self.timePosition)
         self.mcRemote.sendRemote(MCRemoteAction.vuMeter, value: self.leftViewController.recordVuMeter.levels)

@@ -42,6 +42,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Initialize interface
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "macbook.and.iphone"),
                                                                  style: .done,
                                                                  target: self,
@@ -52,17 +53,20 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                                                                 target: self,
                                                                 action: #selector(showAboutPage))
         
+        // Initialize parameters for hosting session
         self.peerID = MCPeerID(displayName: UIDevice.current.name)
         self.mcSession = MCSession(peer: self.peerID, securityIdentity: nil, encryptionPreference: .required)
         self.mcSession.delegate = self
     }
     
+    /// Display sheet window to initialize connection
     @objc func showConnectionMenu() {
         let mcBrowser = MCBrowserViewController(serviceType: kMCRemoteId, session: mcSession)
         mcBrowser.delegate = self
         present(mcBrowser, animated: true)
     }
     
+    /// Display about sheet window
     @objc func showAboutPage() {
         present(self.aboutViewController, animated: true)
     }
@@ -80,6 +84,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         }
     }
     
+    /// Send data to host
     func sendRemote(_ action: String, value: Any) {
         let dict = [action: value]
         do {
@@ -90,6 +95,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         }
     }
     
+    /// Receive data from host
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         DispatchQueue.main.async { [unowned self] in
             do {
@@ -101,6 +107,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         }
     }
     
+    /// Parse data received frome host
+    /// - Parameter dictionary: Key (MCRemoteAction) and value(s)
     func receiveData(_ dictionary: [String: Any]) {
         //Swift.print(dictionary)
         for item in dictionary {
@@ -116,6 +124,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             case MCRemoteAction.displayMode:
                 if let mode = item.value as? Int {
                     self.recordButton.isEnabled = mode == 1 ? true : false
+                    self.isRecording = false
+                    self.updateRecordButton()
                 }
             case MCRemoteAction.recordOff:
                 if self.isRecording {
@@ -145,6 +155,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         dismiss(animated: true)
     }
     
+    /// User start or stop recording
     @IBAction func changeRecord(_ sender: Any) {
         if self.isRecording {
             self.isRecording = false
@@ -157,8 +168,11 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         }
     }
     
+    /// Update tint of record button
+    /// - red: record in progress
+    /// - blue: stop
     func updateRecordButton() {
-        self.recordButton.tintColor = self.isRecording ? UIColor.systemBlue : UIColor.red
+        self.recordButton.tintColor = self.isRecording ? UIColor.red : UIColor.systemBlue
     }
 
 

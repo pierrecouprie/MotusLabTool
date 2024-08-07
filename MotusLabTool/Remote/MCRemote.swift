@@ -10,6 +10,7 @@ import Foundation
 import MultipeerConnectivity
 
 protocol MCRemoteType {
+    var displayedView: Int { set get }
     func receiveData(_ dictionary: [String: Any])
 }
 
@@ -52,6 +53,7 @@ class MCRemote: NSObject, MCSessionDelegate {
         switch state {
         case .connected:
             print("MCRemote: session() Connected: \(peerID.displayName)")
+            self.sendRemote(MCRemoteAction.displayMode, value: self.delegate.displayedView)
         case .connecting:
             print("MCRemote: session() Connecting: \(peerID.displayName)")
         case .notConnected:
