@@ -268,7 +268,7 @@ class LeftViewController: NSViewController {
         } else {
             self.audioCaptureMeter.session.startRunning()
         }
-        self.audioMeterTimer = Timer(timeInterval: 0.01, target: self, selector: #selector(self.updateMeter), userInfo: nil, repeats: true)
+        self.audioMeterTimer = Timer(timeInterval: 0.1, target: self, selector: #selector(self.updateMeter), userInfo: nil, repeats: true)
         RunLoop.current.add(self.audioMeterTimer, forMode: .common)
     }
     

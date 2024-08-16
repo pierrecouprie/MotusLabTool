@@ -20,79 +20,80 @@
 
 import Cocoa
 
-class VuMeter: NSView {
+class VuMeter: NSView, CALayerDelegate {
     
-    var channels: Int = 0
-    let min: Float = 0
-    let max: Float = 100
+    var shapeLayer: CALayer!
     
-    // Array of channel values
     var levels: [Float] = [0,0] {
         didSet {
             DispatchQueue.main.async {
-                self.updateLevels()
+                self.layer?.setNeedsDisplay()
             }
         }
     }
     
-    var channelViews = [NSView]()
+    override var isFlipped: Bool {
+        return true
+    }
+    
+    override var wantsUpdateLayer: Bool {
+        return true
+    }
     
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
         self.wantsLayer = true
     }
     
-    func updateChannels() {
-        self.subviews.removeAll()
-        
-        let width: CGFloat = self.bounds.size.width / CGFloat(self.channels)
-        var channelFrame = CGRect(x: 0, y: 0, width: width, height: 1)
-        for n in 0..<self.channels {
-            channelFrame.origin.x = CGFloat(n) * width
-            let channelView = NSView(frame: channelFrame)
-            self.addSubview(channelView)
-        }
-        
+    override func makeBackingLayer() -> CALayer {
+        let layer = CALayer()
+        layer.delegate = self
+        layer.needsDisplayOnBoundsChange = true
+        return layer
     }
     
-    func updateLevels() {
+    override func layout() {
+        super.layout()
+    }
+    
+    func display(_ layer: CALayer) {
         
-        //Update channel numbers if it changes
-        if self.channels != self.levels.count {
-            self.channels = self.levels.count
-            self.levels = [Float](repeating: 0, count: self.channels)
-            self.updateChannels()
-        }
+        let sLayer = self.shapeLayer ?? CALayer()
         
-        guard self.subviews.count > 0 else { return }
+        let vuMeterWidth: CGFloat = self.bounds.size.width / CGFloat(self.levels.count)
+        var vuMeterFrame = CGRect(x: 0,
+                                  y: 0,
+                                  width: vuMeterWidth,
+                                  height: 0)
         
         //Display amplitude values
         for (index,level) in self.levels.enumerated() {
-            guard self.subviews.count > index else { return }
-            let height = (CGFloat(level) * self.bounds.size.height) / (CGFloat(max) - CGFloat(min))
-            var frame = self.subviews[index].frame
-            frame.size.height = height
-            self.subviews[index].frame = frame
-            self.updateColor(self.subviews[index], value: level)
+            
+            if sLayer.sublayers == nil || sLayer.sublayers!.count < index + 1 {
+                let vuLayer = CAShapeLayer()
+                sLayer.addSublayer(vuLayer)
+            }
+            
+            // Compute size
+            var height = (CGFloat(level) * self.bounds.size.height) / 100
+            height = height >= 0 ? height : 0
+            vuMeterFrame.origin.x = CGFloat(index) * vuMeterWidth
+            vuMeterFrame.size.height = height
+            vuMeterFrame.origin.y = self.bounds.size.height - height
+            let vuLayer = sLayer.sublayers![index]
+            vuLayer.frame = vuMeterFrame
+            
+            // Compute color depending on level
+            vuLayer.updateColor(value: level)
+            
         }
-    }
-    
-    func updateColor(_ level: NSView, value: Float) {
-        var color = NSColor.green
-        if value >= kVuMeterCritical {
-            color = NSColor.red
-        } else if value >= kVuMeterWarning {
-            color = NSColor.orange
+        
+        if self.shapeLayer == nil {
+            self.shapeLayer = sLayer
+            self.shapeLayer.drawsAsynchronously = true
+            self.layer!.addSublayer(sLayer)
+            sLayer.addInLayerContraints(superlayer: self.layer!)
         }
-        level.layer?.backgroundColor = color.cgColor
+        
     }
-    
-    override func resizeSubviews(withOldSize oldSize: NSSize) {
-        self.updateLevels()
-    }
-    
-    override func draw(_ dirtyRect: NSRect) {
-        self.layer?.backgroundColor = NSColor(named: "paneBackground")!.cgColor
-    }
-    
 }

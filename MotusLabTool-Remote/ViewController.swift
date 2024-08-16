@@ -79,6 +79,15 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             print("ViewController: session() Connecting: \(peerID.displayName)")
         case .notConnected:
             print("ViewController: session() Not Connected: \(peerID.displayName)")
+            
+            let alert = UIAlertController(title: "Not connected", message: "Remote is not connected", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                
+            }
+            
+            alert.addAction(okAction)
+            self.present(alert, animated: true)
         @unknown default:
             print("ViewController: session() Fatal error")
         }
@@ -141,6 +150,10 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                 Swift.print("ViewController: ReceiveData() Unable to read incomming data!")
             }
         }
+    }
+    
+    func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
+        certificateHandler(true)
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }

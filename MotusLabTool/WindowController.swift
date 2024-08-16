@@ -223,6 +223,7 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
         
         preferences[PreferenceKey.movieSize] = 1 // 960 x 540
         preferences[PreferenceKey.movieQuality] = 2 // High
+        preferences[PreferenceKey.movieRotation] = false
         
         preferences[PreferenceKey.playTimelineWaveform] = true
         preferences[PreferenceKey.playTimelineControllers] = true

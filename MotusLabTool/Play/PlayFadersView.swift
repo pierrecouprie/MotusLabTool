@@ -20,6 +20,7 @@
 
 import Cocoa
 
+// TODO: Problem displaying colored controller lines in vu-meter view
 class PlayFadersView: NSView {
     
     let preferences = UserDefaults.standard

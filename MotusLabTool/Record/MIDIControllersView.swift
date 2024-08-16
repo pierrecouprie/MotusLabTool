@@ -111,6 +111,7 @@ class MIDIControllersView: NSView {
             // Draw faders of console C
             for (index,fader) in self.consoleCParameters.filterControllers.enumerated() {
                 let value = CGFloat(MIDIValueCorrection(self.consoleCParameters.controllerValues[index], type: self.midiValueCorrection))
+                //Swift.print("value: \(value)")
                 if fader {
                     if value > 0 {
                         context.saveGState()

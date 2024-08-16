@@ -288,7 +288,8 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     /// Add sampleBuffer to files
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
-        guard CMSampleBufferDataIsReady(sampleBuffer) && self.leftViewController.windowController.currentMode == Mode.recording else {
+        guard CMSampleBufferDataIsReady(sampleBuffer)
+                && self.leftViewController.windowController.currentMode == Mode.recording else {
             return
         }
         
@@ -296,6 +297,8 @@ class VideoRecorder: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         for camera in self.cameras.enumerated() {
             
             let properties = camera.element.value
+            
+            //guard properties.assetWritter != nil else { continue }
             
             if properties.connection == connection {
                 

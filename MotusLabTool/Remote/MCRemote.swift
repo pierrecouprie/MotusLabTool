@@ -30,7 +30,7 @@ class MCRemote: NSObject, MCSessionDelegate {
         self.delegate = delegate
         
         self.peerID = MCPeerID(displayName: Host.current().name ?? kMCRemoteId)
-        self.mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
+        self.mcSession = MCSession(peer: peerID)
         self.mcSession.delegate = self
     }
     
@@ -57,7 +57,7 @@ class MCRemote: NSObject, MCSessionDelegate {
         case .connecting:
             print("MCRemote: session() Connecting: \(peerID.displayName)")
         case .notConnected:
-            print("MCRemote: session() Not Connected: \(peerID.displayName)")
+            print("MCRemote: session() Not Connected: \(peerID.displayName)")            
         @unknown default:
             print("MCRemote: session() Fatal error")
         }
@@ -84,6 +84,10 @@ class MCRemote: NSObject, MCSessionDelegate {
             }
             
         }
+    }
+    
+    func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
+        certificateHandler(true)
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }

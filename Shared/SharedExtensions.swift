@@ -7,6 +7,11 @@
 //
 
 import Foundation
+#if os(macOS)
+import AppKit
+#elseif os(iOS)
+import UIKit
+#endif
 
 extension Float {
     
@@ -46,6 +51,20 @@ extension NSKeyedUnarchiver {
             throw NSKeyedUnarchiverError.errorReadingData
         }
         
+    }
+    
+}
+
+extension CALayer {
+    
+    func updateColor(value: Float) {
+        var color = MLTColor.green
+        if value >= kVuMeterCritical {
+            color = MLTColor.red
+        } else if value >= kVuMeterWarning {
+            color = MLTColor.orange
+        }
+        self.backgroundColor = color.cgColor
     }
     
 }

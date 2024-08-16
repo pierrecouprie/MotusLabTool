@@ -29,6 +29,7 @@ struct ControllerItem {
     var show: Bool = true
 }
 
+// TODO: Send MIDI values during playback, so as to be ready to switch from Play to Record without needing to check faders on consoles
 class PlayControllersView: NSView {
     
     weak var leftViewController: LeftViewController! 

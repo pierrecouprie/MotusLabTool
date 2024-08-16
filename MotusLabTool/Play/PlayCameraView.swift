@@ -21,7 +21,7 @@
 import Cocoa
 import AVFoundation
 
-class PlayCameraView: NSView {
+class PlayCameraView: NSView, VideoUtilities {
     
     weak var avPlayer: AVPlayer!
     var avPlayerLayer: AVPlayerLayer!
@@ -29,10 +29,16 @@ class PlayCameraView: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.wantsLayer = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
     }
     
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
+    }
+    
+    @objc func userDefaultsDidChange(_ notification: Notification) {
+        self.videoRotation(self.avPlayerLayer)
     }
     
     func loadAVPlayer(_ avPlayer: AVPlayer?) {
@@ -40,9 +46,11 @@ class PlayCameraView: NSView {
             self.avPlayer = avPlayer
             self.avPlayerLayer = AVPlayerLayer(player: avp)
             self.avPlayerLayer.frame = self.bounds
+            self.avPlayerLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat.pi))
             self.avPlayerLayer.videoGravity = .resizeAspect
             self.layer = CALayer()
             self.layer!.addSublayer(self.avPlayerLayer)
+            self.videoRotation(self.avPlayerLayer)
             self.avPlayerLayer.addInLayerContraints(superlayer: self.layer!)
             self.layer!.layoutManager = CAConstraintLayoutManager()
         } else {

@@ -23,8 +23,7 @@ import UIKit
 
 class VuMeterView: UIView {
     
-    var vuMeterLeftLayer: CALayer!
-    var vuMeterRightLayer: CALayer!
+    var shapeLayer: CALayer!
     
     var levels: [Float] = [0,0] {
         didSet {
@@ -34,52 +33,43 @@ class VuMeterView: UIView {
     
     override func display(_ layer: CALayer) {
         
-        let vmLLayer = vuMeterLeftLayer ?? CALayer()
-        let vmRLayer = vuMeterRightLayer ?? CALayer()
+        let sLayer = self.shapeLayer ?? CALayer()
         
-        let lSize = self.bounds.size.height * CGFloat((levels[0] / 100))
-        let rSize = self.bounds.size.height * CGFloat((levels[1] / 100))
+        let vuMeterWidth: CGFloat = self.bounds.size.width / CGFloat(self.levels.count)
+        var vuMeterFrame = CGRect(x: 0,
+                                  y: 0,
+                                  width: vuMeterWidth,
+                                  height: 0)
         
-        let rectangleL = CGRect(x: 0,
-                                y: self.bounds.size.height - lSize,
-                                width: self.bounds.size.width / 2,
-                                height: lSize)
-        let rectangleR = CGRect(x: self.bounds.size.width / 2,
-                                y: self.bounds.size.height - rSize,
-                                width: self.bounds.size.width / 2,
-                                height: rSize)
-        vmLLayer.frame = rectangleL
-        self.updateColor(vmLLayer, value: Float(levels[0]))
-        vmRLayer.frame = rectangleR
-        self.updateColor(vmRLayer, value: Float(levels[1]))
-        
-        if vuMeterLeftLayer == nil {
-            self.layer.sublayers?.removeAll()
+        //Display amplitude values
+        for (index,level) in self.levels.enumerated() {
             
-            vmLLayer.backgroundColor = UIColor.green.cgColor
-            vuMeterLeftLayer = vmLLayer
-            self.layer.addSublayer(vmLLayer)
+            if sLayer.sublayers == nil || sLayer.sublayers!.count < index + 1 {
+                let vuLayer = CAShapeLayer()
+                sLayer.addSublayer(vuLayer)
+            }
             
-            vmRLayer.backgroundColor = UIColor.green.cgColor
-            vuMeterRightLayer = vmRLayer
-            self.layer.addSublayer(vmRLayer)
+            // Compute size
+            var height = (CGFloat(level) * self.bounds.size.height) / 100
+            height = height >= 0 ? height : 0
+            vuMeterFrame.origin.x = CGFloat(index) * vuMeterWidth
+            vuMeterFrame.size.height = height
+            vuMeterFrame.origin.y = self.bounds.size.height - height
+            let vuLayer = sLayer.sublayers![index]
+            vuLayer.frame = vuMeterFrame
             
-            let newActions = ["frame": NSNull(),
-                              "bounds": NSNull(),
-                              "position": NSNull()]
-            vmLLayer.actions = newActions
-            vmRLayer.actions = newActions
+            // Compute color depending on level
+            vuLayer.updateColor(value: level)
+            
         }
-    }
-    
-    func updateColor(_ layer: CALayer, value: Float) {
-        var color = UIColor.green
-        if value >= kVuMeterCritical {
-            color = UIColor.red
-        } else if value >= kVuMeterWarning {
-            color = UIColor.orange
+        
+        if self.shapeLayer == nil {
+            sLayer.frame = self.bounds
+            self.shapeLayer = sLayer
+            self.shapeLayer.drawsAsynchronously = true
+            self.layer.addSublayer(sLayer)
         }
-        layer.backgroundColor = color.cgColor
+        
     }
     
 }

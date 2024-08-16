@@ -16,6 +16,8 @@
 		8A156EBD2316529E00064A8A /* DefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBC2316529E00064A8A /* DefaultSettings.swift */; };
 		8A156EBF2316531700064A8A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A156EBE2316531700064A8A /* WindowController.swift */; };
 		8A189FB4231A561D00EA2B8D /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A189FB3231A561D00EA2B8D /* Window.swift */; };
+		8A1A0F602C6E5D3800B95797 /* TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1A0F5F2C6E5D3800B95797 /* TypeAlias.swift */; };
+		8A1A0F612C6E5D3800B95797 /* TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1A0F5F2C6E5D3800B95797 /* TypeAlias.swift */; };
 		8A394A4E232E86970012A5C1 /* statistics.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A394A4D232E86970012A5C1 /* statistics.png */; };
 		8A394A59232E8D9F0012A5C1 /* MotusLabToolUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A394A58232E8D9F0012A5C1 /* MotusLabToolUnitTests.swift */; };
 		8A394A68232E9F710012A5C1 /* mainTBAcousmonium.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A394A60232E9F6E0012A5C1 /* mainTBAcousmonium.png */; };
@@ -33,6 +35,7 @@
 		8A41E9012325299B00613745 /* SimpleTimeValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */; };
 		8A41E90323252A4200613745 /* RecordWaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E90223252A4200613745 /* RecordWaveformView.swift */; };
 		8A41E905232542C700613745 /* PlaylistFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41E904232542C700613745 /* PlaylistFile.swift */; };
+		8A549E0E2C6CF98A001EE5DC /* VideoUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A549E0D2C6CF98A001EE5DC /* VideoUtilities.swift */; };
 		8A5A3C7423488972006E9D50 /* mainTBBlackWindow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A5A3C7323488971006E9D50 /* mainTBBlackWindow.png */; };
 		8A5A3C76234895CF006E9D50 /* preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A5A3C75234895CF006E9D50 /* preferences.png */; };
 		8A5A3C7823489A9F006E9D50 /* interface.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A5A3C7723489A9F006E9D50 /* interface.png */; };
@@ -141,6 +144,7 @@
 		8A156EBC2316529E00064A8A /* DefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSettings.swift; sourceTree = "<group>"; };
 		8A156EBE2316531700064A8A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8A189FB3231A561D00EA2B8D /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		8A1A0F5F2C6E5D3800B95797 /* TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAlias.swift; sourceTree = "<group>"; };
 		8A2BB9B22323A93E00FB6106 /* Manual.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Manual.md; sourceTree = "<group>"; };
 		8A2BB9B42323A97300FB6106 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A2BB9B52323A9A200FB6106 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 		8A41E9002325299B00613745 /* SimpleTimeValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTimeValueTransformer.swift; sourceTree = "<group>"; };
 		8A41E90223252A4200613745 /* RecordWaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordWaveformView.swift; sourceTree = "<group>"; };
 		8A41E904232542C700613745 /* PlaylistFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFile.swift; sourceTree = "<group>"; };
+		8A549E0D2C6CF98A001EE5DC /* VideoUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoUtilities.swift; sourceTree = "<group>"; };
 		8A5A3C7323488971006E9D50 /* mainTBBlackWindow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainTBBlackWindow.png; sourceTree = "<group>"; };
 		8A5A3C75234895CF006E9D50 /* preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preferences.png; sourceTree = "<group>"; };
 		8A5A3C7723489A9F006E9D50 /* interface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = interface.png; sourceTree = "<group>"; };
@@ -432,6 +437,7 @@
 				8A6BEF44231B959700D5A84B /* VuMeter.swift */,
 				8A1123FF233E4F8100AA346D /* BlackView.swift */,
 				8A9CEE7A23473FBC00798F49 /* WaitingWindowController.swift */,
+				8A549E0D2C6CF98A001EE5DC /* VideoUtilities.swift */,
 			);
 			path = Various;
 			sourceTree = "<group>";
@@ -560,6 +566,7 @@
 		8AED2D4F2C626F1E0048F69E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				8A1A0F5F2C6E5D3800B95797 /* TypeAlias.swift */,
 				8AED2D5C2C6283210048F69E /* Constants.swift */,
 				8AED2D532C626FBF0048F69E /* MCRemoteAction.swift */,
 				8AED2D562C627B850048F69E /* SharedExtensions.swift */,
@@ -858,6 +865,7 @@
 				8AA84680231AC5AD00005A4D /* MIDIControllersView.swift in Sources */,
 				8A0AE00A231D54540024FACF /* AcousmoniumView.swift in Sources */,
 				8A9CEE7B23473FBC00798F49 /* WaitingWindowController.swift in Sources */,
+				8A549E0E2C6CF98A001EE5DC /* VideoUtilities.swift in Sources */,
 				8ABBBF7D23196D2600FA04A9 /* TimeValueTransformer.swift in Sources */,
 				8A6BEF5A231BB5E500D5A84B /* PlayControllersView.swift in Sources */,
 				8ABBBF7F23196D3E00FA04A9 /* MarkerCountValueTransformer.swift in Sources */,
@@ -872,6 +880,7 @@
 				8A6BEF56231BB58300D5A84B /* PlayTimelineView.swift in Sources */,
 				8A6BEF47231B961F00D5A84B /* AudioCaptureMeter.swift in Sources */,
 				8A935E7B233FAF570081EE0B /* RecordingValueTransformer.swift in Sources */,
+				8A1A0F612C6E5D3800B95797 /* TypeAlias.swift in Sources */,
 				8AED2D542C626FBF0048F69E /* MCRemoteAction.swift in Sources */,
 				8ABBBF69231912BF00FA04A9 /* LeftViewController.swift in Sources */,
 				8ADECD7626502FAC00E2E348 /* PreferencesWindowController.swift in Sources */,
@@ -896,6 +905,7 @@
 			files = (
 				8AED2D552C626FBF0048F69E /* MCRemoteAction.swift in Sources */,
 				8AED2D582C627B850048F69E /* SharedExtensions.swift in Sources */,
+				8A1A0F602C6E5D3800B95797 /* TypeAlias.swift in Sources */,
 				8AED2D5E2C6283210048F69E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1207,7 +1217,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MotusLabTool-Remote/Info.plist";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "MotusLabTool needs the Internet to connect to the server application.";
+				INFOPLIST_KEY_CFBundleDisplayName = "MLT Remote";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "MotusLabTool Remote needs the Internet to connect to the server application.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1242,7 +1253,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MotusLabTool-Remote/Info.plist";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "MotusLabTool needs the Internet to connect to the server application.";
+				INFOPLIST_KEY_CFBundleDisplayName = "MLT Remote";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "MotusLabTool Remote needs the Internet to connect to the server application.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
