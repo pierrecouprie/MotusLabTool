@@ -96,7 +96,7 @@ class MIDIControllersView: NSView {
                 if fader {
                     if value > 0 {
                         context.saveGState()
-                        let color = self.windowController.consoleBControllerColors[index]!
+                        let color = self.windowController.consoleBControllerColors[index] ?? NSColor.black
                         context.setFillColor(color.cgColor)
                         faderRect.origin.x = faderX
                         faderRect.size.height = (value * self.bounds.size.height) / 127
@@ -115,7 +115,7 @@ class MIDIControllersView: NSView {
                 if fader {
                     if value > 0 {
                         context.saveGState()
-                        let color = self.windowController.consoleCControllerColors[index]!
+                        let color = self.windowController.consoleCControllerColors[index] ?? NSColor.black
                         context.setFillColor(color.cgColor)
                         faderRect.origin.x = faderX
                         faderRect.size.height = (value * self.bounds.size.height) / 127
