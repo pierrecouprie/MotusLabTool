@@ -289,7 +289,8 @@ class MIDIPlayer: NSObject {
     /// Go to current time position saved in WindowController > timePosition
     /// Used when user jump to a specific time position
     func goToTimePosition() {
-        guard self.leftViewController.windowController.displayedView == 2 else {
+        guard self.consoleAMidiControllerTable.count > 0 &&
+                self.leftViewController.windowController.displayedView == 2 else {
             return
         }
         let timePosition = self.leftViewController.windowController.timePosition
