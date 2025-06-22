@@ -288,13 +288,18 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
             
             let preferences = UserDefaults.standard
             
-            for n in 1..<129 {
+            //for n in 1..<129 {
+            for n in 0..<128 {
                 
                 if consoleAParameters.filterControllers[n] {
                     
-                    let num1 = preferences.integer(forKey: PreferenceKey.color1Num) + 1
+                    /*let num1 = preferences.integer(forKey: PreferenceKey.color1Num) + 1
                     let num2 = preferences.integer(forKey: PreferenceKey.color2Num) + 1
-                    let num3 = preferences.integer(forKey: PreferenceKey.color3Num) + 1
+                    let num3 = preferences.integer(forKey: PreferenceKey.color3Num) + 1*/
+                    
+                    let num1 = preferences.integer(forKey: PreferenceKey.color1Num)
+                    let num2 = preferences.integer(forKey: PreferenceKey.color2Num)
+                    let num3 = preferences.integer(forKey: PreferenceKey.color3Num)
                     
                     if n <= num1 {
                         self.consoleAControllerColors[n] = preferences.data(forKey: PreferenceKey.color1)?.color
@@ -310,9 +315,13 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
                 
                 if consoleBParameters.filterControllers[n] {
                     
-                    let num1 = preferences.integer(forKey: PreferenceKey.color5Num) + 1
+                    /*let num1 = preferences.integer(forKey: PreferenceKey.color5Num) + 1
                     let num2 = preferences.integer(forKey: PreferenceKey.color6Num) + 1
-                    let num3 = preferences.integer(forKey: PreferenceKey.color7Num) + 1
+                    let num3 = preferences.integer(forKey: PreferenceKey.color7Num) + 1*/
+                    
+                    let num1 = preferences.integer(forKey: PreferenceKey.color5Num)
+                    let num2 = preferences.integer(forKey: PreferenceKey.color6Num)
+                    let num3 = preferences.integer(forKey: PreferenceKey.color7Num)
                     
                     if n <= num1 {
                         self.consoleBControllerColors[n] = preferences.data(forKey: PreferenceKey.color5)?.color
@@ -328,9 +337,13 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
                 
                 if consoleCParameters.filterControllers[n] {
                     
-                    let num1 = preferences.integer(forKey: PreferenceKey.color9Num) + 1
+                    /*let num1 = preferences.integer(forKey: PreferenceKey.color9Num) + 1
                     let num2 = preferences.integer(forKey: PreferenceKey.color10Num) + 1
-                    let num3 = preferences.integer(forKey: PreferenceKey.color11Num) + 1
+                    let num3 = preferences.integer(forKey: PreferenceKey.color11Num) + 1*/
+                    
+                    let num1 = preferences.integer(forKey: PreferenceKey.color9Num)
+                    let num2 = preferences.integer(forKey: PreferenceKey.color10Num)
+                    let num3 = preferences.integer(forKey: PreferenceKey.color11Num)
                     
                     if n <= num1 {
                         self.consoleCControllerColors[n] = preferences.data(forKey: PreferenceKey.color9)?.color

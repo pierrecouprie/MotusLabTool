@@ -18,6 +18,232 @@
 			<key>type</key>
 			<string>batch-find-query</string>
 		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>53</string>
+					<key>EndingLineNumber</key>
+					<string>89</string>
+					<key>StartingColumnNumber</key>
+					<string>12</string>
+					<key>StartingLineNumber</key>
+					<string>89</string>
+					<key>Timestamp</key>
+					<string>772132204.704013</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>MotusLabTool/Play/PlayControllersView.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>for n in 0..&lt;consoleControllers.count-1 {</string>
+				<key>leading</key>
+				<string>            var maxNumber: Int = 1
+            //for n in 1..&lt;consoleControllers.count {
+            </string>
+				<key>trailing</key>
+				<string>
+                let controller = consoleControllers[n]
+                if controller {
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>30</string>
+					<key>EndingLineNumber</key>
+					<string>291</string>
+					<key>StartingColumnNumber</key>
+					<string>12</string>
+					<key>StartingLineNumber</key>
+					<string>291</string>
+					<key>Timestamp</key>
+					<string>772295847.979515</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>MotusLabTool/WindowController.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>for n in 0..&lt;128 {</string>
+				<key>leading</key>
+				<string>            
+            //for n in 1..&lt;129 {
+            </string>
+				<key>trailing</key>
+				<string>
+                
+                if consoleAParameters.filterControllers[n] {
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>84</string>
+					<key>EndingLineNumber</key>
+					<string>345</string>
+					<key>StartingColumnNumber</key>
+					<string>20</string>
+					<key>StartingLineNumber</key>
+					<string>343</string>
+					<key>Timestamp</key>
+					<string>772296159.122581</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>MotusLabTool/WindowController.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>let num1 = preferences.integer(forKey: PreferenceKey.color9Num)
+                    let num2 = preferences.integer(forKey: PreferenceKey.color10Num)
+                    let num3 = preferences.integer(forKey: PreferenceKey.color11Num)</string>
+				<key>leading</key>
+				<string>                    let num3 = preferences.integer(forKey: PreferenceKey.color11Num) + 1*/
+                    
+                    </string>
+				<key>trailing</key>
+				<string>
+                    
+                    if n &lt;= num1 {
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>83</string>
+					<key>EndingLineNumber</key>
+					<string>323</string>
+					<key>StartingColumnNumber</key>
+					<string>20</string>
+					<key>StartingLineNumber</key>
+					<string>321</string>
+					<key>Timestamp</key>
+					<string>772296166.1926039</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>MotusLabTool/WindowController.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>let num1 = preferences.integer(forKey: PreferenceKey.color5Num)
+                    let num2 = preferences.integer(forKey: PreferenceKey.color6Num)
+                    let num3 = preferences.integer(forKey: PreferenceKey.color7Num)</string>
+				<key>leading</key>
+				<string>                    let num3 = preferences.integer(forKey: PreferenceKey.color7Num) + 1*/
+                    
+                    </string>
+				<key>trailing</key>
+				<string>
+                    
+                    if n &lt;= num1 {
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>83</string>
+					<key>EndingLineNumber</key>
+					<string>301</string>
+					<key>StartingColumnNumber</key>
+					<string>20</string>
+					<key>StartingLineNumber</key>
+					<string>299</string>
+					<key>Timestamp</key>
+					<string>772296173.267221</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>MotusLabTool/WindowController.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>let num1 = preferences.integer(forKey: PreferenceKey.color1Num)
+                    let num2 = preferences.integer(forKey: PreferenceKey.color2Num)
+                    let num3 = preferences.integer(forKey: PreferenceKey.color3Num)</string>
+				<key>leading</key>
+				<string>                    let num3 = preferences.integer(forKey: PreferenceKey.color3Num) + 1*/
+                    
+                    </string>
+				<key>trailing</key>
+				<string>
+                    
+                    if n &lt;= num1 {
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
 	</array>
 </dict>
 </plist>

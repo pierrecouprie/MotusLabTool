@@ -235,6 +235,7 @@ class MIDIPlayer: NSObject {
                 channel = channel == 0 ? channel : channel - 1
                 var midiPacketList = self.createMidiPacketList(status: (0xB0 + channel), val1: number, val2: value)
                 MIDISend(self.consoleAOutputPort, self.consoleADestinationEndpointRef, &midiPacketList)
+                //Swift.print("midiPacketList: \(midiPacketList), console: \(console), number: \(number), value: \(value)")
             }
             if controller.all {
                 let message = ConsoleLastMidiMessage(number: number, value: value)

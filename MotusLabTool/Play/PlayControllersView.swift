@@ -79,14 +79,15 @@ class PlayControllersView: NSView {
         }
     }
     
-    /// Concert MIDI events to list of values for each controller numbers
+    /// Convert MIDI events to list of values for each controller numbers
     func convertEvents() {
         var output = [Int:[(date: Float, value: Int)]]()
         self.leftViewController.controllersList = []
         
         func readControllers(_ consoleControllers: [Bool], start: Int = 0, console: Int = 0) -> Int {
             var maxNumber: Int = 1
-            for n in 1..<consoleControllers.count {
+            //for n in 1..<consoleControllers.count {
+            for n in 0..<consoleControllers.count-1 {
                 let controller = consoleControllers[n]
                 if controller {
                     output[n + start] = [(date: Float, value: Int)]()

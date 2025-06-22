@@ -1049,6 +1049,8 @@ class LeftViewController: NSViewController {
         
         if let windowController = self.windowController {
             
+            Swift.print("number: \(number), windowController.consoleAControllerColors: \(windowController.consoleAControllerColors)")
+            
             if windowController.displayedView == 1 {
                 
                 if console == 0 && windowController.consoleAControllerColors.count > number {
