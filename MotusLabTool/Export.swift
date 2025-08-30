@@ -310,7 +310,8 @@ class Export: NSObject {
     /// - Returns: Array of enabled controllers
     func convertConsoleController(_ console: [Bool]) -> [Int] {
         var result = [Int]()
-        for n in 1..<console.count {
+        for n in 0..<console.count {
+        //for n in 1..<console.count {
             if console[n] {
                 result.append(n)
             }

@@ -74,7 +74,6 @@ struct PreferenceKey {
     // Record (new preferences in 2.2 version)
     static let movieSize = "movieSize"
     static let movieQuality = "movieQuality"
-    static let movieRotation = "movieRotation"
     
     // Colors
     static let colorMode = "colorMode"

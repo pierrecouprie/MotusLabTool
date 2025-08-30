@@ -190,6 +190,7 @@ class MIDIParameters: NSObject {
         
         for n in 1..<intItems.count+1 {
             previous = intItems[n-1]
+            Swift.print("intItems: \(intItems), n: \(n), previous: \(previous)")
             if n < intItems.count {
                 let current = intItems[n]
                 if current == previous + 1 {

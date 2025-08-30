@@ -68,15 +68,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>30</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>291</string>
+					<string>293</string>
 					<key>StartingColumnNumber</key>
-					<string>12</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>291</string>
+					<string>292</string>
 					<key>Timestamp</key>
-					<string>772295847.979515</string>
+					<string>778262631.985155</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -92,15 +92,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>for n in 0..&lt;128 {</string>
+				<string>            for n in 0..&lt;128 {
+</string>
 				<key>leading</key>
 				<string>            
             //for n in 1..&lt;129 {
-            </string>
+</string>
 				<key>trailing</key>
-				<string>
-                
+				<string>                
                 if consoleAParameters.filterControllers[n] {
+                    
 </string>
 			</dict>
 			<key>type</key>
@@ -112,15 +113,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>84</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
 					<string>345</string>
 					<key>StartingColumnNumber</key>
-					<string>20</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>343</string>
+					<string>344</string>
 					<key>Timestamp</key>
-					<string>772296159.122581</string>
+					<string>778262631.985173</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -136,17 +137,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>let num1 = preferences.integer(forKey: PreferenceKey.color9Num)
-                    let num2 = preferences.integer(forKey: PreferenceKey.color10Num)
-                    let num3 = preferences.integer(forKey: PreferenceKey.color11Num)</string>
+				<string>                    let num1 = preferences.integer(forKey: PreferenceKey.color9Num)
+</string>
 				<key>leading</key>
 				<string>                    let num3 = preferences.integer(forKey: PreferenceKey.color11Num) + 1*/
                     
-                    </string>
+</string>
 				<key>trailing</key>
-				<string>
+				<string>                    let num2 = preferences.integer(forKey: PreferenceKey.color10Num)
+                    let num3 = preferences.integer(forKey: PreferenceKey.color11Num)
                     
-                    if n &lt;= num1 {
 </string>
 			</dict>
 			<key>type</key>
@@ -158,15 +158,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>83</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
 					<string>323</string>
 					<key>StartingColumnNumber</key>
-					<string>20</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>321</string>
+					<string>322</string>
 					<key>Timestamp</key>
-					<string>772296166.1926039</string>
+					<string>778262631.985073</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -182,17 +182,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>let num1 = preferences.integer(forKey: PreferenceKey.color5Num)
-                    let num2 = preferences.integer(forKey: PreferenceKey.color6Num)
-                    let num3 = preferences.integer(forKey: PreferenceKey.color7Num)</string>
+				<string>                    let num1 = preferences.integer(forKey: PreferenceKey.color5Num)
+</string>
 				<key>leading</key>
 				<string>                    let num3 = preferences.integer(forKey: PreferenceKey.color7Num) + 1*/
                     
-                    </string>
+</string>
 				<key>trailing</key>
-				<string>
+				<string>                    let num2 = preferences.integer(forKey: PreferenceKey.color6Num)
+                    let num3 = preferences.integer(forKey: PreferenceKey.color7Num)
                     
-                    if n &lt;= num1 {
 </string>
 			</dict>
 			<key>type</key>
@@ -204,15 +203,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>83</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
 					<string>301</string>
 					<key>StartingColumnNumber</key>
-					<string>20</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>299</string>
+					<string>300</string>
 					<key>Timestamp</key>
-					<string>772296173.267221</string>
+					<string>778262631.985164</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -228,17 +227,104 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>let num1 = preferences.integer(forKey: PreferenceKey.color1Num)
-                    let num2 = preferences.integer(forKey: PreferenceKey.color2Num)
-                    let num3 = preferences.integer(forKey: PreferenceKey.color3Num)</string>
+				<string>                    let num1 = preferences.integer(forKey: PreferenceKey.color1Num)
+</string>
 				<key>leading</key>
 				<string>                    let num3 = preferences.integer(forKey: PreferenceKey.color3Num) + 1*/
                     
-                    </string>
+</string>
 				<key>trailing</key>
-				<string>
+				<string>                    let num2 = preferences.integer(forKey: PreferenceKey.color2Num)
+                    let num3 = preferences.integer(forKey: PreferenceKey.color3Num)
                     
-                    if n &lt;= num1 {
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>28</string>
+					<key>EndingLineNumber</key>
+					<string>312</string>
+					<key>StartingColumnNumber</key>
+					<string>21</string>
+					<key>StartingLineNumber</key>
+					<string>312</string>
+					<key>Timestamp</key>
+					<string>778005646.034935</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>MotusLabTool/Export.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>console</string>
+				<key>leading</key>
+				<string>    func convertConsoleController(_ console: [Bool]) -&gt; [Int] {
+        var result = [Int]()
+        for n in 0..&lt;</string>
+				<key>trailing</key>
+				<string>.count {
+        //for n in 1..&lt;console.count {
+            if console[n] {
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>87</string>
+					<key>EndingLineNumber</key>
+					<string>22</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>22</string>
+					<key>Timestamp</key>
+					<string>778262975.182759</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>MotusLabTool/Various/NSButtonCounter.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>// TODO: Change the CounterButton to view so that we can adjust its size in the toolbar</string>
+				<key>leading</key>
+				<string>import Cocoa
+
+</string>
+				<key>trailing</key>
+				<string> (necessary for iOS26)
+class NSButtonCounter: NSButton {
+    
 </string>
 			</dict>
 			<key>type</key>

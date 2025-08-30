@@ -132,6 +132,8 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
         self.mcRemote = MCRemote(delegate: self)
         self.updateHostingRemote()
         
+        self.counterButton.frame.size.width = 100
+        
         // Add observer to detect changes in preference properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
     }
@@ -223,7 +225,6 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
         
         preferences[PreferenceKey.movieSize] = 1 // 960 x 540
         preferences[PreferenceKey.movieQuality] = 2 // High
-        preferences[PreferenceKey.movieRotation] = false
         
         preferences[PreferenceKey.playTimelineWaveform] = true
         preferences[PreferenceKey.playTimelineControllers] = true

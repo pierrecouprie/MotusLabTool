@@ -167,7 +167,7 @@ class MIDIRecorder: NSObject {
                                            channel: channel,
                                            number: number,
                                            value: value)
-            Swift.print("number: \(number), value: \(value)")
+            //Swift.print("number: \(number), value: \(value)")
             // Used for acousmonium representation
             DispatchQueue.main.async {
                 if self.leftViewController.windowController.displayedView == 1 {

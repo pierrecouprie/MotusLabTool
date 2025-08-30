@@ -20,6 +20,7 @@
 
 import Cocoa
 
+// TODO: Change the CounterButton to view so that we can adjust its size in the toolbar (necessary for iOS26)
 class NSButtonCounter: NSButton {
     
     var counterValue: Float = 0 {

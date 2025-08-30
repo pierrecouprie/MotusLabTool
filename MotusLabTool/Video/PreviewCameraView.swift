@@ -21,7 +21,7 @@
 import Cocoa
 import AVFoundation
 
-class PreviewCameraView: NSView, VideoUtilities {
+class PreviewCameraView: NSView {
     
     weak var originView: NSView!
     var recordPreview: Bool = true
@@ -54,7 +54,6 @@ class PreviewCameraView: NSView, VideoUtilities {
         avPlayerLayer.videoGravity = .resizeAspect
         self.layer?.addSublayer(avPlayerLayer)
         self.avPlayerLayer = avPlayerLayer
-        self.videoRotation(avPlayerLayer)
         self.enterFullScreenMode(NSScreen.main!, withOptions: nil)
         avPlayerLayer.frame = self.bounds
     }
@@ -62,12 +61,6 @@ class PreviewCameraView: NSView, VideoUtilities {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.wantsLayer = true
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
-    }
-    
-    @objc func userDefaultsDidChange(_ notification: Notification) {
-        self.videoRotation(self.avPlayerLayer)
     }
     
     required init?(coder decoder: NSCoder) {
