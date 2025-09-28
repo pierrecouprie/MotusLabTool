@@ -908,7 +908,7 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
     
     @IBOutlet weak var playlistToolbarItem: NSToolbarItem!
     func updatePlaylistToolbar() {
-        let image = NSImage(systemSymbolName:"rectangle.stack.badge.play", accessibilityDescription: "Playlist")
+        let image = NSImage(systemSymbolName:"rectangle.stack", accessibilityDescription: "Playlist")
         if UserDefaults.standard.bool(forKey: PreferenceKey.usePlaylist) {
             self.playlistToolbarItem.image = image?.tint(color: NSColor.red)
         } else {
@@ -920,7 +920,7 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
     @IBOutlet weak var blackWindowToolbarItem: NSToolbarItem!
     @IBAction func showBlackWindow(_ sender: Any) {
         let contentView = self.window?.contentView
-        let image = NSImage(systemSymbolName:"rectangle.inset.filled", accessibilityDescription: "Black Window")
+        let image = NSImage(systemSymbolName:"rectangle.inset.filled", accessibilityDescription: "Black Window") ?? NSImage(systemSymbolName:"rectangle.fill", accessibilityDescription: "Black Window")
         self.isBlackWindow = !self.isBlackWindow
         if self.isBlackWindow {
             let blackWindow = BlackView(frame: contentView!.bounds)

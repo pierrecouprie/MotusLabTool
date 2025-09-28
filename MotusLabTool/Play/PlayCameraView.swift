@@ -52,7 +52,8 @@ class PlayCameraView: NSView {
             // Add button to flip video
             let button = NSButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             button.bezelStyle = .regularSquare
-            button.image = NSImage(systemSymbolName: "arrow.trianglehead.up.and.down.righttriangle.up.righttriangle.down", accessibilityDescription: nil)
+            //button.image = NSImage(systemSymbolName: "arrow.trianglehead.up.and.down.righttriangle.up.righttriangle.down", accessibilityDescription: nil)
+            button.image = NSImage(systemSymbolName: "arrow.up.arrow.down.square", accessibilityDescription: nil)
             button.imageScaling = .scaleNone
             button.setButtonType(.onOff)
             button.target = self
