@@ -136,6 +136,7 @@ class WindowController: NSWindowController, NSToolbarItemValidation, MCRemoteTyp
         
         // Add observer to detect changes in preference properties
         NotificationCenter.default.addObserver(self, selector: #selector(userDefaultsDidChange), name: UserDefaults.didChangeNotification, object: nil)
+        self.updateControllerColors()
     }
     
     deinit {

@@ -1053,26 +1053,43 @@ class LeftViewController: NSViewController {
             
             if windowController.displayedView == 1 {
                 
-                if console == 0 && windowController.consoleAControllerColors.count > number {
+                if console == 0 {
+                    return windowController.consoleAControllerColors[number] ?? NSColor.black
+                } else if self.consoleBActivated && console == 1 {
+                    return windowController.consoleBControllerColors[number] ?? NSColor.black
+                } else if self.consoleCActivated && console == 2 {
+                    return windowController.consoleCControllerColors[number] ?? NSColor.black
+                }
+                
+                /*if console == 0 && windowController.consoleAControllerColors.count > number {
                     return windowController.consoleAControllerColors[number] ?? NSColor.black
                 } else if self.consoleBActivated && console == 1 && windowController.consoleBControllerColors.count > number {
                     return windowController.consoleBControllerColors[number] ?? NSColor.black
                 } else if self.consoleCActivated && console == 2 && windowController.consoleCControllerColors.count > number {
                     return windowController.consoleCControllerColors[number] ?? NSColor.black
-                }
+                }*/
                 
             } else if windowController.displayedView == 2 {
                 
                 for controllerItem in self.controllersList {
                     if controllerItem.ctl == number && controllerItem.console == console {
                         if controllerItem.enable {
-                            if console == 0 && windowController.consoleAControllerColors.count > number {
+                            if console == 0 {
                                 return windowController.consoleAControllerColors[number] ?? NSColor.black
-                            } else if self.consoleBActivated && console == 1 && windowController.consoleBControllerColors.count > number {
+                            } else if self.consoleBActivated && console == 1 {
                                 return windowController.consoleBControllerColors[number] ?? NSColor.black
-                            } else if self.consoleCActivated && console == 2 && windowController.consoleCControllerColors.count > number {
+                            } else if self.consoleCActivated && console == 2 {
                                 return windowController.consoleCControllerColors[number] ?? NSColor.black
                             }
+                            /*
+                             if console == 0 && windowController.consoleAControllerColors.count > number {
+                                 return windowController.consoleAControllerColors[number] ?? NSColor.black
+                             } else if self.consoleBActivated && console == 1 && windowController.consoleBControllerColors.count > number {
+                                 return windowController.consoleBControllerColors[number] ?? NSColor.black
+                             } else if self.consoleCActivated && console == 2 && windowController.consoleCControllerColors.count > number {
+                                 return windowController.consoleCControllerColors[number] ?? NSColor.black
+                             }
+                             */
                         }
                         break
                     }
